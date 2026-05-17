@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block title %}{% if artist %}Edit {{ artist.last_name }}{% else %}Add Artist{% endif %} — ArtNode{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div>
+    <a href="{{ url_for('artists.index') }}" style="font-size:0.75rem;color:var(--text-muted);letter-spacing:0.06em;text-transform:uppercase;">&larr; Artists</a>
+    <div class="page-title" style="margin-top:4px;">
+      {% if artist %}Edit Artist{% else %}Add Artist{% endif %}
+    </div>
+  </div>
+  {% if artist %}
+  <div class="page-actions">
+    <form method="POST" action="{{ url_for('artists.delete', id=artist.id) }}"
+          onsubmit="return confirm('Remove this artist?')">
+      {{ form.hidden_tag() }}
+      <button type="submit" class="btn btn-secondary">Remove</button>
+    </form>
+  </div>
+  {% endif %}
+</div>
+
+<div class="page-body">
+  <form method="POST" action="">
+    {{ form.hidden_tag() }}
+
+    <div style="max-width:680px;">
+      <div style="background:var(--surface);border:1px solid var(--border);padding:var(--space-xl);margin-bottom:var(--space-lg);">
+        <div style="font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:var(--space-lg);">Artist Information</div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-md);">
+          <div class="form-group">
+            {{ form.first_name.label(class="form-label") }}
+            {{ form.first_name(class="form-control", placeholder="First name") }}
+          </div>
+          <div class="form-group">
+            {{ form.last_name.label(class="form-label") }}
+            {{ form.last_name(class="form-control", placeholder="Last name") }}
+            {% if form.last_name.errors %}
+              <div style="color:#c0392b;font-size:0.78rem;margin-top:4px;">{{ form.last_name.errors[0] }}</div>
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="form-group">
+          {{ form.nationality.label(class="form-label") }}
+          {{ form.nationality(class="form-control", placeholder="e.g. Swiss, French, American") }}
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-md);">
+          <div class="form-group">
+            {{ form.birth_year.label(class="form-label") }}
+            {{ form.birth_year(class="form-control", placeholder="e.g. 1923") }}
+          </div>
+          <div class="form-group">
+            {{ form.death_year.label(class="form-label") }}
+            {{ form.death_year(class="form-control", placeholder="leave blank if living") }}
+          </div>
+        </div>
+
+        <div class="form-group">
+          {{ form.website.label(class="form-label") }}
+          {{ form.website(class="form-control", placeholder="https://") }}
+        </div>
+
+        <div class="form-group">
+          {{ form.biography.label(class="form-label") }}
+          {{ form.biography(class="form-control", rows=5, placeholder="Short biography or statement") }}
+        </div>
+      </div>
+
+      <div style="display:flex;gap:var(--space-md);justify-content:flex-end;">
+        <a href="{{ url_for('artists.index') }}" class="btn btn-secondary">Cancel</a>
+        <button type="submit" class="btn btn-primary">
+          {% if artist %}Save Changes{% else %}Add Artist{% endif %}
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block title %}Artworks — ArtNode{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div>
+    <div class="page-title">Artworks</div>
+    <div class="page-subtitle">{{ artworks|length }} works in collection</div>
+  </div>
+  <div class="page-actions">
+    <a href="{{ url_for('artworks.create') }}" class="btn btn-primary">+ Add Artwork</a>
+  </div>
+</div>
+
+<div class="page-body">
+  <div class="toolbar">
+    <input type="text" class="search-input" placeholder="Search by title or artist..." id="searchInput">
+    <span class="toolbar-count" id="countLabel">{{ artworks|length }} artworks</span>
+  </div>
+
+  <div class="artwork-grid" id="artworkGrid">
+    {% for aw in artworks %}
+    <a href="/artworks/{{ aw.id }}" style="text-decoration:none;color:inherit;"><div class="artwork-card" data-title="{{ aw.title|lower }}" data-artist="{{ aw.artist.last_name|lower if aw.artist else "" }}">
+      {% set img = aw.images[0] if aw.images else none %}
+      {% if img and img.iiif_url %}
+        <img class="artwork-card-img" src="{{ img.iiif_url }}" alt="{{ aw.title }}" loading="lazy">
+      {% else %}
+        <div class="artwork-card-img-placeholder"></div>
+      {% endif %}
+      <div class="artwork-card-body">
+        <div class="artwork-card-title" title="{{ aw.title }}">{{ aw.title }}</div>
+        <div class="artwork-card-artist">
+          {% if aw.artist %}{{ aw.artist.first_name }} {{ aw.artist.last_name }}{% endif %}
+        </div>
+        <div class="artwork-card-meta">
+          {{ aw.year_from or "" }}{% if aw.year_to and aw.year_to != aw.year_from %}&ndash;{{ aw.year_to }}{% endif %}
+          {% if aw.medium %} &middot; {{ aw.medium|truncate(40, true, "...") }}{% endif %}
+        </div>
+        <span class="badge badge-{{ aw.status }}">{{ aw.status|replace("_", " ") }}</span>
+      </div>
+    </div></a>
+    {% endfor %}
+  </div>
+</div>
+
+<script>
+const input = document.getElementById("searchInput");
+const cards = document.querySelectorAll(".artwork-card");
+const label = document.getElementById("countLabel");
+input.addEventListener("input", () => {
+  const q = input.value.toLowerCase().trim();
+  let visible = 0;
+  cards.forEach(card => {
+    card.style.display = match ? "" : "none";
+    if (match) visible++;
+  });
+  label.textContent = visible + " artwork" + (visible !== 1 ? "s" : "");
+});
+</script>
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}Add Provenance — {{ artwork.title }} — ArtNode{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div>
+    <a href="{{ url_for('artworks.detail', id=artwork.id) }}" style="font-size:0.75rem;color:var(--text-muted);letter-spacing:0.06em;text-transform:uppercase;">&larr; {{ artwork.title }}</a>
+    <div class="page-title" style="margin-top:4px;">Add Provenance Record</div>
+    <div class="page-subtitle">Append-only — records cannot be edited after saving</div>
+  </div>
+</div>
+
+<div class="page-body">
+  <form method="POST" action="">
+    {{ form.hidden_tag() }}
+
+    <div style="max-width:680px;">
+      <div style="background:var(--surface);border:1px solid var(--border);padding:var(--space-xl);margin-bottom:var(--space-lg);">
+        <div style="font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:var(--space-lg);">Provenance Event</div>
+
+        <div class="form-group">
+          {{ form.event_type.label(class="form-label") }}
+          {{ form.event_type(class="form-control") }}
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-md);">
+          <div class="form-group">
+            {{ form.event_date.label(class="form-label") }}
+            {{ form.event_date(class="form-control") }}
+          </div>
+          <div class="form-group">
+            {{ form.event_date_end.label(class="form-label") }}
+            {{ form.event_date_end(class="form-control") }}
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 80px;gap:var(--space-md);">
+          <div class="form-group">
+            {{ form.source_name.label(class="form-label") }}
+            {{ form.source_name(class="form-control", placeholder="Previous owner, dealer, or institution") }}
+          </div>
+          <div class="form-group">
+            <label class="form-label">Country</label>
+            {{ form.source_country(class="form-control", placeholder="CH") }}
+          </div>
+        </div>
+
+        <div class="form-group">
+          {{ form.description.label(class="form-label") }}
+          {{ form.description(class="form-control", rows=4,
+             placeholder="Describe the provenance event in detail. This record is permanent and cannot be edited.") }}
+        </div>
+
+        <div style="background:var(--status-reserved-bg);border-left:3px solid var(--status-reserved-fg);padding:12px 16px;font-size:0.82rem;color:var(--status-reserved-fg);margin-top:var(--space-md);">
+          This record will be permanently appended to the provenance log. It cannot be edited or deleted after saving (KGTG compliance).
+        </div>
+      </div>
+
+      <div style="display:flex;gap:var(--space-md);justify-content:flex-end;">
+        <a href="{{ url_for('artworks.detail', id=artwork.id) }}" class="btn btn-secondary">Cancel</a>
+        <button type="submit" class="btn btn-primary">Add Record</button>
+      </div>
+    </div>
+  </form>
+</div>
+{% endblock %}

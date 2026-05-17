@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block title %}Contacts — ArtNode{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div>
+    <div class="page-title">Contacts</div>
+    <div class="page-subtitle">{{ contacts|length }} contacts</div>
+  </div>
+  <div class="page-actions">
+    <a href="{{ url_for('contacts.create') }}" class="btn btn-primary">+ Add Contact</a>
+  </div>
+</div>
+
+<div class="page-body">
+  <div class="toolbar">
+    <input type="text" class="search-input" placeholder="Search by name or email..." id="searchInput">
+    <span class="toolbar-count" id="countLabel">{{ contacts|length }} contacts</span>
+  </div>
+
+  {% if contacts %}
+  <table style="width:100%;border-collapse:collapse;">
+    <thead>
+      <tr style="border-bottom:2px solid var(--border);">
+        <th style="text-align:left;padding:8px 12px;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);font-weight:400;">Name</th>
+        <th style="text-align:left;padding:8px 12px;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);font-weight:400;">Type</th>
+        <th style="text-align:left;padding:8px 12px;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);font-weight:400;">Email</th>
+        <th style="text-align:left;padding:8px 12px;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);font-weight:400;">City</th>
+        <th style="text-align:left;padding:8px 12px;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);font-weight:400;">Country</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for contact in contacts %}
+      <tr class="contact-row"
+          data-name="{{ contact.last_name|lower }} {{ contact.first_name|lower }} {{ contact.organisation|lower if contact.organisation else "" }}"
+          data-email="{{ contact.email|lower if contact.email else "" }}"
+          style="border-bottom:1px solid var(--border-light);cursor:pointer;transition:background 0.15s;"
+          onmouseover="this.style.background='var(--border-light)'"
+          onmouseout="this.style.background=''">
+        <td style="padding:14px 12px;">
+          {% if contact.contact_type == "institution" %}
+            <span style="font-size:0.95rem;font-weight:400;">{{ contact.organisation or "—" }}</span>
+          {% else %}
+            <span style="font-size:0.95rem;font-weight:400;">{{ contact.last_name }}</span>
+            <span style="font-size:0.95rem;color:var(--text-secondary);"> {{ contact.first_name }}</span>
+          {% endif %}
+        </td>
+        <td style="padding:14px 12px;">
+          <span style="font-size:0.72rem;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-muted);">{{ contact.contact_type }}</span>
+        </td>
+        <td style="padding:14px 12px;font-size:0.85rem;color:var(--text-secondary);">{{ contact.email or "—" }}</td>
+        <td style="padding:14px 12px;font-size:0.85rem;color:var(--text-secondary);">{{ contact.city or "—" }}</td>
+        <td style="padding:14px 12px;font-size:0.85rem;color:var(--text-secondary);">{{ contact.country or "—" }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <div style="text-align:center;padding:var(--space-3xl);color:var(--text-muted);">
+    <p style="font-family:var(--font-display);font-size:1.2rem;margin-bottom:8px;">No contacts yet</p>
+    <p style="font-size:0.85rem;">Add collectors and institutions to your contacts.</p>
+  </div>
+  {% endif %}
+</div>
+
+<script>
+const input = document.getElementById("searchInput");
+const rows = document.querySelectorAll(".contact-row");
+const label = document.getElementById("countLabel");
+input.addEventListener("input", () => {
+  const q = input.value.toLowerCase().trim();
+  let visible = 0;
+  rows.forEach(row => {
+    row.style.display = match ? "" : "none";
+    if (match) visible++;
+  });
+  label.textContent = visible + " contact" + (visible !== 1 ? "s" : "");
+});
+</script>
+{% endblock %}

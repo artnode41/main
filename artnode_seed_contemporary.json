@@ -1,0 +1,2845 @@
+[
+  {
+    "id": 83642,
+    "title": "Greyed Rainbow",
+    "artist": "Jackson Pollock",
+    "date": "1953",
+    "date_start": 1953,
+    "date_end": 1953,
+    "medium": "Oil on linen",
+    "dimensions": "Unframed: 182.9 × 244.2 cm (72 1/16 × 96 3/16 in.); 182.9 × 244.2 cm (72 × 96 1/8 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/14dc5686-d7ae-7fe1-ec7d-adf14eb18b53/full/843,/0/default.jpg",
+    "classifications": [
+      "painting",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 70125,
+    "title": "The Key",
+    "artist": "Jackson Pollock",
+    "date": "1946",
+    "date_start": 1946,
+    "date_end": 1946,
+    "medium": "Oil on linen",
+    "dimensions": "Unframed: 149.8 × 208.3 cm (59 × 82 1/16 in.); 149.9 × 208.3 cm (59 × 82 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/498b59aa-5cce-b5af-c436-443095df1c1b/full/843,/0/default.jpg",
+    "classifications": [
+      "painting",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 109832,
+    "title": "Untitled",
+    "artist": "Jackson Pollock",
+    "date": "1944",
+    "date_start": 1944,
+    "date_end": 1944,
+    "medium": "Pen and brush and black and colored inks on ivory wove paper",
+    "dimensions": "48 × 63.2 cm (18 15/16 × 24 15/16 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/2e86a8a8-85f7-9112-64c7-2450d38baf0e/full/843,/0/default.jpg",
+    "classifications": [
+      "pen and ink drawings",
+      "drawings (visual works)",
+      "prints and drawing",
+      "paper"
+    ]
+  },
+  {
+    "id": 151364,
+    "title": "Untitled",
+    "artist": "Jackson Pollock",
+    "date": "c. 1938–41",
+    "date_start": 1938,
+    "date_end": 1941,
+    "medium": "Oil on linen",
+    "dimensions": "Without frame: 56.5 × 127.6 cm (22 1/4 × 50 1/4 in.); 56.6 × 127.7 cm (22 1/4 × 50 1/4 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/e4de6d03-d3bd-ccab-63f2-0912b7fd9b00/full/843,/0/default.jpg",
+    "classifications": [
+      "oil on canvas",
+      "painting",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 121521,
+    "title": "Untitled",
+    "artist": "Jackson Pollock",
+    "date": "1944–45",
+    "date_start": 1944,
+    "date_end": 1945,
+    "medium": "Engraving and drypoint, printed in brown black, on ivory wove paper",
+    "dimensions": "Plate/image: 30 × 22.6 cm (11 13/16 × 8 15/16 in.); Sheet: 50.6 × 34.2 cm (19 15/16 × 13 1/2 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/8b11c7fd-ecda-4f3d-8c89-6ad461799585/full/843,/0/default.jpg",
+    "classifications": [
+      "drypoint",
+      "print",
+      "prints and drawing"
+    ]
+  },
+  {
+    "id": 121525,
+    "title": "Untitled",
+    "artist": "Jackson Pollock",
+    "date": "1944–45",
+    "date_start": 1944,
+    "date_end": 1945,
+    "medium": "Engraving and drypoint, printed in brown black, on white wove paper",
+    "dimensions": "Plate/image: 29.6 × 22.4 cm (11 11/16 × 8 7/8 in.); Sheet: 50.7 × 34.4 cm (20 × 13 9/16 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/1167b4e4-508b-274a-f988-f585246822a0/full/843,/0/default.jpg",
+    "classifications": [
+      "drypoint",
+      "print",
+      "prints and drawing"
+    ]
+  },
+  {
+    "id": 121519,
+    "title": "Untitled",
+    "artist": "Jackson Pollock",
+    "date": "1944–45, printed 1967",
+    "date_start": 1944,
+    "date_end": 1945,
+    "medium": "Drypoint and etching in black on white wove paper",
+    "dimensions": "Plate: 37.5 × 45.1 cm (14 13/16 × 17 13/16 in.); Sheet: 50.2 × 69.4 cm (19 13/16 × 27 3/8 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/fa70802f-d076-c2e0-0878-7f7bc98ac1b9/full/843,/0/default.jpg",
+    "classifications": [
+      "drypoint",
+      "print",
+      "prints and drawing"
+    ]
+  },
+  {
+    "id": 121520,
+    "title": "Untitled",
+    "artist": "Jackson Pollock",
+    "date": "1944–45, printed 1967",
+    "date_start": 1944,
+    "date_end": 1945,
+    "medium": "Drypoint and etching in black on white wove Italian paper",
+    "dimensions": "Plate: 40 × 60 cm (15 3/4 × 23 5/8 in.); Sheet: 50.5 × 69.5 cm (19 15/16 × 27 3/8 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/8ca552c6-d2eb-28bc-3eb1-51ce7242d7b2/full/843,/0/default.jpg",
+    "classifications": [
+      "drypoint",
+      "print",
+      "prints and drawing"
+    ]
+  },
+  {
+    "id": 121523,
+    "title": "Untitled",
+    "artist": "Jackson Pollock",
+    "date": "1944–45, printed 1967",
+    "date_start": 1944,
+    "date_end": 1945,
+    "medium": "Drypoint and engraving printed in warm black on white wove paper",
+    "dimensions": "Plate/image: 29.8 × 25 cm (11 3/4 × 9 7/8 in.); Sheet: 50.8 × 34.7 cm (20 × 13 11/16 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/b0745c7c-f0a1-1941-cb36-5fb55d59e5ba/full/843,/0/default.jpg",
+    "classifications": [
+      "drypoint",
+      "print",
+      "prints and drawing"
+    ]
+  },
+  {
+    "id": 121522,
+    "title": "Untitled",
+    "artist": "Jackson Pollock",
+    "date": "1944–45, printed 1967",
+    "date_start": 1944,
+    "date_end": 1945,
+    "medium": "Engraving and drypoint printed in warm black on ivory wove paper",
+    "dimensions": "Plate/image: 29.6 × 25 cm (11 11/16 × 9 7/8 in.); Sheet: 50.7 × 34.4 cm (20 × 13 9/16 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/f01f05ba-2dcf-7513-a9af-609a85056ca7/full/843,/0/default.jpg",
+    "classifications": [
+      "drypoint",
+      "print",
+      "prints and drawing"
+    ]
+  },
+  {
+    "id": 100472,
+    "title": "Untitled (Purple, White, and Red)",
+    "artist": "Mark Rothko (Marcus Rothkowitz)",
+    "date": "1953",
+    "date_start": 1953,
+    "date_end": 1953,
+    "medium": "Oil on canvas",
+    "dimensions": "Unframed: 197.5 × 207.7 cm (77 13/16 × 81 13/16 in.); 197.5 × 207.7 cm (77 3/4 × 81 3/4 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/4d152c81-8389-e426-e5f2-e98902d2515a/full/843,/0/default.jpg",
+    "classifications": [
+      "oil on canvas",
+      "painting",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 82410,
+    "title": "Untitled (Painting)",
+    "artist": "Mark Rothko (Marcus Rothkowitz)",
+    "date": "1953/54",
+    "date_start": 1953,
+    "date_end": 1954,
+    "medium": "Oil on canvas",
+    "dimensions": "Unframed: 265.1 × 298.1 cm (104 3/8 × 117 3/8 in.); 265.2 × 298.2 cm (104 3/8 × 117 3/8 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/df0a03a4-be1c-3f8d-73b1-5941dca57bba/full/843,/0/default.jpg",
+    "classifications": [
+      "painting",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 6010,
+    "title": "Number 19",
+    "artist": "Mark Rothko (Marcus Rothkowitz)",
+    "date": "1949",
+    "date_start": 1949,
+    "date_end": 1949,
+    "medium": "Oil on canvas",
+    "dimensions": "172.8 × 101.8 cm (68 × 40 1/8 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/0a0e16c5-8510-bb2d-b2ca-424feae48d5c/full/843,/0/default.jpg",
+    "classifications": [
+      "painting",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 66738,
+    "title": "Untitled",
+    "artist": "Mark Rothko",
+    "date": "1969",
+    "date_start": 1969,
+    "date_end": 1969,
+    "medium": "Acrylic on paper",
+    "dimensions": "Sight: 182.5 × 122.5 cm (71 7/8 × 48 1/4 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/13be479e-5d10-f3f8-a3d1-405d97229f99/full/843,/0/default.jpg",
+    "classifications": [
+      "drawings (visual works)",
+      "prints and drawing"
+    ]
+  },
+  {
+    "id": 66741,
+    "title": "Untitled",
+    "artist": "Mark Rothko",
+    "date": "1967",
+    "date_start": 1967,
+    "date_end": 1967,
+    "medium": "Acrylic on white wove paper mounted on masonite",
+    "dimensions": "65.2 × 50.2 cm (25 11/16 × 19 13/16 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/72f273ad-6e2d-ca5f-f500-ce6084fa9fcb/full/843,/0/default.jpg",
+    "classifications": [
+      "drawings (visual works)",
+      "prints and drawing"
+    ]
+  },
+  {
+    "id": 105234,
+    "title": "Untitled",
+    "artist": "Mark Rothko",
+    "date": "c. 1944",
+    "date_start": 1923,
+    "date_end": 1970,
+    "medium": "Watercolor with tempera and graphite on white wove paper",
+    "dimensions": "51.8 × 69.8 cm (20 7/16 × 27 1/2 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/94f0c889-c2c9-fc5e-4115-21f09b65b2df/full/843,/0/default.jpg",
+    "classifications": [
+      "watercolor",
+      "drawings (visual works)",
+      "prints and drawing"
+    ]
+  },
+  {
+    "id": 105236,
+    "title": "Untitled",
+    "artist": "Mark Rothko",
+    "date": "1969",
+    "date_start": 1969,
+    "date_end": 1969,
+    "medium": "Acrylic on paper",
+    "dimensions": "Sight: 116.7 × 106.2 cm (46 × 41 13/16 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/baba4a4e-ca86-7e95-915d-25c352fc3571/full/843,/0/default.jpg",
+    "classifications": [
+      "drawings (visual works)",
+      "prints and drawing"
+    ]
+  },
+  {
+    "id": 105235,
+    "title": "Untitled (Brown and Gray)",
+    "artist": "Mark Rothko",
+    "date": "1969",
+    "date_start": 1969,
+    "date_end": 1969,
+    "medium": "Acrylic on paper",
+    "dimensions": "Sight: 171.4 × 122.8 cm (67 1/2 × 48 3/8 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/d17c6553-585b-098c-7248-a5c3518a8237/full/843,/0/default.jpg",
+    "classifications": [
+      "drawings (visual works)",
+      "prints and drawing"
+    ]
+  },
+  {
+    "id": 47149,
+    "title": "Mao",
+    "artist": "Andy Warhol",
+    "date": "1972",
+    "date_start": 1972,
+    "date_end": 1972,
+    "medium": "Acrylic, silkscreen ink, and pencil on linen",
+    "dimensions": "448.3 × 346.7 cm (176 1/2 × 136 1/2 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/97cb5c4b-cce5-c4d8-f303-613ce92832c7/full/843,/0/default.jpg",
+    "classifications": [
+      "painting",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 150044,
+    "title": "Marilyn Monroe (Marilyn)",
+    "artist": "Andy Warhol (American, 1928-1987)",
+    "date": "1967",
+    "date_start": 1967,
+    "date_end": 1967,
+    "medium": "Color screenprint on cream card",
+    "dimensions": "91.4 × 91.4 cm (36 × 36 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/89255d96-36c4-e941-8b13-a1b165a07a49/full/843,/0/default.jpg",
+    "classifications": [
+      "screenprint",
+      "print",
+      "prints and drawing"
+    ]
+  },
+  {
+    "id": 229406,
+    "title": "Liz #3 [Early Colored Liz]",
+    "artist": "Andy Warhol",
+    "date": "1963",
+    "date_start": 1963,
+    "date_end": 1963,
+    "medium": "Acrylic and silkscreen ink on linen",
+    "dimensions": "101.6 × 101.6 cm (40 × 40 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/362c0c2a-4576-2207-4ba9-2b87e6d0bad0/full/843,/0/default.jpg",
+    "classifications": [
+      "acrylic paintings (visual works)",
+      "painting"
+    ]
+  },
+  {
+    "id": 229361,
+    "title": "Four Mona Lisas",
+    "artist": "Andy Warhol",
+    "date": "1978",
+    "date_start": 1978,
+    "date_end": 1978,
+    "medium": "Acrylic and silkscreen ink on linen",
+    "dimensions": "127 × 101.7 cm (50 × 40 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/867641a6-6b70-ae7d-f3f8-e8210e56694e/full/843,/0/default.jpg",
+    "classifications": [
+      "acrylic paintings (visual works)",
+      "painting"
+    ]
+  },
+  {
+    "id": 69013,
+    "title": "The Kiss (Bela Lugosi)",
+    "artist": "Andy Warhol",
+    "date": "1963",
+    "date_start": 1963,
+    "date_end": 1963,
+    "medium": "Silkscreen on cream wove paper",
+    "dimensions": "74.5 × 100 cm (29 3/8 × 39 3/8 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/23bb6125-d75b-1648-dc91-8c2a45ed3d88/full/843,/0/default.jpg",
+    "classifications": [
+      "screenprint",
+      "print",
+      "prints and drawing"
+    ]
+  },
+  {
+    "id": 150052,
+    "title": "Marilyn Monroe (Marilyn)",
+    "artist": "Andy Warhol (American, 1928-1987)",
+    "date": "1967",
+    "date_start": 1967,
+    "date_end": 1967,
+    "medium": "Color screenprint on cream card",
+    "dimensions": "91.4 × 91.4 cm (36 × 36 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/5a377db1-d100-0f0c-6b46-fa7440a92245/full/843,/0/default.jpg",
+    "classifications": [
+      "screenprint",
+      "print",
+      "prints and drawing"
+    ]
+  },
+  {
+    "id": 229355,
+    "title": "Flowers",
+    "artist": "Andy Warhol",
+    "date": "1964",
+    "date_start": 1964,
+    "date_end": 1964,
+    "medium": "Fluorescent paint and silkscreen ink on linen",
+    "dimensions": "61 × 61 cm (24 × 24 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/9a9737e3-c296-a2b5-4d76-d88f50a61ff8/full/843,/0/default.jpg",
+    "classifications": [
+      "painting"
+    ]
+  },
+  {
+    "id": 229360,
+    "title": "Big Electric Chair",
+    "artist": "Andy Warhol",
+    "date": "1967–68",
+    "date_start": 1967,
+    "date_end": 1968,
+    "medium": "Acrylic and silkscreen ink on linen",
+    "dimensions": "137.5 × 186.1 cm (54 1/8 × 73 1/4 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/11e2413f-3e17-8c43-7e1b-b2e51ba81a04/full/843,/0/default.jpg",
+    "classifications": [
+      "acrylic paintings (visual works)",
+      "painting"
+    ]
+  },
+  {
+    "id": 150046,
+    "title": "Marilyn Monroe (Marilyn)",
+    "artist": "Andy Warhol (American, 1928-1987)",
+    "date": "1967",
+    "date_start": 1967,
+    "date_end": 1967,
+    "medium": "Color screenprint on cream card",
+    "dimensions": "91.4 × 91.4 cm (36 × 36 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/8db5d87e-e336-3a6a-2c02-ab9c327450f3/full/843,/0/default.jpg",
+    "classifications": [
+      "screenprint",
+      "print",
+      "prints and drawing"
+    ]
+  },
+  {
+    "id": 230609,
+    "title": "Pat Hearn",
+    "artist": "Andy Warhol",
+    "date": "1985",
+    "date_start": 1985,
+    "date_end": 1985,
+    "medium": "Acrylic and silkscreen ink on linen",
+    "dimensions": "101.6 × 101.6 cm (40 × 40 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/ee39666b-372d-ddbf-6200-b25f7d6ec472/full/843,/0/default.jpg",
+    "classifications": [
+      "acrylic paintings (visual works)",
+      "painting"
+    ]
+  },
+  {
+    "id": 122054,
+    "title": "Alka Seltzer",
+    "artist": "Roy Lichtenstein",
+    "date": "1966",
+    "date_start": 1966,
+    "date_end": 1966,
+    "medium": "Graphite and lithographic rubbing crayon pochoir, with scraping, on cream wove paper, fixed ",
+    "dimensions": "76.3 × 56.7 cm (30 1/16 × 22 3/8 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/3968921f-222e-37ae-5c53-fafd26a45c7b/full/843,/0/default.jpg",
+    "classifications": [
+      "crayon",
+      "drawings (visual works)",
+      "prints and drawing",
+      "paper"
+    ]
+  },
+  {
+    "id": 24836,
+    "title": "Brushstroke with Spatter",
+    "artist": "Roy Lichtenstein",
+    "date": "1966",
+    "date_start": 1966,
+    "date_end": 1966,
+    "medium": "Oil and Magna on canvas",
+    "dimensions": "172.7 × 203.2 cm (68 × 80 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/f8dbda50-a10b-d0ff-a35c-24c2f9e733f1/full/843,/0/default.jpg",
+    "classifications": [
+      "painting",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 229363,
+    "title": "Artist's Studio \"Foot Medication\"",
+    "artist": "Roy Lichtenstein",
+    "date": "1974",
+    "date_start": 1974,
+    "date_end": 1974,
+    "medium": "Oil and Magna on canvas",
+    "dimensions": "243.8 × 325.1 cm (96 × 128 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/249173c2-0013-4624-211c-3e8fcf335048/full/843,/0/default.jpg",
+    "classifications": [
+      "painting"
+    ]
+  },
+  {
+    "id": 184362,
+    "title": "Mirror #3 (Six Panels)",
+    "artist": "Roy Lichtenstein",
+    "date": "1971",
+    "date_start": 1971,
+    "date_end": 1971,
+    "medium": "Oil and Magna on two sets of three joined canvases",
+    "dimensions": "305 × 335 cm (120 × 132 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/4f3baaee-14ea-81e0-6252-447ab15a9b1d/full/843,/0/default.jpg",
+    "classifications": [
+      "painting",
+      "oil on canvas"
+    ]
+  },
+  {
+    "id": 229364,
+    "title": "Woman III",
+    "artist": "Roy Lichtenstein",
+    "date": "1982",
+    "date_start": 1982,
+    "date_end": 1982,
+    "medium": "Oil and Magna on canvas",
+    "dimensions": "203.2 × 142.2 cm (80 × 56 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/e7131cb7-0d1d-090f-fb85-b4cf0f5166b2/full/843,/0/default.jpg",
+    "classifications": [
+      "painting"
+    ]
+  },
+  {
+    "id": 151527,
+    "title": "Landscape 1, from Ten Landscapes",
+    "artist": "Roy Lichtenstein (American, 1923-1997)",
+    "date": "1967",
+    "date_start": 1967,
+    "date_end": 1967,
+    "medium": "Screenprint on four-ply board, tipped onto composition board",
+    "dimensions": "Image: 27.7 × 45.6 cm (10 15/16 × 18 in.); Secondary support: 42.2 × 54.7 cm (16 5/8 × 21 9/16 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/f28a0271-bf03-42c6-7031-60e1e4f3e59f/full/843,/0/default.jpg",
+    "classifications": [
+      "screenprint",
+      "print",
+      "prints and drawing"
+    ]
+  },
+  {
+    "id": 151532,
+    "title": "Landscape 6, from Ten Landscapes",
+    "artist": "Roy Lichtenstein (American, 1923-1997)",
+    "date": "1967",
+    "date_start": 1967,
+    "date_end": 1967,
+    "medium": "Screenprint on blue-green moiré Rowlux, with color chromogenic print, laid down on four-ply board, tipped onto composition board",
+    "dimensions": "Image: 33.4 × 41.7 cm (13 3/16 × 16 7/16 in.); Secondary support: 42.3 × 54.9 cm (16 11/16 × 21 5/8 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/43e379ce-c3c2-3a18-5bcd-9778f24fb272/full/843,/0/default.jpg",
+    "classifications": [
+      "screenprint",
+      "print",
+      "prints and drawing"
+    ]
+  },
+  {
+    "id": 25693,
+    "title": "Sandwich and Soda, from X + X (Ten Works by Ten Painters)",
+    "artist": "Roy Lichtenstein (American, 1923-1997)",
+    "date": "1964",
+    "date_start": 1964,
+    "date_end": 1964,
+    "medium": "Color screenprint on clear plastic",
+    "dimensions": "Image: 48.4 × 58.5 cm (19 1/16 × 23 1/16 in.); Sheet: 50.8 × 61 cm (20 × 24 1/16 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/fc9a1eea-38cc-73e3-fc91-e965fb482310/full/843,/0/default.jpg",
+    "classifications": [
+      "screenprint",
+      "book",
+      "prints and drawing",
+      "print"
+    ]
+  },
+  {
+    "id": 94586,
+    "title": "Brushstrokes",
+    "artist": "Roy Lichtenstein (American, 1923-1997)",
+    "date": "1967",
+    "date_start": 1967,
+    "date_end": 1967,
+    "medium": "Color screenprint on white wove paper",
+    "dimensions": "Image: 55.6 × 76.1 cm (21 15/16 × 30 in.); Sheet: 58.4 × 78.6 cm (23 × 31 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/e000fe18-f9d3-062e-d5fc-5f7b5848a5e2/full/843,/0/default.jpg",
+    "classifications": [
+      "screenprint",
+      "print",
+      "prints and drawing"
+    ]
+  },
+  {
+    "id": 151529,
+    "title": "Landscape 3, from Ten Landscapes",
+    "artist": "Roy Lichtenstein (American, 1923-1997)",
+    "date": "1967",
+    "date_start": 1967,
+    "date_end": 1967,
+    "medium": "Screenprint on color chromogenic print, laid down on four-ply board, tipped onto composition board",
+    "dimensions": "Image: 30.4 × 42 cm (12 × 16 9/16 in.); Secondary support: 42.2 × 54.8 cm (16 5/8 × 21 5/8 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/f1964bcb-74e1-ae5b-c256-6fe3219a91c2/full/843,/0/default.jpg",
+    "classifications": [
+      "screenprint",
+      "print",
+      "prints and drawing"
+    ]
+  },
+  {
+    "id": 146886,
+    "title": "Untitled",
+    "artist": "Keith Haring",
+    "date": "September 27, 1981",
+    "date_start": 1981,
+    "date_end": 1981,
+    "medium": "Brush and black ink on white board",
+    "dimensions": "56.5 × 76.5 cm (22 1/4 × 30 1/8 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/f8f58142-0be4-d504-b309-61ed72bc547c/full/843,/0/default.jpg",
+    "classifications": [
+      "ink or chalk wash",
+      "drawings (visual works)",
+      "prints and drawing"
+    ]
+  },
+  {
+    "id": 146909,
+    "title": "Untitled",
+    "artist": "Keith Haring",
+    "date": "1981",
+    "date_start": 1981,
+    "date_end": 1981,
+    "medium": "Flourescent paint and sumi ink on laminated canvas",
+    "dimensions": "173.9 × 243.2 cm (68 1/2 × 95 3/4 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/ec22f356-36cc-4e3d-c108-aae2ac7ce298/full/843,/0/default.jpg",
+    "classifications": [
+      "painting",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 146926,
+    "title": "Untitled (Pair of Vases)",
+    "artist": "Keith Haring",
+    "date": "1981",
+    "date_start": 1981,
+    "date_end": 1981,
+    "medium": "Ink marker on fiberglass",
+    "dimensions": "Each: 99.1 × 63.5 × 63.5 cm (39 × 25 × 25 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/cb41ceec-42a2-fdf3-ff54-531a8239afb5/full/843,/0/default.jpg",
+    "classifications": [
+      "ceramics",
+      "american decorative arts",
+      "american arts",
+      "sculpture"
+    ]
+  },
+  {
+    "id": 14752,
+    "title": "Interior",
+    "artist": "Edward Hopper",
+    "date": "1925",
+    "date_start": 1925,
+    "date_end": 1925,
+    "medium": "Watercolor with touches of gouache, over graphite, on ivory wove paper",
+    "dimensions": "35.4 × 50.6 cm (13 15/16 × 19 15/16 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/b6a9d052-6e12-1e5b-a129-0dd57f7a7b19/full/843,/0/default.jpg",
+    "classifications": [
+      "watercolor",
+      "drawings (visual works)",
+      "prints and drawing"
+    ]
+  },
+  {
+    "id": 14749,
+    "title": "Gloucester Mansions",
+    "artist": "Edward Hopper",
+    "date": "1923",
+    "date_start": 1923,
+    "date_end": 1923,
+    "medium": "Watercolor, over graphite, on ivory wove paper",
+    "dimensions": "35.2 × 50.6 cm (13 7/8 × 19 15/16 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/d74e6f47-50f0-6671-3e57-07a3dcffd8fd/full/843,/0/default.jpg",
+    "classifications": [
+      "watercolor",
+      "drawings (visual works)",
+      "prints and drawing"
+    ]
+  },
+  {
+    "id": 50091,
+    "title": "Night on the El Train",
+    "artist": "Edward Hopper",
+    "date": "1918",
+    "date_start": 1918,
+    "date_end": 1918,
+    "medium": "Etching on off-white wove paper",
+    "dimensions": "Plate: 18.8 × 20.1 cm (7 7/16 × 7 15/16 in.); Sheet: 26.3 × 29.7 cm (10 3/8 × 11 3/4 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/21bd734d-9181-7bec-14a6-74618dbc5ecb/full/843,/0/default.jpg",
+    "classifications": [
+      "etching",
+      "print",
+      "prints and drawing"
+    ]
+  },
+  {
+    "id": 36038,
+    "title": "The Evening Wind",
+    "artist": "Edward Hopper",
+    "date": "1921",
+    "date_start": 1921,
+    "date_end": 1921,
+    "medium": "Etching on ivory wove paper",
+    "dimensions": "Plate: 17.7 × 21.2 cm (7 × 8 3/8 in.); Sheet: 24.2 × 28.2 cm (9 9/16 × 11 1/8 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/2101b1c8-b813-89d9-cff0-5ed5c36e192c/full/843,/0/default.jpg",
+    "classifications": [
+      "etching",
+      "print",
+      "prints and drawing"
+    ]
+  },
+  {
+    "id": 50049,
+    "title": "A Corner",
+    "artist": "Edward Hopper",
+    "date": "1919",
+    "date_start": 1919,
+    "date_end": 1919,
+    "medium": "Etching on ivory wove paper",
+    "dimensions": "Plate: 8.2 × 10 cm (3 1/4 × 3 15/16 in.); Sheet: 19.1 × 20.4 cm (7 9/16 × 8 1/16 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/82181b79-9234-0218-c59e-0cc8ddcc9f2d/full/843,/0/default.jpg",
+    "classifications": [
+      "etching",
+      "print",
+      "prints and drawing"
+    ]
+  },
+  {
+    "id": 14757,
+    "title": "Streetwalker",
+    "artist": "Edward Hopper",
+    "date": "1906/07",
+    "date_start": 1906,
+    "date_end": 1907,
+    "medium": "Watercolor, with touches of gouache, over graphite, on cream wove paper",
+    "dimensions": "30.2 × 23.6 cm (11 15/16 × 9 5/16 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/1c9f3f79-8791-03e0-4764-9283da786ec3/full/843,/0/default.jpg",
+    "classifications": [
+      "watercolor",
+      "drawings (visual works)",
+      "prints and drawing"
+    ]
+  },
+  {
+    "id": 50109,
+    "title": "American Landscape",
+    "artist": "Edward Hopper",
+    "date": "1920",
+    "date_start": 1920,
+    "date_end": 1920,
+    "medium": "Etching on white wove paper",
+    "dimensions": "Plate: 18.7 × 31.5 cm (7 3/8 × 12 7/16 in.); Sheet: 26.5 × 38.5 cm (10 7/16 × 15 3/16 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/d9039dae-ebae-028a-99fd-15f505ebf848/full/843,/0/default.jpg",
+    "classifications": [
+      "etching",
+      "print",
+      "prints and drawing"
+    ]
+  },
+  {
+    "id": 50106,
+    "title": "House Tops",
+    "artist": "Edward Hopper",
+    "date": "1921",
+    "date_start": 1921,
+    "date_end": 1921,
+    "medium": "Etching on white wove paper",
+    "dimensions": "Plate: 14.8 × 19.9 cm (5 7/8 × 7 7/8 in.); Sheet: 25.2 × 29.3 cm (9 15/16 × 11 9/16 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/c29ad146-91fa-7331-8dbe-44ed1a57da11/full/843,/0/default.jpg",
+    "classifications": [
+      "etching",
+      "print",
+      "prints and drawing"
+    ]
+  },
+  {
+    "id": 50054,
+    "title": "Summer Twilight",
+    "artist": "Edward Hopper",
+    "date": "1920",
+    "date_start": 1920,
+    "date_end": 1920,
+    "medium": "Etching on off-white wove paper",
+    "dimensions": "Image/plate: 21.3 × 25.1 cm (8 7/16 × 9 15/16 in.); Sheet: 28.8 × 32.4 cm (11 3/8 × 12 13/16 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/1a315bed-8a0a-4187-11be-e03d376c7af0/full/843,/0/default.jpg",
+    "classifications": [
+      "etching",
+      "print",
+      "prints and drawing"
+    ]
+  },
+  {
+    "id": 147003,
+    "title": "Woman Descending the Staircase (Frau die Treppe herabgehend)",
+    "artist": "Gerhard Richter",
+    "date": "1965",
+    "date_start": 1965,
+    "date_end": 1965,
+    "medium": "Oil on canvas",
+    "dimensions": "198 × 128 cm (79 × 51 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/b0d02c1d-ec9d-039e-1977-469806e8e3d9/full/843,/0/default.jpg",
+    "classifications": [
+      "oil on canvas",
+      "painting",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 146994,
+    "title": "Ice (1)",
+    "artist": "Gerhard Richter",
+    "date": "1989",
+    "date_start": 1989,
+    "date_end": 1989,
+    "medium": "Oil on canvas",
+    "dimensions": "203.2 × 162.6 cm (80 × 64 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/b6647a72-7dd9-6ebe-779c-bec46e0901d8/full/843,/0/default.jpg",
+    "classifications": [
+      "oil on canvas",
+      "painting",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 146995,
+    "title": "Ice (2)",
+    "artist": "Gerhard Richter",
+    "date": "1989",
+    "date_start": 1989,
+    "date_end": 1989,
+    "medium": "Oil on canvas",
+    "dimensions": "203.2 × 162.6 cm (80 × 64 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/07783936-58fb-859d-9350-fb600510177a/full/843,/0/default.jpg",
+    "classifications": [
+      "oil on canvas",
+      "painting",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 93344,
+    "title": "Christa and Wolfi",
+    "artist": "Gerhard Richter",
+    "date": "1964",
+    "date_start": 1964,
+    "date_end": 1964,
+    "medium": "Oil on canvas",
+    "dimensions": "150 × 130 cm (59 × 51 1/4 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/5ac548fe-ae9c-f234-e7e0-e0a4e6dac669/full/843,/0/default.jpg",
+    "classifications": [
+      "painting",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 147002,
+    "title": "Mrs. Wolleh with Children (Frau Wolleh mit Kindern)",
+    "artist": "Gerhard Richter",
+    "date": "1967",
+    "date_start": 1967,
+    "date_end": 1967,
+    "medium": "Oil on canvas",
+    "dimensions": "200 × 160 cm (78 3/4 × 63 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/38384f8b-a065-0064-9eb7-c47e57b63b38/full/843,/0/default.jpg",
+    "classifications": [
+      "oil on canvas",
+      "painting",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 146999,
+    "title": "Candle (Kerze)",
+    "artist": "Gerhard Richter",
+    "date": "1982",
+    "date_start": 1982,
+    "date_end": 1982,
+    "medium": "Oil on canvas",
+    "dimensions": "69.8 × 54.6 cm (27 1/2 × 21 1/2 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/151932ad-188a-1a3f-9fcc-922dad1564a7/full/843,/0/default.jpg",
+    "classifications": [
+      "oil on canvas",
+      "painting",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 146997,
+    "title": "Ice (4)",
+    "artist": "Gerhard Richter",
+    "date": "1989",
+    "date_start": 1989,
+    "date_end": 1989,
+    "medium": "Oil on canvas",
+    "dimensions": "203.2 × 162.6 cm (80 × 64 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/1cd7aea0-f7a7-b566-52c9-0407bf5c442e/full/843,/0/default.jpg",
+    "classifications": [
+      "oil on canvas",
+      "painting",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 100227,
+    "title": "Two Candles (Zwei Kerzen)",
+    "artist": "Gerhard Richter",
+    "date": "1982",
+    "date_start": 1982,
+    "date_end": 1982,
+    "medium": "Oil on canvas",
+    "dimensions": "120 × 100 cm (47 1/4 × 39 1/2 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/de1e2f41-8bbc-4530-7d63-e9cbcae88de7/full/843,/0/default.jpg",
+    "classifications": [
+      "painting",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 147001,
+    "title": "Flowers (Blumen)",
+    "artist": "Gerhard Richter",
+    "date": "1993",
+    "date_start": 1993,
+    "date_end": 1993,
+    "medium": "Oil on canvas",
+    "dimensions": "72.4 × 102.2 cm (28 1/2 × 40 1/4 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/57742936-071c-1851-fa58-eb7b99b943d9/full/843,/0/default.jpg",
+    "classifications": [
+      "oil on canvas",
+      "painting",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 146998,
+    "title": "Little Landscape at the Seaside (Kleine Landschaft am Meer)",
+    "artist": "Gerhard Richter",
+    "date": "1969",
+    "date_start": 1969,
+    "date_end": 1969,
+    "medium": "Oil on canvas",
+    "dimensions": "72.4 × 105.1 cm (28 1/2 × 41 3/8 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/9cfecb3d-7496-1b54-5650-25876a5decfe/full/843,/0/default.jpg",
+    "classifications": [
+      "oil on canvas",
+      "painting",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 102234,
+    "title": "American Collectors (Fred and Marcia Weisman)",
+    "artist": "David Hockney",
+    "date": "1968",
+    "date_start": 1968,
+    "date_end": 1968,
+    "medium": "Acrylic on canvas",
+    "dimensions": "213.4 × 304.8 cm (83 7/8 × 120 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/f95a0a70-90c5-2806-2a66-68f27f8c0735/full/843,/0/default.jpg",
+    "classifications": [
+      "painting",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 100864,
+    "title": "Sunday Morning, Mayflower Hotel, N.Y.",
+    "artist": "David Hockney",
+    "date": "November 28, 1983",
+    "date_start": 1983,
+    "date_end": 1983,
+    "medium": "Photocollage (chromogenic prints)",
+    "dimensions": "Image: 116 × 184.5 cm (45 11/16 × 72 11/16 in.); mount: 126.5 × 195.6 cm (49 13/16 × 77 1/16 in.); frame: 127 × 195.6 cm (50 × 77 1/16 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/c04a376f-23fc-65da-bc10-6af4b77f120a/full/843,/0/default.jpg",
+    "classifications": [
+      "color photograph",
+      "chromogenic color print",
+      "photographic process",
+      "photography",
+      "photograph"
+    ]
+  },
+  {
+    "id": 50283,
+    "title": "Inland Sea, Japan",
+    "artist": "David Hockney",
+    "date": "1971",
+    "date_start": 1971,
+    "date_end": 1971,
+    "medium": "Black and colored crayons on white wove paper",
+    "dimensions": "35.3 × 43.1 cm (13 15/16 × 17 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/88b698dc-a1bb-2a92-597f-83a1402da5e1/full/843,/0/default.jpg",
+    "classifications": [
+      "crayon",
+      "drawings (visual works)",
+      "prints and drawing"
+    ]
+  },
+  {
+    "id": 131299,
+    "title": "The Old Guitarist, from The Blue Guitar",
+    "artist": "David Hockney (English, born 1937)",
+    "date": "1976–77",
+    "date_start": 1976,
+    "date_end": 1977,
+    "medium": "Color etching and aquatint from two copper plates on white wove paper",
+    "dimensions": "Plate: 42.5 × 34.5 cm (16 3/4 × 13 5/8 in.); Sheet: 52.5 × 46 cm (20 11/16 × 18 1/8 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/86395f37-0617-a999-99eb-d3902aa3dec6/full/843,/0/default.jpg",
+    "classifications": [
+      "etching",
+      "print",
+      "prints and drawing"
+    ]
+  },
+  {
+    "id": 121211,
+    "title": "Telephone Pole, Los Angeles, California",
+    "artist": "David Hockney",
+    "date": "September 1982",
+    "date_start": 1982,
+    "date_end": 1982,
+    "medium": "Photocollage (chromogenic prints)",
+    "dimensions": "Image: 156 × 90 cm (61 7/16 × 35 7/16 in.); mount: 172.3 × 111.5 cm (67 7/8 × 43 15/16 in.); frame: 164.5 × 113 × 3.7 cm (64 13/16 × 44 1/2 × 1 1/2 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/ce749b07-e0fd-70cb-f24e-ca4ab40e93dd/full/843,/0/default.jpg",
+    "classifications": [
+      "chromogenic color print",
+      "photographic process",
+      "photography",
+      "photograph"
+    ]
+  },
+  {
+    "id": 131317,
+    "title": "What Is This Picasso?, from The Blue Guitar",
+    "artist": "David Hockney (English, born 1937)",
+    "date": "1976–77",
+    "date_start": 1976,
+    "date_end": 1977,
+    "medium": "Color etching and aquatint from two copper plates on white wove paper",
+    "dimensions": "Plate: 34.5 × 42.5 cm (13 5/8 × 16 3/4 in.); Sheet: 52.5 × 46 cm (20 11/16 × 18 1/8 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/720d997c-014e-b734-5b07-d27a7152f420/full/843,/0/default.jpg",
+    "classifications": [
+      "etching",
+      "print",
+      "prints and drawing"
+    ]
+  },
+  {
+    "id": 131309,
+    "title": "A Picture of Ourselves, from The Blue Guitar",
+    "artist": "David Hockney (English, born 1937)",
+    "date": "1976–77",
+    "date_start": 1976,
+    "date_end": 1977,
+    "medium": "Color etching and aquatint from two copper plates on white wove paper",
+    "dimensions": "Plate: 34.5 × 42.5 cm (13 5/8 × 16 3/4 in.); Sheet: 52.5 × 46 cm (20 11/16 × 18 1/8 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/0b765c90-3e1a-c1df-8b53-34e02f2b120a/full/843,/0/default.jpg",
+    "classifications": [
+      "etching",
+      "print",
+      "prints and drawing"
+    ]
+  },
+  {
+    "id": 131307,
+    "title": "Figures with Still Life, from The Blue Guitar",
+    "artist": "David Hockney (English, born 1937)",
+    "date": "1976–77",
+    "date_start": 1976,
+    "date_end": 1977,
+    "medium": "Color etching and aquatint from two copper plates on white wove paper",
+    "dimensions": "Plate: 42.5 × 34.5 cm (16 3/4 × 13 5/8 in.); Sheet: 52.5 × 46 cm (20 11/16 × 18 1/8 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/ae08e56b-68bd-0e28-1278-48ea7654f5a5/full/843,/0/default.jpg",
+    "classifications": [
+      "etching",
+      "print",
+      "prints and drawing"
+    ]
+  },
+  {
+    "id": 66174,
+    "title": "Gonzalez and Shadow",
+    "artist": "David Hockney",
+    "date": "1972",
+    "date_start": 1972,
+    "date_end": 1972,
+    "medium": "Oil on canvas",
+    "dimensions": "121.9 × 91.4 cm (48 × 36 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/d79d9551-10c1-3c57-1823-3fb732d24965/full/843,/0/default.jpg",
+    "classifications": [
+      "oil on canvas",
+      "painting",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 131306,
+    "title": "In a Chiaroscuro, from The Blue Guitar",
+    "artist": "David Hockney (English, born 1937)",
+    "date": "1976–77",
+    "date_start": 1976,
+    "date_end": 1977,
+    "medium": "Color etching and aquatint from two copper plates on white wove paper",
+    "dimensions": "Plate: 34.5 × 42.5 cm (13 5/8 × 16 3/4 in.); Sheet: 52.5 × 46 cm (20 11/16 × 18 1/8 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/fdf1aaca-ad8c-4f0d-10e3-a881e5fe11fa/full/843,/0/default.jpg",
+    "classifications": [
+      "etching",
+      "print",
+      "prints and drawing"
+    ]
+  },
+  {
+    "id": 4884,
+    "title": "Figure with Meat",
+    "artist": "Francis Bacon",
+    "date": "1954",
+    "date_start": 1954,
+    "date_end": 1954,
+    "medium": "Oil on canvas",
+    "dimensions": "Without frame: 129.9 × 121.9 cm (51 3/16 × 48 in.); 129.9 × 122 cm (51 1/8 × 48 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/024d361d-31d1-e53b-cca0-ee14f822347f/full/843,/0/default.jpg",
+    "classifications": [
+      "painting",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 79307,
+    "title": "Bathers by a River",
+    "artist": "Henri Matisse",
+    "date": "1909–10, 1913, and 1916–17",
+    "date_start": 1909,
+    "date_end": 1917,
+    "medium": "Oil on canvas",
+    "dimensions": "260 × 392 cm (102 1/2 × 154 3/16 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/419ddce3-c90b-3d0c-43b3-73683a87bf98/full/843,/0/default.jpg",
+    "classifications": [
+      "oil on canvas",
+      "Modern Art Highlights",
+      "painting"
+    ]
+  },
+  {
+    "id": 27984,
+    "title": "Woman before an Aquarium",
+    "artist": "Henri Matisse",
+    "date": "1921–23",
+    "date_start": 1921,
+    "date_end": 1923,
+    "medium": "Oil on canvas",
+    "dimensions": "81.2 × 100.2 cm (31 15/16 × 39 7/16 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/d0e36029-27fc-bf4e-357a-55cfbaf7bdfd/full/843,/0/default.jpg",
+    "classifications": [
+      "painting",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 2816,
+    "title": "Interior at Nice",
+    "artist": "Henri Matisse",
+    "date": "1919 or 1920",
+    "date_start": 1919,
+    "date_end": 1920,
+    "medium": "Oil on canvas",
+    "dimensions": "131.5 × 90.7 cm (51 13/16 × 35 11/16 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/2193cdda-2691-2802-0776-145dee77f7ea/full/843,/0/default.jpg",
+    "classifications": [
+      "painting",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 64001,
+    "title": "Apples",
+    "artist": "Henri Matisse",
+    "date": "1916",
+    "date_start": 1916,
+    "date_end": 1916,
+    "medium": "Oil on canvas",
+    "dimensions": "116.5 × 89.5 cm (45 7/8 × 35 3/16 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/b2bc0fc2-8d17-1fcd-8cae-8626421c11ef/full/843,/0/default.jpg",
+    "classifications": [
+      "oil on canvas",
+      "painting",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 100226,
+    "title": "Daisies",
+    "artist": "Henri Matisse",
+    "date": "1939",
+    "date_start": 1939,
+    "date_end": 1939,
+    "medium": "Oil on canvas",
+    "dimensions": "92 × 65 cm (36 3/16 × 25 5/8 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/1693f1ff-40a4-e0e2-16cd-3d8d055dc266/full/843,/0/default.jpg",
+    "classifications": [
+      "painting",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 87045,
+    "title": "Still Life with Geranium",
+    "artist": "Henri Matisse",
+    "date": "1906",
+    "date_start": 1906,
+    "date_end": 1906,
+    "medium": "Oil on canvas",
+    "dimensions": "100.3 × 81.5 cm (39 1/2 × 32 1/8 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/d0049e0b-bd55-020e-aa8c-b137d06ae7df/full/843,/0/default.jpg",
+    "classifications": [
+      "painting",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 153703,
+    "title": "Lemons on a Pewter Plate",
+    "artist": "Henri Matisse",
+    "date": "1926",
+    "date_start": 1926,
+    "date_end": 1926,
+    "medium": "Oil on canvas",
+    "dimensions": "55.6 × 67.1 cm (21 5/8 × 26 1/8 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/79f1c666-1e19-af39-f7e0-f22989835eb2/full/843,/0/default.jpg",
+    "classifications": [
+      "oil on canvas",
+      "painting",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 122232,
+    "title": "Laurette with a Cup of Coffee",
+    "artist": "Henri Matisse",
+    "date": "1916–17",
+    "date_start": 1916,
+    "date_end": 1916,
+    "medium": "Oil on canvas",
+    "dimensions": "57.6 × 39.8 cm (22 11/16 × 15 11/16 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/72d28816-c42f-af88-63fc-d12426db240e/full/843,/0/default.jpg",
+    "classifications": [
+      "painting",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 191565,
+    "title": "Girl in Yellow and Blue with Guitar",
+    "artist": "Henri Matisse",
+    "date": "1939",
+    "date_start": 1939,
+    "date_end": 1939,
+    "medium": "Oil on canvas",
+    "dimensions": "65.5 × 51 cm (25 3/4 × 20 1/16 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/0fc277a0-003c-393f-556b-f8dbc8c81427/full/843,/0/default.jpg",
+    "classifications": [
+      "painting"
+    ]
+  },
+  {
+    "id": 11327,
+    "title": "A Girl Reading",
+    "artist": "Henri Matisse",
+    "date": "1923",
+    "date_start": 1923,
+    "date_end": 1923,
+    "medium": "Lithograph in black on cream wove Japanese vellum (discolored to tan)",
+    "dimensions": "Image: 28 × 22 cm (11 1/16 × 8 11/16 in.); Sheet: 44 × 28 cm (17 3/8 × 11 1/16 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/0b72eabf-58e7-d064-97b3-44508cd248bd/full/843,/0/default.jpg",
+    "classifications": [
+      "lithograph",
+      "print",
+      "prints and drawing"
+    ]
+  },
+  {
+    "id": 28067,
+    "title": "The Old Guitarist",
+    "artist": "Pablo Picasso",
+    "date": "late 1903–early 1904",
+    "date_start": 1903,
+    "date_end": 1904,
+    "medium": "Oil on panel",
+    "dimensions": "122.9 × 82.6 cm (48 3/8 × 32 1/2 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/4e7f3081-179a-af18-8abd-7908a7ae8c4e/full/843,/0/default.jpg",
+    "classifications": [
+      "oil on panel",
+      "painting",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 111060,
+    "title": "Daniel-Henry Kahnweiler",
+    "artist": "Pablo Picasso",
+    "date": "autumn 1910",
+    "date_start": 1910,
+    "date_end": 1910,
+    "medium": "Oil on canvas",
+    "dimensions": "100.4 × 72.4 cm (39 9/16 × 28 9/16 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/aebda29e-16b8-4393-6edc-805cdb6ba459/full/843,/0/default.jpg",
+    "classifications": [
+      "oil on canvas",
+      "Modern Art Highlights",
+      "painting",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 5357,
+    "title": "The Red Armchair",
+    "artist": "Pablo Picasso",
+    "date": "December 16, 1931",
+    "date_start": 1931,
+    "date_end": 1931,
+    "medium": "Oil and Ripolin on panel",
+    "dimensions": "131.1 × 98.7 cm (51 5/8 × 38 7/8 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/c617e2f0-d5fe-0772-390e-6d8c83895815/full/843,/0/default.jpg",
+    "classifications": [
+      "painting",
+      "Modern Art Highlights"
+    ]
+  },
+  {
+    "id": 109275,
+    "title": "Mother and Child",
+    "artist": "Pablo Picasso",
+    "date": "1921",
+    "date_start": 1921,
+    "date_end": 1921,
+    "medium": "Oil on canvas",
+    "dimensions": "142.9 × 172.7 cm (56 1/4 × 68 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/64734461-887d-80b9-8489-e38cb05ac01d/full/843,/0/default.jpg",
+    "classifications": [
+      "oil on canvas",
+      "painting"
+    ]
+  },
+  {
+    "id": 109260,
+    "title": "Man with a Pipe",
+    "artist": "Pablo Picasso",
+    "date": "1915",
+    "date_start": 1915,
+    "date_end": 1915,
+    "medium": "Oil on canvas",
+    "dimensions": "130.2 × 89.5 cm (51 1/4 × 35 1/4 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/43bc66e2-95b2-fb3c-b9b1-232835bfd027/full/843,/0/default.jpg",
+    "classifications": [
+      "painting",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 8624,
+    "title": "Portrait of Pablo Picasso",
+    "artist": "Juan Gris",
+    "date": "January–February 1912",
+    "date_start": 1912,
+    "date_end": 1912,
+    "medium": "Oil on canvas",
+    "dimensions": "93.3 × 74.4 cm (36 3/4 × 29 5/16 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/4f7ccf9f-a8ce-2bd8-2d15-a38b2e6caa7a/full/843,/0/default.jpg",
+    "classifications": [
+      "oil on canvas",
+      "painting",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 66039,
+    "title": "Head of a Woman (Fernande)",
+    "artist": "Pablo Picasso",
+    "date": "1909",
+    "date_start": 1909,
+    "date_end": 1909,
+    "medium": "Bronze",
+    "dimensions": "40.7 × 20.1 × 26.9 cm (16 1/8 × 9 7/8 × 10 9/16 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/b8a75427-6434-8c35-9b2f-af6e126569d2/full/843,/0/default.jpg",
+    "classifications": [
+      "metal",
+      "sculpture",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 23968,
+    "title": "Nude under a Pine Tree",
+    "artist": "Pablo Picasso",
+    "date": "January 20, 1959",
+    "date_start": 1959,
+    "date_end": 1959,
+    "medium": "Oil on canvas",
+    "dimensions": "194 × 279.5 cm (76 3/8 × 110 1/8 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/b7b7ecd0-5a50-b89a-c72a-d435a1957c73/full/843,/0/default.jpg",
+    "classifications": [
+      "painting",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 135430,
+    "title": "Weeping Woman I",
+    "artist": "Pablo Picasso (Spanish, 1881-1973)",
+    "date": "July 1, 1937",
+    "date_start": 1937,
+    "date_end": 1937,
+    "medium": "Drypoint, aquatint, and etching, with scraping, on copper in black on ivory laid paper",
+    "dimensions": "Plate: 69.5 × 49.7 cm (27 3/8 × 19 5/8 in.); Sheet: 77.4 × 56.8 cm (30 1/2 × 22 3/8 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/9794c354-eccb-5b8c-628b-a664416c78e6/full/843,/0/default.jpg",
+    "classifications": [
+      "etching",
+      "print",
+      "prints and drawing",
+      "paper"
+    ]
+  },
+  {
+    "id": 14435,
+    "title": "Portrait of Picasso",
+    "artist": "Juan Gris",
+    "date": "1947",
+    "date_start": 1947,
+    "date_end": 1947,
+    "medium": "Etching on cream wove paper",
+    "dimensions": "Plate: 17.8 × 13.9 cm (7 1/16 × 5 1/2 in.); Sheet: 25.3 × 20 cm (10 × 7 7/8 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/fb424aff-7bcc-0191-c2c1-dd5be947cc6b/full/843,/0/default.jpg",
+    "classifications": [
+      "etching",
+      "print",
+      "prints and drawing"
+    ]
+  },
+  {
+    "id": 8991,
+    "title": "Improvisation No. 30 (Cannons)",
+    "artist": "Vasily Kandinsky",
+    "date": "1913",
+    "date_start": 1913,
+    "date_end": 1913,
+    "medium": "Oil on canvas",
+    "dimensions": "111 × 111.3 cm (43 11/16 × 43 13/16 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/b5bc6b66-9e6e-fe57-dcec-fc49e820e904/full/843,/0/default.jpg",
+    "classifications": [
+      "oil on canvas",
+      "Modern Art Highlights",
+      "painting"
+    ]
+  },
+  {
+    "id": 8980,
+    "title": "Landscape with Two Poplars",
+    "artist": "Vasily Kandinsky",
+    "date": "1912",
+    "date_start": 1912,
+    "date_end": 1912,
+    "medium": "Oil on canvas",
+    "dimensions": "78.8 × 100.4 cm (31 × 39 1/2 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/9694ca0c-c4c4-e48d-566f-4d248990cff4/full/843,/0/default.jpg",
+    "classifications": [
+      "painting",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 8987,
+    "title": "Painting with Green Center",
+    "artist": "Vasily Kandinsky",
+    "date": "1913",
+    "date_start": 1913,
+    "date_end": 1913,
+    "medium": "Oil on canvas",
+    "dimensions": "108.9 × 118.4 cm (43 1/4 × 47 1/2 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/c68f33ec-feb1-5277-334b-b71ac15ae394/full/843,/0/default.jpg",
+    "classifications": [
+      "painting",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 8983,
+    "title": "Painting with Troika",
+    "artist": "Vasily Kandinsky",
+    "date": "January 18, 1911",
+    "date_start": 1911,
+    "date_end": 1911,
+    "medium": "Oil on cardboard; in artist's painted frame",
+    "dimensions": "69.7 × 97.3 cm (27 3/8 × 38 5/16 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/a45e5f55-d02b-ce98-8bab-3af549684f58/full/843,/0/default.jpg",
+    "classifications": [
+      "oil on cardboard",
+      "painting",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 129849,
+    "title": "Houses at Murnau",
+    "artist": "Vasily Kandinsky",
+    "date": "1909",
+    "date_start": 1909,
+    "date_end": 1909,
+    "medium": "Oil on cardboard",
+    "dimensions": "49 × 64 cm (19 1/4 × 25 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/3f732b69-0ae7-7d1e-ad53-e20b0cc2de72/full/843,/0/default.jpg",
+    "classifications": [
+      "painting",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 150805,
+    "title": "Untitled",
+    "artist": "Vasily Kandinsky",
+    "date": "1922",
+    "date_start": 1922,
+    "date_end": 1922,
+    "medium": "Brush and pen and black ink, watercolor, and gray wash, over graphite, on cream wove paper",
+    "dimensions": "32.8 × 47.8 cm (12 15/16 × 18 7/8 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/8fececdf-9157-68a1-73de-2aeb96b7ad53/full/843,/0/default.jpg",
+    "classifications": [
+      "brush and ink",
+      "drawings (visual works)",
+      "prints and drawing"
+    ]
+  },
+  {
+    "id": 79591,
+    "title": "The Green Line",
+    "artist": "Vasily Kandinsky",
+    "date": "1938",
+    "date_start": 1938,
+    "date_end": 1938,
+    "medium": "Gouache on black wove paper laid down on cream laminated cardboard",
+    "dimensions": "24.4 × 64.7 cm (9 5/8 × 25 1/2 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/b7eaf2a3-a0cc-4819-23c2-5ee63e52f221/full/843,/0/default.jpg",
+    "classifications": [
+      "gouache",
+      "drawings (visual works)",
+      "prints and drawing"
+    ]
+  },
+  {
+    "id": 17538,
+    "title": "Carnival in Munich",
+    "artist": "Vasily Kandinsky",
+    "date": "1904",
+    "date_start": 1904,
+    "date_end": 1904,
+    "medium": "Tempera on board",
+    "dimensions": "37.8 × 54.9 cm (14 15/16 × 21 5/8 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/f9fb3458-598d-a1cb-7a89-02f4fa5249b3/full/843,/0/default.jpg",
+    "classifications": [
+      "tempera",
+      "drawings (visual works)",
+      "prints and drawing"
+    ]
+  },
+  {
+    "id": 3192,
+    "title": "Small Worlds V, plate five from Kleine Welten",
+    "artist": "Vasily Kandinsky",
+    "date": "1922",
+    "date_start": 1922,
+    "date_end": 1922,
+    "medium": "Lithograph in yellow, red, blue-green and black on Japanese paper",
+    "dimensions": "Image: 27.5 × 22.5 cm (10 7/8 × 8 7/8 in.); Sheet: 35.7 × 27.7 cm (14 1/16 × 10 15/16 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/e56b859b-8688-f8f7-9062-3c515542ddf6/full/843,/0/default.jpg",
+    "classifications": [
+      "lithograph",
+      "print",
+      "prints and drawing"
+    ]
+  },
+  {
+    "id": 79593,
+    "title": "Ciphers and Constellations in Love with a Woman",
+    "artist": "Joan Miró",
+    "date": "1941",
+    "date_start": 1941,
+    "date_end": 1941,
+    "medium": "Opaque watercolor with watercolor washes on ivory, rough textured wove paper",
+    "dimensions": "45.9 × 38 cm (18 1/8 × 15 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/1c3dbd1c-5134-0b3c-a414-1a6af4078309/full/843,/0/default.jpg",
+    "classifications": [
+      "gouache",
+      "drawings (visual works)",
+      "prints and drawing"
+    ]
+  },
+  {
+    "id": 111654,
+    "title": "The Policeman",
+    "artist": "Joan Miró",
+    "date": "1925",
+    "date_start": 1925,
+    "date_end": 1925,
+    "medium": "Oil on canvas",
+    "dimensions": "248 × 194.9 cm (97 5/8 × 76 3/4 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/10dd1877-fbdd-5a2d-adf9-b62b24c89ba9/full/843,/0/default.jpg",
+    "classifications": [
+      "painting",
+      "Surrealism Highlights"
+    ]
+  },
+  {
+    "id": 77615,
+    "title": "Painting (Figures with Stars)",
+    "artist": "Joan Miró",
+    "date": "1933",
+    "date_start": 1933,
+    "date_end": 1933,
+    "medium": "Oil on canvas",
+    "dimensions": "198.1 × 246.4 cm (78 × 97 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/7bd4542d-3e84-e21a-d259-8d22e20bee0a/full/843,/0/default.jpg",
+    "classifications": [
+      "painting",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 52780,
+    "title": "The Kerosene Lamp",
+    "artist": "Joan Miró",
+    "date": "1924",
+    "date_start": 1924,
+    "date_end": 1924,
+    "medium": "Charcoal, with red Conté and colored crayons, touches of graphite, and scraping, heightened with white oil paint, on canvas prepared with a glue ground",
+    "dimensions": "81 × 100.3 cm (31 15/16 × 39 1/2 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/4c439895-9428-4569-1aec-1e0f07649ddc/full/843,/0/default.jpg",
+    "classifications": [
+      "charcoal",
+      "drawings (visual works)",
+      "prints and drawing"
+    ]
+  },
+  {
+    "id": 120542,
+    "title": "Painting (The Circus Horse)",
+    "artist": "Joan Miró",
+    "date": "1927",
+    "date_start": 1927,
+    "date_end": 1927,
+    "medium": "Oil and tempera on canvas",
+    "dimensions": "24.2 × 33 cm (9 1/2 × 13 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/5d3eec02-5b6f-1954-c6f1-63c159415cd5/full/843,/0/default.jpg",
+    "classifications": [
+      "painting",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 5375,
+    "title": "Portrait of Joaneta Obrador",
+    "artist": "Joan Miró",
+    "date": "1918",
+    "date_start": 1918,
+    "date_end": 1918,
+    "medium": "Oil on canvas",
+    "dimensions": "69.5 × 62 cm (27 3/8 × 24 3/8 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/2d27889c-11ea-1dac-0682-9c48760a19b6/full/843,/0/default.jpg",
+    "classifications": [
+      "oil on canvas",
+      "painting",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 119155,
+    "title": "Woman",
+    "artist": "Joan Miró",
+    "date": "October 1934",
+    "date_start": 1934,
+    "date_end": 1934,
+    "medium": "Pastel, charcoal, and graphite, with smudging and scraping, on tan wove paper; mounted along edges to a wood stretcher",
+    "dimensions": "107.1 × 71.4 cm (42 3/16 × 28 1/8 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/5b8113f6-1edf-9f60-fa08-86955fa501a0/full/843,/0/default.jpg",
+    "classifications": [
+      "pastel",
+      "drawings (visual works)",
+      "prints and drawing"
+    ]
+  },
+  {
+    "id": 72889,
+    "title": "Painting",
+    "artist": "Joan Miró",
+    "date": "summer 1936",
+    "date_start": 1936,
+    "date_end": 1936,
+    "medium": "Oil, gravel, pebbles, and sand on Masonite",
+    "dimensions": "77.6 × 107.2 cm (30 9/16 × 42 3/16 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/f2fc8911-5008-d7e5-3399-c32785e7a790/full/843,/0/default.jpg",
+    "classifications": [
+      "painting",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 110974,
+    "title": "The Two Philosophers",
+    "artist": "Joan Miró",
+    "date": "February 4–12, 1936",
+    "date_start": 1936,
+    "date_end": 1936,
+    "medium": "Oil on copper",
+    "dimensions": "35.6 × 49.8 cm (14 × 19 5/8 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/85ddc062-0cc4-431f-679b-b9a139fba241/full/843,/0/default.jpg",
+    "classifications": [
+      "painting",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 53477,
+    "title": "42, Rue Blomet",
+    "artist": "Joan Miró",
+    "date": "1977",
+    "date_start": 1977,
+    "date_end": 1977,
+    "medium": "Color lithograph on white wove paper",
+    "dimensions": "Image, max: 77.6 × 59.2 cm (30 9/16 × 23 5/16 in.); Sheet: 90 × 62.8 cm (35 7/16 × 24 3/4 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/382b7234-d877-b0ae-cb13-c5c04f1a2c65/full/843,/0/default.jpg",
+    "classifications": [
+      "lithograph",
+      "print",
+      "prints and drawing"
+    ]
+  },
+  {
+    "id": 59426,
+    "title": "White Crucifixion",
+    "artist": "Marc Chagall",
+    "date": "1938",
+    "date_start": 1938,
+    "date_end": 1938,
+    "medium": "Oil on canvas",
+    "dimensions": "154.6 × 140 cm (60 7/8 × 55 1/16 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/cefba431-1241-6240-3a92-ffa787e5fa49/full/843,/0/default.jpg",
+    "classifications": [
+      "painting",
+      "Modern Art Highlights"
+    ]
+  },
+  {
+    "id": 109439,
+    "title": "America Windows",
+    "artist": "Marc Chagall",
+    "date": "1977",
+    "date_start": 1977,
+    "date_end": 1977,
+    "medium": "Stained glass",
+    "dimensions": "Three panels; left: 243.9 × 340.4 cm (96 × 134 in.); middle: 243.9 × 302.3 cm (96 × 119 in.); right: 243.9 × 340.4 cm (96 × 134 in.); overall: 243.9 × 983 cm (96 × 387 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/6b7e86ef-9ba3-5fc1-76bd-6246a3db5196/full/843,/0/default.jpg",
+    "classifications": [
+      "stained glass/leaded glass",
+      "painting",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 23700,
+    "title": "The Praying Jew",
+    "artist": "Marc Chagall",
+    "date": "1923 (one of two versions after a 1914 composition)",
+    "date_start": 1923,
+    "date_end": 1923,
+    "medium": "Oil on canvas",
+    "dimensions": "116.8 × 89.4 cm (46 × 35 3/16 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/0b5057af-97c6-5eb8-7328-fa9cf46d8751/full/843,/0/default.jpg",
+    "classifications": [
+      "painting",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 76258,
+    "title": "Birth",
+    "artist": "Marc Chagall",
+    "date": "1911/12",
+    "date_start": 1911,
+    "date_end": 1911,
+    "medium": "Oil on canvas",
+    "dimensions": "113.4 × 195.3 cm (44 5/8 × 76 7/8 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/dc0610ff-2182-ecad-b457-97a523db2a63/full/843,/0/default.jpg",
+    "classifications": [
+      "oil on canvas",
+      "painting",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 118614,
+    "title": "The Circus Rider",
+    "artist": "Marc Chagall",
+    "date": "c. 1927",
+    "date_start": 1922,
+    "date_end": 1932,
+    "medium": "Oil on canvas",
+    "dimensions": "23.8 × 18.9 cm (9 3/8 × 7 7/16 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/1c2cc4ae-7a15-b94e-1bcd-a588ffa38ac1/full/843,/0/default.jpg",
+    "classifications": [
+      "oil on canvas",
+      "painting",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 42969,
+    "title": "The Angel and the Reader",
+    "artist": "Marc Chagall",
+    "date": "c. 1930",
+    "date_start": 1925,
+    "date_end": 1935,
+    "medium": "Gouache with encaustic and oil paint on cream wove paper",
+    "dimensions": "63.6 × 48.8 cm (25 1/16 × 19 1/4 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/fea50f9b-8f23-b467-e065-76687bf2aec1/full/843,/0/default.jpg",
+    "classifications": [
+      "gouache",
+      "drawings (visual works)",
+      "prints and drawing"
+    ]
+  },
+  {
+    "id": 81963,
+    "title": "Saint Jean Cap Ferrat",
+    "artist": "Marc Chagall",
+    "date": "1949",
+    "date_start": 1949,
+    "date_end": 1949,
+    "medium": "Lithograph on cream wove paper",
+    "dimensions": "Image: 68.3 × 49.5 cm (26 15/16 × 19 1/2 in.); Sheet: 78.2 × 58.3 cm (30 13/16 × 23 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/854595f3-82bb-cef7-4575-053af27cc9a2/full/843,/0/default.jpg",
+    "classifications": [
+      "lithograph",
+      "print",
+      "prints and drawing"
+    ]
+  },
+  {
+    "id": 48609,
+    "title": "The Four Seasons",
+    "artist": "Marc Chagall",
+    "date": "1974",
+    "date_start": 1974,
+    "date_end": 1974,
+    "medium": "Lithograph on ivory wove paper",
+    "dimensions": "Image: 91 × 59.5 cm (35 7/8 × 23 7/16 in.); Sheet: 94 × 64 cm (37 1/16 × 25 1/4 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/8cbc7d13-de42-9224-f9a8-25cc87eaa6ec/full/843,/0/default.jpg",
+    "classifications": [
+      "lithograph",
+      "print",
+      "prints and drawing"
+    ]
+  },
+  {
+    "id": 45295,
+    "title": "Plate Three, from The Arabian Nights",
+    "artist": "Marc Chagall",
+    "date": "1948",
+    "date_start": 1948,
+    "date_end": 1948,
+    "medium": "Lithograph on white laid paper",
+    "dimensions": "Image: 36.8 × 28 cm (14 1/2 × 11 1/16 in.); Sheet: 43.1 × 33 cm (17 × 13 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/e054e1c6-ef60-a9ca-ff03-7aebf124e163/full/843,/0/default.jpg",
+    "classifications": [
+      "lithograph",
+      "print",
+      "prints and drawing"
+    ]
+  },
+  {
+    "id": 154795,
+    "title": "Male Nude with Left Foot on a Pedestal",
+    "artist": "Gustav Klimt",
+    "date": "1879",
+    "date_start": 1879,
+    "date_end": 1879,
+    "medium": "Graphite and white heightening on brown wove paper",
+    "dimensions": "40.8 × 26.7 cm (16 1/8 × 10 9/16 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/35a41ca7-f92c-b686-c89f-978321214c5c/full/843,/0/default.jpg",
+    "classifications": [
+      "graphite",
+      "drawings (visual works)",
+      "prints and drawing"
+    ]
+  },
+  {
+    "id": 15199,
+    "title": "Portrait of a Lady in a High Hat",
+    "artist": "Gustav Klimt",
+    "date": "n.d.",
+    "date_start": 1882,
+    "date_end": 1918,
+    "medium": "Graphite on cream wove Japanese paper (Japanese vellum)",
+    "dimensions": "56 × 37.2 cm (22 1/16 × 14 11/16 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/caedec59-9160-d4ca-8449-5576e2b103a4/full/843,/0/default.jpg",
+    "classifications": [
+      "graphite",
+      "drawings (visual works)",
+      "prints and drawing"
+    ]
+  },
+  {
+    "id": 27035,
+    "title": "Reclining Girl",
+    "artist": "Gustav Klimt",
+    "date": "1912/1914",
+    "date_start": 1912,
+    "date_end": 1914,
+    "medium": "Blue pencil on cream Japanese vellum",
+    "dimensions": "35.5 × 56.3 cm (14 × 22 3/16 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/86d41a4e-fc40-c597-3ac9-79053cca0b87/full/843,/0/default.jpg",
+    "classifications": [
+      "colored pencil",
+      "drawings (visual works)",
+      "prints and drawing"
+    ]
+  },
+  {
+    "id": 186098,
+    "title": "Male Nude",
+    "artist": "Gustav Klimt",
+    "date": "January 29, 1880",
+    "date_start": 1880,
+    "date_end": 1880,
+    "medium": "Various graphite pencils, with erasing and stumping, on cream laid paper",
+    "dimensions": "42.5 × 26.7 cm (16 3/4 × 10 9/16 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/ee8a9167-1535-b432-3dc7-6e80eeed91fc/full/843,/0/default.jpg",
+    "classifications": [
+      "prints and drawing",
+      "graphite",
+      "drawings (visual works)"
+    ]
+  },
+  {
+    "id": 180671,
+    "title": "Seated Woman from the Front with Hat, Face Hooded",
+    "artist": "Gustav Klimt",
+    "date": "1910",
+    "date_start": 1910,
+    "date_end": 1910,
+    "medium": "Graphite, with colored pencil, on ivory wove paper",
+    "dimensions": "55.7 × 37.2 cm (21 15/16 × 14 11/16 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/7936867b-74ab-7347-51f0-9ab14d050e9d/full/843,/0/default.jpg",
+    "classifications": [
+      "drawings (visual works)",
+      "colored pencil",
+      "graphite",
+      "prints and drawing"
+    ]
+  },
+  {
+    "id": 129884,
+    "title": "Starry Night and the Astronauts",
+    "artist": "Alma Thomas",
+    "date": "1972",
+    "date_start": 1972,
+    "date_end": 1972,
+    "medium": "Acrylic on canvas",
+    "dimensions": "152.4 × 134.6 cm (60 × 53 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/e966799b-97ee-1cc6-bd2f-a94b4b8bb8f9/full/843,/0/default.jpg",
+    "classifications": [
+      "painting",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 10018,
+    "title": "Dancing Girl",
+    "artist": "Paul Klee",
+    "date": "1940",
+    "date_start": 1940,
+    "date_end": 1940,
+    "medium": "Oil on cloth",
+    "dimensions": "53.3 × 51.2 cm (21 × 20 7/8 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/c96955c7-879a-8ace-12a0-a416c4d264fe/full/843,/0/default.jpg",
+    "classifications": [
+      "painting",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 61608,
+    "title": "Sunset",
+    "artist": "Paul Klee",
+    "date": "1930",
+    "date_start": 1930,
+    "date_end": 1930,
+    "medium": "Oil on canvas",
+    "dimensions": "46.1 × 70.5 cm (18 1/8 × 27 3/4 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/92da7102-0562-f4da-55f9-1d29828b20d7/full/843,/0/default.jpg",
+    "classifications": [
+      "oil on canvas",
+      "painting",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 111666,
+    "title": "In the Magic Mirror",
+    "artist": "Paul Klee",
+    "date": "1934",
+    "date_start": 1934,
+    "date_end": 1934,
+    "medium": "Oil on canvas, on board",
+    "dimensions": "66 × 50 cm (26 × 19 3/4 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/a917685e-e96d-ecb1-2822-d6f50ce8ea5a/full/843,/0/default.jpg",
+    "classifications": [
+      "oil on canvas",
+      "painting",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 111664,
+    "title": "Fleeing Ghost",
+    "artist": "Paul Klee",
+    "date": "1929",
+    "date_start": 1929,
+    "date_end": 1929,
+    "medium": "Oil on canvas",
+    "dimensions": "89.5 × 63.5 cm (35 1/4 × 25 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/2aec7f1b-9adf-63ec-e72f-8840b58e27b7/full/843,/0/default.jpg",
+    "classifications": [
+      "oil on canvas",
+      "painting",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 9553,
+    "title": "Women Harvesting",
+    "artist": "Paul Klee",
+    "date": "1937",
+    "date_start": 1932,
+    "date_end": 1942,
+    "medium": "Pastel on canvas, on burlap",
+    "dimensions": "50 × 54 cm (20 × 21 3/8 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/167927b5-29a5-d9f5-8f64-4de87796b825/full/843,/0/default.jpg",
+    "classifications": [
+      "pastel",
+      "drawings (visual works)",
+      "prints and drawing",
+      "painting"
+    ]
+  },
+  {
+    "id": 145244,
+    "title": "Death in the Garden (Legend)",
+    "artist": "Paul Klee",
+    "date": "1919",
+    "date_start": 1919,
+    "date_end": 1919,
+    "medium": "Oil on cotton, on cardboard nailed to wood",
+    "dimensions": "27.3 × 24.8 cm (10 3/4 × 9 3/4 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/d308a86f-44fd-c4f0-5cf9-e746590a1d40/full/843,/0/default.jpg",
+    "classifications": [
+      "oil on canvas",
+      "painting",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 111668,
+    "title": "Asiatic God",
+    "artist": "Paul Klee",
+    "date": "1924",
+    "date_start": 1924,
+    "date_end": 1924,
+    "medium": "Oil and plaster, over gauze, on panel",
+    "dimensions": "56.5 × 35.6 cm (22 1/4 × 14 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/d6ae4b1c-5668-54e4-fb59-76be7beed7c2/full/843,/0/default.jpg",
+    "classifications": [
+      "painting",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 134057,
+    "title": "Exotics",
+    "artist": "Paul Klee",
+    "date": "1939",
+    "date_start": 1939,
+    "date_end": 1939,
+    "medium": "Oil on burlap",
+    "dimensions": "71.1 × 55.9 cm (28 × 22 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/edac05ea-4a88-35c5-07ae-93c31f94ac31/full/843,/0/default.jpg",
+    "classifications": [
+      "oil on canvas",
+      "painting",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 32590,
+    "title": "Schoolhouse",
+    "artist": "Paul Klee",
+    "date": "1920",
+    "date_start": 1920,
+    "date_end": 1920,
+    "medium": "Oil on paper, on board",
+    "dimensions": "36.8 × 31.8 cm (14 1/2 × 12 1/2 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/6968cad5-0a4b-95a0-6010-7f69fe93d9f8/full/843,/0/default.jpg",
+    "classifications": [
+      "painting",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 109819,
+    "title": "Lozenge Composition with Yellow, Black, Blue, Red, and Gray",
+    "artist": "Piet Mondrian",
+    "date": "1921",
+    "date_start": 1921,
+    "date_end": 1921,
+    "medium": "Oil on canvas",
+    "dimensions": "60 × 60 cm (23 5/8 × 23 5/8 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/25f660ee-f1db-d13b-42a5-56df97c98ba7/full/843,/0/default.jpg",
+    "classifications": [
+      "oil on canvas",
+      "painting",
+      "Modern Art Highlights"
+    ]
+  },
+  {
+    "id": 144467,
+    "title": "Farm near Duivendrecht",
+    "artist": "Piet Mondrian",
+    "date": "c. 1916",
+    "date_start": 1911,
+    "date_end": 1921,
+    "medium": "Oil on canvas",
+    "dimensions": "86.3 × 107.9 cm (34 × 42 1/2 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/b8ca5039-1d0c-648d-ad46-838ecea3e14c/full/843,/0/default.jpg",
+    "classifications": [
+      "oil on canvas",
+      "painting",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 65821,
+    "title": "Composition (No. 1) Gray-Red",
+    "artist": "Piet Mondrian",
+    "date": "1935",
+    "date_start": 1935,
+    "date_end": 1935,
+    "medium": "Oil on canvas",
+    "dimensions": "57.5 × 55.6 cm (22 5/8 × 21 7/8 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/254c654f-354a-0f4f-28b5-8eb01a02e95c/full/843,/0/default.jpg",
+    "classifications": [
+      "painting",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 88464,
+    "title": "Landzicht Farm: Compositional Study",
+    "artist": "Piet Mondrian",
+    "date": "c. 1905",
+    "date_start": 1900,
+    "date_end": 1910,
+    "medium": "Fabricated charcoal on blue laid paper",
+    "dimensions": "46.8 × 62.3 cm (18 7/16 × 24 9/16 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/1ddc2d9f-0019-949b-c971-9786153a0ac7/full/843,/0/default.jpg",
+    "classifications": [
+      "charcoal",
+      "drawings (visual works)",
+      "prints and drawing"
+    ]
+  },
+  {
+    "id": 142570,
+    "title": "Study for a Composition",
+    "artist": "Piet Mondrian",
+    "date": "1940–41",
+    "date_start": 1940,
+    "date_end": 1941,
+    "medium": "Collage of cut and pasted papers, prepared with gouache and charcoal, on pieced cream wove newsprint in three parts with charcoal on verso",
+    "dimensions": "Max: 33 × 27 cm (13 × 10 11/16 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/7942129f-6b16-3b82-d727-14b71165b050/full/843,/0/default.jpg",
+    "classifications": [
+      "collage",
+      "drawings (visual works)",
+      "prints and drawing"
+    ]
+  },
+  {
+    "id": 53175,
+    "title": "Geinrust Farm: Close Frontal View",
+    "artist": "Piet Mondrian",
+    "date": "c. 1905–06",
+    "date_start": 1900,
+    "date_end": 1910,
+    "medium": "Pastel and charcoal on buff wove paper",
+    "dimensions": "47.5 × 60 cm (18 3/4 × 23 5/8 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/8a3c9e35-3096-ea82-ad79-6e0cdfb34a40/full/843,/0/default.jpg",
+    "classifications": [
+      "charcoal",
+      "drawings (visual works)",
+      "prints and drawing"
+    ]
+  },
+  {
+    "id": 186314,
+    "title": "Amsterdam Skyline Viewed from the West",
+    "artist": "Piet Mondrian",
+    "date": "c. 1899",
+    "date_start": 1894,
+    "date_end": 1904,
+    "medium": "Watercolor, gouache, and fabricated black chalk, with erasures, on cream wove paper",
+    "dimensions": "39.9 × 58.8 cm (15 3/4 × 23 3/16 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/133d4a6e-7be9-a652-f3db-34be49c671c8/full/843,/0/default.jpg",
+    "classifications": [
+      "prints and drawing",
+      "chalk",
+      "gouache",
+      "watercolor",
+      "drawings (visual works)"
+    ]
+  },
+  {
+    "id": 109274,
+    "title": "Streetcar",
+    "artist": "Alexander Calder",
+    "date": "1951",
+    "date_start": 1951,
+    "date_end": 1951,
+    "medium": "Sheet steel, brass, wire, and paint",
+    "dimensions": "106.7 × 294.6 cm (42 × 116 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/4ff3e0f8-9c33-a8f8-6f4c-be4cd6c8f30a/full/843,/0/default.jpg",
+    "classifications": [
+      "sculpture",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 73654,
+    "title": "Flying Dragon (intermediate maquette)",
+    "artist": "Alexander Calder",
+    "date": "1975",
+    "date_start": 1975,
+    "date_end": 1975,
+    "medium": "Steel plate and paint",
+    "dimensions": "365 × 579 × 335 cm (120 × 228 × 132 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/cdb91a2f-dbce-0970-17eb-b79d3381bb50/full/843,/0/default.jpg",
+    "classifications": [
+      "sculpture",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 111064,
+    "title": "(3 x 5) + 1",
+    "artist": "Alexander Calder",
+    "date": "1949",
+    "date_start": 1949,
+    "date_end": 1949,
+    "medium": "Aluminum, iron, and paint",
+    "dimensions": "226.1 × 165.1 cm (89 × 65 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/5d0766e1-c2c4-e001-f8cf-0fe52ee73972/full/843,/0/default.jpg",
+    "classifications": [
+      "sculpture",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 118660,
+    "title": "The Chicken",
+    "artist": "Alexander Calder",
+    "date": "1944",
+    "date_start": 1944,
+    "date_end": 1944,
+    "medium": "Bronze",
+    "dimensions": "61.6 × 32 × 31.5 cm (24 1/4 × 12 5/8 × 12 3/8 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/1e96a49c-545b-407d-6376-e3c058611536/full/843,/0/default.jpg",
+    "classifications": [
+      "sculpture",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 80824,
+    "title": "Black Dots",
+    "artist": "Alexander Calder",
+    "date": "1941",
+    "date_start": 1941,
+    "date_end": 1941,
+    "medium": "Sheet steel, string, and paint",
+    "dimensions": "78.7 × 88.9 × 38.1 cm (31 × 35 × 15 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/4b6c3a52-183e-3783-c0af-b4faef40f1a9/full/843,/0/default.jpg",
+    "classifications": [
+      "sculpture",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 22390,
+    "title": "Starfish",
+    "artist": "Alexander Calder",
+    "date": "1944",
+    "date_start": 1944,
+    "date_end": 1944,
+    "medium": "Bronze",
+    "dimensions": "91.4 × 85 × 85.1 cm (36 × 33 1/2 × 33 1/2 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/0958ba7f-ab6b-ded2-6224-0b16c44dfaf7/full/843,/0/default.jpg",
+    "classifications": [
+      "sculpture",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 5394,
+    "title": "Untitled",
+    "artist": "Alexander Calder",
+    "date": "1946",
+    "date_start": 1946,
+    "date_end": 1946,
+    "medium": "Watercolor and brush and black ink on cream wove paper",
+    "dimensions": "33.1 × 25.6 cm (13 1/16 × 10 1/8 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/6a47cb9b-b219-7ba1-b57c-1aebf1d3d4ea/full/843,/0/default.jpg",
+    "classifications": [
+      "watercolor",
+      "drawings (visual works)",
+      "prints and drawing"
+    ]
+  },
+  {
+    "id": 82544,
+    "title": "Abstract Composition",
+    "artist": "Alexander Calder",
+    "date": "1949",
+    "date_start": 1949,
+    "date_end": 1949,
+    "medium": "Gouache and brush and black ink, over graphite, on ivory watercolor paper",
+    "dimensions": "58 × 77.8 cm (22 7/8 × 30 11/16 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/7107e105-cba2-bb61-b68f-b7fd08e6d9d2/full/843,/0/default.jpg",
+    "classifications": [
+      "gouache",
+      "drawings (visual works)",
+      "prints and drawing"
+    ]
+  },
+  {
+    "id": 18826,
+    "title": "John D. Rockefeller",
+    "artist": "Alexander Calder",
+    "date": "c. 1928",
+    "date_start": 1926,
+    "date_end": 1930,
+    "medium": "Wire and dime",
+    "dimensions": "46.9 × 22.8 × 46.9 cm (18 1/2 × 9 × 18 1/2 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/3fe70229-33a1-6e23-cb46-72ee8b156596/full/843,/0/default.jpg",
+    "classifications": [
+      "sculpture",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 5388,
+    "title": "Mary Reynolds with Her Cats",
+    "artist": "Alexander Calder",
+    "date": "1955",
+    "date_start": 1955,
+    "date_end": 1955,
+    "medium": "Pen and black ink on white wove paper",
+    "dimensions": "36.8 × 29.2 cm (14 1/2 × 11 1/2 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/ca9828d4-f97e-ae72-925b-ac72134ca01a/full/843,/0/default.jpg",
+    "classifications": [
+      "pen and ink drawings",
+      "drawings (visual works)",
+      "prints and drawing"
+    ]
+  },
+  {
+    "id": 185760,
+    "title": "Forest and Sun",
+    "artist": "Max Ernst",
+    "date": "1927",
+    "date_start": 1927,
+    "date_end": 1927,
+    "medium": "Oil on canvas",
+    "dimensions": "66 × 82.5 cm (26 × 32 1/2 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/7a5e992d-7930-7148-8511-674df16a1773/full/843,/0/default.jpg",
+    "classifications": [
+      "painting",
+      "Surrealism Highlights",
+      "oil on canvas"
+    ]
+  },
+  {
+    "id": 145243,
+    "title": "Spanish Physician",
+    "artist": "Max Ernst",
+    "date": "1940",
+    "date_start": 1940,
+    "date_end": 1940,
+    "medium": "Oil on canvas",
+    "dimensions": "37.5 × 54 cm (14 3/4 × 21 1/4 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/6e955343-deb7-ad17-e7be-4db9a06a2e83/full/843,/0/default.jpg",
+    "classifications": [
+      "oil on canvas",
+      "painting",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 185759,
+    "title": "Halleluiah",
+    "artist": "Max Ernst",
+    "date": "1948",
+    "date_start": 1948,
+    "date_end": 1948,
+    "medium": "Oil on canvas",
+    "dimensions": "101.6 × 76.5 cm (40 × 30 1/8 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/6ee6a8f6-cc94-f9ff-5bfa-784a461fc5df/full/843,/0/default.jpg",
+    "classifications": [
+      "painting",
+      "oil on canvas"
+    ]
+  },
+  {
+    "id": 118691,
+    "title": "Garden Airplane-Trap",
+    "artist": "Max Ernst",
+    "date": "1935",
+    "date_start": 1935,
+    "date_end": 1935,
+    "medium": "Oil on linen",
+    "dimensions": "58.4 × 73 cm (23 1/2 × 28 3/4 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/583859c3-cf78-288f-dd2d-78a364b07d49/full/843,/0/default.jpg",
+    "classifications": [
+      "painting",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 136121,
+    "title": "Dada Gauguin",
+    "artist": "Max Ernst",
+    "date": "1920",
+    "date_start": 1920,
+    "date_end": 1920,
+    "medium": "Gouache and ink on printed paper",
+    "dimensions": "30.3 × 40 cm (11 7/16 × 15 3/4 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/3f2e7bce-a8f2-562a-5f8f-90932bdc6af8/full/843,/0/default.jpg",
+    "classifications": [
+      "gouache",
+      "painting",
+      "modern and contemporary art",
+      "prints and drawing",
+      "paper"
+    ]
+  },
+  {
+    "id": 101518,
+    "title": "Summer Night in Arizona",
+    "artist": "Max Ernst",
+    "date": "1944",
+    "date_start": 1944,
+    "date_end": 1944,
+    "medium": "Oil on canvas",
+    "dimensions": "28 × 43.2 cm (11 × 17 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/097b24de-79b9-a5a1-57f3-9e7545dc4319/full/843,/0/default.jpg",
+    "classifications": [
+      "painting",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 118693,
+    "title": "An Anxious Friend",
+    "artist": "Max Ernst",
+    "date": "1944",
+    "date_start": 1944,
+    "date_end": 1944,
+    "medium": "Bronze",
+    "dimensions": "66.7 × 34.9 × 43.2 cm (26 1/4 × 13 3/4 × 17 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/f6e7b442-8524-76e9-5155-4ea4c9c021e9/full/843,/0/default.jpg",
+    "classifications": [
+      "sculpture",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 71982,
+    "title": "The Blue Forest",
+    "artist": "Max Ernst",
+    "date": "1925",
+    "date_start": 1925,
+    "date_end": 1925,
+    "medium": "Oil on canvas",
+    "dimensions": "116 × 73 cm (45 3/4 × 28 3/4 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/26c5ab1b-b494-37d6-c0e3-7bb8ecc78b96/full/843,/0/default.jpg",
+    "classifications": [
+      "oil on canvas",
+      "painting",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 118684,
+    "title": "The Massacre of the Innocents",
+    "artist": "Max Ernst",
+    "date": "1920",
+    "date_start": 1920,
+    "date_end": 1920,
+    "medium": "Black-and-white photograph with hand-coloring in watercolor, gouache, and black ink, laid down on tan wove wood-pulp paper",
+    "dimensions": "Primary support: 21.5 × 28.9 cm (8 1/2 × 11 7/16 in.); Secondary support, sight: 29.5 × 38 cm (11 5/8 × 15 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/ab8843d9-9855-c4fa-f041-e857fd7c0317/full/843,/0/default.jpg",
+    "classifications": [
+      "collage",
+      "drawings (visual works)",
+      "prints and drawing"
+    ]
+  },
+  {
+    "id": 118694,
+    "title": "Landscape",
+    "artist": "Max Ernst",
+    "date": "1957",
+    "date_start": 1957,
+    "date_end": 1957,
+    "medium": "Oil on glass",
+    "dimensions": "11.1 × 20.6 cm (4 3/8 × 8 1/4 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/dbb43155-d06d-be4f-e583-647becae064e/full/843,/0/default.jpg",
+    "classifications": [
+      "painting",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 96625,
+    "title": "Supervielle, Large Banner Portrait",
+    "artist": "Jean Dubuffet",
+    "date": "1945",
+    "date_start": 1945,
+    "date_end": 1945,
+    "medium": "Oil on canvas",
+    "dimensions": "130.2 × 97.2 cm (51 1/4 × 38 1/4 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/262f965f-e86a-d0ba-8e24-fefcdc3979de/full/843,/0/default.jpg",
+    "classifications": [
+      "painting",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 118673,
+    "title": "Two Nude Women",
+    "artist": "Jean Dubuffet",
+    "date": "1942",
+    "date_start": 1942,
+    "date_end": 1942,
+    "medium": "Gouache, possibly casein, on panel",
+    "dimensions": "64.8 × 46.4 cm (25 1/2 × 18 1/4 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/a4989ecb-b3dc-1350-f672-d9da71a640d4/full/843,/0/default.jpg",
+    "classifications": [
+      "gouache",
+      "painting",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 118675,
+    "title": "Little Sneerer",
+    "artist": "Jean Dubuffet",
+    "date": "March 1944",
+    "date_start": 1944,
+    "date_end": 1944,
+    "medium": "Oil on canvas",
+    "dimensions": "54.6 × 45.7 cm (21 1/2 × 18 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/cda850e5-8e19-87c5-b09c-17e646036452/full/843,/0/default.jpg",
+    "classifications": [
+      "painting",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 22245,
+    "title": "Genuflection of the Bishop",
+    "artist": "Jean Dubuffet",
+    "date": "1963",
+    "date_start": 1963,
+    "date_end": 1963,
+    "medium": "Oil on canvas",
+    "dimensions": "217.8 × 298.5 cm (85 3/4 × 117 1/2 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/01900a3b-01ca-22cb-f7bd-6c21697a6063/full/843,/0/default.jpg",
+    "classifications": [
+      "painting",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 145242,
+    "title": "The Grand Arab (He Only Has Sand)",
+    "artist": "Jean Dubuffet",
+    "date": "1947",
+    "date_start": 1947,
+    "date_end": 1947,
+    "medium": "Oil and sand on canvas",
+    "dimensions": "145.4 × 113 cm (57 1/4 × 44 1/2 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/d1b6707e-f542-cbb7-b52c-18d50e28ce67/full/843,/0/default.jpg",
+    "classifications": [
+      "painting",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 36129,
+    "title": "The Forest (La forêt)",
+    "artist": "Jean Dubuffet",
+    "date": "1969",
+    "date_start": 1969,
+    "date_end": 1969,
+    "medium": "Epoxy",
+    "dimensions": "106.6 × 189.8 × 120.6 cm (41 3/8 × 74 3/4 × 47 1/2 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/47c93ddc-cf30-0f1f-53b9-b6190e892a3a/full/843,/0/default.jpg",
+    "classifications": [
+      "sculpture",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 10149,
+    "title": "Warrior",
+    "artist": "Jean Dubuffet",
+    "date": "1958",
+    "date_start": 1958,
+    "date_end": 1958,
+    "medium": "Lithograph on white wove paper",
+    "dimensions": "Image: 30.3 × 17.5 cm (11 15/16 × 6 15/16 in.); Sheet: 37.5 × 27.8 cm (14 13/16 × 11 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/ca2a79c7-8fd6-6fc1-bcf9-d42cfc63387c/full/843,/0/default.jpg",
+    "classifications": [
+      "lithograph",
+      "print",
+      "prints and drawing"
+    ]
+  },
+  {
+    "id": 28400,
+    "title": "Texturologie VIII",
+    "artist": "Jean Dubuffet",
+    "date": "1957 (December)",
+    "date_start": 1957,
+    "date_end": 1957,
+    "medium": "Oil on canvas",
+    "dimensions": "114.3 × 146.4 cm (45 × 57 5/8 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/f69341c6-0f86-1f01-820d-081e356c13ff/full/843,/0/default.jpg",
+    "classifications": [
+      "painting",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 25728,
+    "title": "Portrait of Henri Michaux",
+    "artist": "Jean Dubuffet",
+    "date": "1947",
+    "date_start": 1947,
+    "date_end": 1947,
+    "medium": "Black India ink on scratchboard",
+    "dimensions": "50 × 31.5 cm (19 11/16 × 12 7/16 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/e470b879-2511-b055-8069-e7c1c435a35f/full/843,/0/default.jpg",
+    "classifications": [
+      "pen and ink drawings",
+      "drawings (visual works)",
+      "prints and drawing"
+    ]
+  },
+  {
+    "id": 52195,
+    "title": "Le Cosmorama III",
+    "artist": "Jean Dubuffet",
+    "date": "1970",
+    "date_start": 1970,
+    "date_end": 1970,
+    "medium": "Cast polyester and polyurethane paint",
+    "dimensions": "100.9 × 136.8 × 95.9 cm (39 3/4 × 53 7/8 × 37 3/4 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/50f9b192-52c4-6884-67f5-eab4a36a714b/full/843,/0/default.jpg",
+    "classifications": [
+      "sculpture",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 23368,
+    "title": "Walking Man II",
+    "artist": "Alberto Giacometti",
+    "date": "1960",
+    "date_start": 1960,
+    "date_end": 1960,
+    "medium": "Bronze",
+    "dimensions": "188 × 28 × 111.8 cm (74 × 11 × 44 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/2176719e-3cbc-708b-28da-e211d27e6aa4/full/843,/0/default.jpg",
+    "classifications": [
+      "sculpture",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 37761,
+    "title": "Spoon Woman",
+    "artist": "Alberto Giacometti",
+    "date": "1926–27 (cast 1954)",
+    "date_start": 1926,
+    "date_end": 1927,
+    "medium": "Bronze",
+    "dimensions": "146 × 52.1 × 25.4 cm (57 1/2 × 20 1/2 × 10 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/ae8c8cae-64f8-07af-2f5b-91d16fdb8fb2/full/843,/0/default.jpg",
+    "classifications": [
+      "bronze",
+      "metal",
+      "sculpture",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 9530,
+    "title": "Isaku Yanaihara",
+    "artist": "Alberto Giacometti",
+    "date": "1956",
+    "date_start": 1956,
+    "date_end": 1956,
+    "medium": "Oil on canvas",
+    "dimensions": "81.3 × 65.1 cm (32 × 25 5/8 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/971c3cc0-b3c2-328a-8ee7-23254b43baac/full/843,/0/default.jpg",
+    "classifications": [
+      "painting",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 9567,
+    "title": "Tall Figure",
+    "artist": "Alberto Giacometti",
+    "date": "1947",
+    "date_start": 1947,
+    "date_end": 1947,
+    "medium": "Bronze",
+    "dimensions": "202 × 22 × 41.6 cm (79 1/2 × 8 5/8 × 16 3/8 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/58488c97-7956-a1ce-3f9e-6b5c5832b36c/full/843,/0/default.jpg",
+    "classifications": [
+      "bronze",
+      "metal",
+      "sculpture",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 75646,
+    "title": "Three Men Walking II",
+    "artist": "Alberto Giacometti",
+    "date": "1948/49",
+    "date_start": 1948,
+    "date_end": 1949,
+    "medium": "Bronze",
+    "dimensions": "75 × 33.1 × 31.8 cm (29 1/2 × 13 × 12 1/2 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/4676a52a-78b3-2271-fd6a-8b82dd46088f/full/843,/0/default.jpg",
+    "classifications": [
+      "bronze",
+      "metal",
+      "sculpture",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 153700,
+    "title": "Diego Seated in the Studio",
+    "artist": "Alberto Giacometti",
+    "date": "1950",
+    "date_start": 1950,
+    "date_end": 1950,
+    "medium": "Oil on canvas",
+    "dimensions": "72.9 × 60 cm (28 11/16 × 23 5/8 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/487e7faf-925f-3c93-7dec-be64a7e3b3aa/full/843,/0/default.jpg",
+    "classifications": [
+      "oil on canvas",
+      "painting",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 6030,
+    "title": "The Studio",
+    "artist": "Alberto Giacometti",
+    "date": "1955",
+    "date_start": 1955,
+    "date_end": 1955,
+    "medium": "Lithograph on white wove paper",
+    "dimensions": "Image: 47.5 × 38 cm (18 3/4 × 15 in.); Sheet: 66.3 × 50.2 cm (26 1/8 × 19 13/16 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/d64a3731-274d-e57c-9f76-3ec118edbb84/full/843,/0/default.jpg",
+    "classifications": [
+      "lithograph",
+      "print",
+      "prints and drawing"
+    ]
+  },
+  {
+    "id": 20527,
+    "title": "Couple",
+    "artist": "Alberto Giacometti",
+    "date": "1926",
+    "date_start": 1926,
+    "date_end": 1926,
+    "medium": "Bronze",
+    "dimensions": "59.7 × 37 × 16.8 cm (23 1/2 × 14 1/2 × 6 5/8 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/7b8f1192-341a-4056-fd65-9e819aae96d4/full/843,/0/default.jpg",
+    "classifications": [
+      "bronze",
+      "metal",
+      "sculpture",
+      "modern and contemporary art"
+    ]
+  },
+  {
+    "id": 83887,
+    "title": "Annette Giacometti, the Artist's Wife",
+    "artist": "Alberto Giacometti",
+    "date": "1949",
+    "date_start": 1949,
+    "date_end": 1949,
+    "medium": "Graphite, with smudging and erasing, on ivory wove paper",
+    "dimensions": "63.8 × 50 cm (25 1/8 × 19 11/16 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/fb9c3aa7-f483-e314-75a3-20cd8d77ffe1/full/843,/0/default.jpg",
+    "classifications": [
+      "graphite",
+      "drawings (visual works)",
+      "prints and drawing"
+    ]
+  },
+  {
+    "id": 87445,
+    "title": "Head",
+    "artist": "Alberto Giacometti",
+    "date": "1934",
+    "date_start": 1934,
+    "date_end": 1934,
+    "medium": "Bronze",
+    "dimensions": "25.4 × 20.3 × 17.8 cm (10 × 8 × 7 in.)",
+    "image_url": "https://www.artic.edu/iiif/2/df5a4aaf-6488-8de8-5731-ebcec736bed6/full/843,/0/default.jpg",
+    "classifications": [
+      "bronze",
+      "metal",
+      "sculpture",
+      "modern and contemporary art"
+    ]
+  }
+]
