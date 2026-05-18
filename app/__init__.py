@@ -1,5 +1,5 @@
 import os
-from flask import Flask
+from flask import Flask, redirect, url_for
 from .extensions import db, migrate, security
 from .models import user_datastore
 
@@ -11,37 +11,52 @@ def create_app():
     app.config["SQLALCHEMY_DATABASE_URI"] = os.environ["DATABASE_URL"]
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
-    # Flask-Security config
     app.config["SECURITY_PASSWORD_SALT"] = os.environ.get("SECRET_KEY", "salt")
     app.config["SECURITY_LOGIN_URL"] = "/login"
     app.config["SECURITY_LOGOUT_URL"] = "/logout"
-    app.config["SECURITY_POST_LOGIN_VIEW"] = "/artworks"
+    app.config["SECURITY_POST_LOGIN_VIEW"] = "/admin/artworks"
     app.config["SECURITY_POST_LOGOUT_VIEW"] = "/login"
     app.config["SECURITY_SEND_REGISTER_EMAIL"] = False
     app.config["SECURITY_REGISTERABLE"] = False
+    app.config["WTF_CSRF_SECRET_KEY"] = os.environ.get("SECRET_KEY", "csrf-secret")
 
-    # Init extensions
     db.init_app(app)
     migrate.init_app(app, db)
     security.init_app(app, user_datastore)
 
-    # Health check
     @app.route("/health")
     def health():
         return {"status": "ok", "service": "artnode"}
 
-    @app.route("/admin/login")
-    def admin_login_redirect():
-        from flask import redirect
-        return redirect("/login")
-
-    # Redirect root to artworks
     @app.route("/")
     def index():
-        from flask import redirect, url_for
         return redirect(url_for("artworks.index"))
 
-    # Register blueprints
+    @app.route("/admin/login")
+    def admin_login_redirect():
+        return redirect("/login")
+
+    # Legacy redirects for old URLs without /admin prefix
+    @app.route("/artworks")
+    @app.route("/artworks/<path:rest>")
+    def redirect_artworks(rest=""):
+        return redirect("/admin/artworks/" + rest if rest else "/admin/artworks")
+
+    @app.route("/artists")
+    @app.route("/artists/<path:rest>")
+    def redirect_artists(rest=""):
+        return redirect("/admin/artists/" + rest if rest else "/admin/artists/")
+
+    @app.route("/contacts")
+    @app.route("/contacts/<path:rest>")
+    def redirect_contacts(rest=""):
+        return redirect("/admin/contacts/" + rest if rest else "/admin/contacts/")
+
+    @app.route("/sales")
+    @app.route("/sales/<path:rest>")
+    def redirect_sales(rest=""):
+        return redirect("/admin/sales/" + rest if rest else "/admin/sales/")
+
     from .blueprints.artworks import bp as artworks_bp
     from .blueprints.artists import bp as artists_bp
     from .blueprints.contacts import bp as contacts_bp

@@ -1,0 +1,165 @@
+{% extends "base.html" %}
+
+{% block title %}Record Sale — {{ artwork.title }} — ArtNode{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div>
+    <a href="{{ url_for('artworks.detail', id=artwork.id) }}"
+       style="font-size:0.75rem;color:var(--text-muted);letter-spacing:0.06em;text-transform:uppercase;">&larr; {{ artwork.title }}</a>
+    <div class="page-title" style="margin-top:4px;">Record Sale</div>
+  </div>
+</div>
+
+<div class="page-body">
+  <form method="POST" action="">
+    {{ form.hidden_tag() }}
+
+    <div style="display:grid;grid-template-columns:1fr 380px;gap:var(--space-2xl);align-items:start;">
+
+      <!-- Left: artwork summary -->
+      <div>
+        <div style="background:var(--surface);border:1px solid var(--border);padding:var(--space-xl);margin-bottom:var(--space-lg);">
+          <div style="font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:var(--space-lg);">Artwork</div>
+
+          <div style="display:flex;gap:var(--space-lg);align-items:start;">
+            {% set img = artwork.images[0] if artwork.images else none %}
+            {% if img and img.iiif_url %}
+              <img src="{{ img.iiif_url }}" style="width:120px;height:120px;object-fit:cover;background:var(--border-light);">
+            {% endif %}
+            <div>
+              <div style="font-size:1rem;font-weight:400;margin-bottom:4px;">{{ artwork.title }}</div>
+              <div style="font-size:0.85rem;font-style:italic;color:var(--text-secondary);font-family:var(--font-display);">
+                {% if artwork.artist %}{{ artwork.artist.first_name }} {{ artwork.artist.last_name }}{% endif %}
+              </div>
+              <div style="font-size:0.78rem;color:var(--text-muted);margin-top:4px;">
+                {{ artwork.year_from or '' }}
+                {% if artwork.medium %} &middot; {{ artwork.medium|truncate(50) }}{% endif %}
+              </div>
+              {% if artwork.price %}
+              <div style="font-size:0.82rem;color:var(--text-secondary);margin-top:8px;">
+                Listed: {{ artwork.currency }} {{ "{:,.0f}".format(artwork.price) }}
+              </div>
+              {% endif %}
+              {% if artwork.is_consignment and artwork.consignment %}
+              <div style="font-size:0.75rem;color:var(--status-reserved-fg);background:var(--status-reserved-bg);padding:4px 10px;margin-top:8px;display:inline-block;">
+                Consignment — Gallery {{ artwork.consignment.gallery_split_pct }}% / Consignor {{ (100 - artwork.consignment.gallery_split_pct)|int }}%
+              </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+
+        <div style="background:var(--surface);border:1px solid var(--border);padding:var(--space-xl);">
+          <div style="font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:var(--space-lg);">Sale Details</div>
+
+          <div class="form-group">
+            {{ form.buyer_id.label(class="form-label") }}
+            {{ form.buyer_id(class="form-control") }}
+          </div>
+
+          <div style="display:grid;grid-template-columns:1fr 100px;gap:var(--space-md);">
+            <div class="form-group">
+              {{ form.price.label(class="form-label") }}
+              {{ form.price(class="form-control", id="priceInput") }}
+              {% if form.price.errors %}
+                <div style="color:#c0392b;font-size:0.78rem;margin-top:4px;">{{ form.price.errors[0] }}</div>
+              {% endif %}
+            </div>
+            <div class="form-group">
+              {{ form.currency.label(class="form-label") }}
+              {{ form.currency(class="form-control") }}
+            </div>
+          </div>
+
+          <div class="form-group">
+            {{ form.vat_rate.label(class="form-label") }}
+            {{ form.vat_rate(class="form-control", id="vatRate", placeholder="0.00") }}
+          </div>
+
+          <div class="form-group">
+            {{ form.payment_method.label(class="form-label") }}
+            {{ form.payment_method(class="form-control") }}
+          </div>
+
+          <div class="form-group">
+            {{ form.notes.label(class="form-label") }}
+            {{ form.notes(class="form-control", rows=3, placeholder="Optional notes") }}
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: price breakdown -->
+      <div style="background:var(--surface);border:1px solid var(--border);padding:var(--space-xl);position:sticky;top:24px;">
+        <div style="font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:var(--space-lg);">Price Breakdown</div>
+
+        <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border-light);">
+          <span style="font-size:0.82rem;color:var(--text-secondary);">Sale Price</span>
+          <span style="font-size:0.82rem;" id="displayPrice">—</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border-light);">
+          <span style="font-size:0.82rem;color:var(--text-secondary);">VAT</span>
+          <span style="font-size:0.82rem;" id="displayVat">—</span>
+        </div>
+        {% if artwork.is_consignment and artwork.consignment %}
+        <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border-light);">
+          <span style="font-size:0.82rem;color:var(--text-secondary);">Gallery Net ({{ artwork.consignment.gallery_split_pct }}%)</span>
+          <span style="font-size:0.82rem;" id="displayGalleryNet">—</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border-light);">
+          <span style="font-size:0.82rem;color:var(--text-secondary);">Consignor Net ({{ (100 - artwork.consignment.gallery_split_pct)|int }}%)</span>
+          <span style="font-size:0.82rem;" id="displayConsignorNet">—</span>
+        </div>
+        {% endif %}
+        <div style="display:flex;justify-content:space-between;padding:14px 0;margin-top:4px;">
+          <span style="font-size:0.88rem;font-weight:500;">Total incl. VAT</span>
+          <span style="font-size:0.88rem;font-weight:500;" id="displayTotal">—</span>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width:100%;margin-top:var(--space-md);">
+          Confirm Sale
+        </button>
+        <a href="{{ url_for('artworks.detail', id=artwork.id) }}"
+           class="btn btn-secondary" style="width:100%;margin-top:var(--space-sm);text-align:center;">
+          Cancel
+        </a>
+      </div>
+
+    </div>
+  </form>
+</div>
+
+<script>
+const priceInput = document.getElementById('priceInput');
+const vatInput = document.getElementById('vatRate');
+{% if artwork.is_consignment and artwork.consignment %}
+const galleryPct = {{ artwork.consignment.gallery_split_pct }} / 100;
+{% endif %}
+
+function fmt(n) {
+  return n.toLocaleString('de-CH', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+}
+
+function update() {
+  const price = parseFloat(priceInput.value) || 0;
+  const vatRate = parseFloat(vatInput.value) || 0;
+  const vat = price * vatRate / 100;
+  const total = price + vat;
+
+  document.getElementById('displayPrice').textContent = fmt(price);
+  document.getElementById('displayVat').textContent = fmt(vat);
+  document.getElementById('displayTotal').textContent = fmt(total);
+
+  {% if artwork.is_consignment and artwork.consignment %}
+  const galleryNet = price * galleryPct;
+  const consignorNet = price - galleryNet;
+  document.getElementById('displayGalleryNet').textContent = fmt(galleryNet);
+  document.getElementById('displayConsignorNet').textContent = fmt(consignorNet);
+  {% endif %}
+}
+
+priceInput.addEventListener('input', update);
+vatInput.addEventListener('input', update);
+update();
+</script>
+{% endblock %}

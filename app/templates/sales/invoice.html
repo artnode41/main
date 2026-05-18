@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="{{ gallery.locale or 'de' }}">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&display=swap');
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    @page {
+      size: A4;
+      margin: 20mm 20mm 25mm 20mm;
+      @bottom-center {
+        content: "{{ gallery.public_name or gallery.name }} — " counter(page) " / " counter(pages);
+        font-family: 'DM Sans', sans-serif;
+        font-size: 8pt;
+        color: #999;
+      }
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      font-size: 10pt;
+      color: #1a1a1a;
+      line-height: 1.5;
+    }
+
+    /* ── Header ── */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 12mm;
+      padding-bottom: 6mm;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .gallery-name {
+      font-size: 16pt;
+      font-weight: 400;
+      letter-spacing: 0.05em;
+      margin-bottom: 2mm;
+    }
+
+    .gallery-meta {
+      font-size: 8pt;
+      color: #666;
+      line-height: 1.6;
+    }
+
+    .invoice-label {
+      font-size: 20pt;
+      font-weight: 300;
+      letter-spacing: 0.08em;
+      text-align: right;
+      color: #1a1a1a;
+    }
+
+    .invoice-number {
+      font-size: 9pt;
+      color: #666;
+      text-align: right;
+      margin-top: 1mm;
+    }
+
+    /* ── Addresses ── */
+    .addresses {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10mm;
+    }
+
+    .address-block {
+      width: 48%;
+    }
+
+    .address-label {
+      font-size: 7pt;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #999;
+      margin-bottom: 2mm;
+    }
+
+    .address-text {
+      font-size: 9.5pt;
+      line-height: 1.6;
+    }
+
+    /* ── Invoice Meta ── */
+    .invoice-meta {
+      display: flex;
+      gap: 12mm;
+      margin-bottom: 10mm;
+      padding: 4mm 0;
+      border-top: 1px solid #e0e0e0;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .meta-item {
+      flex: 1;
+    }
+
+    .meta-label {
+      font-size: 7pt;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #999;
+      margin-bottom: 1mm;
+    }
+
+    .meta-value {
+      font-size: 9.5pt;
+    }
+
+    /* ── Artwork Table ── */
+    .artwork-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 8mm;
+    }
+
+    .artwork-table thead tr {
+      border-bottom: 1.5pt solid #1a1a1a;
+    }
+
+    .artwork-table th {
+      font-size: 7pt;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #666;
+      font-weight: 400;
+      padding: 0 0 2mm 0;
+      text-align: left;
+    }
+
+    .artwork-table th.right,
+    .artwork-table td.right {
+      text-align: right;
+    }
+
+    .artwork-table tbody tr {
+      border-bottom: 1px solid #e8e8e8;
+    }
+
+    .artwork-table td {
+      padding: 3mm 0;
+      font-size: 9.5pt;
+      vertical-align: top;
+    }
+
+    .artwork-title {
+      font-weight: 400;
+      margin-bottom: 1mm;
+    }
+
+    .artwork-details {
+      font-size: 8.5pt;
+      color: #666;
+      line-height: 1.5;
+    }
+
+    /* ── Totals ── */
+    .totals {
+      width: 80mm;
+      margin-left: auto;
+      margin-bottom: 10mm;
+    }
+
+    .total-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 1.5mm 0;
+      font-size: 9.5pt;
+    }
+
+    .total-row.subtotal {
+      border-top: 1px solid #e0e0e0;
+      padding-top: 2mm;
+      margin-top: 1mm;
+    }
+
+    .total-row.grand {
+      border-top: 1.5pt solid #1a1a1a;
+      padding-top: 2.5mm;
+      margin-top: 1mm;
+      font-weight: 500;
+      font-size: 10.5pt;
+    }
+
+    .total-label { color: #666; }
+    .total-amount { font-weight: 400; }
+
+    /* ── VAT Notice ── */
+    .vat-notice {
+      font-size: 8pt;
+      color: #666;
+      padding: 3mm 4mm;
+      border-left: 2pt solid #e0e0e0;
+      margin-bottom: 8mm;
+      line-height: 1.6;
+    }
+
+    /* ── Payment ── */
+    .payment-section {
+      margin-bottom: 8mm;
+    }
+
+    .section-title {
+      font-size: 7pt;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #999;
+      margin-bottom: 3mm;
+    }
+
+    .payment-grid {
+      display: flex;
+      gap: 12mm;
+    }
+
+    .payment-item { flex: 1; }
+
+    .payment-label {
+      font-size: 7.5pt;
+      color: #999;
+      margin-bottom: 1mm;
+    }
+
+    .payment-value {
+      font-size: 9.5pt;
+      font-weight: 400;
+    }
+
+    /* ── Footer ── */
+    .footer {
+      margin-top: 8mm;
+      padding-top: 4mm;
+      border-top: 1px solid #e0e0e0;
+      font-size: 7.5pt;
+      color: #999;
+      line-height: 1.6;
+    }
+
+    /* ── Droit de Suite notice ── */
+    .droit-notice {
+      font-size: 7.5pt;
+      color: #888;
+      font-style: italic;
+      margin-top: 4mm;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <div class="header">
+    <div>
+      <div class="gallery-name">{{ gallery.public_name or gallery.name }}</div>
+      <div class="gallery-meta">
+        {% if gallery.address %}{{ gallery.address }}<br>{% endif %}
+        {% if gallery.city %}{{ gallery.city }}{% if gallery.country %}, {{ gallery.country }}{% endif %}<br>{% endif %}
+        {% if gallery.contact_email %}{{ gallery.contact_email }}<br>{% endif %}
+        {% if gallery.website %}{{ gallery.website }}<br>{% endif %}
+        {% if gallery.vat_number %}MWST/TVA/IVA: {{ gallery.vat_number }}{% endif %}
+      </div>
+    </div>
+    <div>
+      <div class="invoice-label">RECHNUNG</div>
+      <div class="invoice-number">Nr. {{ sale.invoice_number or sale.id }}</div>
+    </div>
+  </div>
+
+  <!-- Addresses -->
+  <div class="addresses">
+    <div class="address-block">
+      <div class="address-label">Rechnungsempfänger / Facturé à</div>
+      <div class="address-text">
+        {% if line.buyer %}
+          {% if line.buyer.contact_type == "institution" %}
+            <strong>{{ line.buyer.organisation }}</strong><br>
+            {% if line.buyer.first_name or line.buyer.last_name %}
+              {{ line.buyer.first_name }} {{ line.buyer.last_name }}<br>
+            {% endif %}
+          {% else %}
+            <strong>{{ line.buyer.first_name }} {{ line.buyer.last_name }}</strong><br>
+          {% endif %}
+          {% if line.buyer.address %}{{ line.buyer.address }}<br>{% endif %}
+          {% if line.buyer.city %}
+            {{ line.buyer.city }}{% if line.buyer.country %}, {{ line.buyer.country }}{% endif %}<br>
+          {% endif %}
+          {% if line.buyer.email %}{{ line.buyer.email }}{% endif %}
+        {% else %}
+          —
+        {% endif %}
+      </div>
+    </div>
+    <div class="address-block">
+      <div class="address-label">Von / De</div>
+      <div class="address-text">
+        <strong>{{ gallery.public_name or gallery.name }}</strong><br>
+        {% if gallery.address %}{{ gallery.address }}<br>{% endif %}
+        {% if gallery.city %}{{ gallery.city }}{% if gallery.country %}, {{ gallery.country }}{% endif %}<br>{% endif %}
+        {% if gallery.contact_email %}{{ gallery.contact_email }}{% endif %}
+      </div>
+    </div>
+  </div>
+
+  <!-- Invoice Meta -->
+  <div class="invoice-meta">
+    <div class="meta-item">
+      <div class="meta-label">Rechnungsdatum</div>
+      <div class="meta-value">{{ (sale.invoice_date or sale.created_at).strftime("%d. %B %Y") }}</div>
+    </div>
+    {% if sale.delivery_date %}
+    <div class="meta-item">
+      <div class="meta-label">Lieferdatum</div>
+      <div class="meta-value">{{ sale.delivery_date.strftime("%d. %B %Y") }}</div>
+    </div>
+    {% endif %}
+    <div class="meta-item">
+      <div class="meta-label">Rechnungsnummer</div>
+      <div class="meta-value">{{ sale.invoice_number or sale.id }}</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-label">Währung</div>
+      <div class="meta-value">{{ line.currency }}</div>
+    </div>
+  </div>
+
+  <!-- Artwork Table -->
+  <table class="artwork-table">
+    <thead>
+      <tr>
+        <th style="width:60%">Objekt / Objet</th>
+        <th class="right" style="width:20%">Menge</th>
+        <th class="right" style="width:20%">Betrag</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <div class="artwork-title">{{ line.artwork.title }}</div>
+          <div class="artwork-details">
+            {% if line.artwork.artist %}
+              {{ line.artwork.artist.first_name }} {{ line.artwork.artist.last_name }}<br>
+            {% endif %}
+            {% if line.artwork.year_from %}
+              {{ line.artwork.year_from }}{% if line.artwork.year_to and line.artwork.year_to != line.artwork.year_from %}–{{ line.artwork.year_to }}{% endif %}<br>
+            {% endif %}
+            {% if line.artwork.medium %}{{ line.artwork.medium }}<br>{% endif %}
+            {% if line.artwork.dimensions %}{{ line.artwork.dimensions }}<br>{% endif %}
+            {% if line.artwork.inventory_number %}Inv. Nr. {{ line.artwork.inventory_number }}{% endif %}
+          </div>
+        </td>
+        <td class="right">1</td>
+        <td class="right">{{ line.currency }} {{ "{:,.2f}".format(line.price) }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Totals -->
+  <div class="totals">
+    <div class="total-row">
+      <span class="total-label">Zwischensumme</span>
+      <span class="total-amount">{{ line.currency }} {{ "{:,.2f}".format(line.price) }}</span>
+    </div>
+
+    {% if sale.vat_scheme == "standard" and line.vat_rate %}
+    <div class="total-row">
+      <span class="total-label">MWST {{ line.vat_rate }}%</span>
+      <span class="total-amount">{{ line.currency }} {{ "{:,.2f}".format(line.vat_amount) }}</span>
+    </div>
+    <div class="total-row grand">
+      <span>Gesamtbetrag</span>
+      <span>{{ line.currency }} {{ "{:,.2f}".format(line.price + (line.vat_amount or 0)) }}</span>
+    </div>
+    {% elif sale.vat_scheme == "margin" %}
+    <div class="total-row grand">
+      <span>Gesamtbetrag</span>
+      <span>{{ line.currency }} {{ "{:,.2f}".format(line.price) }}</span>
+    </div>
+    {% else %}
+    <div class="total-row grand">
+      <span>Gesamtbetrag</span>
+      <span>{{ line.currency }} {{ "{:,.2f}".format(line.price) }}</span>
+    </div>
+    {% endif %}
+  </div>
+
+  <!-- VAT Notice -->
+  {% if sale.vat_scheme == "margin" %}
+  <div class="vat-notice">
+    <strong>Margenbesteuerung / Régime de la marge / Regime del margine</strong><br>
+    Diese Rechnung unterliegt der Margenbesteuerung gemäss Art. 24a MWSTG.
+    Der MWST-Betrag wird nicht separat ausgewiesen.
+  </div>
+  {% elif sale.vat_scheme == "none" or not line.vat_rate %}
+  <div class="vat-notice">
+    Keine MWST ausgewiesen / TVA non incluse / IVA non inclusa
+  </div>
+  {% endif %}
+
+  <!-- Payment -->
+  {% if gallery.iban %}
+  <div class="payment-section">
+    <div class="section-title">Zahlungsdetails / Détails de paiement</div>
+    <div class="payment-grid">
+      <div class="payment-item">
+        <div class="payment-label">IBAN</div>
+        <div class="payment-value">{{ gallery.iban }}</div>
+      </div>
+      <div class="payment-item">
+        <div class="payment-label">Begünstigter</div>
+        <div class="payment-value">{{ gallery.public_name or gallery.name }}</div>
+      </div>
+      <div class="payment-item">
+        <div class="payment-label">Referenz</div>
+        <div class="payment-value">{{ sale.invoice_number or sale.id }}</div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- Droit de Suite -->
+  {% if line.artwork.artist and not line.artwork.artist.death_year %}
+  <div class="droit-notice">
+    * Folgerecht (Droit de Suite): Der Verkauf von Originalwerken lebender Künstler kann dem Folgerecht unterliegen.
+  </div>
+  {% endif %}
+
+  <!-- Footer -->
+  <div class="footer">
+    {{ gallery.public_name or gallery.name }}
+    {% if gallery.address %} · {{ gallery.address }}{% endif %}
+    {% if gallery.city %} · {{ gallery.city }}{% endif %}
+    {% if gallery.vat_number %} · MWST-Nr. {{ gallery.vat_number }}{% endif %}
+  </div>
+
+</body>
+</html>

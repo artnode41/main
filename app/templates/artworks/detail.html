@@ -15,6 +15,12 @@
   <div class="page-actions">
     <span class="badge badge-{{ artwork.status }}">{{ artwork.status|replace("_", " ") }}</span>
     <a href="{{ url_for('artworks.edit', id=artwork.id) }}" class="btn btn-secondary" style="margin-left:8px;">Edit</a>
+    {% if artwork.status == "available" %}
+    <a href="{{ url_for('sales.create', artwork_id=artwork.id) }}" class="btn btn-primary" style="margin-left:8px;">Record Sale</a>
+    {% endif %}
+    {% if artwork.status == "sold" and artwork.sale_lines %}
+    <a href="{{ url_for('sales.detail', id=artwork.sale_lines[-1].sale_id) }}" class="btn btn-secondary" style="margin-left:8px;">View Sale</a>
+    {% endif %}
   </div>
 </div>
 

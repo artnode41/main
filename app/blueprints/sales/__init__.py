@@ -1,9 +1,5 @@
-from flask import Blueprint, render_template
-from flask_security import login_required
+from flask import Blueprint
 
 bp = Blueprint("sales", __name__, url_prefix="/admin/sales")
 
-@bp.route("/")
-@login_required
-def index():
-    return render_template("stub.html", title="Sales", coming="Phase 3")
+from . import routes
