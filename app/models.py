@@ -58,33 +58,40 @@ class User(db.Model, UserMixin):
 
 
 # ---------------------------------------------------------------------------
-# Gallery (tenant)
+# Gallery (tenant) — single row in practice (self-hosted model)
 # ---------------------------------------------------------------------------
 
 class Gallery(db.Model):
     __tablename__ = "gallery"
-    id           = Column(Integer, primary_key=True)
-    name         = Column(String(200), nullable=False)
-    slug         = Column(String(100), unique=True, nullable=False)
-    address      = Column(Text)
-    city         = Column(String(100))
-    country      = Column(String(2), default="CH")   # ISO 3166-1 alpha-2
-    phone        = Column(String(50))
-    email        = Column(String(255))
-    website      = Column(String(255))
-    currency     = Column(String(3), default="CHF")
-    locale       = Column(String(10), default="de")  # de, fr, it, en
-    active       = Column(Boolean, default=True)
-    created_at   = Column(DateTime, default=now_utc)
-    updated_at   = Column(DateTime, default=now_utc, onupdate=now_utc)
+    id                    = Column(Integer, primary_key=True)
+    name                  = Column(String(200), nullable=False)
+    public_name           = Column(String(200))           # Display name on public site
+    slug                  = Column(String(100), unique=True, nullable=False)
+    tagline               = Column(String(300))           # Short line under logo
+    about_text            = Column(Text)                  # About page body
+    address               = Column(Text)
+    city                  = Column(String(100))
+    country               = Column(String(2), default="CH")
+    phone                 = Column(String(50))
+    email                 = Column(String(255))           # Internal/admin email
+    contact_email         = Column(String(255))           # Public contact email
+    website               = Column(String(255))
+    website_custom_domain = Column(String(255))           # e.g. gallery.ch
+    instagram_url         = Column(String(255))
+    currency              = Column(String(3), default="CHF")
+    locale                = Column(String(10), default="de")
+    active                = Column(Boolean, default=True)
+    created_at            = Column(DateTime, default=now_utc)
+    updated_at            = Column(DateTime, default=now_utc, onupdate=now_utc)
 
-    users        = relationship("User", back_populates="gallery")
-    artists      = relationship("Artist", back_populates="gallery")
-    artworks     = relationship("Artwork", back_populates="gallery")
-    contacts     = relationship("Contact", back_populates="gallery")
-    exhibitions  = relationship("Exhibition", back_populates="gallery")
-    sales        = relationship("Sale", back_populates="gallery")
-    art_fairs    = relationship("ArtFair", back_populates="gallery")
+    users                 = relationship("User", back_populates="gallery")
+    artists               = relationship("Artist", back_populates="gallery")
+    artworks              = relationship("Artwork", back_populates="gallery")
+    contacts              = relationship("Contact", back_populates="gallery")
+    exhibitions           = relationship("Exhibition", back_populates="gallery")
+    sales                 = relationship("Sale", back_populates="gallery")
+    art_fairs             = relationship("ArtFair", back_populates="gallery")
+    viewing_rooms         = relationship("ViewingRoom", back_populates="gallery")
 
 
 # ---------------------------------------------------------------------------
@@ -118,7 +125,7 @@ class Contact(db.Model):
     __tablename__ = "contact"
     id             = Column(Integer, primary_key=True)
     tenant_id      = Column(Integer, ForeignKey("gallery.id"), nullable=False)
-    contact_type   = Column(String(20), default="individual")  # individual | institution
+    contact_type   = Column(String(20), default="individual")
     first_name     = Column(String(100))
     last_name      = Column(String(100))
     organisation   = Column(String(200))
@@ -147,7 +154,6 @@ class Artwork(db.Model):
     tenant_id        = Column(Integer, ForeignKey("gallery.id"), nullable=False)
     artist_id        = Column(Integer, ForeignKey("artist.id"), nullable=True)
 
-    # Core fields
     title            = Column(String(500), nullable=False)
     year_from        = Column(Integer)
     year_to          = Column(Integer)
@@ -155,7 +161,6 @@ class Artwork(db.Model):
     dimensions       = Column(Text)
     description      = Column(Text)
 
-    # Seed / external source fields
     external_id      = Column(String(100))
     source_url       = Column(Text)
     inventory_number = Column(String(100))
@@ -166,17 +171,10 @@ class Artwork(db.Model):
     credit_line      = Column(Text)
     source_updated_at = Column(DateTime(timezone=True))
 
-    # Status state machine: available | reserved | sold |
-    #                        on_consignment | on_loan
     status           = Column(String(30), default="available", nullable=False)
-
-    # Pricing
     price            = Column(Numeric(12, 2))
     currency         = Column(String(3), default="CHF")
-
-    # Ownership
     is_consignment   = Column(Boolean, default=False)
-
     active           = Column(Boolean, default=True)
     created_at       = Column(DateTime, default=now_utc)
     updated_at       = Column(DateTime, default=now_utc, onupdate=now_utc)
@@ -196,6 +194,7 @@ class Artwork(db.Model):
                                     uselist=False)
     exhibition_links = relationship("ExhibitionArtwork", back_populates="artwork")
     sale_lines       = relationship("SaleLineItem", back_populates="artwork")
+    viewing_room_links = relationship("ViewingRoomArtwork", back_populates="artwork")
 
 
 # ---------------------------------------------------------------------------
@@ -206,8 +205,8 @@ class ArtworkImage(db.Model):
     __tablename__ = "artwork_image"
     id           = Column(Integer, primary_key=True)
     artwork_id   = Column(Integer, ForeignKey("artwork.id"), nullable=False)
-    minio_key    = Column(Text)           # MinIO object key (Phase 7+)
-    iiif_url     = Column(Text)           # AIC IIIF URL (seed data, Phases 1-6)
+    minio_key    = Column(Text)
+    iiif_url     = Column(Text)
     is_primary   = Column(Boolean, default=False)
     sort_order   = Column(Integer, default=0)
     created_at   = Column(DateTime, default=now_utc)
@@ -225,16 +224,14 @@ class ArtworkProvenance(db.Model):
     artwork_id     = Column(Integer, ForeignKey("artwork.id"), nullable=False)
     tenant_id      = Column(Integer, ForeignKey("gallery.id"), nullable=False)
     event_type     = Column(String(50), nullable=False)
-    # acquisition | sale | loan | exhibition | restitution | import | export
     event_date     = Column(DateTime(timezone=True))
     event_date_end = Column(DateTime(timezone=True))
     description    = Column(Text)
-    source_name    = Column(String(200))   # previous owner / institution
+    source_name    = Column(String(200))
     source_country = Column(String(2))
-    document_key   = Column(Text)          # MinIO key for scan upload
+    document_key   = Column(Text)
     recorded_by_id = Column(Integer, ForeignKey("user.id"))
     recorded_at    = Column(DateTime, default=now_utc, nullable=False)
-    # No update — append-only
 
     artwork        = relationship("Artwork", back_populates="provenance")
     recorded_by    = relationship("User")
@@ -251,7 +248,7 @@ class ArtworkConsignment(db.Model):
                                 nullable=False, unique=True)
     tenant_id          = Column(Integer, ForeignKey("gallery.id"), nullable=False)
     consignor_id       = Column(Integer, ForeignKey("contact.id"), nullable=True)
-    gallery_split_pct  = Column(Numeric(5, 2), nullable=False)  # e.g. 50.00
+    gallery_split_pct  = Column(Numeric(5, 2), nullable=False)
     start_date         = Column(DateTime(timezone=True))
     end_date           = Column(DateTime(timezone=True))
     terms              = Column(Text)
@@ -312,7 +309,6 @@ class Sale(db.Model):
     art_fair_id    = Column(Integer, ForeignKey("art_fair.id"), nullable=True)
     sale_date      = Column(DateTime(timezone=True), default=now_utc)
     status         = Column(String(30), default="draft")
-    # draft | confirmed | invoiced | paid | cancelled
     notes          = Column(Text)
     created_by_id  = Column(Integer, ForeignKey("user.id"))
     created_at     = Column(DateTime, default=now_utc)
@@ -333,8 +329,8 @@ class SaleLineItem(db.Model):
     buyer_id            = Column(Integer, ForeignKey("contact.id"), nullable=True)
     price               = Column(Numeric(12, 2), nullable=False)
     currency            = Column(String(3), default="CHF")
-    gallery_net         = Column(Numeric(12, 2))   # after consignment split
-    consignor_net       = Column(Numeric(12, 2))   # consignor payout
+    gallery_net         = Column(Numeric(12, 2))
+    consignor_net       = Column(Numeric(12, 2))
     vat_rate            = Column(Numeric(5, 2), default=0)
     vat_amount          = Column(Numeric(12, 2), default=0)
 
@@ -361,6 +357,44 @@ class ArtFair(db.Model):
 
     gallery      = relationship("Gallery", back_populates="art_fairs")
     sales        = relationship("Sale", back_populates="art_fair")
+
+
+# ---------------------------------------------------------------------------
+# ViewingRoom (password-protected online exhibition)
+# ---------------------------------------------------------------------------
+
+class ViewingRoom(db.Model):
+    __tablename__ = "viewing_room"
+    id               = Column(Integer, primary_key=True)
+    tenant_id        = Column(Integer, ForeignKey("gallery.id"), nullable=False)
+    title            = Column(String(300), nullable=False)
+    description      = Column(Text)
+    access_code_hash = Column(String(255))        # bcrypt hash of access code
+    is_active        = Column(Boolean, default=False)
+    opens_at         = Column(DateTime(timezone=True))
+    closes_at        = Column(DateTime(timezone=True))
+    created_at       = Column(DateTime, default=now_utc)
+    updated_at       = Column(DateTime, default=now_utc, onupdate=now_utc)
+
+    gallery          = relationship("Gallery", back_populates="viewing_rooms")
+    artworks         = relationship("ViewingRoomArtwork", back_populates="viewing_room",
+                                    cascade="all, delete-orphan")
+
+
+class ViewingRoomArtwork(db.Model):
+    __tablename__ = "viewing_room_artwork"
+    id               = Column(Integer, primary_key=True)
+    viewing_room_id  = Column(Integer, ForeignKey("viewing_room.id"), nullable=False)
+    artwork_id       = Column(Integer, ForeignKey("artwork.id"), nullable=False)
+    sort_order       = Column(Integer, default=0)
+
+    __table_args__ = (
+        UniqueConstraint("viewing_room_id", "artwork_id",
+                         name="uq_viewing_room_artwork"),
+    )
+
+    viewing_room     = relationship("ViewingRoom", back_populates="artworks")
+    artwork          = relationship("Artwork", back_populates="viewing_room_links")
 
 
 # ---------------------------------------------------------------------------
