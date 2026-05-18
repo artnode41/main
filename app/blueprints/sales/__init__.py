@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template
 from flask_security import login_required
 
-bp = Blueprint("sales", __name__, url_prefix="/sales")
+bp = Blueprint("sales", __name__, url_prefix="/admin/sales")
 
 @bp.route("/")
 @login_required
