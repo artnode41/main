@@ -12,3 +12,4 @@ argon2-cffi==23.1.0
 setuptools>=69.0
 Flask-WTF==1.2.1
 pydyf==0.10.0
+requests==2.32.3

@@ -19,6 +19,8 @@ def create_app():
     app.config["SECURITY_SEND_REGISTER_EMAIL"] = False
     app.config["SECURITY_REGISTERABLE"] = False
     app.config["WTF_CSRF_SECRET_KEY"] = os.environ.get("SECRET_KEY", "csrf-secret")
+    app.config["PAYREXX_INSTANCE"] = os.environ.get("PAYREXX_INSTANCE", "")
+    app.config["PAYREXX_API_SECRET"] = os.environ.get("PAYREXX_API_SECRET", "")
 
     db.init_app(app)
     migrate.init_app(app, db)

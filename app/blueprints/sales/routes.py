@@ -63,7 +63,6 @@ def create(artwork_id):
             gallery_net = (price * gallery_pct).quantize(Decimal("0.01"))
             consignor_net = (price - gallery_net).quantize(Decimal("0.01"))
 
-        # Generate sequential invoice number: INV-YYYY-NNNN
         year = datetime.now(timezone.utc).year
         last_sale = Sale.query.filter(
             Sale.tenant_id == current_user.tenant_id,
@@ -155,6 +154,55 @@ def invoice(id):
         mimetype="application/pdf",
         headers={"Content-Disposition": f"attachment; filename={filename}"}
     )
+
+
+@bp.route("/<int:id>/payment-link", methods=["POST"])
+@login_required
+def payment_link(id):
+    from flask import current_app
+    from ...payments.payrexx import get_payment_provider
+
+    sale = Sale.query.filter_by(
+        id=id, tenant_id=current_user.tenant_id
+    ).first_or_404()
+
+    if not sale.line_items:
+        flash("No line items found.", "error")
+        return redirect(url_for("sales.detail", id=sale.id))
+
+    line = sale.line_items[0]
+    provider = get_payment_provider(current_app)
+
+    if not provider:
+        flash("Payment provider not configured. Add PAYREXX_INSTANCE and PAYREXX_API_SECRET to .env", "error")
+        return redirect(url_for("sales.detail", id=sale.id))
+
+    try:
+        total = line.price + (line.vat_amount or 0)
+        buyer_email = line.buyer.email if line.buyer else None
+        buyer_name = None
+        if line.buyer:
+            if line.buyer.contact_type == "individual":
+                buyer_name = f"{line.buyer.first_name} {line.buyer.last_name}".strip()
+            else:
+                buyer_name = line.buyer.organisation
+
+        result = provider.create_payment_link(
+            amount=total,
+            currency=line.currency,
+            reference=sale.invoice_number or str(sale.id),
+            description=line.artwork.title[:100],
+            buyer_email=buyer_email,
+            buyer_name=buyer_name,
+        )
+        sale.payment_link_url = result.payment_url
+        sale.payment_provider_id = result.payment_id
+        db.session.commit()
+        flash(f"Payment link created: {result.payment_url}", "success")
+    except Exception as e:
+        flash(f"Payment link error: {str(e)}", "error")
+
+    return redirect(url_for("sales.detail", id=sale.id))
 
 
 @bp.route("/<int:id>/cancel", methods=["POST"])

@@ -13,6 +13,13 @@
   <div class="page-actions">
     <span class="badge badge-{{ sale.status }}">{{ sale.status }}</span>
     {% if sale.status == "confirmed" %}
+    {% if sale.payment_link_url %}
+    <a href="{{ sale.payment_link_url }}" target="_blank" class="btn btn-secondary" style="margin-left:8px;">Open Payment Link</a>
+    {% else %}
+    <form method="POST" action="{{ url_for('sales.payment_link', id=sale.id) }}" style="display:inline;">
+      <button type="submit" class="btn btn-secondary" style="margin-left:8px;">Generate Payment Link</button>
+    </form>
+    {% endif %}
     <a href="{{ url_for('sales.invoice', id=sale.id) }}" class="btn btn-primary" style="margin-left:8px;">Download Invoice</a>
     <form method="POST" action="{{ url_for('sales.cancel', id=sale.id) }}"
           onsubmit="return confirm('Cancel this sale? Artwork will be set back to available.')"

@@ -314,6 +314,8 @@ class Sale(db.Model):
     invoice_date   = Column(DateTime(timezone=True))
     delivery_date  = Column(DateTime(timezone=True))
     vat_scheme     = Column(String(20), default="standard")
+    payment_link_url = Column(Text)
+    payment_provider_id = Column(String(100))
     sale_date      = Column(DateTime(timezone=True), default=now_utc)
     status         = Column(String(30), default="draft")
     notes          = Column(Text)
