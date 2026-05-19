@@ -281,6 +281,9 @@ img { display: block; max-width: 100%; }
 .badge-sold         { background: var(--status-sold-bg);         color: var(--status-sold-fg); }
 .badge-on_loan      { background: var(--status-loan-bg);         color: var(--status-loan-fg); }
 .badge-on_consignment { background: var(--status-consignment-bg); color: var(--status-consignment-fg); }
+.badge-on_hold { background: #fff3cd; color: #856404; }
+.badge-paid { background: #d1ecf1; color: #0c5460; }
+.badge-confirmed { background: #e8f5e9; color: #2e6b35; }
 
 /* ── Artwork Grid ───────────────────────────────────────────────────────── */
 .artwork-grid {

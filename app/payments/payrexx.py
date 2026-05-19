@@ -22,16 +22,8 @@ class PayrexxProvider(PaymentProvider):
         self.api_secret = api_secret
 
     def _sign(self, params: dict) -> str:
-        """
-        Generate HMAC-SHA256 signature.
-        Params must NOT include ApiSignature itself.
-        Uses RFC 1738 encoding (spaces as +).
-        """
-        # Do NOT sort - preserve insertion order like PHP http_build_query
-        query = urllib.parse.urlencode(
-            params,
-            quote_via=urllib.parse.quote
-        )
+        """Generate HMAC-SHA256 signature. Preserves insertion order."""
+        query = urllib.parse.urlencode(params, quote_via=urllib.parse.quote)
         raw = hmac.new(
             self.api_secret.encode("utf-8"),
             query.encode("utf-8"),
@@ -49,7 +41,6 @@ class PayrexxProvider(PaymentProvider):
         buyer_name: Optional[str] = None,
         return_url: Optional[str] = None,
     ) -> PaymentLink:
-        # Payrexx expects amount in minor units (cents)
         amount_minor = int(amount * 100)
 
         params = {
@@ -72,7 +63,6 @@ class PayrexxProvider(PaymentProvider):
             params["successRedirectUrl"] = return_url
             params["cancelRedirectUrl"] = return_url
 
-        # Sign params WITHOUT ApiSignature
         params["ApiSignature"] = self._sign(params)
 
         url = f"{self.BASE_URL}/Invoice/?instance={self.instance}"
@@ -80,12 +70,10 @@ class PayrexxProvider(PaymentProvider):
         response.raise_for_status()
 
         data = response.json()
-
         if data.get("status") != "success":
             raise ValueError(f"Payrexx error: {data.get('message', 'Unknown error')}")
 
         invoice = data["data"][0]
-
         return PaymentLink(
             provider="payrexx",
             payment_url=invoice["link"],
@@ -94,6 +82,14 @@ class PayrexxProvider(PaymentProvider):
             currency=currency,
             reference=reference,
         )
+
+    def delete_payment_link(self, payment_id: str) -> bool:
+        """Deactivate/delete a Payrexx invoice."""
+        params = {}
+        params["ApiSignature"] = self._sign(params)
+        url = f"{self.BASE_URL}/Invoice/{payment_id}/?instance={self.instance}"
+        response = requests.delete(url, params=params, timeout=15)
+        return response.status_code == 200
 
     def get_payment_status(self, payment_id: str) -> str:
         url = f"{self.BASE_URL}/Invoice/{payment_id}/?instance={self.instance}"

@@ -34,6 +34,11 @@ def create_app():
     def index():
         return redirect(url_for("artworks.index"))
 
+    @app.route("/webhook/payrexx", methods=["POST"])
+    def payrexx_webhook():
+        from .blueprints.sales.routes import webhook_payrexx
+        return webhook_payrexx()
+
     @app.route("/admin/login")
     def admin_login_redirect():
         return redirect("/login")

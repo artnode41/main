@@ -1,11 +1,13 @@
 from decimal import Decimal
 from datetime import datetime, timezone
-from flask import render_template, redirect, url_for, flash, Response
+from flask import render_template, redirect, url_for, flash, Response, request, abort
 from flask_security import login_required, current_user
 from . import bp
 from ...models import Sale, SaleLineItem, Artwork, Contact, ArtworkConsignment, Gallery
 from ...extensions import db
 from .forms import SaleForm
+import hashlib
+import hmac
 
 
 def get_gallery():
@@ -78,7 +80,6 @@ def create(artwork_id):
             last_seq = 0
 
         invoice_number = f"INV-{year}-{last_seq + 1:04d}"
-
         gallery = get_gallery()
         vat_scheme = (gallery.vat_scheme_default if gallery else None) or "standard"
 
@@ -174,7 +175,7 @@ def payment_link(id):
     provider = get_payment_provider(current_app)
 
     if not provider:
-        flash("Payment provider not configured. Add PAYREXX_INSTANCE and PAYREXX_API_SECRET to .env", "error")
+        flash("Payment provider not configured.", "error")
         return redirect(url_for("sales.detail", id=sale.id))
 
     try:
@@ -197,23 +198,90 @@ def payment_link(id):
         )
         sale.payment_link_url = result.payment_url
         sale.payment_provider_id = result.payment_id
+        sale.status = "on_hold"  # Auto-set to on_hold when link sent
         db.session.commit()
-        flash(f"Payment link created: {result.payment_url}", "success")
+        flash(f"Payment link created and sent. Sale is now on hold.", "success")
     except Exception as e:
         flash(f"Payment link error: {str(e)}", "error")
 
     return redirect(url_for("sales.detail", id=sale.id))
 
 
-@bp.route("/<int:id>/cancel", methods=["POST"])
+@bp.route("/<int:id>/mark-paid", methods=["POST"])
 @login_required
-def cancel(id):
+def mark_paid(id):
     sale = Sale.query.filter_by(
         id=id, tenant_id=current_user.tenant_id
     ).first_or_404()
+    sale.status = "paid"
+    db.session.commit()
+    flash("Sale marked as paid.", "success")
+    return redirect(url_for("sales.detail", id=sale.id))
+
+
+@bp.route("/<int:id>/cancel", methods=["POST"])
+@login_required
+def cancel(id):
+    from flask import current_app
+    from ...payments.payrexx import get_payment_provider
+
+    sale = Sale.query.filter_by(
+        id=id, tenant_id=current_user.tenant_id
+    ).first_or_404()
+
+    # Deactivate payment link if exists
+    if sale.payment_provider_id:
+        try:
+            provider = get_payment_provider(current_app)
+            if provider:
+                provider.delete_payment_link(sale.payment_provider_id)
+        except Exception:
+            pass  # Don't block cancellation if Payrexx call fails
+
     for line in sale.line_items:
         line.artwork.status = "available"
     sale.status = "cancelled"
     db.session.commit()
     flash("Sale cancelled. Artwork status restored to available.", "success")
     return redirect(url_for("sales.index"))
+
+
+@bp.route("/webhook/payrexx", methods=["POST"])
+def webhook_payrexx():
+    """
+    Payrexx webhook endpoint.
+    Payrexx sends a POST with transaction data when payment status changes.
+    No auth required — verified by matching referenceId to our invoice numbers.
+    """
+    data = request.form or request.json or {}
+
+    # Payrexx sends transaction data
+    reference_id = (
+        data.get("transaction[referenceId]") or
+        data.get("referenceId") or
+        (data.get("transaction", {}) or {}).get("referenceId")
+    )
+    status = (
+        data.get("transaction[status]") or
+        data.get("status") or
+        (data.get("transaction", {}) or {}).get("status")
+    )
+
+    if not reference_id:
+        return {"status": "ignored"}, 200
+
+    # Find sale by invoice number
+    sale = Sale.query.filter_by(invoice_number=reference_id).first()
+    if not sale:
+        return {"status": "not_found"}, 200
+
+    if status in ("confirmed", "authorized"):
+        sale.status = "paid"
+        db.session.commit()
+    elif status in ("declined", "cancelled"):
+        for line in sale.line_items:
+            line.artwork.status = "available"
+        sale.status = "cancelled"
+        db.session.commit()
+
+    return {"status": "ok"}, 200

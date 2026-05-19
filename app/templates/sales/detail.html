@@ -11,49 +11,65 @@
     <div class="page-subtitle">{{ sale.created_at.strftime("%d %B %Y") }}</div>
   </div>
   <div class="page-actions">
-    <span class="badge badge-{{ sale.status }}">{{ sale.status }}</span>
+    <span class="badge badge-{{ sale.status }}">{{ sale.status|replace("_", " ") }}</span>
+
+    {% if sale.status in ["confirmed", "on_hold", "paid"] %}
+    <a href="{{ url_for('sales.invoice', id=sale.id) }}" class="btn btn-secondary" style="margin-left:8px;">
+      Download Invoice
+    </a>
+    {% endif %}
+
     {% if sale.status == "confirmed" %}
-    {% if sale.payment_link_url %}
-    <a href="{{ sale.payment_link_url }}" target="_blank" class="btn btn-secondary" style="margin-left:8px;">Open Payment Link</a>
-    {% else %}
-    <form method="POST" action="{{ url_for('sales.payment_link', id=sale.id) }}" style="display:inline;">
-      <button type="submit" class="btn btn-secondary" style="margin-left:8px;">Generate Payment Link</button>
-    </form>
+      {% if sale.payment_link_url %}
+      <a href="{{ sale.payment_link_url }}" target="_blank" class="btn btn-primary" style="margin-left:8px;">
+        Open Payment Link
+      </a>
+      {% else %}
+      <form method="POST" action="{{ url_for('sales.payment_link', id=sale.id) }}" style="display:inline;">
+        <button type="submit" class="btn btn-primary" style="margin-left:8px;">Generate Payment Link</button>
+      </form>
+      {% endif %}
+      <form method="POST" action="{{ url_for('sales.cancel', id=sale.id) }}"
+            onsubmit="return confirm('Cancel this sale?')" style="display:inline;">
+        <button type="submit" class="btn btn-secondary" style="margin-left:8px;">Cancel Sale</button>
+      </form>
     {% endif %}
-    <a href="{{ url_for('sales.invoice', id=sale.id) }}" class="btn btn-primary" style="margin-left:8px;">Download Invoice</a>
-    <form method="POST" action="{{ url_for('sales.cancel', id=sale.id) }}"
-          onsubmit="return confirm('Cancel this sale? Artwork will be set back to available.')"
-          style="display:inline;">
-      
-      <button type="submit" class="btn btn-secondary" style="margin-left:8px;">Cancel Sale</button>
-    </form>
+
+    {% if sale.status == "on_hold" %}
+      <a href="{{ sale.payment_link_url }}" target="_blank" class="btn btn-primary" style="margin-left:8px;">
+        Open Payment Link
+      </a>
+      <form method="POST" action="{{ url_for('sales.mark_paid', id=sale.id) }}" style="display:inline;">
+        <button type="submit" class="btn btn-secondary" style="margin-left:8px;">Mark as Paid</button>
+      </form>
+      <form method="POST" action="{{ url_for('sales.cancel', id=sale.id) }}"
+            onsubmit="return confirm('Cancel sale and deactivate payment link?')" style="display:inline;">
+        <button type="submit" class="btn btn-secondary" style="margin-left:8px;">Cancel &amp; Deactivate</button>
+      </form>
     {% endif %}
+
   </div>
 </div>
 
 <div class="page-body">
   <div style="display:grid;grid-template-columns:1fr 380px;gap:var(--space-2xl);align-items:start;">
 
-    <!-- Line items -->
     <div>
       {% for line in sale.line_items %}
       <div style="background:var(--surface);border:1px solid var(--border);padding:var(--space-xl);margin-bottom:var(--space-lg);">
         <div style="font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:var(--space-lg);">Artwork</div>
-
         <div style="display:flex;gap:var(--space-lg);align-items:start;">
           {% set img = line.artwork.images[0] if line.artwork.images else none %}
           {% if img and img.iiif_url %}
             <img src="{{ img.iiif_url }}" style="width:100px;height:100px;object-fit:cover;background:var(--border-light);">
           {% endif %}
           <div style="flex:1;">
-            <a href="{{ url_for('artworks.detail', id=line.artwork.id) }}"
-               style="font-size:1rem;font-weight:400;">{{ line.artwork.title }}</a>
+            <a href="{{ url_for('artworks.detail', id=line.artwork.id) }}" style="font-size:1rem;font-weight:400;">{{ line.artwork.title }}</a>
             <div style="font-size:0.85rem;font-style:italic;color:var(--text-secondary);font-family:var(--font-display);">
               {% if line.artwork.artist %}{{ line.artwork.artist.first_name }} {{ line.artwork.artist.last_name }}{% endif %}
             </div>
           </div>
         </div>
-
         <div style="margin-top:var(--space-lg);border-top:1px solid var(--border-light);padding-top:var(--space-lg);">
           {% macro row(label, value) %}
           <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border-light);">
@@ -61,7 +77,6 @@
             <span style="font-size:0.85rem;">{{ value }}</span>
           </div>
           {% endmacro %}
-
           {% if line.buyer %}
             {{ row("Buyer", line.buyer.last_name ~ " " ~ (line.buyer.first_name or "") if line.buyer.contact_type == "individual" else line.buyer.organisation) }}
           {% endif %}
@@ -75,29 +90,35 @@
           {% endif %}
           <div style="display:flex;justify-content:space-between;padding:12px 0;">
             <span style="font-size:0.85rem;font-weight:500;">Total</span>
-            <span style="font-size:0.85rem;font-weight:500;">
-              {{ line.currency }} {{ "{:,.2f}".format(line.price + (line.vat_amount or 0)) }}
-            </span>
+            <span style="font-size:0.85rem;font-weight:500;">{{ line.currency }} {{ "{:,.2f}".format(line.price + (line.vat_amount or 0)) }}</span>
           </div>
         </div>
       </div>
       {% endfor %}
     </div>
 
-    <!-- Sale summary -->
     <div style="background:var(--surface);border:1px solid var(--border);padding:var(--space-xl);">
       <div style="font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:var(--space-lg);">Summary</div>
-
       <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border-light);">
         <span style="font-size:0.78rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;">Status</span>
-        <span class="badge badge-{{ sale.status }}">{{ sale.status }}</span>
+        <span class="badge badge-{{ sale.status }}">{{ sale.status|replace("_", " ") }}</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border-light);">
+        <span style="font-size:0.78rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;">Invoice No.</span>
+        <span style="font-size:0.85rem;">{{ sale.invoice_number or "—" }}</span>
       </div>
       <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border-light);">
         <span style="font-size:0.78rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;">Date</span>
         <span style="font-size:0.85rem;">{{ sale.created_at.strftime("%d %b %Y") }}</span>
       </div>
-      {% if sale.notes %}
+      {% if sale.payment_link_url %}
       <div style="padding:10px 0;border-bottom:1px solid var(--border-light);">
+        <div style="font-size:0.78rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px;">Payment Link</div>
+        <a href="{{ sale.payment_link_url }}" target="_blank" style="font-size:0.78rem;color:var(--text-secondary);word-break:break-all;">{{ sale.payment_link_url }}</a>
+      </div>
+      {% endif %}
+      {% if sale.notes %}
+      <div style="padding:10px 0;">
         <div style="font-size:0.78rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px;">Notes</div>
         <p style="font-size:0.85rem;color:var(--text-secondary);">{{ sale.notes }}</p>
       </div>
