@@ -6,14 +6,11 @@
 <div class="page-header">
   <div>
     <a href="{{ url_for('artworks.index') }}" style="font-size:0.75rem;color:var(--text-muted);letter-spacing:0.06em;text-transform:uppercase;">&larr; Artworks</a>
-    <div class="page-title" style="margin-top:4px;">
-      {% if artwork %}Edit Artwork{% else %}Add Artwork{% endif %}
-    </div>
+    <div class="page-title" style="margin-top:4px;">{% if artwork %}Edit Artwork{% else %}Add Artwork{% endif %}</div>
   </div>
   {% if artwork %}
   <div class="page-actions">
-    <form method="POST" action="{{ url_for('artworks.delete', id=artwork.id) }}"
-          onsubmit="return confirm('Remove this artwork from the collection?')">
+    <form method="POST" action="{{ url_for('artworks.delete', id=artwork.id) }}" onsubmit="return confirm('Remove this artwork?')">
       {{ form.hidden_tag() }}
       <button type="submit" class="btn btn-secondary">Remove</button>
     </form>
@@ -24,114 +21,81 @@
 <div class="page-body">
   <form method="POST" action="">
     {{ form.hidden_tag() }}
-
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-2xl);align-items:start;">
 
-      <!-- Left column -->
       <div>
         <div style="background:var(--surface);border:1px solid var(--border);padding:var(--space-xl);margin-bottom:var(--space-lg);">
           <div style="font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:var(--space-lg);">Basic Information</div>
-
           <div class="form-group">
             {{ form.title.label(class="form-label") }}
             {{ form.title(class="form-control", placeholder="Artwork title") }}
-            {% if form.title.errors %}
-              <div style="color:#c0392b;font-size:0.78rem;margin-top:4px;">{{ form.title.errors[0] }}</div>
-            {% endif %}
+            {% if form.title.errors %}<div style="color:#c0392b;font-size:0.78rem;margin-top:4px;">{{ form.title.errors[0] }}</div>{% endif %}
           </div>
-
           <div class="form-group">
             {{ form.artist_id.label(class="form-label") }}
             {{ form.artist_id(class="form-control") }}
           </div>
-
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-md);">
-            <div class="form-group">
-              {{ form.year_from.label(class="form-label") }}
-              {{ form.year_from(class="form-control", placeholder="e.g. 1953") }}
+            <div class="form-group">{{ form.year_from.label(class="form-label") }}{{ form.year_from(class="form-control", placeholder="e.g. 1953") }}</div>
+            <div class="form-group">{{ form.year_to.label(class="form-label") }}{{ form.year_to(class="form-control", placeholder="if range") }}</div>
+          </div>
+          <div class="form-group">{{ form.medium.label(class="form-label") }}{{ form.medium(class="form-control", rows=2, placeholder="e.g. Oil on canvas") }}</div>
+          <div class="form-group">{{ form.dimensions.label(class="form-label") }}{{ form.dimensions(class="form-control", rows=2, placeholder="e.g. 100 x 80 cm") }}</div>
+          <div class="form-group">{{ form.description.label(class="form-label") }}{{ form.description(class="form-control", rows=3) }}</div>
+        </div>
+
+        <div style="background:var(--surface);border:1px solid var(--border);padding:var(--space-xl);margin-bottom:var(--space-lg);">
+          <div style="font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:var(--space-lg);">Ownership & Acquisition</div>
+          <div class="form-group">{{ form.ownership_type.label(class="form-label") }}{{ form.ownership_type(class="form-control", id="ownershipType") }}</div>
+          <div id="acquisitionFields">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-md);">
+              <div class="form-group">{{ form.acquisition_cost.label(class="form-label") }}{{ form.acquisition_cost(class="form-control", placeholder="0.00") }}</div>
+              <div class="form-group">{{ form.acquisition_date.label(class="form-label") }}{{ form.acquisition_date(class="form-control") }}</div>
             </div>
-            <div class="form-group">
-              {{ form.year_to.label(class="form-label") }}
-              {{ form.year_to(class="form-control", placeholder="if range") }}
-            </div>
-          </div>
-
-          <div class="form-group">
-            {{ form.medium.label(class="form-label") }}
-            {{ form.medium(class="form-control", rows=2, placeholder="e.g. Oil on canvas") }}
-          </div>
-
-          <div class="form-group">
-            {{ form.dimensions.label(class="form-label") }}
-            {{ form.dimensions(class="form-control", rows=2, placeholder="e.g. 100 × 80 cm") }}
-          </div>
-
-          <div class="form-group">
-            {{ form.description.label(class="form-label") }}
-            {{ form.description(class="form-control", rows=4, placeholder="Optional description or notes") }}
+            <p style="font-size:0.78rem;color:var(--text-muted);margin-top:-8px;margin-bottom:var(--space-md);">Used to calculate gallery profit on sale.</p>
           </div>
         </div>
       </div>
 
-      <!-- Right column -->
       <div>
         <div style="background:var(--surface);border:1px solid var(--border);padding:var(--space-xl);margin-bottom:var(--space-lg);">
           <div style="font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:var(--space-lg);">Classification & Status</div>
-
-          <div class="form-group">
-            {{ form.object_type.label(class="form-label") }}
-            {{ form.object_type(class="form-control") }}
-          </div>
-
-          <div class="form-group">
-            {{ form.status.label(class="form-label") }}
-            {{ form.status(class="form-control") }}
-          </div>
-
-          <div class="form-group">
-            {{ form.inventory_number.label(class="form-label") }}
-            {{ form.inventory_number(class="form-control", placeholder="e.g. 2024-001") }}
-          </div>
+          <div class="form-group">{{ form.object_type.label(class="form-label") }}{{ form.object_type(class="form-control") }}</div>
+          <div class="form-group">{{ form.status.label(class="form-label") }}{{ form.status(class="form-control") }}</div>
+          <div class="form-group">{{ form.inventory_number.label(class="form-label") }}{{ form.inventory_number(class="form-control", placeholder="e.g. 2024-001") }}</div>
         </div>
 
         <div style="background:var(--surface);border:1px solid var(--border);padding:var(--space-xl);margin-bottom:var(--space-lg);">
-          <div style="font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:var(--space-lg);">Pricing</div>
-
+          <div style="font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:var(--space-lg);">Asking Price</div>
           <div style="display:grid;grid-template-columns:1fr 100px;gap:var(--space-md);">
-            <div class="form-group">
-              {{ form.price.label(class="form-label") }}
-              {{ form.price(class="form-control", placeholder="0.00") }}
-            </div>
-            <div class="form-group">
-              {{ form.currency.label(class="form-label") }}
-              {{ form.currency(class="form-control") }}
-            </div>
+            <div class="form-group">{{ form.price.label(class="form-label") }}{{ form.price(class="form-control", placeholder="0.00") }}</div>
+            <div class="form-group">{{ form.currency.label(class="form-label") }}{{ form.currency(class="form-control") }}</div>
           </div>
         </div>
 
         <div style="background:var(--surface);border:1px solid var(--border);padding:var(--space-xl);margin-bottom:var(--space-lg);">
           <div style="font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:var(--space-lg);">Rights & Attribution</div>
-
-          <div class="form-group">
-            {{ form.rights.label(class="form-label") }}
-            {{ form.rights(class="form-control", placeholder="e.g. Public Domain, CC0") }}
-          </div>
-
-          <div class="form-group">
-            {{ form.credit_line.label(class="form-label") }}
-            {{ form.credit_line(class="form-control", rows=2, placeholder="Acquisition credit text") }}
-          </div>
+          <div class="form-group">{{ form.rights.label(class="form-label") }}{{ form.rights(class="form-control", placeholder="e.g. Public Domain, CC0") }}</div>
+          <div class="form-group">{{ form.credit_line.label(class="form-label") }}{{ form.credit_line(class="form-control", rows=2) }}</div>
         </div>
 
         <div style="display:flex;gap:var(--space-md);justify-content:flex-end;">
           <a href="{{ url_for('artworks.index') }}" class="btn btn-secondary">Cancel</a>
-          <button type="submit" class="btn btn-primary">
-            {% if artwork %}Save Changes{% else %}Add Artwork{% endif %}
-          </button>
+          <button type="submit" class="btn btn-primary">{% if artwork %}Save Changes{% else %}Add Artwork{% endif %}</button>
         </div>
       </div>
 
     </div>
   </form>
 </div>
+
+<script>
+const ownershipSelect = document.getElementById('ownershipType');
+const acquisitionFields = document.getElementById('acquisitionFields');
+function toggleAcquisition() {
+  acquisitionFields.style.display = ownershipSelect.value === 'owned' ? '' : 'none';
+}
+ownershipSelect.addEventListener('change', toggleAcquisition);
+toggleAcquisition();
+</script>
 {% endblock %}

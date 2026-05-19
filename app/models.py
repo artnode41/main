@@ -177,7 +177,10 @@ class Artwork(db.Model):
     status           = Column(String(30), default="available", nullable=False)
     price            = Column(Numeric(12, 2))
     currency         = Column(String(3), default="CHF")
-    is_consignment   = Column(Boolean, default=False)
+    is_consignment   = Column(Boolean, default=False)  # Legacy — use ownership_type
+    ownership_type   = Column(String(20), default="owned")  # owned | consignment
+    acquisition_cost = Column(Numeric(12, 2))               # What gallery paid
+    acquisition_date = Column(DateTime(timezone=True))      # When acquired
     active           = Column(Boolean, default=True)
     created_at       = Column(DateTime, default=now_utc)
     updated_at       = Column(DateTime, default=now_utc, onupdate=now_utc)

@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, TextAreaField, IntegerField, SelectField, DecimalField
+from wtforms import StringField, TextAreaField, IntegerField, SelectField, DecimalField, DateField
 from wtforms.validators import DataRequired, Optional, Length, NumberRange
 
 
@@ -22,6 +22,11 @@ OBJECT_TYPE_CHOICES = [
     ("other", "Other"),
 ]
 
+OWNERSHIP_CHOICES = [
+    ("owned", "Owned outright (gallery purchased)"),
+    ("consignment", "Consignment (artist/owner retains title)"),
+]
+
 
 class ArtworkForm(FlaskForm):
     title = StringField("Title", validators=[DataRequired(), Length(max=500)])
@@ -33,10 +38,13 @@ class ArtworkForm(FlaskForm):
     description = TextAreaField("Description", validators=[Optional()])
     object_type = SelectField("Object Type", choices=OBJECT_TYPE_CHOICES, validators=[Optional()])
     status = SelectField("Status", choices=STATUS_CHOICES, validators=[DataRequired()])
-    price = DecimalField("Price", validators=[Optional()], places=2)
+    price = DecimalField("Asking Price", validators=[Optional()], places=2)
     currency = SelectField("Currency", choices=[
         ("CHF", "CHF"), ("EUR", "EUR"), ("USD", "USD"), ("GBP", "GBP")
     ])
+    ownership_type = SelectField("Ownership", choices=OWNERSHIP_CHOICES)
+    acquisition_cost = DecimalField("Acquisition Cost", validators=[Optional()], places=2)
+    acquisition_date = DateField("Acquisition Date", validators=[Optional()])
     inventory_number = StringField("Inventory Number", validators=[Optional(), Length(max=100)])
     rights = StringField("Rights", validators=[Optional(), Length(max=200)])
     credit_line = TextAreaField("Credit Line", validators=[Optional()])

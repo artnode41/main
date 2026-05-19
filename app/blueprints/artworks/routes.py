@@ -1,10 +1,11 @@
-from flask import render_template, redirect, url_for, flash, request
+from flask import render_template, redirect, url_for, flash
 from flask_security import login_required, current_user
 from . import bp
 from ...models import Artwork, ArtworkImage, Artist, ArtworkProvenance
 from ...extensions import db
 from .forms import ArtworkForm
 from .provenance_forms import ProvenanceForm
+from datetime import datetime, timezone
 
 
 @bp.route("/artworks")
@@ -23,8 +24,7 @@ def index():
 @login_required
 def detail(id):
     artwork = Artwork.query.filter_by(
-        id=id,
-        tenant_id=current_user.tenant_id
+        id=id, tenant_id=current_user.tenant_id
     ).first_or_404()
     return render_template("artworks/detail.html", artwork=artwork)
 
@@ -39,6 +39,7 @@ def create():
     form.artist_id.choices = [(0, "— Select —")] + [
         (a.id, f"{a.last_name}, {a.first_name}") for a in artists
     ]
+
     if form.validate_on_submit():
         artwork = Artwork(
             tenant_id=current_user.tenant_id,
@@ -53,6 +54,10 @@ def create():
             status=form.status.data,
             price=form.price.data,
             currency=form.currency.data,
+            ownership_type=form.ownership_type.data,
+            is_consignment=(form.ownership_type.data == "consignment"),
+            acquisition_cost=form.acquisition_cost.data if form.ownership_type.data == "owned" else None,
+            acquisition_date=datetime.combine(form.acquisition_date.data, datetime.min.time()).replace(tzinfo=timezone.utc) if form.acquisition_date.data and form.ownership_type.data == "owned" else None,
             inventory_number=form.inventory_number.data or None,
             rights=form.rights.data or None,
             credit_line=form.credit_line.data or None,
@@ -61,6 +66,7 @@ def create():
         db.session.commit()
         flash("Artwork added successfully.", "success")
         return redirect(url_for("artworks.detail", id=artwork.id))
+
     return render_template("artworks/form.html", form=form, artwork=None)
 
 
@@ -77,6 +83,7 @@ def edit(id):
     form.artist_id.choices = [(0, "— Select —")] + [
         (a.id, f"{a.last_name}, {a.first_name}") for a in artists
     ]
+
     if form.validate_on_submit():
         artwork.title = form.title.data
         artwork.artist_id = form.artist_id.data if form.artist_id.data != 0 else None
@@ -89,12 +96,17 @@ def edit(id):
         artwork.status = form.status.data
         artwork.price = form.price.data
         artwork.currency = form.currency.data
+        artwork.ownership_type = form.ownership_type.data
+        artwork.is_consignment = (form.ownership_type.data == "consignment")
+        artwork.acquisition_cost = form.acquisition_cost.data if form.ownership_type.data == "owned" else None
+        artwork.acquisition_date = datetime.combine(form.acquisition_date.data, datetime.min.time()).replace(tzinfo=timezone.utc) if form.acquisition_date.data and form.ownership_type.data == "owned" else None
         artwork.inventory_number = form.inventory_number.data or None
         artwork.rights = form.rights.data or None
         artwork.credit_line = form.credit_line.data or None
         db.session.commit()
         flash("Artwork updated successfully.", "success")
         return redirect(url_for("artworks.detail", id=artwork.id))
+
     return render_template("artworks/form.html", form=form, artwork=artwork)
 
 

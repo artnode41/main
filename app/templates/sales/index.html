@@ -1,7 +1,5 @@
 {% extends "base.html" %}
-
 {% block title %}Sales — ArtNode{% endblock %}
-
 {% block content %}
 <div class="page-header">
   <div>
@@ -11,7 +9,24 @@
 </div>
 
 <div class="page-body">
+
+  <!-- Financial summary -->
   {% if sales %}
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-lg);margin-bottom:var(--space-xl);">
+    <div style="background:var(--surface);border:1px solid var(--border);padding:var(--space-lg);">
+      <div style="font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px;">Total Revenue</div>
+      <div style="font-size:1.4rem;font-family:var(--font-display);font-weight:300;">CHF {{ "{:,.0f}".format(total_revenue) }}</div>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);padding:var(--space-lg);">
+      <div style="font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px;">Gallery Profit / Net</div>
+      <div style="font-size:1.4rem;font-family:var(--font-display);font-weight:300;color:var(--status-available-fg);">CHF {{ "{:,.0f}".format(total_profit) }}</div>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);padding:var(--space-lg);">
+      <div style="font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px;">Consignor Payables</div>
+      <div style="font-size:1.4rem;font-family:var(--font-display);font-weight:300;color:var(--status-reserved-fg);">CHF {{ "{:,.0f}".format(total_consignor) }}</div>
+    </div>
+  </div>
+
   <table style="width:100%;border-collapse:collapse;">
     <thead>
       <tr style="border-bottom:2px solid var(--border);">
@@ -19,7 +34,8 @@
         <th style="text-align:left;padding:8px 12px;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);font-weight:400;">Artwork</th>
         <th style="text-align:left;padding:8px 12px;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);font-weight:400;">Buyer</th>
         <th style="text-align:left;padding:8px 12px;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);font-weight:400;">Date</th>
-        <th style="text-align:right;padding:8px 12px;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);font-weight:400;">Amount</th>
+        <th style="text-align:right;padding:8px 12px;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);font-weight:400;">Price</th>
+        <th style="text-align:right;padding:8px 12px;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);font-weight:400;">Gallery Net</th>
         <th style="text-align:left;padding:8px 12px;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);font-weight:400;">Status</th>
       </tr>
     </thead>
@@ -30,26 +46,29 @@
           onclick="window.location='{{ url_for('sales.detail', id=sale.id) }}'">
         <td style="padding:14px 12px;font-size:0.85rem;color:var(--text-muted);">#{{ sale.id }}</td>
         <td style="padding:14px 12px;font-size:0.88rem;">
-          {% if line %}{{ line.artwork.title|truncate(40) }}{% endif %}
+          {% if line %}{{ line.artwork.title|truncate(35) }}{% endif %}
         </td>
         <td style="padding:14px 12px;font-size:0.85rem;color:var(--text-secondary);">
           {% if line and line.buyer %}
-            {% if line.buyer.contact_type == "individual" %}
-              {{ line.buyer.last_name }} {{ line.buyer.first_name }}
+            {% if line.buyer.contact_type == "individual" %}{{ line.buyer.last_name }} {{ line.buyer.first_name }}
+            {% else %}{{ line.buyer.organisation }}{% endif %}
+          {% else %}—{% endif %}
+        </td>
+        <td style="padding:14px 12px;font-size:0.85rem;color:var(--text-secondary);">{{ sale.created_at.strftime("%d %b %Y") }}</td>
+        <td style="padding:14px 12px;font-size:0.85rem;text-align:right;">
+          {% if line %}{{ line.currency }} {{ "{:,.0f}".format(line.price) }}{% endif %}
+        </td>
+        <td style="padding:14px 12px;font-size:0.85rem;text-align:right;">
+          {% if line and sale.status not in ('cancelled', 'draft') %}
+            {% if line.artwork.ownership_type == 'consignment' or line.artwork.is_consignment %}
+              <span style="color:var(--status-available-fg);">{{ line.currency }} {{ "{:,.0f}".format(line.gallery_net or 0) }}</span>
             {% else %}
-              {{ line.buyer.organisation }}
+              {% set profit = line.price - (line.artwork.acquisition_cost or 0) %}
+              <span style="color:var(--status-available-fg);">{{ line.currency }} {{ "{:,.0f}".format(profit) }}</span>
             {% endif %}
           {% else %}—{% endif %}
         </td>
-        <td style="padding:14px 12px;font-size:0.85rem;color:var(--text-secondary);">
-          {{ sale.created_at.strftime("%d %b %Y") }}
-        </td>
-        <td style="padding:14px 12px;font-size:0.85rem;text-align:right;">
-          {% if line %}{{ line.currency }} {{ "{:,.2f}".format(line.price) }}{% endif %}
-        </td>
-        <td style="padding:14px 12px;">
-          <span class="badge badge-{{ sale.status }}">{{ sale.status }}</span>
-        </td>
+        <td style="padding:14px 12px;"><span class="badge badge-{{ sale.status }}">{{ sale.status|replace("_", " ") }}</span></td>
       </tr>
       {% endfor %}
     </tbody>

@@ -63,10 +63,10 @@ class PayrexxProvider(PaymentProvider):
             params["successRedirectUrl"] = return_url
             params["cancelRedirectUrl"] = return_url
 
-        params["ApiSignature"] = self._sign(params)
-
         url = f"{self.BASE_URL}/Invoice/?instance={self.instance}"
-        response = requests.post(url, data=params, timeout=15)
+        response = requests.post(url, data=params,
+                                 headers={"X-API-KEY": self.api_secret},
+                                 timeout=15)
         response.raise_for_status()
 
         data = response.json()
