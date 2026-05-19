@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Art Fairs — ArtNode{% endblock %}
+{% block content %}
+<div class="page-header">
+  <div>
+    <div class="page-title">Art Fairs</div>
+    <div class="page-subtitle">{{ fairs|length }} fairs</div>
+  </div>
+  <div class="page-actions">
+    <a href="{{ url_for('fairs.create') }}" class="btn btn-primary">+ New Fair</a>
+  </div>
+</div>
+<div class="page-body">
+  {% if fairs %}
+  <table style="width:100%;border-collapse:collapse;">
+    <thead>
+      <tr style="border-bottom:2px solid var(--border);">
+        <th style="text-align:left;padding:8px 12px;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);font-weight:400;">Fair</th>
+        <th style="text-align:left;padding:8px 12px;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);font-weight:400;">Location</th>
+        <th style="text-align:left;padding:8px 12px;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);font-weight:400;">Dates</th>
+        <th style="text-align:right;padding:8px 12px;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);font-weight:400;">Sales</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for fair in fairs %}
+      <tr style="border-bottom:1px solid var(--border-light);cursor:pointer;"
+          onclick="window.location='{{ url_for('fairs.detail', id=fair.id) }}'">
+        <td style="padding:14px 12px;font-size:0.95rem;font-weight:400;">{{ fair.name }}</td>
+        <td style="padding:14px 12px;font-size:0.85rem;color:var(--text-secondary);">{{ fair.location or "—" }}</td>
+        <td style="padding:14px 12px;font-size:0.85rem;color:var(--text-secondary);">
+          {% if fair.start_date %}{{ fair.start_date.strftime("%d %b %Y") }}{% endif %}
+          {% if fair.end_date %} – {{ fair.end_date.strftime("%d %b %Y") }}{% endif %}
+        </td>
+        <td style="padding:14px 12px;font-size:0.85rem;text-align:right;">
+          {{ fair.sales|selectattr('status', 'ne', 'cancelled')|selectattr('status', 'ne', 'draft')|list|length }}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <div style="text-align:center;padding:var(--space-3xl);color:var(--text-muted);">
+    <p style="font-family:var(--font-display);font-size:1.2rem;margin-bottom:8px;">No art fairs yet</p>
+    <p style="font-size:0.85rem;">Create a fair session to manage booth sales.</p>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

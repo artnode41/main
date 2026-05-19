@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}New Art Fair — ArtNode{% endblock %}
+{% block content %}
+<div class="page-header">
+  <div>
+    <a href="{{ url_for('fairs.index') }}" style="font-size:0.75rem;color:var(--text-muted);letter-spacing:0.06em;text-transform:uppercase;">&larr; Art Fairs</a>
+    <div class="page-title" style="margin-top:4px;">{% if fair %}Edit Fair{% else %}New Art Fair{% endif %}</div>
+  </div>
+</div>
+<div class="page-body">
+  <form method="POST" action="">
+    {{ form.hidden_tag() }}
+    <div style="max-width:560px;">
+      <div style="background:var(--surface);border:1px solid var(--border);padding:var(--space-xl);margin-bottom:var(--space-lg);">
+        <div style="font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:var(--space-lg);">Fair Details</div>
+        <div class="form-group">
+          {{ form.name.label(class="form-label") }}
+          {{ form.name(class="form-control", placeholder="e.g. Art Basel 2026") }}
+          {% if form.name.errors %}<div style="color:#c0392b;font-size:0.78rem;margin-top:4px;">{{ form.name.errors[0] }}</div>{% endif %}
+        </div>
+        <div class="form-group">
+          {{ form.location.label(class="form-label") }}
+          {{ form.location(class="form-control", placeholder="e.g. Messe Basel, Hall 2.1, Booth B12") }}
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-md);">
+          <div class="form-group">
+            {{ form.start_date.label(class="form-label") }}
+            {{ form.start_date(class="form-control") }}
+          </div>
+          <div class="form-group">
+            {{ form.end_date.label(class="form-label") }}
+            {{ form.end_date(class="form-control") }}
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;gap:var(--space-md);justify-content:flex-end;">
+        <a href="{{ url_for('fairs.index') }}" class="btn btn-secondary">Cancel</a>
+        <button type="submit" class="btn btn-primary">Create Fair</button>
+      </div>
+    </div>
+  </form>
+</div>
+{% endblock %}

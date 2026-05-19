@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% block title %}{{ fair.name }} — ArtNode{% endblock %}
+{% block content %}
+<div class="page-header">
+  <div>
+    <a href="{{ url_for('fairs.index') }}" style="font-size:0.75rem;color:var(--text-muted);letter-spacing:0.06em;text-transform:uppercase;">&larr; Art Fairs</a>
+    <div class="page-title" style="margin-top:4px;">{{ fair.name }}</div>
+    <div class="page-subtitle">
+      {% if fair.location %}{{ fair.location }}{% endif %}
+      {% if fair.start_date %} · {{ fair.start_date.strftime("%d %b") }}{% if fair.end_date %} – {{ fair.end_date.strftime("%d %b %Y") }}{% endif %}{% endif %}
+    </div>
+  </div>
+  <div class="page-actions">
+    <a href="{{ url_for('fairs.pos', id=fair.id) }}" class="btn btn-primary">Open POS</a>
+    <a href="{{ url_for('fairs.report', id=fair.id) }}" class="btn btn-secondary" style="margin-left:8px;">Download Report</a>
+  </div>
+</div>
+
+<div class="page-body">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-2xl);">
+
+    <!-- Assigned artworks -->
+    <div>
+      <div style="font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:var(--space-md);">
+        Assigned to Fair ({{ fair_artwork_ids|length }})
+      </div>
+      {% for sale in fair.sales %}
+        {% if sale.status != "cancelled" and sale.line_items %}
+        {% set line = sale.line_items[0] %}
+        <div style="background:var(--surface);border:1px solid var(--border);padding:var(--space-md);margin-bottom:var(--space-sm);display:flex;align-items:center;gap:var(--space-md);">
+          {% set img = line.artwork.images[0] if line.artwork.images else none %}
+          {% if img and img.iiif_url %}
+            <img src="{{ img.iiif_url }}" style="width:56px;height:56px;object-fit:cover;background:var(--border-light);flex-shrink:0;">
+          {% endif %}
+          <div style="flex:1;min-width:0;">
+            <div style="font-size:0.88rem;font-weight:400;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ line.artwork.title }}</div>
+            <div style="font-size:0.78rem;color:var(--text-secondary);font-style:italic;font-family:var(--font-display);">
+              {% if line.artwork.artist %}{{ line.artwork.artist.last_name }}{% endif %}
+            </div>
+          </div>
+          <div style="text-align:right;flex-shrink:0;">
+            <span class="badge badge-{{ line.artwork.status }}">{{ line.artwork.status }}</span>
+            {% if line.artwork.price %}
+            <div style="font-size:0.78rem;color:var(--text-muted);margin-top:4px;">
+              {{ line.artwork.currency }} {{ "{:,.0f}".format(line.artwork.price) }}
+            </div>
+            {% endif %}
+          </div>
+        </div>
+        {% endif %}
+      {% else %}
+        <p style="font-size:0.85rem;color:var(--text-muted);">No artworks assigned yet.</p>
+      {% endfor %}
+    </div>
+
+    <!-- Available artworks to assign -->
+    <div>
+      <div style="font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:var(--space-md);">
+        Add to Fair
+      </div>
+      <input type="text" class="search-input" placeholder="Search artworks..." id="searchInput"
+             style="margin-bottom:var(--space-md);width:100%;">
+      {% for aw in available %}
+        {% if aw.id not in fair_artwork_ids %}
+        <div class="artwork-assign-row" data-title="{{ aw.title|lower }}" data-artist="{{ aw.artist.last_name|lower if aw.artist else '' }}"
+             style="background:var(--surface);border:1px solid var(--border);padding:var(--space-md);margin-bottom:var(--space-sm);display:flex;align-items:center;gap:var(--space-md);">
+          {% set img = aw.images[0] if aw.images else none %}
+          {% if img and img.iiif_url %}
+            <img src="{{ img.iiif_url }}" style="width:56px;height:56px;object-fit:cover;background:var(--border-light);flex-shrink:0;">
+          {% endif %}
+          <div style="flex:1;min-width:0;">
+            <div style="font-size:0.88rem;font-weight:400;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ aw.title }}</div>
+            <div style="font-size:0.78rem;color:var(--text-secondary);font-style:italic;font-family:var(--font-display);">
+              {% if aw.artist %}{{ aw.artist.last_name }}{% endif %}
+            </div>
+          </div>
+          <form method="POST" action="{{ url_for('fairs.assign_artwork', id=fair.id, artwork_id=aw.id) }}" style="flex-shrink:0;">
+            <button type="submit" class="btn btn-secondary" style="padding:4px 12px;font-size:0.72rem;">Add</button>
+          </form>
+        </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+  </div>
+</div>
+
+<script>
+const input = document.getElementById('searchInput');
+const rows = document.querySelectorAll('.artwork-assign-row');
+input.addEventListener('input', () => {
+  const q = input.value.toLowerCase().trim();
+  rows.forEach(row => {
+    const match = !q || row.dataset.title.includes(q) || row.dataset.artist.includes(q);
+    row.style.display = match ? '' : 'none';
+  });
+});
+</script>
+{% endblock %}

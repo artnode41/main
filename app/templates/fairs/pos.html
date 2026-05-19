@@ -1,0 +1,156 @@
+{% extends "base.html" %}
+{% block title %}POS — {{ fair.name }} — ArtNode{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div>
+    <a href="{{ url_for('fairs.detail', id=fair.id) }}" style="font-size:0.75rem;color:var(--text-muted);letter-spacing:0.06em;text-transform:uppercase;">&larr; {{ fair.name }}</a>
+    <div class="page-title" style="margin-top:4px;">Point of Sale</div>
+    <div class="page-subtitle">{{ artworks|length }} artworks available</div>
+  </div>
+  <div class="page-actions">
+    <a href="{{ url_for('fairs.report', id=fair.id) }}" class="btn btn-secondary">Report</a>
+  </div>
+</div>
+
+<div class="page-body">
+  {% if artworks %}
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:var(--space-lg);" id="posGrid">
+    {% for aw in artworks %}
+    <div class="pos-card" style="background:var(--surface);border:1px solid var(--border);cursor:pointer;transition:box-shadow 0.2s;"
+         onclick="openSaleModal({{ aw.id }}, '{{ aw.title|replace("'", "\\'") }}', {{ aw.price or 0 }}, '{{ aw.currency or 'CHF' }}')">
+      {% set img = aw.images[0] if aw.images else none %}
+      {% if img and img.iiif_url %}
+        <img src="{{ img.iiif_url }}" style="width:100%;aspect-ratio:1;object-fit:cover;background:var(--border-light);display:block;">
+      {% else %}
+        <div style="width:100%;aspect-ratio:1;background:var(--border-light);"></div>
+      {% endif %}
+      <div style="padding:var(--space-md);">
+        <div style="font-size:0.9rem;font-weight:400;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ aw.title }}</div>
+        <div style="font-size:0.8rem;color:var(--text-secondary);font-style:italic;font-family:var(--font-display);margin-bottom:var(--space-sm);">
+          {% if aw.artist %}{{ aw.artist.first_name }} {{ aw.artist.last_name }}{% endif %}
+        </div>
+        {% if aw.price %}
+        <div style="font-size:1rem;font-weight:500;">{{ aw.currency }} {{ "{:,.0f}".format(aw.price) }}</div>
+        {% else %}
+        <div style="font-size:0.85rem;color:var(--text-muted);">Price on request</div>
+        {% endif %}
+        <div style="margin-top:var(--space-sm);">
+          <span class="badge badge-available">Available</span>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div style="text-align:center;padding:var(--space-3xl);color:var(--text-muted);">
+    <p style="font-family:var(--font-display);font-size:1.4rem;margin-bottom:8px;">No artworks available</p>
+    <p style="font-size:0.85rem;">All artworks have been sold or none assigned.</p>
+    <a href="{{ url_for('fairs.detail', id=fair.id) }}" class="btn btn-secondary" style="margin-top:var(--space-lg);">Assign Artworks</a>
+  </div>
+  {% endif %}
+</div>
+
+<!-- Sale Modal -->
+<div id="saleModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:1000;align-items:center;justify-content:center;">
+  <div style="background:white;width:100%;max-width:480px;padding:var(--space-2xl);margin:var(--space-lg);">
+    <div style="font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:var(--space-md);">Record Sale</div>
+    <div id="modalTitle" style="font-family:var(--font-display);font-size:1.4rem;margin-bottom:var(--space-xl);"></div>
+
+    <form method="POST" id="saleForm" action="">
+      <!-- buyer -->
+      <div class="form-group">
+        <label class="form-label">Buyer (optional)</label>
+        <select name="buyer_id" class="form-control">
+          <option value="0">— Walk-in / No contact —</option>
+          {% for c in contacts %}
+          <option value="{{ c.id }}">
+            {% if c.contact_type == "individual" %}{{ c.last_name }} {{ c.first_name }}{% else %}{{ c.organisation }}{% endif %}
+          </option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <!-- price -->
+      <div style="display:grid;grid-template-columns:1fr 100px;gap:var(--space-md);">
+        <div class="form-group">
+          <label class="form-label">Sale Price</label>
+          <input type="number" name="price" id="modalPrice" class="form-control" step="0.01" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Currency</label>
+          <select name="currency" id="modalCurrency" class="form-control">
+            <option value="CHF">CHF</option>
+            <option value="EUR">EUR</option>
+            <option value="USD">USD</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- payment method -->
+      <div class="form-group">
+        <label class="form-label">Payment</label>
+        <div style="display:flex;gap:var(--space-sm);">
+          <label style="flex:1;cursor:pointer;">
+            <input type="radio" name="payment_method" value="cash" checked style="display:none;" class="payment-radio">
+            <div class="payment-btn" style="padding:10px;border:2px solid var(--accent);text-align:center;font-size:0.82rem;letter-spacing:0.06em;text-transform:uppercase;background:var(--accent);color:white;">
+              Cash
+            </div>
+          </label>
+          <label style="flex:1;cursor:pointer;">
+            <input type="radio" name="payment_method" value="card" style="display:none;" class="payment-radio">
+            <div class="payment-btn" style="padding:10px;border:2px solid var(--border);text-align:center;font-size:0.82rem;letter-spacing:0.06em;text-transform:uppercase;">
+              Card
+            </div>
+          </label>
+          <label style="flex:1;cursor:pointer;">
+            <input type="radio" name="payment_method" value="bank_transfer" style="display:none;" class="payment-radio">
+            <div class="payment-btn" style="padding:10px;border:2px solid var(--border);text-align:center;font-size:0.82rem;letter-spacing:0.06em;text-transform:uppercase;">
+              Transfer
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:var(--space-md);margin-top:var(--space-xl);">
+        <button type="button" onclick="closeModal()" class="btn btn-secondary" style="flex:1;">Cancel</button>
+        <button type="submit" class="btn btn-primary" style="flex:2;padding:14px;">Confirm Sale</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+function openSaleModal(artworkId, title, price, currency) {
+  document.getElementById('modalTitle').textContent = title;
+  document.getElementById('modalPrice').value = price;
+  document.getElementById('modalCurrency').value = currency;
+  document.getElementById('saleForm').action = '/admin/fairs/{{ fair.id }}/pos/sell/' + artworkId;
+  document.getElementById('saleModal').style.display = 'flex';
+}
+
+function closeModal() {
+  document.getElementById('saleModal').style.display = 'none';
+}
+
+// Payment method toggle styling
+document.querySelectorAll('.payment-radio').forEach(radio => {
+  radio.addEventListener('change', () => {
+    document.querySelectorAll('.payment-btn').forEach(btn => {
+      btn.style.background = '';
+      btn.style.color = '';
+      btn.style.borderColor = 'var(--border)';
+    });
+    const btn = radio.nextElementSibling;
+    btn.style.background = 'var(--accent)';
+    btn.style.color = 'white';
+    btn.style.borderColor = 'var(--accent)';
+  });
+});
+
+// Close modal on backdrop click
+document.getElementById('saleModal').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+</script>
+{% endblock %}
