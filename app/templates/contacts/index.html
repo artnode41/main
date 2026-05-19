@@ -72,6 +72,7 @@ input.addEventListener("input", () => {
   const q = input.value.toLowerCase().trim();
   let visible = 0;
   rows.forEach(row => {
+    const match = !q || row.dataset.name.includes(q) || row.dataset.email.includes(q);
     row.style.display = match ? "" : "none";
     if (match) visible++;
   });

@@ -1,7 +1,5 @@
 {% extends "base.html" %}
-
 {% block title %}{% if artwork %}Edit {{ artwork.title }}{% else %}Add Artwork{% endif %} — ArtNode{% endblock %}
-
 {% block content %}
 <div class="page-header">
   <div>
@@ -23,18 +21,12 @@
     {{ form.hidden_tag() }}
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-2xl);align-items:start;">
 
+      <!-- Left column -->
       <div>
         <div style="background:var(--surface);border:1px solid var(--border);padding:var(--space-xl);margin-bottom:var(--space-lg);">
           <div style="font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:var(--space-lg);">Basic Information</div>
-          <div class="form-group">
-            {{ form.title.label(class="form-label") }}
-            {{ form.title(class="form-control", placeholder="Artwork title") }}
-            {% if form.title.errors %}<div style="color:#c0392b;font-size:0.78rem;margin-top:4px;">{{ form.title.errors[0] }}</div>{% endif %}
-          </div>
-          <div class="form-group">
-            {{ form.artist_id.label(class="form-label") }}
-            {{ form.artist_id(class="form-control") }}
-          </div>
+          <div class="form-group">{{ form.title.label(class="form-label") }}{{ form.title(class="form-control", placeholder="Artwork title") }}{% if form.title.errors %}<div style="color:#c0392b;font-size:0.78rem;margin-top:4px;">{{ form.title.errors[0] }}</div>{% endif %}</div>
+          <div class="form-group">{{ form.artist_id.label(class="form-label") }}{{ form.artist_id(class="form-control") }}</div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-md);">
             <div class="form-group">{{ form.year_from.label(class="form-label") }}{{ form.year_from(class="form-control", placeholder="e.g. 1953") }}</div>
             <div class="form-group">{{ form.year_to.label(class="form-label") }}{{ form.year_to(class="form-control", placeholder="if range") }}</div>
@@ -44,19 +36,38 @@
           <div class="form-group">{{ form.description.label(class="form-label") }}{{ form.description(class="form-control", rows=3) }}</div>
         </div>
 
+        <!-- Ownership section -->
         <div style="background:var(--surface);border:1px solid var(--border);padding:var(--space-xl);margin-bottom:var(--space-lg);">
-          <div style="font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:var(--space-lg);">Ownership & Acquisition</div>
+          <div style="font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:var(--space-lg);">Ownership</div>
           <div class="form-group">{{ form.ownership_type.label(class="form-label") }}{{ form.ownership_type(class="form-control", id="ownershipType") }}</div>
-          <div id="acquisitionFields">
+
+          <!-- Owned fields -->
+          <div id="ownedFields">
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-md);">
               <div class="form-group">{{ form.acquisition_cost.label(class="form-label") }}{{ form.acquisition_cost(class="form-control", placeholder="0.00") }}</div>
               <div class="form-group">{{ form.acquisition_date.label(class="form-label") }}{{ form.acquisition_date(class="form-control") }}</div>
             </div>
             <p style="font-size:0.78rem;color:var(--text-muted);margin-top:-8px;margin-bottom:var(--space-md);">Used to calculate gallery profit on sale.</p>
           </div>
+
+          <!-- Consignment fields -->
+          <div id="consignmentFields" style="display:none;">
+            <div class="form-group">{{ form.consignor_id.label(class="form-label") }}{{ form.consignor_id(class="form-control") }}</div>
+            <div class="form-group">
+              {{ form.gallery_split_pct.label(class="form-label") }}
+              {{ form.gallery_split_pct(class="form-control", placeholder="50.00") }}
+              <p style="font-size:0.78rem;color:var(--text-muted);margin-top:4px;" id="splitPreview"></p>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-md);">
+              <div class="form-group">{{ form.consignment_start.label(class="form-label") }}{{ form.consignment_start(class="form-control") }}</div>
+              <div class="form-group">{{ form.consignment_end.label(class="form-label") }}{{ form.consignment_end(class="form-control") }}</div>
+            </div>
+            <div class="form-group">{{ form.consignment_terms.label(class="form-label") }}{{ form.consignment_terms(class="form-control", rows=3, placeholder="Consignment terms and conditions") }}</div>
+          </div>
         </div>
       </div>
 
+      <!-- Right column -->
       <div>
         <div style="background:var(--surface);border:1px solid var(--border);padding:var(--space-xl);margin-bottom:var(--space-lg);">
           <div style="font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:var(--space-lg);">Classification & Status</div>
@@ -91,11 +102,26 @@
 
 <script>
 const ownershipSelect = document.getElementById('ownershipType');
-const acquisitionFields = document.getElementById('acquisitionFields');
-function toggleAcquisition() {
-  acquisitionFields.style.display = ownershipSelect.value === 'owned' ? '' : 'none';
+const ownedFields = document.getElementById('ownedFields');
+const consignmentFields = document.getElementById('consignmentFields');
+const splitInput = document.querySelector('[name="gallery_split_pct"]');
+const splitPreview = document.getElementById('splitPreview');
+
+function toggleOwnership() {
+  const val = ownershipSelect.value;
+  ownedFields.style.display = val === 'owned' ? '' : 'none';
+  consignmentFields.style.display = val === 'consignment' ? '' : 'none';
+  updateSplitPreview();
 }
-ownershipSelect.addEventListener('change', toggleAcquisition);
-toggleAcquisition();
+
+function updateSplitPreview() {
+  if (ownershipSelect.value !== 'consignment') return;
+  const pct = parseFloat(splitInput.value) || 0;
+  splitPreview.textContent = `Gallery: ${pct}% — Consignor: ${(100 - pct).toFixed(0)}%`;
+}
+
+ownershipSelect.addEventListener('change', toggleOwnership);
+splitInput.addEventListener('input', updateSplitPreview);
+toggleOwnership();
 </script>
 {% endblock %}

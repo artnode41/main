@@ -21,7 +21,7 @@
 
   <div class="artwork-grid" id="artworkGrid">
     {% for aw in artworks %}
-    <a href="/artworks/{{ aw.id }}" style="text-decoration:none;color:inherit;"><div class="artwork-card" data-title="{{ aw.title|lower }}" data-artist="{{ aw.artist.last_name|lower if aw.artist else "" }}">
+    <a href="/artworks/{{ aw.id }}" style="text-decoration:none;color:inherit;" class="artwork-card-wrapper"><div class="artwork-card" data-title="{{ aw.title|lower }}" data-artist="{{ aw.artist.last_name|lower if aw.artist else "" }}">
       {% set img = aw.images[0] if aw.images else none %}
       {% if img and img.iiif_url %}
         <img class="artwork-card-img" src="{{ img.iiif_url }}" alt="{{ aw.title }}" loading="lazy">
@@ -46,12 +46,14 @@
 
 <script>
 const input = document.getElementById("searchInput");
-const cards = document.querySelectorAll(".artwork-card");
+const cards = document.querySelectorAll(".artwork-card-wrapper");
 const label = document.getElementById("countLabel");
 input.addEventListener("input", () => {
   const q = input.value.toLowerCase().trim();
   let visible = 0;
   cards.forEach(card => {
+    const inner = card.querySelector(".artwork-card");
+    const match = !q || (inner && inner.dataset.title.includes(q)) || (inner && inner.dataset.artist.includes(q));
     card.style.display = match ? "" : "none";
     if (match) visible++;
   });

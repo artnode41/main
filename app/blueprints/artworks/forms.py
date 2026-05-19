@@ -43,8 +43,21 @@ class ArtworkForm(FlaskForm):
         ("CHF", "CHF"), ("EUR", "EUR"), ("USD", "USD"), ("GBP", "GBP")
     ])
     ownership_type = SelectField("Ownership", choices=OWNERSHIP_CHOICES)
+
+    # Owned artwork fields
     acquisition_cost = DecimalField("Acquisition Cost", validators=[Optional()], places=2)
     acquisition_date = DateField("Acquisition Date", validators=[Optional()])
+
+    # Consignment fields
+    consignor_id = SelectField("Consignor", coerce=int, validators=[Optional()])
+    gallery_split_pct = DecimalField("Gallery Commission (%)",
+                                      validators=[Optional(), NumberRange(min=0, max=100)],
+                                      places=2, default=50)
+    consignment_start = DateField("Consignment Start", validators=[Optional()])
+    consignment_end = DateField("Consignment End", validators=[Optional()])
+    consignment_terms = TextAreaField("Terms", validators=[Optional()])
+
+    # Common fields
     inventory_number = StringField("Inventory Number", validators=[Optional(), Length(max=100)])
     rights = StringField("Rights", validators=[Optional(), Length(max=200)])
     credit_line = TextAreaField("Credit Line", validators=[Optional()])

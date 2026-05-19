@@ -1,11 +1,44 @@
 from flask import render_template, redirect, url_for, flash
 from flask_security import login_required, current_user
 from . import bp
-from ...models import Artwork, ArtworkImage, Artist, ArtworkProvenance
+from ...models import Artwork, ArtworkImage, Artist, ArtworkProvenance, ArtworkConsignment, Contact
 from ...extensions import db
 from .forms import ArtworkForm
 from .provenance_forms import ProvenanceForm
 from datetime import datetime, timezone
+from decimal import Decimal
+
+
+def _get_artist_choices(tenant_id):
+    artists = Artist.query.filter_by(tenant_id=tenant_id, active=True).order_by(Artist.last_name).all()
+    return [(0, "— Select —")] + [(a.id, f"{a.last_name}, {a.first_name}") for a in artists]
+
+
+def _get_contact_choices(tenant_id):
+    contacts = Contact.query.filter_by(tenant_id=tenant_id, active=True).order_by(Contact.last_name).all()
+    result = [(0, "— Select consignor —")]
+    for c in contacts:
+        name = f"{c.last_name} {c.first_name}" if c.contact_type == "individual" else (c.organisation or f"{c.last_name}")
+        result.append((c.id, name))
+    return result
+
+
+def _save_consignment(artwork, form):
+    """Create or update the ArtworkConsignment record."""
+    consignment = artwork.consignment
+    if not consignment:
+        consignment = ArtworkConsignment(
+            artwork_id=artwork.id,
+            tenant_id=artwork.tenant_id,
+        )
+        db.session.add(consignment)
+
+    consignment.consignor_id = form.consignor_id.data if form.consignor_id.data != 0 else None
+    consignment.gallery_split_pct = form.gallery_split_pct.data or Decimal("50")
+    consignment.start_date = datetime.combine(form.consignment_start.data, datetime.min.time()).replace(tzinfo=timezone.utc) if form.consignment_start.data else None
+    consignment.end_date = datetime.combine(form.consignment_end.data, datetime.min.time()).replace(tzinfo=timezone.utc) if form.consignment_end.data else None
+    consignment.terms = form.consignment_terms.data or None
+    consignment.active = True
 
 
 @bp.route("/artworks")
@@ -33,12 +66,8 @@ def detail(id):
 @login_required
 def create():
     form = ArtworkForm()
-    artists = Artist.query.filter_by(
-        tenant_id=current_user.tenant_id, active=True
-    ).order_by(Artist.last_name).all()
-    form.artist_id.choices = [(0, "— Select —")] + [
-        (a.id, f"{a.last_name}, {a.first_name}") for a in artists
-    ]
+    form.artist_id.choices = _get_artist_choices(current_user.tenant_id)
+    form.consignor_id.choices = _get_contact_choices(current_user.tenant_id)
 
     if form.validate_on_submit():
         artwork = Artwork(
@@ -63,6 +92,11 @@ def create():
             credit_line=form.credit_line.data or None,
         )
         db.session.add(artwork)
+        db.session.flush()
+
+        if form.ownership_type.data == "consignment":
+            _save_consignment(artwork, form)
+
         db.session.commit()
         flash("Artwork added successfully.", "success")
         return redirect(url_for("artworks.detail", id=artwork.id))
@@ -77,12 +111,17 @@ def edit(id):
         id=id, tenant_id=current_user.tenant_id
     ).first_or_404()
     form = ArtworkForm(obj=artwork)
-    artists = Artist.query.filter_by(
-        tenant_id=current_user.tenant_id, active=True
-    ).order_by(Artist.last_name).all()
-    form.artist_id.choices = [(0, "— Select —")] + [
-        (a.id, f"{a.last_name}, {a.first_name}") for a in artists
-    ]
+    form.artist_id.choices = _get_artist_choices(current_user.tenant_id)
+    form.consignor_id.choices = _get_contact_choices(current_user.tenant_id)
+
+    # Pre-fill consignment fields from existing record
+    if request_is_get() and artwork.consignment:
+        c = artwork.consignment
+        form.consignor_id.data = c.consignor_id or 0
+        form.gallery_split_pct.data = c.gallery_split_pct
+        form.consignment_start.data = c.start_date.date() if c.start_date else None
+        form.consignment_end.data = c.end_date.date() if c.end_date else None
+        form.consignment_terms.data = c.terms
 
     if form.validate_on_submit():
         artwork.title = form.title.data
@@ -103,11 +142,22 @@ def edit(id):
         artwork.inventory_number = form.inventory_number.data or None
         artwork.rights = form.rights.data or None
         artwork.credit_line = form.credit_line.data or None
+
+        if form.ownership_type.data == "consignment":
+            _save_consignment(artwork, form)
+        elif artwork.consignment:
+            artwork.consignment.active = False
+
         db.session.commit()
         flash("Artwork updated successfully.", "success")
         return redirect(url_for("artworks.detail", id=artwork.id))
 
     return render_template("artworks/form.html", form=form, artwork=artwork)
+
+
+def request_is_get():
+    from flask import request
+    return request.method == "GET"
 
 
 @bp.route("/artworks/<int:id>/delete", methods=["POST"])
