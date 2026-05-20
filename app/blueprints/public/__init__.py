@@ -29,13 +29,28 @@ def home():
         Exhibition.end_date >= now,
     ).order_by(Exhibition.start_date.desc()).limit(5).all()
 
+    # Carousel: is_carousel=True first, fallback to recent available
+    carousel_artworks = Artwork.query.filter_by(
+        is_carousel=True, active=True
+    ).order_by(Artwork.id.desc()).all()
+    if not carousel_artworks:
+        carousel_artworks = Artwork.query.filter_by(
+            status="available", active=True
+        ).order_by(Artwork.id.desc()).limit(6).all()
+
+    # Featured: is_featured=True first, fallback to recent available
     featured_artworks = Artwork.query.filter_by(
-        status="available", active=True
-    ).order_by(Artwork.id.desc()).limit(12).all()
+        is_featured=True, active=True
+    ).order_by(Artwork.id.desc()).all()
+    if not featured_artworks:
+        featured_artworks = Artwork.query.filter_by(
+            status="available", active=True
+        ).order_by(Artwork.id.desc()).limit(12).all()
 
     return render_template("public/home.html",
                            gallery=gallery,
                            current_exhibitions=current_exhibitions,
+                           carousel_artworks=carousel_artworks,
                            featured_artworks=featured_artworks)
 
 

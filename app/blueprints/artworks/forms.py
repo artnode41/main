@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, TextAreaField, IntegerField, SelectField, DecimalField, DateField
+from wtforms import StringField, TextAreaField, IntegerField, SelectField, DecimalField, DateField, BooleanField
 from wtforms.validators import DataRequired, Optional, Length, NumberRange
 
 
@@ -61,3 +61,5 @@ class ArtworkForm(FlaskForm):
     inventory_number = StringField("Inventory Number", validators=[Optional(), Length(max=100)])
     rights = StringField("Rights", validators=[Optional(), Length(max=200)])
     credit_line = TextAreaField("Credit Line", validators=[Optional()])
+    is_carousel = BooleanField("Show in homepage carousel")
+    is_featured = BooleanField("Show in featured works")

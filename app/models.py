@@ -183,6 +183,10 @@ class Artwork(db.Model):
     status           = Column(String(30), default="available", nullable=False)
     price            = Column(Numeric(12, 2))
     currency         = Column(String(3), default="CHF")
+    is_featured       = Column(Boolean, default=False)  # Show in Featured Works grid
+    is_carousel       = Column(Boolean, default=False)  # Show in homepage hero carousel
+    is_featured       = Column(Boolean, default=False)  # Show in Featured Works grid
+    is_carousel       = Column(Boolean, default=False)  # Show in homepage hero carousel
     is_consignment   = Column(Boolean, default=False)  # Legacy — use ownership_type
     ownership_type   = Column(String(20), default="owned")  # owned | consignment
     acquisition_cost = Column(Numeric(12, 2))               # What gallery paid

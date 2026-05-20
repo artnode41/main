@@ -12,8 +12,16 @@
     opacity: 0; transition: opacity 1.2s ease;
   }
   .hero-slide.active { opacity: 1; }
-  .hero-slide img {
-    width: 100%; height: 100%; object-fit: cover; display: block;
+    .hero-bg {
+    position: absolute; inset: -20px;
+    background-size: cover; background-position: center;
+    filter: blur(18px) brightness(0.7) saturate(1.2);
+    transform: scale(1.05);
+  }
+  .hero-main-img {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: contain; display: block;
   }
   .hero-overlay {
     position: absolute; inset: 0;
@@ -50,7 +58,8 @@
     {% set img = aw.images[0] if aw and aw.images else none %}
     {% if img and img.iiif_url %}
     <div class="hero-slide {% if loop.first %}active{% endif %}" data-index="{{ loop.index0 }}">
-      <img src="{{ img.iiif_url }}" alt="{{ ex.title }}">
+      <div class="hero-bg" style="background-image:url('{{ img.iiif_url }}')"></div>
+      <img src="{{ img.iiif_url }}" alt="{{ ex.title }}" class="hero-main-img">
       <div class="hero-overlay"></div>
       <div class="hero-text">
         <div class="hero-label">Current Exhibition</div>
@@ -61,11 +70,12 @@
     {% endif %}
     {% endfor %}
   {% endif %}
-  {% for aw in featured_artworks[:6] %}
+  {% for aw in carousel_artworks %}
     {% set img = aw.images[0] if aw.images else none %}
     {% if img and img.iiif_url %}
     <div class="hero-slide {% if not current_exhibitions and loop.first %}active{% endif %}" data-index="{{ loop.index0 + (current_exhibitions|length) }}">
-      <img src="{{ img.iiif_url }}" alt="{{ aw.title }}">
+      <div class="hero-bg" style="background-image:url('{{ img.iiif_url }}')"></div>
+      <img src="{{ img.iiif_url }}" alt="{{ aw.title }}" class="hero-main-img">
       <div class="hero-overlay"></div>
       <div class="hero-text">
         <div class="hero-label">{% if aw.artist %}{{ aw.artist.first_name }} {{ aw.artist.last_name }}{% endif %}</div>

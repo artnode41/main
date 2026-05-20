@@ -90,6 +90,8 @@ def create():
             inventory_number=form.inventory_number.data or None,
             rights=form.rights.data or None,
             credit_line=form.credit_line.data or None,
+            is_carousel=form.is_carousel.data,
+            is_featured=form.is_featured.data,
         )
         db.session.add(artwork)
         db.session.flush()
@@ -113,6 +115,9 @@ def edit(id):
     form = ArtworkForm(obj=artwork)
     form.artist_id.choices = _get_artist_choices(current_user.tenant_id)
     form.consignor_id.choices = _get_contact_choices(current_user.tenant_id)
+    if request_is_get():
+        form.is_carousel.data = artwork.is_carousel or False
+        form.is_featured.data = artwork.is_featured or False
 
     # Pre-fill consignment fields from existing record
     if request_is_get() and artwork.consignment:
@@ -142,6 +147,8 @@ def edit(id):
         artwork.inventory_number = form.inventory_number.data or None
         artwork.rights = form.rights.data or None
         artwork.credit_line = form.credit_line.data or None
+        artwork.is_carousel = bool(form.is_carousel.data)
+        artwork.is_featured = bool(form.is_featured.data)
 
         if form.ownership_type.data == "consignment":
             _save_consignment(artwork, form)

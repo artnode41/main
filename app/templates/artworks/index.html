@@ -21,7 +21,7 @@
 
   <div class="artwork-grid" id="artworkGrid">
     {% for aw in artworks %}
-    <a href="/artworks/{{ aw.id }}" style="text-decoration:none;color:inherit;" class="artwork-card-wrapper"><div class="artwork-card" data-title="{{ aw.title|lower }}" data-artist="{{ aw.artist.last_name|lower if aw.artist else "" }}">
+    <a href="{{ url_for('artworks.detail', id=aw.id) }}" style="text-decoration:none;color:inherit;" class="artwork-card-wrapper"><div class="artwork-card" data-title="{{ aw.title|lower }}" data-artist="{{ aw.artist.last_name|lower if aw.artist else "" }}">
       {% set img = aw.images[0] if aw.images else none %}
       {% if img and img.iiif_url %}
         <img class="artwork-card-img" src="{{ img.iiif_url }}" alt="{{ aw.title }}" loading="lazy">
