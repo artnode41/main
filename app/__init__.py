@@ -70,6 +70,7 @@ def create_app():
     from .blueprints.exhibitions import bp as exhibitions_bp
     from .blueprints.sales import bp as sales_bp
     from .blueprints.fairs import bp as fairs_bp
+    from .blueprints.settings import bp as settings_bp
 
     app.register_blueprint(artworks_bp)
     app.register_blueprint(artists_bp)
@@ -77,5 +78,6 @@ def create_app():
     app.register_blueprint(exhibitions_bp)
     app.register_blueprint(sales_bp)
     app.register_blueprint(fairs_bp)
+    app.register_blueprint(settings_bp)
 
     return app

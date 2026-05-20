@@ -28,6 +28,7 @@
         <th style="text-align:left;padding:8px 12px;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);font-weight:400;">Email</th>
         <th style="text-align:left;padding:8px 12px;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);font-weight:400;">City</th>
         <th style="text-align:left;padding:8px 12px;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);font-weight:400;">Country</th>
+        <th style="padding:8px 12px;"></th>
       </tr>
     </thead>
     <tbody>
@@ -37,7 +38,8 @@
           data-email="{{ contact.email|lower if contact.email else "" }}"
           style="border-bottom:1px solid var(--border-light);cursor:pointer;transition:background 0.15s;"
           onmouseover="this.style.background='var(--border-light)'"
-          onmouseout="this.style.background=''">
+          onmouseout="this.style.background=''"
+          onclick="window.location='{{ url_for('contacts.edit', id=contact.id) }}'">
         <td style="padding:14px 12px;">
           {% if contact.contact_type == "institution" %}
             <span style="font-size:0.95rem;font-weight:400;">{{ contact.organisation or "—" }}</span>
@@ -52,6 +54,12 @@
         <td style="padding:14px 12px;font-size:0.85rem;color:var(--text-secondary);">{{ contact.email or "—" }}</td>
         <td style="padding:14px 12px;font-size:0.85rem;color:var(--text-secondary);">{{ contact.city or "—" }}</td>
         <td style="padding:14px 12px;font-size:0.85rem;color:var(--text-secondary);">{{ contact.country or "—" }}</td>
+        <td style="padding:14px 12px;text-align:right;white-space:nowrap;" onclick="event.stopPropagation();">
+          <a href="{{ url_for('contacts.edit', id=contact.id) }}" class="btn btn-secondary" style="padding:4px 10px;font-size:0.72rem;">Edit</a>
+          <form method="POST" action="{{ url_for('contacts.delete', id=contact.id) }}" style="display:inline;" onsubmit="return confirm('Delete this contact?');">
+            <button type="submit" class="btn btn-secondary" style="padding:4px 10px;font-size:0.72rem;margin-left:4px;">Delete</button>
+          </form>
+        </td>
       </tr>
       {% endfor %}
     </tbody>

@@ -58,6 +58,7 @@ def edit(id):
         contact.email = form.email.data or None
         contact.phone = form.phone.data or None
         contact.address = form.address.data or None
+        contact.zip_code = form.zip_code.data or None
         contact.city = form.city.data or None
         contact.country = form.country.data.upper() if form.country.data else None
         contact.notes = form.notes.data or None

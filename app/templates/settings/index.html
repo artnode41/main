@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block title %}Settings — ArtNode{% endblock %}
+{% block content %}
+<div class="page-header">
+  <div>
+    <div class="page-title">Gallery Settings</div>
+    <div class="page-subtitle">{{ gallery.name }}</div>
+  </div>
+</div>
+
+<div class="page-body">
+  <form method="POST" action="">
+    {{ form.hidden_tag() }}
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-2xl);align-items:start;">
+
+      <!-- Left column -->
+      <div>
+        <div style="background:var(--surface);border:1px solid var(--border);padding:var(--space-xl);margin-bottom:var(--space-lg);">
+          <div style="font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:var(--space-lg);">Identity</div>
+          <div class="form-group">{{ form.name.label(class="form-label") }}{{ form.name(class="form-control") }}</div>
+          <div class="form-group">{{ form.public_name.label(class="form-label") }}{{ form.public_name(class="form-control", placeholder="e.g. Galerie Beispiel") }}</div>
+          <div class="form-group">{{ form.tagline.label(class="form-label") }}{{ form.tagline(class="form-control", placeholder="e.g. Contemporary Art Since 1985") }}</div>
+          <div class="form-group">{{ form.about_text.label(class="form-label") }}{{ form.about_text(class="form-control", rows=5, placeholder="About the gallery...") }}</div>
+        </div>
+
+        <div style="background:var(--surface);border:1px solid var(--border);padding:var(--space-xl);margin-bottom:var(--space-lg);">
+          <div style="font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:var(--space-lg);">Contact & Online</div>
+          <div class="form-group">{{ form.address.label(class="form-label") }}{{ form.address(class="form-control", rows=2) }}</div>
+          <div style="display:grid;grid-template-columns:80px 1fr 60px;gap:var(--space-md);align-items:end;">
+            <div class="form-group" style="margin-bottom:0;">{{ form.zip_code.label(class="form-label") }}{{ form.zip_code(class="form-control", placeholder="5200") }}</div>
+            <div class="form-group" style="margin-bottom:0;">{{ form.city.label(class="form-label") }}{{ form.city(class="form-control") }}</div>
+            <div class="form-group" style="margin-bottom:0;">{{ form.country.label(class="form-label") }}{{ form.country(class="form-control", placeholder="CH") }}</div>
+          </div>
+          <div class="form-group">{{ form.phone.label(class="form-label") }}{{ form.phone(class="form-control", placeholder="+41 xx xxx xx xx") }}</div>
+          <div class="form-group">{{ form.email.label(class="form-label") }}{{ form.email(class="form-control", placeholder="admin@gallery.ch") }}</div>
+          <div class="form-group">{{ form.contact_email.label(class="form-label") }}{{ form.contact_email(class="form-control", placeholder="info@gallery.ch") }}</div>
+          <div class="form-group">{{ form.website.label(class="form-label") }}{{ form.website(class="form-control", placeholder="https://gallery.ch") }}</div>
+          <div class="form-group">{{ form.instagram_url.label(class="form-label") }}{{ form.instagram_url(class="form-control", placeholder="https://instagram.com/gallery") }}</div>
+        </div>
+      </div>
+
+      <!-- Right column -->
+      <div>
+        <div style="background:var(--surface);border:1px solid var(--border);padding:var(--space-xl);margin-bottom:var(--space-lg);">
+          <div style="font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:var(--space-lg);">Financial & VAT</div>
+          <div class="form-group">{{ form.currency.label(class="form-label") }}{{ form.currency(class="form-control") }}</div>
+          <div class="form-group">{{ form.locale.label(class="form-label") }}{{ form.locale(class="form-control") }}</div>
+          <div class="form-group">
+            {{ form.vat_number.label(class="form-label") }}
+            {{ form.vat_number(class="form-control", placeholder="CHE-123.456.789 MWST") }}
+          </div>
+          <div class="form-group">
+            {{ form.iban.label(class="form-label") }}
+            {{ form.iban(class="form-control", placeholder="CH56 0483 5012 3456 7800 9") }}
+            <p style="font-size:0.75rem;color:var(--text-muted);margin-top:4px;">Used on PDF invoices for payment.</p>
+          </div>
+          <div class="form-group">
+            {{ form.vat_scheme_default.label(class="form-label") }}
+            {{ form.vat_scheme_default(class="form-control") }}
+            <p style="font-size:0.75rem;color:var(--text-muted);margin-top:4px;">Applied to all new sales. Can be overridden per sale.</p>
+          </div>
+        </div>
+
+        <div style="background:var(--surface);border:1px solid var(--border);padding:var(--space-xl);margin-bottom:var(--space-lg);">
+          <div style="font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:var(--space-lg);">Public Website</div>
+          <div class="form-group">
+            {{ form.website_custom_domain.label(class="form-label") }}
+            {{ form.website_custom_domain(class="form-control", placeholder="gallery.ch") }}
+            <p style="font-size:0.75rem;color:var(--text-muted);margin-top:4px;">Your custom domain for the public site (Phase 7).</p>
+          </div>
+        </div>
+
+        <div style="display:flex;justify-content:flex-end;">
+          <button type="submit" class="btn btn-primary">Save Settings</button>
+        </div>
+      </div>
+
+    </div>
+  </form>
+</div>
+{% endblock %}

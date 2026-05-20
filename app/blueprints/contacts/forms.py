@@ -14,6 +14,7 @@ class ContactForm(FlaskForm):
     email = StringField("Email", validators=[Optional(), Email(), Length(max=255)])
     phone = StringField("Phone", validators=[Optional(), Length(max=50)])
     address = TextAreaField("Address", validators=[Optional()])
+    zip_code = StringField("ZIP Code", validators=[Optional(), Length(max=20)])
     city = StringField("City", validators=[Optional(), Length(max=100)])
     country = StringField("Country", validators=[Optional(), Length(max=2)])
     notes = TextAreaField("Notes", validators=[Optional()])

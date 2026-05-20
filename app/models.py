@@ -70,6 +70,7 @@ class Gallery(db.Model):
     tagline               = Column(String(300))           # Short line under logo
     about_text            = Column(Text)                  # About page body
     address               = Column(Text)
+    zip_code              = Column(String(20))
     city                  = Column(String(100))
     country               = Column(String(2), default="CH")
     phone                 = Column(String(50))
