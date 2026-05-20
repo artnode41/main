@@ -1,0 +1,135 @@
+{% extends "public/base.html" %}
+{% block title %}{{ artwork.title }} — {{ gallery.public_name or gallery.name }}{% endblock %}
+
+{% block extra_css %}
+<style>
+  .artwork-detail { display: grid; grid-template-columns: 1fr 1fr; min-height: calc(100vh - 64px); }
+  .artwork-image-col {
+    position: sticky; top: 64px; height: calc(100vh - 64px);
+    display: flex; align-items: center; justify-content: center;
+    background: #f8f8f8; padding: 40px; overflow: hidden;
+  }
+  .artwork-image-col img {
+    max-width: 100%; max-height: 100%; object-fit: contain;
+    cursor: zoom-in; transition: transform 0.3s;
+  }
+  .artwork-image-col img.zoomed { transform: scale(1.8); cursor: zoom-out; }
+  .artwork-meta-col { padding: 80px 60px; overflow-y: auto; }
+  .artwork-artist { font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+  .artwork-title { font-family: var(--font-serif); font-size: 2rem; font-weight: 300; margin-bottom: 4px; }
+  .artwork-year { font-size: 0.85rem; color: var(--muted); margin-bottom: 32px; }
+  .meta-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--border); }
+  .meta-label { font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+  .meta-value { font-size: 0.85rem; text-align: right; max-width: 60%; }
+  .status-available { display: inline-block; padding: 3px 8px; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; background: #e8f5e9; color: #2e6b35; }
+  .status-sold { display: inline-block; padding: 3px 8px; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; background: #f0f0f0; color: #666; }
+  .enquiry-section { margin-top: 40px; }
+  .enquiry-title { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 24px; }
+  .thumb-strip { display: flex; gap: 8px; margin-top: 16px; }
+  .thumb-strip img { width: 60px; height: 60px; object-fit: cover; cursor: pointer; opacity: 0.6; transition: opacity 0.2s; }
+  .thumb-strip img.active, .thumb-strip img:hover { opacity: 1; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="artwork-detail">
+
+  <!-- Image column -->
+  <div class="artwork-image-col">
+    {% set images = artwork.images %}
+    {% if images %}
+    <div style="width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+      <img src="{{ images[0].iiif_url }}" alt="{{ artwork.title }}" id="mainImg">
+      {% if images|length > 1 %}
+      <div class="thumb-strip">
+        {% for img in images %}
+        <img src="{{ img.iiif_url }}" class="{% if loop.first %}active{% endif %}"
+             onclick="switchImg('{{ img.iiif_url }}', this)">
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+    {% else %}
+    <div style="color:var(--muted);font-size:0.85rem;">No image available</div>
+    {% endif %}
+  </div>
+
+  <!-- Metadata column -->
+  <div class="artwork-meta-col">
+    {% if artwork.artist %}
+    <div class="artwork-artist">
+      <a href="{{ url_for('public.artist_detail', id=artwork.artist.id) }}" style="color:var(--muted);text-decoration:none;">
+        {{ artwork.artist.first_name }} {{ artwork.artist.last_name }}
+      </a>
+    </div>
+    {% endif %}
+    <div class="artwork-title">{{ artwork.title }}</div>
+    <div class="artwork-year">
+      {% if artwork.year_from %}{{ artwork.year_from }}{% if artwork.year_to and artwork.year_to != artwork.year_from %}–{{ artwork.year_to }}{% endif %}{% endif %}
+    </div>
+
+    <div style="margin-bottom:32px;">
+      {% if artwork.medium %}
+      <div class="meta-row"><span class="meta-label">Medium</span><span class="meta-value">{{ artwork.medium }}</span></div>
+      {% endif %}
+      {% if artwork.dimensions %}
+      <div class="meta-row"><span class="meta-label">Dimensions</span><span class="meta-value">{{ artwork.dimensions }}</span></div>
+      {% endif %}
+      {% if artwork.inventory_number %}
+      <div class="meta-row"><span class="meta-label">Reference</span><span class="meta-value">{{ artwork.inventory_number }}</span></div>
+      {% endif %}
+      <div class="meta-row">
+        <span class="meta-label">Availability</span>
+        <span class="meta-value">
+          {% if artwork.status == "available" %}<span class="status-available">Available</span>
+          {% elif artwork.status == "sold" %}<span class="status-sold">Sold</span>
+          {% else %}<span class="status-sold">{{ artwork.status|replace("_", " ")|title }}</span>{% endif %}
+        </span>
+      </div>
+    </div>
+
+    {% if artwork.status == "available" %}
+    <div class="enquiry-section">
+      <div class="enquiry-title">Enquire about this work</div>
+      <form method="POST" action="{{ url_for('public.enquire') }}">
+        <input type="hidden" name="artwork_id" value="{{ artwork.id }}">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+          <div class="pub-form-group">
+            <label class="pub-label">First Name</label>
+            <input type="text" name="first_name" class="pub-input" required>
+          </div>
+          <div class="pub-form-group">
+            <label class="pub-label">Last Name *</label>
+            <input type="text" name="last_name" class="pub-input" required>
+          </div>
+        </div>
+        <div class="pub-form-group">
+          <label class="pub-label">Email *</label>
+          <input type="email" name="email" class="pub-input" required>
+        </div>
+        <div class="pub-form-group">
+          <label class="pub-label">Message</label>
+          <textarea name="message" class="pub-input" rows="3" placeholder="I am interested in this work..."></textarea>
+        </div>
+        <button type="submit" class="btn-pub btn-pub-dark">Send Enquiry</button>
+      </form>
+    </div>
+    {% endif %}
+  </div>
+
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+const mainImg = document.getElementById('mainImg');
+if (mainImg) {
+  mainImg.addEventListener('click', () => mainImg.classList.toggle('zoomed'));
+}
+function switchImg(src, thumb) {
+  mainImg.src = src;
+  document.querySelectorAll('.thumb-strip img').forEach(t => t.classList.remove('active'));
+  thumb.classList.add('active');
+}
+</script>
+{% endblock %}

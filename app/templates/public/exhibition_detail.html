@@ -1,0 +1,49 @@
+{% extends "public/base.html" %}
+{% block title %}{{ exhibition.title }} — {{ gallery.public_name or gallery.name }}{% endblock %}
+
+{% block extra_css %}
+<style>
+  .exhibition-header { padding: 60px 40px 40px; border-bottom: 1px solid var(--border); }
+  .exhibition-body { padding: 60px 40px; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="exhibition-header">
+  <div class="section-label">Exhibition</div>
+  <div class="page-heading">{{ exhibition.title }}</div>
+  <div style="font-size:0.85rem;color:var(--muted);margin-top:8px;">
+    {% if exhibition.venue %}{{ exhibition.venue }}{% endif %}
+    {% if exhibition.start_date %} · {{ exhibition.start_date.strftime("%d %b") }}{% if exhibition.end_date %} – {{ exhibition.end_date.strftime("%d %b %Y") }}{% endif %}{% endif %}
+  </div>
+  {% if exhibition.description %}
+  <p style="max-width:640px;margin-top:24px;font-size:0.95rem;line-height:1.8;color:#333;">{{ exhibition.description }}</p>
+  {% endif %}
+</div>
+
+<div class="exhibition-body">
+  {% if artworks %}
+  <div class="section-label" style="margin-bottom:24px;">Works in Exhibition</div>
+  <div class="artwork-grid">
+    {% for aw in artworks %}
+    {% set img = aw.images[0] if aw.images else none %}
+    <a href="{{ url_for('public.artwork_detail', id=aw.id) }}" style="text-decoration:none;">
+      <div class="artwork-cell">
+        {% if img and img.iiif_url %}
+          <img src="{{ img.iiif_url }}" alt="{{ aw.title }}" loading="lazy">
+        {% else %}
+          <div style="width:100%;aspect-ratio:1;background:#f0f0f0;"></div>
+        {% endif %}
+        <div class="artwork-cell-info">
+          <div class="artwork-cell-title">{{ aw.title }}</div>
+          <div class="artwork-cell-artist">{% if aw.artist %}{{ aw.artist.last_name }}{% endif %}</div>
+        </div>
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+  {% else %}
+  <p style="color:var(--muted);">No works listed for this exhibition.</p>
+  {% endif %}
+</div>
+{% endblock %}

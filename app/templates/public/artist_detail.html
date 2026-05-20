@@ -1,0 +1,100 @@
+{% extends "public/base.html" %}
+{% block title %}{{ artist.first_name }} {{ artist.last_name }} — {{ gallery.public_name or gallery.name }}{% endblock %}
+
+{% block extra_css %}
+<style>
+  .artist-header { padding: 60px 40px 0; }
+  .artist-tabs { display: flex; gap: 0; border-bottom: 1px solid var(--border); padding: 0 40px; margin-top: 40px; }
+  .artist-tab {
+    padding: 12px 0; margin-right: 32px;
+    font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--muted); text-decoration: none; border-bottom: 2px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .artist-tab.active { color: var(--text); border-bottom-color: var(--text); }
+  .tab-content { padding: 48px 40px; display: none; }
+  .tab-content.active { display: block; }
+  .bio-text { max-width: 640px; font-size: 0.95rem; line-height: 1.8; color: #333; }
+  .exhibition-row { padding: 20px 0; border-bottom: 1px solid var(--border); }
+  .exhibition-row-title { font-family: var(--font-serif); font-size: 1.1rem; font-weight: 300; }
+  .exhibition-row-meta { font-size: 0.78rem; color: var(--muted); margin-top: 4px; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="artist-header">
+  <div class="section-label">Artist</div>
+  <div class="page-heading">{{ artist.first_name }} {{ artist.last_name }}</div>
+  <div style="font-size:0.85rem;color:var(--muted);">
+    {% if artist.nationality %}{{ artist.nationality }}{% endif %}
+    {% if artist.birth_year %} · b. {{ artist.birth_year }}{% if artist.death_year %} – {{ artist.death_year }}{% endif %}{% endif %}
+  </div>
+</div>
+
+<div class="artist-tabs">
+  <a href="?tab=artworks" class="artist-tab {% if tab == 'artworks' %}active{% endif %}">Works</a>
+  <a href="?tab=exhibitions" class="artist-tab {% if tab == 'exhibitions' %}active{% endif %}">Exhibitions</a>
+  <a href="?tab=biography" class="artist-tab {% if tab == 'biography' %}active{% endif %}">Biography</a>
+</div>
+
+<!-- Artworks tab -->
+<div class="tab-content {% if tab == 'artworks' %}active{% endif %}">
+  {% if artworks %}
+  <div class="artwork-grid">
+    {% for aw in artworks %}
+    {% set img = aw.images[0] if aw.images else none %}
+    <a href="{{ url_for('public.artwork_detail', id=aw.id) }}" style="text-decoration:none;">
+      <div class="artwork-cell">
+        {% if img and img.iiif_url %}
+          <img src="{{ img.iiif_url }}" alt="{{ aw.title }}" loading="lazy">
+        {% else %}
+          <div style="width:100%;aspect-ratio:1;background:#f0f0f0;"></div>
+        {% endif %}
+        <div class="artwork-cell-info">
+          <div class="artwork-cell-title">{{ aw.title }}</div>
+          <div class="artwork-cell-artist">{{ aw.year_from or "" }}</div>
+        </div>
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+  {% else %}
+  <p style="color:var(--muted);">No works currently available.</p>
+  {% endif %}
+</div>
+
+<!-- Exhibitions tab -->
+<div class="tab-content {% if tab == 'exhibitions' %}active{% endif %}">
+  {% if exhibitions %}
+    {% for ex in exhibitions %}
+    <a href="{{ url_for('public.exhibition_detail', id=ex.id) }}" style="text-decoration:none;color:inherit;">
+      <div class="exhibition-row">
+        <div class="exhibition-row-title">{{ ex.title }}</div>
+        <div class="exhibition-row-meta">
+          {% if ex.venue %}{{ ex.venue }} · {% endif %}
+          {% if ex.start_date %}{{ ex.start_date.strftime("%Y") }}{% endif %}
+        </div>
+      </div>
+    </a>
+    {% endfor %}
+  {% else %}
+  <p style="color:var(--muted);">No exhibition history.</p>
+  {% endif %}
+</div>
+
+<!-- Biography tab -->
+<div class="tab-content {% if tab == 'biography' %}active{% endif %}">
+  <div class="bio-text">
+    {% if artist.biography %}
+      {{ artist.biography|nl2br }}
+    {% else %}
+      <p style="color:var(--muted);">Biography not available.</p>
+    {% endif %}
+  </div>
+  {% if artist.website %}
+  <div style="margin-top:32px;">
+    <a href="{{ artist.website }}" target="_blank" class="btn-pub btn-pub-outline">Artist Website</a>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

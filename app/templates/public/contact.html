@@ -1,0 +1,66 @@
+{% extends "public/base.html" %}
+{% block title %}Contact — {{ gallery.public_name or gallery.name }}{% endblock %}
+
+{% block content %}
+<div style="padding:80px 40px;display:grid;grid-template-columns:1fr 1fr;gap:80px;max-width:960px;">
+
+  <div>
+    <div class="section-label">Get in Touch</div>
+    <div class="page-heading">Contact</div>
+    {% if gallery.tagline %}
+    <p style="font-size:0.9rem;color:var(--muted);margin-bottom:40px;">{{ gallery.tagline }}</p>
+    {% endif %}
+
+    <div style="margin-bottom:32px;">
+      {% if gallery.address %}
+      <div style="margin-bottom:20px;">
+        <div class="section-label">Address</div>
+        <p style="font-size:0.9rem;line-height:1.8;margin-top:8px;">
+          {{ gallery.address }}<br>
+          {% if gallery.zip_code %}{{ gallery.zip_code }} {% endif %}{{ gallery.city or "" }}<br>
+          {{ gallery.country or "" }}
+        </p>
+      </div>
+      {% endif %}
+      {% if gallery.contact_email %}
+      <div style="margin-bottom:20px;">
+        <div class="section-label">Email</div>
+        <p style="margin-top:8px;"><a href="mailto:{{ gallery.contact_email }}" style="font-size:0.9rem;color:var(--text);">{{ gallery.contact_email }}</a></p>
+      </div>
+      {% endif %}
+      {% if gallery.phone %}
+      <div style="margin-bottom:20px;">
+        <div class="section-label">Phone</div>
+        <p style="font-size:0.9rem;margin-top:8px;">{{ gallery.phone }}</p>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <div>
+    <div class="section-label" style="margin-bottom:24px;">Send a Message</div>
+    <form method="POST" action="{{ url_for('public.enquire') }}">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+        <div class="pub-form-group">
+          <label class="pub-label">First Name</label>
+          <input type="text" name="first_name" class="pub-input">
+        </div>
+        <div class="pub-form-group">
+          <label class="pub-label">Last Name *</label>
+          <input type="text" name="last_name" class="pub-input" required>
+        </div>
+      </div>
+      <div class="pub-form-group">
+        <label class="pub-label">Email *</label>
+        <input type="email" name="email" class="pub-input" required>
+      </div>
+      <div class="pub-form-group">
+        <label class="pub-label">Message</label>
+        <textarea name="message" class="pub-input" rows="5"></textarea>
+      </div>
+      <button type="submit" class="btn-pub btn-pub-dark">Send Message</button>
+    </form>
+  </div>
+
+</div>
+{% endblock %}

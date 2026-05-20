@@ -2,6 +2,7 @@ import uuid
 from datetime import datetime, timezone
 from flask_security import UserMixin, RoleMixin, SQLAlchemyUserDatastore
 from sqlalchemy import (
+    JSON,
     Boolean, Column, DateTime, ForeignKey, Integer, Numeric,
     String, Text, UniqueConstraint
 )
@@ -106,14 +107,18 @@ class Artist(db.Model):
     __tablename__ = "artist"
     id             = Column(Integer, primary_key=True)
     tenant_id      = Column(Integer, ForeignKey("gallery.id"), nullable=False)
-    first_name     = Column(String(100))
-    last_name      = Column(String(100), nullable=False)
-    birth_year     = Column(Integer)
-    death_year     = Column(Integer)
-    nationality    = Column(String(100))
-    biography      = Column(Text)
-    website        = Column(String(255))
-    active         = Column(Boolean, default=True)
+    first_name              = Column(String(100))
+    last_name               = Column(String(100), nullable=False)
+    sort_name               = Column(String(200))  # e.g. "Giacometti, Alberto"
+    slug                    = Column(String(200), unique=False)  # URL-safe identifier
+    birth_year              = Column(Integer)
+    death_year              = Column(Integer)
+    nationality             = Column(String(100))
+    biography               = Column(Text)
+    cv_json                 = Column(JSON)  # structured CV data
+    website                 = Column(String(255))
+    is_active_representation = Column(Boolean, default=True)
+    active                  = Column(Boolean, default=True)
     created_at     = Column(DateTime, default=now_utc)
     updated_at     = Column(DateTime, default=now_utc, onupdate=now_utc)
 

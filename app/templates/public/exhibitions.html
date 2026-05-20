@@ -1,0 +1,102 @@
+{% extends "public/base.html" %}
+{% block title %}Exhibitions — {{ gallery.public_name or gallery.name }}{% endblock %}
+
+{% block extra_css %}
+<style>
+  .exhibitions-page { padding: 60px 40px; }
+  .exhibition-section { margin-bottom: 64px; }
+  .exhibition-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 32px; margin-top: 24px; }
+  .exhibition-card { cursor: pointer; }
+  .exhibition-card-img { width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block; background: #f0f0f0; transition: opacity 0.3s; }
+  .exhibition-card:hover .exhibition-card-img { opacity: 0.85; }
+  .exhibition-card-body { padding: 16px 0 0; }
+  .exhibition-card-title { font-family: var(--font-serif); font-size: 1.2rem; font-weight: 300; margin-bottom: 4px; }
+  .exhibition-card-meta { font-size: 0.75rem; color: var(--muted); }
+  .past-list { }
+  .past-row { display: flex; justify-content: space-between; align-items: baseline; padding: 16px 0; border-bottom: 1px solid var(--border); }
+  .past-row-title { font-family: var(--font-serif); font-size: 1rem; font-weight: 300; }
+  .past-row-year { font-size: 0.75rem; color: var(--muted); }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="exhibitions-page">
+  <div class="section-label">Programme</div>
+  <div class="page-heading">Exhibitions</div>
+
+  {% if current %}
+  <div class="exhibition-section">
+    <div class="section-label" style="margin-top:40px;">Current</div>
+    <div class="exhibition-grid">
+      {% for ex in current %}
+      {% set ea = ex.artworks[0] if ex.artworks else none %}
+      {% set aw = ea.artwork if ea else none %}
+      {% set img = aw.images[0] if aw and aw.images else none %}
+      <a href="{{ url_for('public.exhibition_detail', id=ex.id) }}" style="text-decoration:none;color:inherit;">
+        <div class="exhibition-card">
+          {% if img and img.iiif_url %}
+          <img src="{{ img.iiif_url }}" class="exhibition-card-img" loading="lazy">
+          {% else %}
+          <div class="exhibition-card-img"></div>
+          {% endif %}
+          <div class="exhibition-card-body">
+            <div class="exhibition-card-title">{{ ex.title }}</div>
+            <div class="exhibition-card-meta">
+              {% if ex.venue %}{{ ex.venue }} · {% endif %}
+              {% if ex.start_date %}{{ ex.start_date.strftime("%d %b") }}{% if ex.end_date %} – {{ ex.end_date.strftime("%d %b %Y") }}{% endif %}{% endif %}
+            </div>
+          </div>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+
+  {% if forthcoming %}
+  <div class="exhibition-section">
+    <div class="section-label">Forthcoming</div>
+    <div class="exhibition-grid">
+      {% for ex in forthcoming %}
+      <a href="{{ url_for('public.exhibition_detail', id=ex.id) }}" style="text-decoration:none;color:inherit;">
+        <div class="exhibition-card">
+          <div class="exhibition-card-img" style="background:#f5f5f5;display:flex;align-items:center;justify-content:center;">
+            <span style="font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);">Forthcoming</span>
+          </div>
+          <div class="exhibition-card-body">
+            <div class="exhibition-card-title">{{ ex.title }}</div>
+            <div class="exhibition-card-meta">
+              {% if ex.start_date %}Opens {{ ex.start_date.strftime("%d %b %Y") }}{% endif %}
+            </div>
+          </div>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+
+  {% if past %}
+  <div class="exhibition-section">
+    <div class="section-label">Past Exhibitions</div>
+    <div class="past-list" style="margin-top:16px;">
+      {% for ex in past %}
+      <a href="{{ url_for('public.exhibition_detail', id=ex.id) }}" style="text-decoration:none;color:inherit;">
+        <div class="past-row">
+          <span class="past-row-title">{{ ex.title }}</span>
+          <span class="past-row-year">
+            {% if ex.venue %}{{ ex.venue }} · {% endif %}
+            {% if ex.end_date %}{{ ex.end_date.strftime("%Y") }}{% endif %}
+          </span>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+
+  {% if not current and not forthcoming and not past %}
+  <p style="color:var(--muted);padding:40px 0;">No exhibitions scheduled.</p>
+  {% endif %}
+</div>
+{% endblock %}

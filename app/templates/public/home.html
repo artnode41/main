@@ -1,0 +1,138 @@
+{% extends "public/base.html" %}
+{% block title %}{{ gallery.public_name or gallery.name }} — {{ gallery.tagline or "Contemporary Art" }}{% endblock %}
+
+{% block extra_css %}
+<style>
+  .hero {
+    height: 90vh; position: relative; overflow: hidden;
+    background: #111;
+  }
+  .hero-slide {
+    position: absolute; inset: 0;
+    opacity: 0; transition: opacity 1.2s ease;
+  }
+  .hero-slide.active { opacity: 1; }
+  .hero-slide img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+  }
+  .hero-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 60%);
+  }
+  .hero-text {
+    position: absolute; bottom: 60px; left: 60px; color: white; max-width: 480px;
+  }
+  .hero-label { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; opacity: 0.8; margin-bottom: 10px; }
+  .hero-title { font-family: var(--font-serif); font-size: 2.8rem; font-weight: 300; line-height: 1.15; margin-bottom: 20px; }
+  .hero-dots {
+    position: absolute; bottom: 30px; right: 40px;
+    display: flex; gap: 8px;
+  }
+  .hero-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: rgba(255,255,255,0.4); cursor: pointer; transition: background 0.3s;
+  }
+  .hero-dot.active { background: white; }
+
+  .section { padding: 80px 40px; }
+  .section-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 40px; }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<!-- Hero -->
+<div class="hero" id="hero">
+  {% if current_exhibitions %}
+    {% for ex in current_exhibitions %}
+    {% set ea = ex.artworks[0] if ex.artworks else none %}
+    {% set aw = ea.artwork if ea else none %}
+    {% set img = aw.images[0] if aw and aw.images else none %}
+    {% if img and img.iiif_url %}
+    <div class="hero-slide {% if loop.first %}active{% endif %}" data-index="{{ loop.index0 }}">
+      <img src="{{ img.iiif_url }}" alt="{{ ex.title }}">
+      <div class="hero-overlay"></div>
+      <div class="hero-text">
+        <div class="hero-label">Current Exhibition</div>
+        <div class="hero-title">{{ ex.title }}</div>
+        <a href="{{ url_for('public.exhibition_detail', id=ex.id) }}" class="btn-pub btn-pub-outline" style="color:white;border-color:rgba(255,255,255,0.6);">View Exhibition</a>
+      </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+  {% endif %}
+  {% for aw in featured_artworks[:6] %}
+    {% set img = aw.images[0] if aw.images else none %}
+    {% if img and img.iiif_url %}
+    <div class="hero-slide {% if not current_exhibitions and loop.first %}active{% endif %}" data-index="{{ loop.index0 + (current_exhibitions|length) }}">
+      <img src="{{ img.iiif_url }}" alt="{{ aw.title }}">
+      <div class="hero-overlay"></div>
+      <div class="hero-text">
+        <div class="hero-label">{% if aw.artist %}{{ aw.artist.first_name }} {{ aw.artist.last_name }}{% endif %}</div>
+        <div class="hero-title">{{ aw.title }}</div>
+        <a href="{{ url_for('public.artwork_detail', id=aw.id) }}" class="btn-pub btn-pub-outline" style="color:white;border-color:rgba(255,255,255,0.6);">View Work</a>
+      </div>
+    </div>
+    {% endif %}
+  {% endfor %}
+  <div class="hero-dots" id="heroDots"></div>
+</div>
+
+<!-- Featured artworks -->
+<div class="section">
+  <div class="section-header">
+    <div>
+      <div class="section-label">Available Works</div>
+      <div class="page-heading" style="font-size:1.6rem;">Selected Works</div>
+    </div>
+    <a href="{{ url_for('public.artists') }}" class="btn-pub btn-pub-outline" style="font-size:0.68rem;">View All Artists</a>
+  </div>
+  <div class="artwork-grid">
+    {% for aw in featured_artworks[:12] %}
+    {% set img = aw.images[0] if aw.images else none %}
+    <a href="{{ url_for('public.artwork_detail', id=aw.id) }}" style="text-decoration:none;">
+      <div class="artwork-cell">
+        {% if img and img.iiif_url %}
+          <img src="{{ img.iiif_url }}" alt="{{ aw.title }}" loading="lazy">
+        {% else %}
+          <div style="width:100%;aspect-ratio:1;background:#f0f0f0;"></div>
+        {% endif %}
+        <div class="artwork-cell-info">
+          <div class="artwork-cell-title">{{ aw.title }}</div>
+          <div class="artwork-cell-artist">{% if aw.artist %}{{ aw.artist.last_name }}{% endif %}</div>
+        </div>
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  const slides = document.querySelectorAll('.hero-slide');
+  const dotsContainer = document.getElementById('heroDots');
+  let current = 0;
+
+  // Build dots
+  slides.forEach((_, i) => {
+    const dot = document.createElement('div');
+    dot.className = 'hero-dot' + (i === 0 ? ' active' : '');
+    dot.addEventListener('click', () => goTo(i));
+    dotsContainer.appendChild(dot);
+  });
+
+  function goTo(i) {
+    slides[current].classList.remove('active');
+    dotsContainer.children[current].classList.remove('active');
+    current = i;
+    slides[current].classList.add('active');
+    dotsContainer.children[current].classList.add('active');
+  }
+
+  if (slides.length > 1) {
+    setInterval(() => goTo((current + 1) % slides.length), 5000);
+  }
+</script>
+{% endblock %}

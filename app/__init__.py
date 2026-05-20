@@ -19,6 +19,12 @@ def create_app():
     app.config["SECURITY_SEND_REGISTER_EMAIL"] = False
     app.config["SECURITY_REGISTERABLE"] = False
     app.config["WTF_CSRF_SECRET_KEY"] = os.environ.get("SECRET_KEY", "csrf-secret")
+    app.config["MAIL_SERVER"] = os.environ.get("MAIL_SERVER", "mail.infomaniak.com")
+    app.config["MAIL_PORT"] = int(os.environ.get("MAIL_PORT", 587))
+    app.config["MAIL_USE_TLS"] = os.environ.get("MAIL_USE_TLS", "true").lower() == "true"
+    app.config["MAIL_USERNAME"] = os.environ.get("MAIL_USERNAME", "")
+    app.config["MAIL_PASSWORD"] = os.environ.get("MAIL_PASSWORD", "")
+    app.config["MAIL_DEFAULT_SENDER"] = os.environ.get("MAIL_DEFAULT_SENDER", "")
     app.config["PAYREXX_INSTANCE"] = os.environ.get("PAYREXX_INSTANCE", "")
     app.config["PAYREXX_API_SECRET"] = os.environ.get("PAYREXX_API_SECRET", "")
 
@@ -30,9 +36,6 @@ def create_app():
     def health():
         return {"status": "ok", "service": "artnode"}
 
-    @app.route("/")
-    def index():
-        return redirect(url_for("artworks.index"))
 
     @app.route("/webhook/payrexx", methods=["POST"])
     def payrexx_webhook():
@@ -43,27 +46,6 @@ def create_app():
     def admin_login_redirect():
         return redirect("/login")
 
-    # Legacy redirects for old URLs without /admin prefix
-    @app.route("/artworks")
-    @app.route("/artworks/<path:rest>")
-    def redirect_artworks(rest=""):
-        return redirect("/admin/artworks/" + rest if rest else "/admin/artworks")
-
-    @app.route("/artists")
-    @app.route("/artists/<path:rest>")
-    def redirect_artists(rest=""):
-        return redirect("/admin/artists/" + rest if rest else "/admin/artists/")
-
-    @app.route("/contacts")
-    @app.route("/contacts/<path:rest>")
-    def redirect_contacts(rest=""):
-        return redirect("/admin/contacts/" + rest if rest else "/admin/contacts/")
-
-    @app.route("/sales")
-    @app.route("/sales/<path:rest>")
-    def redirect_sales(rest=""):
-        return redirect("/admin/sales/" + rest if rest else "/admin/sales/")
-
     from .blueprints.artworks import bp as artworks_bp
     from .blueprints.artists import bp as artists_bp
     from .blueprints.contacts import bp as contacts_bp
@@ -71,7 +53,7 @@ def create_app():
     from .blueprints.sales import bp as sales_bp
     from .blueprints.fairs import bp as fairs_bp
     from .blueprints.settings import bp as settings_bp
-
+    from .blueprints.public import bp as public_bp
     app.register_blueprint(artworks_bp)
     app.register_blueprint(artists_bp)
     app.register_blueprint(contacts_bp)
@@ -79,5 +61,20 @@ def create_app():
     app.register_blueprint(sales_bp)
     app.register_blueprint(fairs_bp)
     app.register_blueprint(settings_bp)
+    app.register_blueprint(public_bp)
+
+    from flask_mail import Mail
+    mail = Mail(app)
+    app.extensions["mail"] = mail
+    from flask_wtf.csrf import generate_csrf
+    @app.context_processor
+    def inject_csrf():
+        return dict(csrf_token=generate_csrf)
+
+    import markupsafe
+    @app.template_filter("nl2br")
+    def nl2br(value):
+        if not value: return ""
+        return markupsafe.Markup(markupsafe.escape(value).replace("\n", markupsafe.Markup("<br>")))
 
     return app

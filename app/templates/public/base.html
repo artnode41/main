@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="{{ gallery.locale or 'en' }}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}{{ gallery.public_name or gallery.name }}{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans: 'DM Sans', Helvetica Neue, Arial, sans-serif;
+      --bg: #ffffff;
+      --text: #111111;
+      --muted: #666666;
+      --border: #e5e5e5;
+      --nav-h: 64px;
+    }
+
+    html { font-size: 16px; }
+    body { font-family: var(--font-sans); font-weight: 300; color: var(--text); background: var(--bg); }
+
+    /* ── Navigation ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: var(--nav-h);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 40px;
+      background: transparent;
+      transition: background 0.3s, box-shadow 0.3s;
+    }
+    nav.scrolled { background: rgba(255,255,255,0.97); box-shadow: 0 1px 0 var(--border); }
+    .nav-logo {
+      font-family: var(--font-serif); font-size: 1.2rem; font-weight: 400;
+      letter-spacing: 0.04em; color: var(--text); text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a {
+      font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--text); text-decoration: none; font-weight: 400;
+    }
+    .nav-links a:hover { color: var(--muted); }
+
+    /* ── Page wrapper ── */
+    main { padding-top: var(--nav-h); min-height: 100vh; }
+
+    /* ── Flash messages ── */
+    .flash-messages { padding: 12px 40px; }
+    .flash-success { background: #f0faf0; color: #2e6b35; padding: 12px 16px; font-size: 0.85rem; border-left: 3px solid #2e6b35; }
+    .flash-error { background: #fdf0f0; color: #c0392b; padding: 12px 16px; font-size: 0.85rem; border-left: 3px solid #c0392b; }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 40px;
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 0.75rem; color: var(--muted);
+      margin-top: 80px;
+    }
+    footer a { color: var(--muted); text-decoration: none; }
+    footer a:hover { color: var(--text); }
+
+    /* ── Typography ── */
+    .section-label {
+      font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 16px;
+    }
+    .page-heading {
+      font-family: var(--font-serif); font-size: 2.4rem; font-weight: 300;
+      letter-spacing: 0.02em; line-height: 1.2; margin-bottom: 8px;
+    }
+    .page-subheading {
+      font-size: 0.85rem; color: var(--muted); margin-bottom: 40px;
+    }
+
+    /* ── Grid ── */
+    .artwork-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 2px;
+    }
+    .artwork-cell { position: relative; overflow: hidden; background: #f5f5f5; cursor: pointer; }
+    .artwork-cell img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; transition: transform 0.4s; }
+    .artwork-cell:hover img { transform: scale(1.03); }
+    .artwork-cell-info {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 24px 16px 16px;
+      background: linear-gradient(transparent, rgba(0,0,0,0.5));
+      color: white; opacity: 0; transition: opacity 0.3s;
+    }
+    .artwork-cell:hover .artwork-cell-info { opacity: 1; }
+    .artwork-cell-title { font-size: 0.9rem; font-weight: 400; margin-bottom: 2px; }
+    .artwork-cell-artist { font-size: 0.75rem; opacity: 0.8; font-style: italic; font-family: var(--font-serif); }
+
+    /* ── Buttons ── */
+    .btn-pub {
+      display: inline-block; padding: 12px 28px;
+      font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
+      font-weight: 400; cursor: pointer; text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+    }
+    .btn-pub-dark { background: var(--text); color: white; border: 1px solid var(--text); }
+    .btn-pub-dark:hover { background: #333; border-color: #333; }
+    .btn-pub-outline { background: transparent; color: var(--text); border: 1px solid var(--text); }
+    .btn-pub-outline:hover { background: var(--text); color: white; }
+
+    /* ── Form ── */
+    .pub-form-group { margin-bottom: 20px; }
+    .pub-label { font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 6px; }
+    .pub-input {
+      width: 100%; padding: 10px 0; border: none; border-bottom: 1px solid var(--border);
+      font-family: var(--font-sans); font-size: 0.9rem; font-weight: 300;
+      outline: none; background: transparent;
+    }
+    .pub-input:focus { border-bottom-color: var(--text); }
+    textarea.pub-input { resize: vertical; min-height: 100px; padding: 8px 0; }
+  </style>
+  {% block extra_css %}{% endblock %}
+</head>
+<body>
+  <nav id="mainNav">
+    <a href="{{ url_for('public.home') }}" class="nav-logo">
+      {{ gallery.public_name or gallery.name }}
+    </a>
+    <ul class="nav-links">
+      <li><a href="{{ url_for('public.artists') }}">Artists</a></li>
+      <li><a href="{{ url_for('public.exhibitions') }}">Exhibitions</a></li>
+      <li><a href="{{ url_for('public.about') }}">About</a></li>
+      <li><a href="{{ url_for('public.contact') }}">Contact</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+      <div class="flash-messages">
+        {% for category, message in messages %}
+        <div class="flash-{{ category }}">{{ message }}</div>
+        {% endfor %}
+      </div>
+      {% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer>
+    <div>
+      <strong>{{ gallery.public_name or gallery.name }}</strong>
+      {% if gallery.address %} · {{ gallery.address }}{% endif %}
+      {% if gallery.city %} · {{ gallery.zip_code or "" }} {{ gallery.city }}{% endif %}
+    </div>
+    <div>
+      {% if gallery.contact_email %}<a href="mailto:{{ gallery.contact_email }}">{{ gallery.contact_email }}</a>{% endif %}
+      {% if gallery.instagram_url %} · <a href="{{ gallery.instagram_url }}" target="_blank">Instagram</a>{% endif %}
+    </div>
+  </footer>
+
+  <script>
+    const nav = document.getElementById('mainNav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 20);
+    });
+  </script>
+  {% block extra_js %}{% endblock %}
+</body>
+</html>
