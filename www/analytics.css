@@ -1,0 +1,466 @@
+:root {
+    --bg-color: #f2f2f2;
+    --border-color: #dddddd;
+    --text-main: #1a1a1a;
+    --text-sub: #666666;
+    --color-pink: #FFB3AD;
+    --color-green: #ADEBB3;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-color);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    min-height: 100vh;
+    color: var(--text-main);
+}
+
+/* Navigation bar */
+.nav-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid var(--border-color);
+    background-color: var(--bg-color);
+}
+
+.nav-bar a {
+    font-size: 0.75rem;
+    color: var(--text-sub);
+    text-decoration: none;
+}
+
+.nav-bar a:hover {
+    color: var(--text-main);
+}
+
+.nav-label {
+    font-size: 0.75rem;
+    color: var(--text-sub);
+}
+
+/* Language switcher */
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.lang-switcher {
+    display: flex;
+    gap: 0.1rem;
+}
+
+.lang-btn {
+    background: none;
+    border: none;
+    padding: 0.1rem 0.25rem;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 0.75rem;
+    color: var(--text-sub);
+    cursor: pointer;
+    letter-spacing: 0.03em;
+}
+
+.lang-btn:hover { color: var(--text-main); }
+
+.lang-btn.active {
+    color: var(--text-main);
+    font-weight: 700;
+}
+
+/* Offer label inside a square */
+.offer-num {
+    font-size: 0.6rem;
+    font-weight: 600;
+    color: var(--text-sub);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin: 0 0 0.4rem 0;
+}
+
+.offer-label {
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin: 0;
+    color: var(--text-main);
+}
+
+/* Grid */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background-color: var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+}
+
+@media (min-width: 768px) {
+    .grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+    .desc-mobile { display: none; }
+}
+
+@media (max-width: 767px) {
+    .desc-desktop { display: none; }
+}
+
+/* Square cells */
+.square {
+    aspect-ratio: 1 / 1;
+    background-color: #ffffff;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 10%;
+    position: relative;
+    opacity: 0;
+    transform: translateY(15px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.square.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Full-width cells spanning all columns */
+.span-2 {
+    grid-column: span 2;
+    aspect-ratio: auto;
+}
+
+.span-4 {
+    grid-column: 1 / -1;
+    aspect-ratio: auto;
+}
+
+/* Flip card */
+.flip-card {
+    perspective: 1000px;
+    cursor: pointer;
+}
+
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.8s ease;
+}
+
+.flip-card.flipped .flip-card-inner {
+    transform: rotateY(180deg);
+}
+
+.flip-card-front,
+.flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 10%;
+}
+
+.flip-card-back {
+    transform: rotateY(180deg);
+    background-color: #ffffff;
+}
+
+/* Typography */
+.text-main {
+    color: var(--text-main);
+}
+
+.text-sub {
+    color: var(--text-sub);
+}
+
+.label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--text-main);
+    margin-bottom: 0.5rem;
+}
+
+.label-stack {
+    font-size: 0.85rem;
+    font-weight: 700;
+    line-height: 1.6;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.desc-en {
+    font-size: 0.8rem;
+    font-weight: 600;
+    line-height: 1.5;
+    color: var(--text-main);
+    margin-bottom: 0.5rem;
+}
+
+.desc-other {
+    font-size: 0.7rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--text-sub);
+}
+
+/* Links */
+a {
+    color: var(--text-main);
+}
+
+.link-plain {
+    color: var(--text-main);
+    text-decoration: underline;
+    font-size: 0.8rem;
+}
+
+.link-plain:hover {
+    color: var(--text-sub);
+}
+
+.arrow-link {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--text-main);
+    text-decoration: none;
+    margin-bottom: 0.4rem;
+    line-height: 1.4;
+}
+
+.arrow-link:hover {
+    text-decoration: underline;
+}
+
+/* Contact form */
+.contact-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-color);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 0.8rem;
+    color: var(--text-main);
+    outline: none;
+    border-radius: 0;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.contact-form textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+    border-color: var(--text-main);
+}
+
+.contact-form button {
+    width: 100%;
+    padding: 0.6rem;
+    background-color: var(--text-main);
+    color: #ffffff;
+    border: none;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 0;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.contact-form button:hover {
+    background-color: var(--text-sub);
+}
+
+/* Square with contact form — no aspect ratio constraint */
+.square-form {
+    aspect-ratio: auto;
+    min-height: 0;
+    padding: 10%;
+}
+
+/* Section section separators */
+.section-gap {
+    grid-column: 1 / -1;
+    height: 1px;
+    background-color: var(--border-color);
+}
+
+/* Tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.75rem;
+}
+
+th {
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.7rem;
+    color: var(--text-sub);
+    border-bottom: 1px solid var(--border-color);
+    padding: 0.4rem 0.5rem 0.4rem 0;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+td {
+    padding: 0.4rem 0.5rem 0.4rem 0;
+    border-bottom: 1px solid var(--border-color);
+    vertical-align: top;
+    line-height: 1.4;
+    color: var(--text-main);
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+/* Stat grid for report metrics */
+.stat-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background-color: var(--border-color);
+    width: 100%;
+}
+
+.stat-cell {
+    background-color: #ffffff;
+    padding: 0.75rem;
+}
+
+.stat-value {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--text-main);
+    line-height: 1;
+}
+
+.stat-label {
+    font-size: 0.65rem;
+    color: var(--text-sub);
+    margin-top: 0.25rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+/* Full-width content row (no aspect ratio) */
+.row-full {
+    grid-column: 1 / -1;
+    background-color: #ffffff;
+    padding: 2rem;
+    aspect-ratio: auto;
+}
+
+.row-full h2 {
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0 0 1rem 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.row-full p {
+    font-size: 0.8rem;
+    line-height: 1.7;
+    color: var(--text-main);
+    margin: 0 0 0.75rem 0;
+}
+
+.row-full ul {
+    font-size: 0.8rem;
+    line-height: 1.7;
+    color: var(--text-main);
+    margin: 0 0 0.75rem 0;
+    padding-left: 1.2rem;
+}
+
+.row-full li {
+    margin-bottom: 0.5rem;
+}
+
+/* Chart containers */
+.chart-container {
+    position: relative;
+    width: 100%;
+    height: 200px;
+}
+
+@media (min-width: 768px) {
+    .chart-container {
+        height: 260px;
+    }
+}
+
+/* Report header */
+.report-header {
+    grid-column: 1 / -1;
+    background-color: var(--text-main);
+    color: #ffffff;
+    padding: 2rem;
+    aspect-ratio: auto;
+}
+
+.report-header h1 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin: 0 0 0.25rem 0;
+    letter-spacing: 0.02em;
+}
+
+.report-header .subtitle {
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.6);
+}
+
+/* Badge / pill */
+.badge {
+    display: inline-block;
+    font-size: 0.6rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 0.15rem 0.4rem;
+    background-color: var(--bg-color);
+    color: var(--text-sub);
+}
+
+.badge-active { background-color: var(--color-green); color: var(--text-main); }
+.badge-slow   { background-color: #FFF5CC; color: var(--text-main); }
+.badge-stale  { background-color: var(--color-pink); color: var(--text-main); }
+.badge-flag   { background-color: var(--color-pink); color: var(--text-main); }

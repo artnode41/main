@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ArtNode — Open-Source Cloud-Plattform für den Kunstmarkt der Schweiz.">
+    <meta name="keywords" content="ArtNode, Kunstmarkt, Open-Source, Cloud-Plattform, Schweiz, Kunstverwaltung, MIT-Lizenz, Galerie Software">
+    <meta name="robots" content="index, follow">
+    <link rel="icon" href="favicon.ico">
+    <title>ArtNode - Open-Source Galerie-Management</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="analytics.css">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-53ETQ1RTGR"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-53ETQ1RTGR');
+    </script>
+    <style>
+        /* Local overrides only */
+        .square a { text-decoration: none; color: inherit; }
+
+        .logo-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4px;
+            width: 36px;
+            margin-bottom: 0.75rem;
+        }
+        .logo-grid span {
+            aspect-ratio: 1;
+            display: block;
+            background: var(--text-main);
+        }
+        .logo-grid span.dot-green { background: var(--color-green); }
+        .logo-grid span.dot-dark  { background: #555; }
+
+        .logo-name {
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            margin-bottom: 0.3rem;
+        }
+
+        .hero-label {
+            font-size: 0.6rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-sub);
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            line-height: 1.3;
+            letter-spacing: -0.01em;
+        }
+
+        .feat-num {
+            font-size: 0.55rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-sub);
+            margin-bottom: auto;
+        }
+
+        .feat-title {
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            text-transform: uppercase;
+            margin-bottom: 0.35rem;
+        }
+
+        .feat-desc {
+            font-size: 0.68rem;
+            line-height: 1.55;
+            color: var(--text-sub);
+        }
+
+        /* Square that acts as a CTA link */
+        .sq-link { cursor: pointer; transition: filter 0.15s; }
+        .sq-link:hover { filter: brightness(0.93); }
+
+        .access-label {
+            font-size: 0.55rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-sub);
+            margin-bottom: auto;
+        }
+
+        .access-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 0.2rem;
+        }
+
+        .access-desc {
+            font-size: 0.65rem;
+            line-height: 1.5;
+            color: var(--text-sub);
+        }
+
+        .stack-wrap {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-top: 0.5rem;
+        }
+
+        .stack-pill {
+            font-size: 0.6rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            border: 1px solid rgba(0,0,0,0.25);
+            padding: 2px 7px;
+            color: var(--text-main);
+        }
+
+        .footer-copy {
+            font-size: 0.65rem;
+            color: var(--text-sub);
+            line-height: 1.8;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+            margin-top: auto;
+        }
+
+        .footer-links a {
+            font-size: 0.65rem;
+            color: var(--text-sub);
+            text-decoration: none;
+        }
+
+        .footer-links a:hover { color: var(--text-main); }
+
+        /* CTA buttons inside desc square */
+        .btn-row {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-top: auto;
+        }
+
+        .btn {
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            text-decoration: none;
+            padding: 5px 10px;
+            transition: background 0.15s, color 0.15s;
+            white-space: nowrap;
+        }
+
+        .btn-dark  { background: var(--text-main); color: #fff; }
+        .btn-dark:hover { background: #333; }
+        .btn-ghost { border: 1px solid var(--text-main); color: var(--text-main); }
+        .btn-ghost:hover { background: var(--text-main); color: #fff; }
+
+        /* desc span-2 text */
+        .desc-text {
+            font-size: 0.75rem;
+            line-height: 1.65;
+            color: var(--text-sub);
+            margin-bottom: 0;
+        }
+
+        /* SOON square */
+        .soon-text {
+            font-size: 0.6rem;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--text-sub);
+        }
+
+        /* Dark square for Gallery Admin */
+        .sq-dark { background-color: var(--text-main); }
+        .sq-dark .access-label,
+        .sq-dark .access-title,
+        .sq-dark .access-desc { color: #ccc; }
+        .sq-dark .access-title { color: #fff; }
+        .sq-dark .access-label { color: #888; }
+    </style>
+</head>
+<body>
+
+<div class="grid" id="main-grid">
+
+    <!-- 1. LOGO -->
+    <div class="square" style="background-color: var(--color-green); justify-content: center; align-items: center;">
+        <img src="logo_artnode.png" alt="artnode.ch" style="width: 90%; height: auto; display: block;">
+    </div>
+
+    <!-- 2. HERO TITLE -->
+    <div class="square">
+        <p class="hero-label">Open-Source Galerie-Management</p>
+        <h1 class="hero-title">Professionelle Galerie-Software,<br>ohne Abo.</h1>
+    </div>
+
+    <!-- 3. DESCRIPTION + CTAs (span-2) -->
+    <div class="square span-2" style="background-color: #ffffff; aspect-ratio: auto; padding: 10%;">
+        <p class="desc-text">ArtNode ist eine kostenlose, selbst gehostete Plattform für Schweizer Kunstgalerien. Verwalten Sie Ihre Sammlung, Künstlerinnen, Verkäufe und Ihre Website an einem Ort. <strong>100% Schweizer Datenhaltung: Bei einem Hosting via Infomaniak bleiben alle Daten in der Schweiz – vollkommen DSGVO- und DSG-konform.</strong></p>
+        <div class="btn-row">
+            <a href="http://83.228.241.119:8069/admin/artworks" class="btn btn-dark" style="background:var(--text-main);color:#ffffff !important;" target="_blank" rel="noopener">Galerie-Admin</a>
+            <a href="http://83.228.241.119:8069/" class="btn btn-ghost" target="_blank" rel="noopener">Öffentliche Website</a>
+            <a href="https://github.com/artnode41/main" class="btn btn-ghost" target="_blank" rel="noopener">GitHub</a>
+        </div>
+    </div>
+
+    <!-- 4. Sammlungsverwaltung -->
+    <div class="square sq-feat" style="background-color: #f9f9f9;">
+        <p class="feat-num">01</p>
+        <h3 class="feat-title">Kollektionen</h3>
+        <p class="feat-desc">Kunstwerke, Provenienzerfassung, KGTG-konforme Prüfprotokolle, Kommissionsteilungen.</p>
+    </div>
+
+    <!-- 5. Sales & invoicing -->
+    <div class="square sq-feat">
+        <p class="feat-num">02</p>
+        <h3 class="feat-title">Verkauf & Fakturierung</h3>
+        <p class="feat-desc">MWST-konforme PDF-Rechnungen, Payrexx-Zahlungslinks, Differenzbesteuerung.</p>
+    </div>
+
+    <!-- 6. Kunstmesse-Kasse -->
+    <div class="square sq-feat" style="background-color: #f9f9f9;">
+        <p class="feat-num">03</p>
+        <h3 class="feat-title">Kunstmesse-Kasse</h3>
+        <p class="feat-desc">Tablet-optimiertes Kassensystem für Standverkäufe an Messen, mit Messeabschlussberichten.</p>
+    </div>
+
+    <!-- 7. Öffentliche Website -->
+    <div class="square sq-feat">
+        <p class="feat-num">04</p>
+        <h3 class="feat-title">Öffentliche Website</h3>
+        <p class="feat-desc">Moderne Galerieseite mit Künstlerprofilen, Ausstellungen und Kontaktformularen.</p>
+    </div>
+
+    <!-- 8. CRM -->
+    <div class="square sq-feat" style="background-color: #f9f9f9;">
+        <p class="feat-num">05</p>
+        <h3 class="feat-title">CRM</h3>
+        <p class="feat-desc">Kontakte von Sammlern und Institutionen, Kaufhistorie, Einliefererbeziehungen.</p>
+    </div>
+
+    <!-- 9. Kulturerbe -->
+    <div class="square sq-feat">
+        <p class="feat-num">06</p>
+        <h3 class="feat-title">Kulturerbe</h3>
+        <p class="feat-desc">LIDO-XML- und JSON-LD-Export für Europeana und Swiss Open Cultural Data.</p>
+    </div>
+
+    <!-- 10. Stack (span-2) -->
+    <div class="square span-2" style="background-color: #fff; aspect-ratio: auto; padding: 10%;">
+        <p class="feat-num" style="margin-bottom: 0.5rem;">Technologie & Datenschutz</p>
+        <div class="stack-wrap">
+            <span class="stack-pill">Flask / Python</span>
+            <span class="stack-pill">PostgreSQL</span>
+            <span class="stack-pill">MinIO</span>
+            <span class="stack-pill">Docker Compose</span>
+            <span class="stack-pill">WeasyPrint</span>
+            <span class="stack-pill">Payrexx</span>
+            <span class="stack-pill">MIT Lizenz</span>
+            <span class="stack-pill" style="background-color: var(--color-green); border-color: transparent; font-weight: bold;" title="Schweizer Hosting, 100% DSGVO/DSG konform">🇨🇭 Infomaniak (Swiss Hosting)</span>
+            <span class="stack-pill" style="border-color: var(--color-green);">🔒 DSGVO & revDSG Konform</span>
+        </div>
+    </div>
+
+    <!-- 11. Gallery Admin -->
+    <div class="square sq-link" style="background-color: var(--color-green);" onclick="window.open('http://83.228.241.119:8069/admin/artworks','_blank')">
+        <p class="access-label">Mitarbeiterzugang</p>
+        <h3 class="access-title">Galerie-Admin</h3>
+        <p class="access-desc">Kunstwerke, Verkäufe, Künstlerinnen und Einstellungen verwalten. Anmeldung erforderlich.</p>
+    </div>
+
+    <!-- 12. Public Website -->
+    <div class="square sq-link" style="background-color: var(--color-pink);" onclick="window.open('http://83.228.241.119:8069/','_blank')">
+        <p class="access-label">Sammlerzugang</p>
+        <h3 class="access-title">Öffentliche Website</h3>
+        <p class="access-desc">Künstlerinnen, Ausstellungen und verfügbare Werke entdecken.</p>
+    </div>
+
+    <!-- 13. Footer (span-2) -->
+    <div class="square span-2" style="aspect-ratio: auto; padding: 5% 10%; flex-direction: row; justify-content: space-between; align-items: flex-end;">
+            <p class="footer-copy" style="font-weight: 600; color: var(--text-main);">
+                2026 ArtNode — Email Us: <a href="mailto:info@artnode.ch" style="color: var(--color-green); text-decoration: none; font-weight: 700;">info@artnode.ch</a>
+            </p>
+        </div>
+
+    </div><!-- /grid -->
+
+<script>
+    const squares = document.querySelectorAll('.square');
+    squares.forEach((sq, i) => setTimeout(() => sq.classList.add('visible'), i * 40));
+</script>
+
+</body>
+</html>
