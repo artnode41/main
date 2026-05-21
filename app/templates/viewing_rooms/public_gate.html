@@ -1,0 +1,39 @@
+{% extends "public/base.html" %}
+{% block title %}{{ room.title }} — {{ gallery.public_name or gallery.name }}{% endblock %}
+{% block content %}
+<div style="min-height:80vh;display:flex;align-items:center;justify-content:center;padding:40px;">
+  <div style="max-width:400px;width:100%;text-align:center;">
+    <div style="font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-bottom:16px;">Private Viewing Room</div>
+    <h1 style="font-family:var(--font-serif);font-size:1.8rem;font-weight:300;margin-bottom:8px;">{{ room.title }}</h1>
+    {% if room.description %}
+    <p style="font-size:0.85rem;color:var(--muted);margin-bottom:32px;">{{ room.description }}</p>
+    {% else %}
+    <p style="font-size:0.85rem;color:var(--muted);margin-bottom:32px;">This viewing room is password protected.</p>
+    {% endif %}
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% for category, message in messages %}
+      <div style="padding:10px;margin-bottom:16px;font-size:0.85rem;
+                  {% if category == 'error' %}background:#fdf0f0;color:#c0392b;{% else %}background:#f0faf0;color:#2e6b35;{% endif %}">
+        {{ message }}
+      </div>
+      {% endfor %}
+    {% endwith %}
+
+    <form method="POST" action="">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+      <div style="margin-bottom:20px;text-align:left;">
+        <label style="font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px;">Access Code</label>
+        <input type="password" name="access_code" class="pub-input"
+               placeholder="Enter access code" autofocus required
+               style="width:100%;padding:10px 0;border:none;border-bottom:1px solid var(--border);font-size:0.9rem;outline:none;background:transparent;">
+      </div>
+      <button type="submit" class="btn-pub btn-pub-dark" style="width:100%;">Enter</button>
+    </form>
+
+    <div style="margin-top:24px;">
+      <a href="{{ url_for('public.contact') }}" style="font-size:0.78rem;color:var(--muted);">Request access</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

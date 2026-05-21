@@ -54,6 +54,8 @@ def create_app():
     from .blueprints.fairs import bp as fairs_bp
     from .blueprints.settings import bp as settings_bp
     from .blueprints.public import bp as public_bp
+    from .blueprints.viewing_rooms import bp as viewing_rooms_bp
+    from .blueprints.public_viewing import bp as public_viewing_bp
     app.register_blueprint(artworks_bp)
     app.register_blueprint(artists_bp)
     app.register_blueprint(contacts_bp)
@@ -62,6 +64,8 @@ def create_app():
     app.register_blueprint(fairs_bp)
     app.register_blueprint(settings_bp)
     app.register_blueprint(public_bp)
+    app.register_blueprint(viewing_rooms_bp)
+    app.register_blueprint(public_viewing_bp)
 
     from flask_mail import Mail
     mail = Mail(app)

@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}Viewing Rooms — ArtNode{% endblock %}
+{% block content %}
+<div class="page-header">
+  <div>
+    <div class="page-title">Viewing Rooms</div>
+    <div class="page-subtitle">{{ rooms|length }} rooms</div>
+  </div>
+  <div class="page-actions">
+    <a href="{{ url_for('viewing_rooms.create') }}" class="btn btn-primary">+ New Room</a>
+  </div>
+</div>
+<div class="page-body">
+  {% if rooms %}
+  <table style="width:100%;border-collapse:collapse;">
+    <thead>
+      <tr style="border-bottom:2px solid var(--border);">
+        <th style="text-align:left;padding:8px 12px;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);font-weight:400;">Title</th>
+        <th style="text-align:left;padding:8px 12px;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);font-weight:400;">Dates</th>
+        <th style="text-align:center;padding:8px 12px;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);font-weight:400;">Works</th>
+        <th style="text-align:left;padding:8px 12px;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);font-weight:400;">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for room in rooms %}
+      <tr style="border-bottom:1px solid var(--border-light);cursor:pointer;"
+          onclick="window.location='{{ url_for('viewing_rooms.detail', id=room.id) }}'">
+        <td style="padding:14px 12px;font-size:0.95rem;font-weight:400;">{{ room.title }}</td>
+        <td style="padding:14px 12px;font-size:0.85rem;color:var(--text-secondary);">
+          {% if room.opens_at %}{{ room.opens_at.strftime("%d %b %Y") }}{% endif %}
+          {% if room.closes_at %} – {{ room.closes_at.strftime("%d %b %Y") }}{% endif %}
+          {% if not room.opens_at and not room.closes_at %}—{% endif %}
+        </td>
+        <td style="padding:14px 12px;font-size:0.85rem;text-align:center;">{{ room.artworks|length }}</td>
+        <td style="padding:14px 12px;">
+          {% if room.is_active %}
+            <span class="badge badge-available">Active</span>
+          {% else %}
+            <span class="badge badge-draft">Draft</span>
+          {% endif %}
+          {% if room.access_code_hash %}
+            <span style="font-size:0.7rem;color:var(--text-muted);margin-left:6px;">🔒 Protected</span>
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <div style="text-align:center;padding:var(--space-3xl);color:var(--text-muted);">
+    <p style="font-family:var(--font-display);font-size:1.2rem;margin-bottom:8px;">No viewing rooms yet</p>
+    <p style="font-size:0.85rem;">Create a private online viewing room to share with collectors.</p>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

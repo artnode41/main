@@ -1,0 +1,20 @@
+{% extends "public/base.html" %}
+{% block title %}{{ room.title }} — {{ gallery.public_name or gallery.name }}{% endblock %}
+{% block content %}
+<div style="min-height:80vh;display:flex;align-items:center;justify-content:center;padding:40px;">
+  <div style="max-width:400px;width:100%;text-align:center;">
+    <div style="font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-bottom:16px;">Viewing Room</div>
+    <h1 style="font-family:var(--font-serif);font-size:1.8rem;font-weight:300;margin-bottom:16px;">{{ room.title }}</h1>
+    {% if reason == "not_yet" %}
+    <p style="font-size:0.9rem;color:var(--muted);">
+      This viewing room opens on {{ room.opens_at.strftime("%d %B %Y") }}.
+    </p>
+    {% else %}
+    <p style="font-size:0.9rem;color:var(--muted);">This viewing room has closed.</p>
+    {% endif %}
+    <div style="margin-top:32px;">
+      <a href="{{ url_for('public.home') }}" class="btn-pub btn-pub-outline">Back to Gallery</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

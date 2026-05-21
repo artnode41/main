@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}{% if room %}Edit{% else %}New{% endif %} Viewing Room — ArtNode{% endblock %}
+{% block content %}
+<div class="page-header">
+  <div>
+    <a href="{{ url_for('viewing_rooms.index') }}" style="font-size:0.75rem;color:var(--text-muted);letter-spacing:0.06em;text-transform:uppercase;">&larr; Viewing Rooms</a>
+    <div class="page-title" style="margin-top:4px;">{% if room %}Edit Room{% else %}New Viewing Room{% endif %}</div>
+  </div>
+</div>
+<div class="page-body">
+  <form method="POST" action="">
+    {{ form.hidden_tag() }}
+    <div style="max-width:600px;">
+      <div style="background:var(--surface);border:1px solid var(--border);padding:var(--space-xl);margin-bottom:var(--space-lg);">
+        <div style="font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:var(--space-lg);">Room Details</div>
+        <div class="form-group">{{ form.title.label(class="form-label") }}{{ form.title(class="form-control", placeholder="e.g. Private Preview — Autumn 2026") }}</div>
+        <div class="form-group">{{ form.description.label(class="form-label") }}{{ form.description(class="form-control", rows=4, placeholder="Describe this viewing room for collectors...") }}</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-md);">
+          <div class="form-group">{{ form.opens_at.label(class="form-label") }}{{ form.opens_at(class="form-control") }}</div>
+          <div class="form-group">{{ form.closes_at.label(class="form-label") }}{{ form.closes_at(class="form-control") }}</div>
+        </div>
+      </div>
+
+      <div style="background:var(--surface);border:1px solid var(--border);padding:var(--space-xl);margin-bottom:var(--space-lg);">
+        <div style="font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:var(--space-lg);">Access & Visibility</div>
+        <div class="form-group">
+          {{ form.access_code.label(class="form-label") }}
+          {{ form.access_code(class="form-control", placeholder="Leave blank for no password") }}
+          {% if room and room.access_code_hash %}
+          <p style="font-size:0.75rem;color:var(--text-muted);margin-top:4px;">A code is set. Enter a new one to change it, or leave blank to keep the existing code.</p>
+          {% endif %}
+        </div>
+        <label style="display:flex;align-items:center;gap:10px;cursor:pointer;font-size:0.88rem;margin-top:var(--space-md);">
+          {{ form.is_active(style="width:16px;height:16px;") }} {{ form.is_active.label.text }}
+        </label>
+      </div>
+
+      <div style="display:flex;gap:var(--space-md);justify-content:flex-end;">
+        <a href="{{ url_for('viewing_rooms.index') }}" class="btn btn-secondary">Cancel</a>
+        <button type="submit" class="btn btn-primary">{% if room %}Save Changes{% else %}Create Room{% endif %}</button>
+      </div>
+    </div>
+  </form>
+</div>
+{% endblock %}

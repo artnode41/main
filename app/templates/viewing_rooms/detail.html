@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% block title %}{{ room.title }} — ArtNode{% endblock %}
+{% block content %}
+<div class="page-header">
+  <div>
+    <a href="{{ url_for('viewing_rooms.index') }}" style="font-size:0.75rem;color:var(--text-muted);letter-spacing:0.06em;text-transform:uppercase;">&larr; Viewing Rooms</a>
+    <div class="page-title" style="margin-top:4px;">{{ room.title }}</div>
+  </div>
+  <div class="page-actions">
+    <a href="{{ url_for('viewing_rooms.edit', id=room.id) }}" class="btn btn-secondary">Edit</a>
+    <a href="{{ public_url }}" target="_blank" class="btn btn-secondary" style="margin-left:8px;">Preview Public</a>
+    <form method="POST" action="{{ url_for('viewing_rooms.delete', id=room.id) }}"
+          onsubmit="return confirm('Delete this viewing room?')" style="display:inline;">
+      <button type="submit" class="btn btn-secondary" style="margin-left:8px;">Delete</button>
+    </form>
+  </div>
+</div>
+
+<div class="page-body">
+
+  <!-- Public URL share box -->
+  <div style="background:var(--surface);border:1px solid var(--border);padding:var(--space-lg);margin-bottom:var(--space-xl);display:flex;align-items:center;gap:var(--space-md);">
+    <div style="flex:1;">
+      <div style="font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:4px;">Share this link with collectors</div>
+      <code style="font-size:0.85rem;color:var(--text-secondary);">{{ public_url }}</code>
+    </div>
+    <button onclick="navigator.clipboard.writeText('{{ public_url }}');this.textContent='Copied!';"
+            class="btn btn-secondary" style="flex-shrink:0;font-size:0.75rem;">Copy Link</button>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-2xl);">
+
+    <!-- Assigned artworks -->
+    <div>
+      <div style="font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:var(--space-md);">
+        In this room ({{ room.artworks|length }})
+      </div>
+      {% for vra in room.artworks|sort(attribute='sort_order') %}
+      {% set aw = vra.artwork %}
+      <div style="background:var(--surface);border:1px solid var(--border);padding:var(--space-md);margin-bottom:var(--space-sm);display:flex;align-items:center;gap:var(--space-md);">
+        {% set img = aw.images[0] if aw.images else none %}
+        {% if img and img.iiif_url %}
+          <img src="{{ img.iiif_url }}" style="width:56px;height:56px;object-fit:cover;background:var(--border-light);flex-shrink:0;">
+        {% endif %}
+        <div style="flex:1;min-width:0;">
+          <div style="font-size:0.88rem;font-weight:400;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ aw.title }}</div>
+          <div style="font-size:0.78rem;color:var(--text-secondary);font-style:italic;font-family:var(--font-display);">{% if aw.artist %}{{ aw.artist.last_name }}{% endif %}</div>
+        </div>
+        <form method="POST" action="{{ url_for('viewing_rooms.remove', id=room.id, artwork_id=aw.id) }}" style="flex-shrink:0;">
+          <button type="submit" class="btn btn-secondary" style="padding:4px 10px;font-size:0.72rem;">Remove</button>
+        </form>
+      </div>
+      {% else %}
+      <p style="font-size:0.85rem;color:var(--text-muted);">No artworks added yet.</p>
+      {% endfor %}
+    </div>
+
+    <!-- Available artworks -->
+    <div>
+      <div style="font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:var(--space-md);">
+        Add Artworks
+      </div>
+      <input type="text" class="search-input" placeholder="Search..." id="vrSearch" style="margin-bottom:var(--space-md);width:100%;">
+      {% for aw in available %}
+        {% if aw.id not in assigned_ids %}
+        <div class="vr-row" data-title="{{ aw.title|lower }}" data-artist="{{ aw.artist.last_name|lower if aw.artist else '' }}"
+             style="background:var(--surface);border:1px solid var(--border);padding:var(--space-md);margin-bottom:var(--space-sm);display:flex;align-items:center;gap:var(--space-md);">
+          {% set img = aw.images[0] if aw.images else none %}
+          {% if img and img.iiif_url %}
+            <img src="{{ img.iiif_url }}" style="width:56px;height:56px;object-fit:cover;background:var(--border-light);flex-shrink:0;">
+          {% endif %}
+          <div style="flex:1;min-width:0;">
+            <div style="font-size:0.88rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ aw.title }}</div>
+            <div style="font-size:0.78rem;color:var(--text-secondary);font-style:italic;font-family:var(--font-display);">{% if aw.artist %}{{ aw.artist.last_name }}{% endif %}</div>
+          </div>
+          <form method="POST" action="{{ url_for('viewing_rooms.assign', id=room.id, artwork_id=aw.id) }}" style="flex-shrink:0;">
+            <button type="submit" class="btn btn-secondary" style="padding:4px 12px;font-size:0.72rem;">Add</button>
+          </form>
+        </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+  </div>
+</div>
+
+<script>
+const vrSearch = document.getElementById('vrSearch');
+const vrRows = document.querySelectorAll('.vr-row');
+vrSearch.addEventListener('input', () => {
+  const q = vrSearch.value.toLowerCase().trim();
+  vrRows.forEach(row => {
+    const match = !q || row.dataset.title.includes(q) || row.dataset.artist.includes(q);
+    row.style.display = match ? '' : 'none';
+  });
+});
+</script>
+{% endblock %}
