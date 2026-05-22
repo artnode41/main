@@ -20,291 +20,269 @@
       gtag('config', 'G-53ETQ1RTGR');
     </script>
     <style>
-        /* Local overrides only */
-        .square a { text-decoration: none; color: inherit; }
-
-        .logo-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4px;
-            width: 36px;
-            margin-bottom: 0.75rem;
-        }
-        .logo-grid span {
-            aspect-ratio: 1;
-            display: block;
-            background: var(--text-main);
-        }
-        .logo-grid span.dot-green { background: var(--color-green); }
-        .logo-grid span.dot-dark  { background: #555; }
-
-        .logo-name {
-            font-size: 1.1rem;
-            font-weight: 700;
-            letter-spacing: -0.01em;
-            margin-bottom: 0.3rem;
-        }
-
-        .hero-label {
-            font-size: 0.6rem;
-            font-weight: 700;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--text-sub);
-            margin-bottom: 0.5rem;
-        }
-
-        .hero-title {
-            font-size: 1.05rem;
-            font-weight: 700;
-            line-height: 1.3;
-            letter-spacing: -0.01em;
-        }
-
-        .feat-num {
-            font-size: 0.55rem;
-            font-weight: 600;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--text-sub);
-            margin-bottom: auto;
-        }
-
-        .feat-title {
-            font-size: 0.75rem;
-            font-weight: 700;
-            letter-spacing: 0.02em;
-            text-transform: uppercase;
-            margin-bottom: 0.35rem;
-        }
-
-        .feat-desc {
-            font-size: 0.68rem;
-            line-height: 1.55;
-            color: var(--text-sub);
-        }
-
-        /* Square that acts as a CTA link */
         .sq-link { cursor: pointer; transition: filter 0.15s; }
         .sq-link:hover { filter: brightness(0.93); }
 
-        .access-label {
-            font-size: 0.55rem;
-            font-weight: 700;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--text-sub);
-            margin-bottom: auto;
-        }
-
-        .access-title {
-            font-size: 0.85rem;
-            font-weight: 700;
-            margin-bottom: 0.2rem;
-        }
-
-        .access-desc {
-            font-size: 0.65rem;
-            line-height: 1.5;
-            color: var(--text-sub);
-        }
-
-        .stack-wrap {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 5px;
-            margin-top: 0.5rem;
-        }
-
-        .stack-pill {
-            font-size: 0.6rem;
-            font-weight: 600;
-            letter-spacing: 0.04em;
-            border: 1px solid rgba(0,0,0,0.25);
-            padding: 2px 7px;
-            color: var(--text-main);
-        }
-
-        .footer-copy {
-            font-size: 0.65rem;
-            color: var(--text-sub);
-            line-height: 1.8;
-        }
-
-        .footer-links {
-            display: flex;
-            flex-direction: column;
-            gap: 0.3rem;
-            margin-top: auto;
-        }
-
-        .footer-links a {
-            font-size: 0.65rem;
-            color: var(--text-sub);
-            text-decoration: none;
-        }
-
-        .footer-links a:hover { color: var(--text-main); }
-
-        /* CTA buttons inside desc square */
-        .btn-row {
-            display: flex;
-            gap: 6px;
-            flex-wrap: wrap;
-            margin-top: auto;
-        }
-
-        .btn {
-            font-size: 0.65rem;
-            font-weight: 600;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-            text-decoration: none;
-            padding: 5px 10px;
-            transition: background 0.15s, color 0.15s;
-            white-space: nowrap;
-        }
-
-        .btn-dark  { background: var(--text-main); color: #fff; }
-        .btn-dark:hover { background: #333; }
-        .btn-ghost { border: 1px solid var(--text-main); color: var(--text-main); }
-        .btn-ghost:hover { background: var(--text-main); color: #fff; }
-
-        /* desc span-2 text */
-        .desc-text {
+        .cta-arrow {
+            display: inline-block;
             font-size: 0.75rem;
-            line-height: 1.65;
-            color: var(--text-sub);
-            margin-bottom: 0;
-        }
-
-        /* SOON square */
-        .soon-text {
-            font-size: 0.6rem;
             font-weight: 700;
-            letter-spacing: 0.18em;
-            text-transform: uppercase;
-            color: var(--text-sub);
+            color: var(--text-main);
+            text-decoration: none;
+            margin-top: 0.6rem;
+            letter-spacing: 0.03em;
         }
-
-        /* Dark square for Gallery Admin */
-        .sq-dark { background-color: var(--text-main); }
-        .sq-dark .access-label,
-        .sq-dark .access-title,
-        .sq-dark .access-desc { color: #ccc; }
-        .sq-dark .access-title { color: #fff; }
-        .sq-dark .access-label { color: #888; }
     </style>
 </head>
 <body>
 
+<nav class="nav-bar">
+    <div class="lang-switcher" style="margin-left: auto;">
+        <button class="lang-btn" data-lang="de" onclick="setLang('de')">DE</button>
+        <button class="lang-btn" data-lang="fr" onclick="setLang('fr')">FR</button>
+        <button class="lang-btn" data-lang="it" onclick="setLang('it')">IT</button>
+        <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
+    </div>
+</nav>
+
 <div class="grid" id="main-grid">
 
-    <!-- 1. LOGO -->
+    <!-- Logo | Intro -->
     <div class="square" style="background-color: var(--color-green); justify-content: center; align-items: center;">
         <img src="logo_artnode.png" alt="artnode.ch" style="width: 90%; height: auto; display: block;">
     </div>
+    <div class="square" style="justify-content: center; align-items: center; text-align: center;">
+        <p style="font-size: 0.85rem; font-weight: 700; line-height: 1.55; margin: 0;" data-t="intro"></p>
+    </div>
 
-    <!-- 2. HERO TITLE -->
+    <!-- 01 Kollektionen -->
+    <div class="square" style="justify-content: center; align-items: center; text-align: center;">
+        <p class="offer-num">01</p>
+        <p class="offer-label" data-t="label_01"></p>
+    </div>
     <div class="square">
-        <p class="hero-label">Open-Source Galerie-Management</p>
-        <h1 class="hero-title">Professionelle Galerie-Software,<br>ohne Abo.</h1>
+        <p class="desc-desktop" style="font-size: 0.8rem; line-height: 1.6; margin: 0;" data-t="desc_01"></p>
+        <p class="desc-mobile" style="font-size: 0.8rem; line-height: 1.6; margin: 0;" data-t="desc_01s"></p>
     </div>
 
-    <!-- 3. DESCRIPTION + CTAs (span-2) -->
-    <div class="square span-2" style="background-color: #ffffff; aspect-ratio: auto; padding: 10%;">
-        <p class="desc-text">ArtNode ist eine kostenlose, selbst gehostete Plattform für Schweizer Kunstgalerien. Verwalten Sie Ihre Sammlung, Künstlerinnen, Verkäufe und Ihre Website an einem Ort. <strong>100% Schweizer Datenhaltung: Bei einem Hosting via Infomaniak bleiben alle Daten in der Schweiz – vollkommen DSGVO- und DSG-konform.</strong></p>
-        <div class="btn-row">
-            <a href="https://admin.artnode.ch" class="btn btn-dark" style="background:var(--text-main);color:#ffffff !important;" target="_blank" rel="noopener">Galerie-Admin</a>
-            <a href="https://site.artnode.ch" class="btn btn-ghost" target="_blank" rel="noopener">Öffentliche Website</a>
-            <a href="https://github.com/artnode41/main" class="btn btn-ghost" target="_blank" rel="noopener">GitHub</a>
-        </div>
+    <!-- 02 Verkauf + Messe -->
+    <div class="square" style="justify-content: center; align-items: center; text-align: center;">
+        <p class="offer-num">02</p>
+        <p class="offer-label" data-t="label_02"></p>
+    </div>
+    <div class="square">
+        <p class="desc-desktop" style="font-size: 0.8rem; line-height: 1.6; margin: 0;" data-t="desc_02"></p>
+        <p class="desc-mobile" style="font-size: 0.8rem; line-height: 1.6; margin: 0;" data-t="desc_02s"></p>
     </div>
 
-    <!-- 4. Sammlungsverwaltung -->
-    <div class="square sq-feat" style="background-color: #f9f9f9;">
-        <p class="feat-num">01</p>
-        <h3 class="feat-title">Kollektionen</h3>
-        <p class="feat-desc">Kunstwerke, Provenienzerfassung, KGTG-konforme Prüfprotokolle, Kommissionsteilungen.</p>
+    <!-- 03 Website -->
+    <div class="square" style="justify-content: center; align-items: center; text-align: center;">
+        <p class="offer-num">03</p>
+        <p class="offer-label" data-t="label_03"></p>
+    </div>
+    <div class="square">
+        <p class="desc-desktop" style="font-size: 0.8rem; line-height: 1.6; margin: 0;" data-t="desc_03"></p>
+        <p class="desc-mobile" style="font-size: 0.8rem; line-height: 1.6; margin: 0;" data-t="desc_03s"></p>
     </div>
 
-    <!-- 5. Sales & invoicing -->
-    <div class="square sq-feat">
-        <p class="feat-num">02</p>
-        <h3 class="feat-title">Verkauf & Fakturierung</h3>
-        <p class="feat-desc">MWST-konforme PDF-Rechnungen, Payrexx-Zahlungslinks, Differenzbesteuerung.</p>
+    <!-- 04 CRM -->
+    <div class="square" style="justify-content: center; align-items: center; text-align: center;">
+        <p class="offer-num">04</p>
+        <p class="offer-label">CRM</p>
+    </div>
+    <div class="square">
+        <p class="desc-desktop" style="font-size: 0.8rem; line-height: 1.6; margin: 0;" data-t="desc_04"></p>
+        <p class="desc-mobile" style="font-size: 0.8rem; line-height: 1.6; margin: 0;" data-t="desc_04s"></p>
     </div>
 
-    <!-- 6. Kunstmesse-Kasse -->
-    <div class="square sq-feat" style="background-color: #f9f9f9;">
-        <p class="feat-num">03</p>
-        <h3 class="feat-title">Kunstmesse-Kasse</h3>
-        <p class="feat-desc">Tablet-optimiertes Kassensystem für Standverkäufe an Messen, mit Messeabschlussberichten.</p>
+    <!-- 05 Kulturerbe -->
+    <div class="square" style="justify-content: center; align-items: center; text-align: center;">
+        <p class="offer-num">05</p>
+        <p class="offer-label" data-t="label_05"></p>
+    </div>
+    <div class="square">
+        <p class="desc-desktop" style="font-size: 0.8rem; line-height: 1.6; margin: 0;" data-t="desc_05"></p>
+        <p class="desc-mobile" style="font-size: 0.8rem; line-height: 1.6; margin: 0;" data-t="desc_05s"></p>
     </div>
 
-    <!-- 7. Öffentliche Website -->
-    <div class="square sq-feat">
-        <p class="feat-num">04</p>
-        <h3 class="feat-title">Öffentliche Website</h3>
-        <p class="feat-desc">Moderne Galerieseite mit Künstlerprofilen, Ausstellungen und Kontaktformularen.</p>
+    <!-- CTA — Galerie-Admin -->
+    <div class="square sq-link" style="background-color: var(--color-green); justify-content: center; align-items: center; text-align: center;" onclick="window.open('https://admin.artnode.ch','_blank')">
+        <p class="offer-num" data-t="admin_eyebrow"></p>
+        <p class="offer-label" style="font-size: 0.8rem;">Galerie-Admin</p>
+        <p style="font-size: 0.72rem; line-height: 1.5; margin: 0.4rem 0 0 0; color: var(--text-main);" data-t="admin_desc"></p>
+        <span class="cta-arrow" data-t="admin_cta"></span>
     </div>
 
-    <!-- 8. CRM -->
-    <div class="square sq-feat" style="background-color: #f9f9f9;">
-        <p class="feat-num">05</p>
-        <h3 class="feat-title">CRM</h3>
-        <p class="feat-desc">Kontakte von Sammlern und Institutionen, Kaufhistorie, Einliefererbeziehungen.</p>
+    <!-- CTA — Öffentliche Website -->
+    <div class="square sq-link" style="background-color: var(--color-pink); justify-content: center; align-items: center; text-align: center;" onclick="window.open('https://site.artnode.ch','_blank')">
+        <p class="offer-num" data-t="site_eyebrow"></p>
+        <p class="offer-label" style="font-size: 0.8rem;" data-t="site_label"></p>
+        <p style="font-size: 0.72rem; line-height: 1.5; margin: 0.4rem 0 0 0; color: var(--text-main);" data-t="site_desc"></p>
+        <span class="cta-arrow" data-t="site_cta"></span>
     </div>
 
-    <!-- 9. Kulturerbe -->
-    <div class="square sq-feat">
-        <p class="feat-num">06</p>
-        <h3 class="feat-title">Kulturerbe</h3>
-        <p class="feat-desc">LIDO-XML- und JSON-LD-Export für Europeana und Swiss Open Cultural Data.</p>
+    <!-- GitHub -->
+    <a href="https://github.com/artnode41/main" target="_blank" rel="noopener" class="square" style="justify-content: center; align-items: center; text-align: center; text-decoration: none;">
+        <p class="offer-label" style="font-size: 0.8rem;">GitHub</p>
+    </a>
+
+    <!-- Contact CTA -->
+    <div class="square" style="justify-content: center; align-items: center; text-align: center;">
+        <p class="offer-num" data-t="contact_eyebrow"></p>
+        <p style="font-size: 0.8rem; line-height: 1.5; margin: 0 0 0.5rem 0; font-weight: 600;" data-t="contact_desc"></p>
+        <a href="https://jeunet.ch/about.html" target="_blank" rel="noopener" style="font-size: 0.75rem; font-weight: 700; color: var(--text-main); text-decoration: none;" data-t="contact_cta"></a>
     </div>
 
-    <!-- 10. Stack (span-2) -->
-    <div class="square span-2" style="background-color: #fff; aspect-ratio: auto; padding: 10%;">
-        <p class="feat-num" style="margin-bottom: 0.5rem;">Technologie & Datenschutz</p>
-        <div class="stack-wrap">
-            <span class="stack-pill">Flask / Python</span>
-            <span class="stack-pill">PostgreSQL</span>
-            <span class="stack-pill">MinIO</span>
-            <span class="stack-pill">Docker Compose</span>
-            <span class="stack-pill">WeasyPrint</span>
-            <span class="stack-pill">Payrexx</span>
-            <span class="stack-pill">MIT Lizenz</span>
-            <span class="stack-pill" style="background-color: var(--color-green); border-color: transparent; font-weight: bold;" title="Schweizer Hosting, 100% DSGVO/DSG konform">🇨🇭 Infomaniak (Swiss Hosting)</span>
-            <span class="stack-pill" style="border-color: var(--color-green);">🔒 DSGVO & revDSG Konform</span>
-        </div>
-    </div>
-
-    <!-- 11. Gallery Admin -->
-    <div class="square sq-link" style="background-color: var(--color-green);" onclick="window.open('https://admin.artnode.ch','_blank')">
-        <p class="access-label">Mitarbeiterzugang</p>
-        <h3 class="access-title">Galerie-Admin</h3>
-        <p class="access-desc">Kunstwerke, Verkäufe, Künstlerinnen und Einstellungen verwalten. Anmeldung erforderlich.</p>
-    </div>
-
-    <!-- 12. Public Website -->
-    <div class="square sq-link" style="background-color: var(--color-pink);" onclick="window.open('https://site.artnode.ch','_blank')">
-        <p class="access-label">Sammlerzugang</p>
-        <h3 class="access-title">Öffentliche Website</h3>
-        <p class="access-desc">Künstlerinnen, Ausstellungen und verfügbare Werke entdecken.</p>
-    </div>
-
-    <!-- 13. Footer (span-2) -->
-    <div class="square span-2" style="aspect-ratio: auto; padding: 5% 10%; flex-direction: row; justify-content: space-between; align-items: flex-end;">
-            <p class="footer-copy" style="font-weight: 600; color: var(--text-main);">
-                2026 ArtNode — Email Us: <a href="mailto:info@artnode.ch" style="color: var(--color-green); text-decoration: none; font-weight: 700;">info@artnode.ch</a>
-            </p>
-        </div>
-
-    </div><!-- /grid -->
+</div><!-- /grid -->
 
 <script>
-    const squares = document.querySelectorAll('.square');
-    squares.forEach((sq, i) => setTimeout(() => sq.classList.add('visible'), i * 40));
+const i18n = {
+    de: {
+        page_title:     "ArtNode — Open-Source Galerie-Management",
+        intro:          "Professionelle Galerie-Software, ohne Abo. Kostenlos, selbst gehostet, 100 % Schweizer Datenhaltung.",
+        label_01:       "Kollektionen",
+        desc_01:        "Kunstwerke, Provenienzerfassung, KGTG-konforme Prüfprotokolle, Kommissionsteilungen.",
+        desc_01s:       "Kunstwerke, Provenienz, Prüfprotokolle.",
+        label_02:       "Verkauf",
+        desc_02:        "MWST-konforme PDF-Rechnungen, Payrexx-Zahlungslinks, Differenzbesteuerung. Tablet-Kassensystem für Messestände mit Abschlussberichten.",
+        desc_02s:       "PDF-Rechnungen, Payrexx, Differenzbesteuerung, Messe-Kasse.",
+        label_03:       "Website",
+        desc_03:        "Moderne Galerieseite mit Künstlerprofilen, Ausstellungen und Kontaktformularen.",
+        desc_03s:       "Galerieseite, Künstlerprofile, Ausstellungen.",
+        desc_04:        "Kontakte von Sammlern und Institutionen, Kaufhistorie, Einliefererbeziehungen.",
+        desc_04s:       "Sammler, Kaufhistorie, Einlieferer.",
+        label_05:       "Kulturerbe",
+        desc_05:        "LIDO-XML- und JSON-LD-Export für Europeana und Swiss Open Cultural Data.",
+        desc_05s:       "LIDO-XML, JSON-LD, Europeana.",
+        admin_eyebrow:  "Mitarbeiterzugang",
+        admin_desc:     "Kunstwerke, Verkäufe und Einstellungen verwalten.",
+        admin_cta:      "→ Kostenlos testen",
+        site_eyebrow:   "Sammlerzugang",
+        site_label:     "Öff. Website",
+        site_desc:      "Werke, Künstlerinnen und Ausstellungen entdecken.",
+        site_cta:       "→ Website besuchen",
+        contact_eyebrow: "Installation",
+        contact_desc:   "Hilfe bei der Installation?",
+        contact_cta:    "→ Kontakt aufnehmen",
+    },
+    fr: {
+        page_title:     "ArtNode — Gestion de galerie open-source",
+        intro:          "Logiciel de galerie professionnel, sans abonnement. Gratuit, auto-hébergé, données 100 % en Suisse.",
+        label_01:       "Collections",
+        desc_01:        "Œuvres, provenance, protocoles LTBC, partages de commission.",
+        desc_01s:       "Œuvres, provenance, protocoles.",
+        label_02:       "Ventes",
+        desc_02:        "Factures PDF conformes TVA, liens de paiement Payrexx, taxation à la marge. Caisse tactile pour stands en foire avec rapports de clôture.",
+        desc_02s:       "Factures PDF, Payrexx, taxation à la marge, caisse foire.",
+        label_03:       "Site web",
+        desc_03:        "Site de galerie avec profils d'artistes, expositions et formulaires de contact.",
+        desc_03s:       "Site galerie, artistes, expositions.",
+        desc_04:        "Contacts de collectionneurs et institutions, historique d'achats, relations de consignateurs.",
+        desc_04s:       "Collectionneurs, historique, consignateurs.",
+        label_05:       "Patrimoine",
+        desc_05:        "Export LIDO-XML et JSON-LD pour Europeana et Swiss Open Cultural Data.",
+        desc_05s:       "LIDO-XML, JSON-LD, Europeana.",
+        admin_eyebrow:  "Accès équipe",
+        admin_desc:     "Gérer les œuvres, ventes et paramètres.",
+        admin_cta:      "→ Tester gratuitement",
+        site_eyebrow:   "Accès public",
+        site_label:     "Site public",
+        site_desc:      "Parcourir œuvres, artistes et expositions.",
+        site_cta:       "→ Visiter le site",
+        contact_eyebrow: "Installation",
+        contact_desc:   "Besoin d'aide pour l'installation ?",
+        contact_cta:    "→ Nous contacter",
+    },
+    it: {
+        page_title:     "ArtNode — Gestione galleria open-source",
+        intro:          "Software professionale per gallerie, senza abbonamento. Gratuito, self-hosted, dati 100 % svizzeri.",
+        label_01:       "Collezioni",
+        desc_01:        "Opere, provenienza, protocolli LTBC, suddivisioni di commissione.",
+        desc_01s:       "Opere, provenienza, protocolli.",
+        label_02:       "Vendite",
+        desc_02:        "Fatture PDF conformi IVA, link di pagamento Payrexx, tassazione differenziale. Cassa touch per stand fieristici con report di chiusura.",
+        desc_02s:       "Fatture PDF, Payrexx, tassazione diff., cassa fiera.",
+        label_03:       "Sito web",
+        desc_03:        "Sito galleria con profili artisti, mostre e moduli di contatto.",
+        desc_03s:       "Sito galleria, artisti, mostre.",
+        desc_04:        "Contatti di collezionisti e istituzioni, storico acquisti, relazioni consignatori.",
+        desc_04s:       "Collezionisti, storico, consignatori.",
+        label_05:       "Patrimonio",
+        desc_05:        "Export LIDO-XML e JSON-LD per Europeana e Swiss Open Cultural Data.",
+        desc_05s:       "LIDO-XML, JSON-LD, Europeana.",
+        admin_eyebrow:  "Accesso team",
+        admin_desc:     "Gestire opere, vendite e impostazioni.",
+        admin_cta:      "→ Prova gratuita",
+        site_eyebrow:   "Accesso pubblico",
+        site_label:     "Sito pubblico",
+        site_desc:      "Sfogliare opere, artisti e mostre.",
+        site_cta:       "→ Visita il sito",
+        contact_eyebrow: "Installazione",
+        contact_desc:   "Bisogno di aiuto per l'installazione?",
+        contact_cta:    "→ Contattaci",
+    },
+    en: {
+        page_title:     "ArtNode — Open-Source Gallery Management",
+        intro:          "Professional gallery software, no subscription. Free, self-hosted, 100 % Swiss data storage.",
+        label_01:       "Collections",
+        desc_01:        "Artworks, provenance records, CPTA-compliant audit logs, commission splits.",
+        desc_01s:       "Artworks, provenance, audit logs.",
+        label_02:       "Sales",
+        desc_02:        "VAT-compliant PDF invoices, Payrexx payment links, margin scheme taxation. Tablet POS for art fair booths with closing reports.",
+        desc_02s:       "PDF invoices, Payrexx, margin tax, fair POS.",
+        label_03:       "Website",
+        desc_03:        "Gallery website with artist profiles, exhibitions and contact forms.",
+        desc_03s:       "Gallery site, artist profiles, exhibitions.",
+        desc_04:        "Collector and institution contacts, purchase history, consignor relationships.",
+        desc_04s:       "Collectors, purchase history, consignors.",
+        label_05:       "Heritage",
+        desc_05:        "LIDO-XML and JSON-LD export for Europeana and Swiss Open Cultural Data.",
+        desc_05s:       "LIDO-XML, JSON-LD, Europeana.",
+        admin_eyebrow:  "Staff access",
+        admin_desc:     "Manage artworks, sales and settings.",
+        admin_cta:      "→ Try for free",
+        site_eyebrow:   "Public access",
+        site_label:     "Public site",
+        site_desc:      "Browse works, artists and exhibitions.",
+        site_cta:       "→ Visit the site",
+        contact_eyebrow: "Installation",
+        contact_desc:   "Need help installing it?",
+        contact_cta:    "→ Get in touch",
+    }
+};
+
+function setLang(lang) {
+    document.documentElement.lang = lang;
+    localStorage.setItem('lang', lang);
+    const t = i18n[lang];
+    document.querySelectorAll('[data-t]').forEach(el => {
+        const v = t[el.dataset.t];
+        if (v !== undefined) el.textContent = v;
+    });
+    document.title = t.page_title;
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) metaDesc.setAttribute('content', t.intro);
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.lang === lang);
+    });
+}
+
+function detectLang() {
+    const supported = ['en', 'de', 'fr', 'it'];
+    const stored = localStorage.getItem('lang');
+    if (stored && supported.includes(stored)) return stored;
+    const prefs = (navigator.languages && navigator.languages.length) ? navigator.languages : [navigator.language || ''];
+    for (const l of prefs) {
+        const code = l.split('-')[0].toLowerCase();
+        if (supported.includes(code)) return code;
+    }
+    return 'de';
+}
+
+const squares = document.querySelectorAll('.square');
+squares.forEach((sq, i) => setTimeout(() => sq.classList.add('visible'), i * 40));
+
+setLang(detectLang());
 </script>
 
 </body>

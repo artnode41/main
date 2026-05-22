@@ -59,7 +59,9 @@
   <main class="main">
     {% with messages = get_flashed_messages(with_categories=true) %}
       {% for category, message in messages %}
+        {% if "sign in" not in message.lower() %}
         <div class="flash flash-{{ category }}">{{ message }}</div>
+        {% endif %}
       {% endfor %}
     {% endwith %}
     {% block content %}{% endblock %}
