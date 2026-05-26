@@ -92,7 +92,7 @@ def artist_detail(id, slug=None):
     from ...models import Contact
     artist = Contact.query.filter_by(id=id, active=True).first_or_404()
     artworks = Artwork.query.filter_by(
-        contact_artist_id=artist.id, active=True
+        contact_artist_id=artist.id, active=True, is_public=True
     ).order_by(Artwork.id.desc()).all()
     exhibitions = db.session.query(Exhibition).join(
         ExhibitionArtwork, ExhibitionArtwork.exhibition_id == Exhibition.id
@@ -113,7 +113,7 @@ def artist_detail(id, slug=None):
 @bp.route("/artworks/<int:id>")
 def artwork_detail(id):
     gallery = get_gallery()
-    artwork = Artwork.query.filter_by(id=id, active=True).first_or_404()
+    artwork = Artwork.query.filter_by(id=id, active=True, is_public=True).first_or_404()
     return render_template("public/artwork_detail.html",
                            gallery=gallery, artwork=artwork)
 
@@ -150,7 +150,8 @@ def exhibition_detail(id):
         ExhibitionArtwork, ExhibitionArtwork.artwork_id == Artwork.id
     ).filter(
         ExhibitionArtwork.exhibition_id == id,
-        Artwork.active == True
+        Artwork.active == True,
+        Artwork.is_public == True
     ).order_by(ExhibitionArtwork.sort_order).all()
     return render_template("public/exhibition_detail.html",
                            gallery=gallery,

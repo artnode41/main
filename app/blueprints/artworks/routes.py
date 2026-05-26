@@ -95,6 +95,7 @@ def create():
             inventory_number=form.inventory_number.data or None,
             rights=form.rights.data or None,
             credit_line=form.credit_line.data or None,
+            is_public=form.is_public.data,
             is_carousel=form.is_carousel.data,
             is_featured=form.is_featured.data,
         )
@@ -121,6 +122,7 @@ def edit(id):
     form.artist_id.choices = _get_artist_choices(current_user.tenant_id)
     form.consignor_id.choices = _get_contact_choices(current_user.tenant_id)
     if request_is_get():
+        form.is_public.data = artwork.is_public if artwork.is_public is not None else True
         form.is_carousel.data = artwork.is_carousel or False
         form.is_featured.data = artwork.is_featured or False
 
@@ -152,6 +154,7 @@ def edit(id):
         artwork.inventory_number = form.inventory_number.data or None
         artwork.rights = form.rights.data or None
         artwork.credit_line = form.credit_line.data or None
+        artwork.is_public = bool(form.is_public.data)
         artwork.is_carousel = bool(form.is_carousel.data)
         artwork.is_featured = bool(form.is_featured.data)
 

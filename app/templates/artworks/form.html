@@ -94,6 +94,10 @@
           <div style="font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:var(--space-lg);">Public Display</div>
           <div style="display:flex;flex-direction:column;gap:var(--space-md);">
             <label style="display:flex;align-items:center;gap:10px;cursor:pointer;font-size:0.88rem;">
+              {{ form.is_public(style="width:16px;height:16px;") }} {{ form.is_public.label.text }}
+            </label>
+            <div style="height:1px;background:var(--border-light);margin:8px 0;"></div>
+            <label style="display:flex;align-items:center;gap:10px;cursor:pointer;font-size:0.88rem;">
               {{ form.is_carousel(style="width:16px;height:16px;") }} {{ form.is_carousel.label.text }}
             </label>
             <label style="display:flex;align-items:center;gap:10px;cursor:pointer;font-size:0.88rem;">

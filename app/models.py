@@ -197,6 +197,7 @@ class Artwork(db.Model):
     currency         = Column(String(3), default="CHF")
     contact_artist_id = Column(Integer, ForeignKey("contact.id"), nullable=True)
     contact_artist    = relationship("Contact", foreign_keys=[contact_artist_id], backref="artworks_as_artist")
+    is_public         = Column(Boolean, default=True)   # Show on public website
     is_featured       = Column(Boolean, default=False)  # Show in Featured Works grid
     is_carousel       = Column(Boolean, default=False)  # Show in homepage hero carousel
     contact_artist_id = Column(Integer, ForeignKey("contact.id"), nullable=True)

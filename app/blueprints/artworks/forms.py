@@ -61,5 +61,6 @@ class ArtworkForm(FlaskForm):
     inventory_number = StringField("Inventory Number", validators=[Optional(), Length(max=100)])
     rights = StringField("Rights", validators=[Optional(), Length(max=200)])
     credit_line = TextAreaField("Credit Line", validators=[Optional()])
+    is_public = BooleanField("Show on public website", default=True)
     is_carousel = BooleanField("Show in homepage carousel")
     is_featured = BooleanField("Show in featured works")
