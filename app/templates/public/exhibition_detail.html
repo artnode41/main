@@ -36,7 +36,7 @@
         {% endif %}
         <div class="artwork-cell-info">
           <div class="artwork-cell-title">{{ aw.title }}</div>
-          <div class="artwork-cell-artist">{% if aw.artist %}{{ aw.artist.last_name }}{% endif %}</div>
+          <div class="artwork-cell-artist">{% if aw.artist %}{{ aw.contact_artist.last_name if aw.contact_artist else (aw.artist.last_name if aw.artist else "") }}{% endif %}</div>
         </div>
       </div>
     </a>

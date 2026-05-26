@@ -8,7 +8,7 @@
     <a href="{{ url_for('artworks.index') }}" style="font-size:0.75rem;color:var(--text-muted);letter-spacing:0.06em;text-transform:uppercase;">&larr; Artworks</a>
     <div class="page-title" style="margin-top:4px;">{{ artwork.title }}</div>
     <div class="page-subtitle">
-      {% if artwork.artist %}{{ artwork.artist.first_name }} {{ artwork.artist.last_name }}{% endif %}
+      {% if artwork.contact_artist %}{{ artwork.contact_artist.first_name }} {{ artwork.contact_artist.last_name }}{% elif artwork.artist %}{{ artwork.artist.first_name }} {{ artwork.artist.last_name }}{% endif %}
       {% if artwork.year_from %} &middot; {{ artwork.year_from }}{% if artwork.year_to and artwork.year_to != artwork.year_from %}&ndash;{{ artwork.year_to }}{% endif %}{% endif %}
     </div>
   </div>
@@ -52,7 +52,7 @@
           {% endif %}
         {% endmacro %}
 
-        {{ meta_row("Artist", artwork.artist.first_name ~ " " ~ artwork.artist.last_name if artwork.artist else none) }}
+        {{ meta_row("Artist", (artwork.contact_artist.first_name ~ " " ~ artwork.contact_artist.last_name) if artwork.contact_artist else ((artwork.artist.first_name ~ " " ~ artwork.artist.last_name) if artwork.artist else none)) }}
         {{ meta_row("Date", artwork.year_from|string if artwork.year_from else none) }}
         {{ meta_row("Medium", artwork.medium) }}
         {{ meta_row("Dimensions", artwork.dimensions) }}

@@ -80,7 +80,7 @@
         <td style="color:#999;">{{ loop.index }}</td>
         <td>{{ line.artwork.title|truncate(35) }}</td>
         <td style="font-style:italic;color:#666;">
-          {% if line.artwork.artist %}{{ line.artwork.artist.last_name }}{% endif %}
+          {% if line.artwork.artist %}{{ (line.artwork.contact_artist.last_name if line.artwork.contact_artist else (line.artwork.artist.last_name if line.artwork.artist else "")) }}{% endif %}
         </td>
         <td style="color:#666;">
           {% if line.buyer %}

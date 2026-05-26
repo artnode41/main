@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+{% block title %}{{ contact.last_name }} {% if contact.first_name %}{{ contact.first_name }}{% endif %} — ArtNode{% endblock %}
+{% block content %}
+<div class="page-header">
+  <div>
+    <a href="{{ url_for('contacts.index') }}" style="font-size:0.75rem;color:var(--text-muted);letter-spacing:0.06em;text-transform:uppercase;">&larr; Contacts</a>
+    <div class="page-title" style="margin-top:4px;">
+      {% if contact.contact_type == 'institution' %}
+        {{ contact.organisation or contact.last_name }}
+      {% else %}
+        {{ contact.first_name }} {{ contact.last_name }}
+      {% endif %}
+    </div>
+    <div class="page-subtitle">
+      {% for role in (contact.roles or []) %}
+        <span class="badge badge-available" style="margin-right:4px;font-size:0.65rem;">{{ role }}</span>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="page-actions">
+    <a href="{{ url_for('contacts.edit', id=contact.id) }}" class="btn btn-primary">Edit</a>
+  </div>
+</div>
+
+<div class="page-body">
+  <div style="display:grid;grid-template-columns:1fr {% if artworks %}2fr{% endif %};gap:var(--space-2xl);align-items:start;">
+
+    <!-- Contact info -->
+    <div>
+      <div style="background:var(--surface);border:1px solid var(--border);padding:var(--space-xl);margin-bottom:var(--space-lg);">
+        <div style="font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:var(--space-lg);">Contact</div>
+        {% macro row(label, value) %}
+        {% if value %}
+        <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border-light);">
+          <span style="font-size:0.75rem;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-muted);">{{ label }}</span>
+          <span style="font-size:0.85rem;">{{ value }}</span>
+        </div>
+        {% endif %}
+        {% endmacro %}
+        {{ row("Type", contact.contact_type) }}
+        {% if contact.email %}{{ row("Email", contact.email) }}{% endif %}
+        {% if contact.phone %}{{ row("Phone", contact.phone) }}{% endif %}
+        {% if contact.address or contact.city %}
+        <div style="padding:8px 0;border-bottom:1px solid var(--border-light);">
+          <span style="font-size:0.75rem;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-muted);">Address</span>
+          <div style="font-size:0.85rem;margin-top:4px;">
+            {% if contact.address %}{{ contact.address }}<br>{% endif %}
+            {% if contact.zip_code %}{{ contact.zip_code }} {% endif %}{{ contact.city or "" }}{% if contact.country %}, {{ contact.country }}{% endif %}
+          </div>
+        </div>
+        {% endif %}
+        {% if contact.notes %}
+        <div style="padding:8px 0;">
+          <div style="font-size:0.75rem;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-muted);margin-bottom:4px;">Notes</div>
+          <p style="font-size:0.85rem;color:var(--text-secondary);">{{ contact.notes }}</p>
+        </div>
+        {% endif %}
+      </div>
+
+      {% if 'artist' in (contact.roles or []) %}
+      <div style="background:var(--surface);border:1px solid var(--border);padding:var(--space-xl);">
+        <div style="font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:var(--space-lg);">Artist Profile</div>
+        {% if contact.nationality %}{{ row("Nationality", contact.nationality) }}{% endif %}
+        {% if contact.birth_year %}{{ row("Born", contact.birth_year ~ ((" – " ~ contact.death_year) if contact.death_year else "")) }}{% endif %}
+        {% if contact.artist_website %}
+        <div style="padding:8px 0;border-bottom:1px solid var(--border-light);">
+          <span style="font-size:0.75rem;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-muted);">Website</span>
+          <a href="{{ contact.artist_website }}" target="_blank" style="font-size:0.85rem;display:block;margin-top:2px;">{{ contact.artist_website }}</a>
+        </div>
+        {% endif %}
+        {% if contact.is_active_representation %}
+        <div style="padding:8px 0;border-bottom:1px solid var(--border-light);">
+          <span class="badge badge-available">Represented</span>
+        </div>
+        {% endif %}
+        {% if contact.biography %}
+        <div style="padding:8px 0;">
+          <div style="font-size:0.75rem;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px;">Biography</div>
+          <p style="font-size:0.85rem;color:var(--text-secondary);line-height:1.7;">{{ contact.biography }}</p>
+        </div>
+        {% endif %}
+      </div>
+      {% endif %}
+    </div>
+
+    <!-- Artworks (if artist) -->
+    {% if artworks %}
+    <div>
+      <div style="font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:var(--space-md);">
+        Artworks ({{ artworks|length }})
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:var(--space-sm);">
+        {% for aw in artworks %}
+        {% set img = aw.images[0] if aw.images else none %}
+        <a href="{{ url_for('artworks.detail', id=aw.id) }}" style="text-decoration:none;color:inherit;">
+          <div style="background:var(--surface);border:1px solid var(--border);">
+            {% if img and img.iiif_url %}
+              <img src="{{ img.iiif_url }}" style="width:100%;aspect-ratio:1;object-fit:cover;display:block;">
+            {% else %}
+              <div style="width:100%;aspect-ratio:1;background:var(--border-light);"></div>
+            {% endif %}
+            <div style="padding:8px;">
+              <div style="font-size:0.78rem;font-weight:400;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ aw.title }}</div>
+              <div style="font-size:0.72rem;color:var(--text-muted);">{{ aw.year_from or "" }}</div>
+            </div>
+          </div>
+        </a>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+
+  </div>
+</div>
+{% endblock %}

@@ -66,7 +66,7 @@
           <div style="flex:1;">
             <a href="{{ url_for('artworks.detail', id=line.artwork.id) }}" style="font-size:1rem;font-weight:400;">{{ line.artwork.title }}</a>
             <div style="font-size:0.85rem;font-style:italic;color:var(--text-secondary);font-family:var(--font-display);">
-              {% if line.artwork.artist %}{{ line.artwork.artist.first_name }} {{ line.artwork.artist.last_name }}{% endif %}
+              {% if line.artwork.artist %}{{ (line.artwork.contact_artist.first_name if line.artwork.contact_artist else (line.artwork.artist.first_name if line.artwork.artist else "")) }} {{ (line.artwork.contact_artist.last_name if line.artwork.contact_artist else (line.artwork.artist.last_name if line.artwork.artist else "")) }}{% endif %}
             </div>
           </div>
         </div>

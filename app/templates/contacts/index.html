@@ -9,7 +9,10 @@
     <div class="page-subtitle">{{ contacts|length }} contacts</div>
   </div>
   <div class="page-actions">
+    <div style="display:flex;gap:var(--space-md);">
+    <a href="{{ url_for('contacts.create', role='artist') }}" class="btn btn-secondary">+ Add Artist</a>
     <a href="{{ url_for('contacts.create') }}" class="btn btn-primary">+ Add Contact</a>
+  </div>
   </div>
 </div>
 
@@ -39,7 +42,7 @@
           style="border-bottom:1px solid var(--border-light);cursor:pointer;transition:background 0.15s;"
           onmouseover="this.style.background='var(--border-light)'"
           onmouseout="this.style.background=''"
-          onclick="window.location='{{ url_for('contacts.edit', id=contact.id) }}'">
+          onclick="window.location='{{ url_for('contacts.detail', id=contact.id) }}'">
         <td style="padding:14px 12px;">
           {% if contact.contact_type == "institution" %}
             <span style="font-size:0.95rem;font-weight:400;">{{ contact.organisation or "—" }}</span>

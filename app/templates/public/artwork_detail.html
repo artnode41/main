@@ -56,10 +56,10 @@
 
   <!-- Metadata column -->
   <div class="artwork-meta-col">
-    {% if artwork.artist %}
+    {% if artwork.contact_artist %}
     <div class="artwork-artist">
-      <a href="{{ url_for('public.artist_detail', id=artwork.artist.id) }}" style="color:var(--muted);text-decoration:none;">
-        {{ artwork.artist.first_name }} {{ artwork.artist.last_name }}
+      <a href="{{ url_for('public.artist_detail', id=artwork.contact_artist.id) }}" style="color:var(--muted);text-decoration:none;">
+        {{ artwork.contact_artist.first_name }} {{ artwork.contact_artist.last_name }}
       </a>
     </div>
     {% endif %}

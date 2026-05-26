@@ -143,6 +143,18 @@ class Contact(db.Model):
     address        = Column(Text)
     city           = Column(String(100))
     country        = Column(String(2))
+    zip_code       = Column(String(20))
+    roles                    = Column(ARRAY(String), default=[])
+    biography                = Column(Text)
+    birth_year               = Column(Integer)
+    death_year               = Column(Integer)
+    nationality              = Column(String(100))
+    sort_name                = Column(String(200))
+    slug                     = Column(String(200))
+    cv_json                  = Column(JSON)
+    artist_website           = Column(String(255))
+    is_active_representation = Column(Boolean, default=False)
+    legacy_artist_id         = Column(Integer)
     notes          = Column(Text)
     active         = Column(Boolean, default=True)
     created_at     = Column(DateTime, default=now_utc)
@@ -183,8 +195,12 @@ class Artwork(db.Model):
     status           = Column(String(30), default="available", nullable=False)
     price            = Column(Numeric(12, 2))
     currency         = Column(String(3), default="CHF")
+    contact_artist_id = Column(Integer, ForeignKey("contact.id"), nullable=True)
+    contact_artist    = relationship("Contact", foreign_keys=[contact_artist_id], backref="artworks_as_artist")
     is_featured       = Column(Boolean, default=False)  # Show in Featured Works grid
     is_carousel       = Column(Boolean, default=False)  # Show in homepage hero carousel
+    contact_artist_id = Column(Integer, ForeignKey("contact.id"), nullable=True)
+    contact_artist    = relationship("Contact", foreign_keys=[contact_artist_id], backref="artworks_as_artist")
     is_featured       = Column(Boolean, default=False)  # Show in Featured Works grid
     is_carousel       = Column(Boolean, default=False)  # Show in homepage hero carousel
     is_consignment   = Column(Boolean, default=False)  # Legacy — use ownership_type

@@ -57,10 +57,12 @@ def home():
 @bp.route("/artists")
 def artists():
     gallery = get_gallery()
-    artists = Artist.query.filter_by(
-        active=True, is_active_representation=True
-    ).order_by(Artist.sort_name, Artist.last_name).all()
-    # Auto-generate sort_name if missing
+    from ...models import Contact
+    artists = Contact.query.filter(
+        Contact.active == True,
+        Contact.is_active_representation == True,
+        Contact.roles.contains(["artist"])
+    ).order_by(Contact.sort_name, Contact.last_name).all()
     for a in artists:
         if not a.sort_name:
             a.sort_name = f"{a.last_name}, {a.first_name or ''}".strip(", ")
@@ -71,16 +73,17 @@ def artists():
 @bp.route("/artists/<int:id>/<slug>")
 def artist_detail(id, slug=None):
     gallery = get_gallery()
-    artist = Artist.query.filter_by(id=id, active=True).first_or_404()
+    from ...models import Contact
+    artist = Contact.query.filter_by(id=id, active=True).first_or_404()
     artworks = Artwork.query.filter_by(
-        artist_id=artist.id, active=True
+        contact_artist_id=artist.id, active=True
     ).order_by(Artwork.id.desc()).all()
     exhibitions = db.session.query(Exhibition).join(
         ExhibitionArtwork, ExhibitionArtwork.exhibition_id == Exhibition.id
     ).join(
         Artwork, ExhibitionArtwork.artwork_id == Artwork.id
     ).filter(
-        Artwork.artist_id == artist.id,
+        Artwork.contact_artist_id == artist.id,
         Exhibition.active == True
     ).order_by(Exhibition.start_date.desc()).distinct().all()
 
@@ -142,9 +145,12 @@ def exhibition_detail(id):
 @bp.route("/about")
 def about():
     gallery = get_gallery()
-    artists = Artist.query.filter_by(
-        active=True, is_active_representation=True
-    ).order_by(Artist.sort_name, Artist.last_name).limit(8).all()
+    from ...models import Contact
+    artists = Contact.query.filter(
+        Contact.active == True,
+        Contact.is_active_representation == True,
+        Contact.roles.contains(["artist"])
+    ).order_by(Contact.sort_name, Contact.last_name).limit(8).all()
     return render_template("public/about.html", gallery=gallery, artists=artists)
 
 
@@ -208,8 +214,8 @@ def enquire():
                 body += f"Message:\n{message}\n"
                 if artwork_id and artwork:
                     body += f"\nArtwork: {artwork.title}"
-                    if artwork.artist:
-                        body += f"\nArtist: {artwork.artist.first_name} {artwork.artist.last_name}"
+                    if artwork.contact_artist:
+                        body += f"\nArtist: {artwork.contact_artist.first_name} {artwork.contact_artist.last_name}"
 
                 msg = Message(
                     subject=subject,

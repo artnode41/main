@@ -10,8 +10,13 @@ from decimal import Decimal
 
 
 def _get_artist_choices(tenant_id):
-    artists = Artist.query.filter_by(tenant_id=tenant_id, active=True).order_by(Artist.last_name).all()
-    return [(0, "— Select —")] + [(a.id, f"{a.last_name}, {a.first_name}") for a in artists]
+    from ...models import Contact
+    artists = Contact.query.filter(
+        Contact.tenant_id == tenant_id,
+        Contact.active == True,
+        Contact.roles.contains(["artist"])
+    ).order_by(Contact.last_name).all()
+    return [(0, "— Select —")] + [(a.id, f"{a.last_name}, {a.first_name or ''}".strip(", ")) for a in artists]
 
 
 def _get_contact_choices(tenant_id):
@@ -73,7 +78,7 @@ def create():
         artwork = Artwork(
             tenant_id=current_user.tenant_id,
             title=form.title.data,
-            artist_id=form.artist_id.data if form.artist_id.data != 0 else None,
+            contact_artist_id=form.artist_id.data if form.artist_id.data != 0 else None,
             year_from=form.year_from.data,
             year_to=form.year_to.data,
             medium=form.medium.data,
@@ -130,7 +135,7 @@ def edit(id):
 
     if form.validate_on_submit():
         artwork.title = form.title.data
-        artwork.artist_id = form.artist_id.data if form.artist_id.data != 0 else None
+        artwork.contact_artist_id = form.artist_id.data if form.artist_id.data != 0 else None
         artwork.year_from = form.year_from.data
         artwork.year_to = form.year_to.data
         artwork.medium = form.medium.data

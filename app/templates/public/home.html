@@ -78,7 +78,7 @@
       <img src="{{ img.iiif_url }}" alt="{{ aw.title }}" class="hero-main-img">
       <div class="hero-overlay"></div>
       <div class="hero-text">
-        <div class="hero-label">{% if aw.artist %}{{ aw.artist.first_name }} {{ aw.artist.last_name }}{% endif %}</div>
+        <div class="hero-label">{% if aw.artist %}{{ aw.contact_artist.first_name if aw.contact_artist else (aw.artist.first_name if aw.artist else "") }} {{ aw.contact_artist.last_name if aw.contact_artist else (aw.artist.last_name if aw.artist else "") }}{% endif %}</div>
         <div class="hero-title">{{ aw.title }}</div>
         <a href="{{ url_for('public.artwork_detail', id=aw.id) }}" class="btn-pub btn-pub-outline" style="color:white;border-color:rgba(255,255,255,0.6);">View Work</a>
       </div>
@@ -109,7 +109,7 @@
         {% endif %}
         <div class="artwork-cell-info">
           <div class="artwork-cell-title">{{ aw.title }}</div>
-          <div class="artwork-cell-artist">{% if aw.artist %}{{ aw.artist.last_name }}{% endif %}</div>
+          <div class="artwork-cell-artist">{% if aw.artist %}{{ aw.contact_artist.last_name if aw.contact_artist else (aw.artist.last_name if aw.artist else "") }}{% endif %}</div>
         </div>
       </div>
     </a>

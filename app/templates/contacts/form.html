@@ -1,35 +1,14 @@
 {% extends "base.html" %}
-
-{% block title %}{% if contact %}Edit Contact{% else %}Add Contact{% endif %} — ArtNode<script>
-const typeSelect = document.getElementById("contactType");
-const firstNameGroup = typeSelect.closest("form").querySelector("input[name=first_name]").closest(".form-group");
-const lastNameGroup = typeSelect.closest("form").querySelector("input[name=last_name]").closest(".form-group");
-const orgGroup = document.getElementById("orgField");
-
-function toggleFields() {
-  const isInstitution = typeSelect.value === "institution";
-  firstNameGroup.style.display = isInstitution ? "none" : "";
-  lastNameGroup.style.display = isInstitution ? "none" : "";
-  orgGroup.style.display = isInstitution ? "" : "none";
-}
-
-typeSelect.addEventListener("change", toggleFields);
-toggleFields();
-</script>
-{% endblock %}
-
+{% block title %}{% if contact %}Edit Contact{% else %}New Contact{% endif %} — ArtNode{% endblock %}
 {% block content %}
 <div class="page-header">
   <div>
     <a href="{{ url_for('contacts.index') }}" style="font-size:0.75rem;color:var(--text-muted);letter-spacing:0.06em;text-transform:uppercase;">&larr; Contacts</a>
-    <div class="page-title" style="margin-top:4px;">
-      {% if contact %}Edit Contact{% else %}Add Contact{% endif %}
-    </div>
+    <div class="page-title" style="margin-top:4px;">{% if contact %}Edit Contact{% else %}New Contact{% endif %}</div>
   </div>
   {% if contact %}
   <div class="page-actions">
-    <form method="POST" action="{{ url_for('contacts.delete', id=contact.id) }}"
-          onsubmit="return confirm('Remove this contact?')">
+    <form method="POST" action="{{ url_for('contacts.delete', id=contact.id) }}" onsubmit="return confirm('Remove this contact?')">
       {{ form.hidden_tag() }}
       <button type="submit" class="btn btn-secondary">Remove</button>
     </form>
@@ -40,105 +19,96 @@ toggleFields();
 <div class="page-body">
   <form method="POST" action="">
     {{ form.hidden_tag() }}
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-2xl);align-items:start;">
 
-    <div style="max-width:680px;">
-      <div style="background:var(--surface);border:1px solid var(--border);padding:var(--space-xl);margin-bottom:var(--space-lg);">
-        <div style="font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:var(--space-lg);">Contact Type</div>
+      <!-- Left column -->
+      <div>
+        <div style="background:var(--surface);border:1px solid var(--border);padding:var(--space-xl);margin-bottom:var(--space-lg);">
+          <div style="font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:var(--space-lg);">Identity</div>
+          <div class="form-group">{{ form.contact_type.label(class="form-label") }}{{ form.contact_type(class="form-control", id="contactType") }}</div>
+          <div id="individualFields">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-md);">
+              <div class="form-group">{{ form.first_name.label(class="form-label") }}{{ form.first_name(class="form-control") }}</div>
+              <div class="form-group">{{ form.last_name.label(class="form-label") }}{{ form.last_name(class="form-control") }}</div>
+            </div>
+          </div>
+          <div id="institutionFields" style="display:none;">
+            <div class="form-group">{{ form.organisation.label(class="form-label") }}{{ form.organisation(class="form-control") }}</div>
+          </div>
+          <div class="form-group">{{ form.email.label(class="form-label") }}{{ form.email(class="form-control") }}</div>
+          <div class="form-group">{{ form.phone.label(class="form-label") }}{{ form.phone(class="form-control") }}</div>
+        </div>
 
-        <div class="form-group">
-          {{ form.contact_type.label(class="form-label") }}
-          {{ form.contact_type(class="form-control", id="contactType") }}
+        <div style="background:var(--surface);border:1px solid var(--border);padding:var(--space-xl);margin-bottom:var(--space-lg);">
+          <div style="font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:var(--space-lg);">Address</div>
+          <div class="form-group">{{ form.address.label(class="form-label") }}{{ form.address(class="form-control", rows=2) }}</div>
+          <div style="display:grid;grid-template-columns:80px 1fr 60px;gap:var(--space-md);">
+            <div class="form-group" style="margin-bottom:0;">{{ form.zip_code.label(class="form-label") }}{{ form.zip_code(class="form-control", placeholder="5200") }}</div>
+            <div class="form-group" style="margin-bottom:0;">{{ form.city.label(class="form-label") }}{{ form.city(class="form-control") }}</div>
+            <div class="form-group" style="margin-bottom:0;">{{ form.country.label(class="form-label") }}{{ form.country(class="form-control", placeholder="CH") }}</div>
+          </div>
+        </div>
+
+        <div style="background:var(--surface);border:1px solid var(--border);padding:var(--space-xl);margin-bottom:var(--space-lg);">
+          <div style="font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:var(--space-lg);">Notes</div>
+          <div class="form-group">{{ form.notes(class="form-control", rows=4) }}</div>
         </div>
       </div>
 
-      <div style="background:var(--surface);border:1px solid var(--border);padding:var(--space-xl);margin-bottom:var(--space-lg);">
-        <div style="font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:var(--space-lg);">Personal Details</div>
+      <!-- Right column -->
+      <div>
+        <div style="background:var(--surface);border:1px solid var(--border);padding:var(--space-xl);margin-bottom:var(--space-lg);">
+          <div style="font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:var(--space-lg);">Artist</div>
+          <label style="display:flex;align-items:center;gap:10px;cursor:pointer;font-size:0.88rem;margin-bottom:var(--space-md);">
+            {{ form.is_artist(id="isArtist", style="width:16px;height:16px;") }} {{ form.is_artist.label.text }}
+          </label>
 
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-md);">
-          <div class="form-group">
-            {{ form.first_name.label(class="form-label") }}
-            {{ form.first_name(class="form-control", placeholder="First name") }}
-          </div>
-          <div class="form-group">
-            {{ form.last_name.label(class="form-label") }}
-            {{ form.last_name(class="form-control", placeholder="Last name") }}
+          <div id="artistFields" style="display:none;">
+            <div style="border-top:1px solid var(--border-light);padding-top:var(--space-md);margin-top:var(--space-md);">
+              <label style="display:flex;align-items:center;gap:10px;cursor:pointer;font-size:0.88rem;margin-bottom:var(--space-lg);">
+                {{ form.is_active_representation(style="width:16px;height:16px;") }} {{ form.is_active_representation.label.text }}
+              </label>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-md);">
+                <div class="form-group">{{ form.birth_year.label(class="form-label") }}{{ form.birth_year(class="form-control", placeholder="e.g. 1950") }}</div>
+                <div class="form-group">{{ form.death_year.label(class="form-label") }}{{ form.death_year(class="form-control", placeholder="if deceased") }}</div>
+              </div>
+              <div class="form-group">{{ form.nationality.label(class="form-label") }}{{ form.nationality(class="form-control") }}</div>
+              <div class="form-group">{{ form.artist_website.label(class="form-label") }}{{ form.artist_website(class="form-control", placeholder="https://...") }}</div>
+              <div class="form-group">{{ form.biography.label(class="form-label") }}{{ form.biography(class="form-control", rows=6) }}</div>
+            </div>
           </div>
         </div>
 
-        <div class="form-group" id="orgField">
-          {{ form.organisation.label(class="form-label") }}
-          {{ form.organisation(class="form-control", placeholder="Organisation or institution name") }}
-        </div>
-
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-md);">
-          <div class="form-group">
-            {{ form.email.label(class="form-label") }}
-            {{ form.email(class="form-control", placeholder="email@example.com") }}
-            {% if form.email.errors %}
-              <div style="color:#c0392b;font-size:0.78rem;margin-top:4px;">{{ form.email.errors[0] }}</div>
-            {% endif %}
-          </div>
-          <div class="form-group">
-            {{ form.phone.label(class="form-label") }}
-            {{ form.phone(class="form-control", placeholder="+41 xx xxx xx xx") }}
-          </div>
+        <div style="display:flex;gap:var(--space-md);justify-content:flex-end;">
+          <a href="{{ url_for('contacts.index') }}" class="btn btn-secondary">Cancel</a>
+          <button type="submit" class="btn btn-primary">{% if contact %}Save Changes{% else %}Add Contact{% endif %}</button>
         </div>
       </div>
 
-      <div style="background:var(--surface);border:1px solid var(--border);padding:var(--space-xl);margin-bottom:var(--space-lg);">
-        <div style="font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:var(--space-lg);">Address</div>
-
-        <div class="form-group">
-          {{ form.address.label(class="form-label") }}
-          {{ form.address(class="form-control", rows=2, placeholder="Street address") }}
-        </div>
-
-        <div style="display:grid;grid-template-columns:80px 1fr 60px;gap:var(--space-md);">
-          <div class="form-group">
-            {{ form.zip_code.label(class="form-label") }}
-            {{ form.zip_code(class="form-control", placeholder="5200") }}
-          </div>
-          <div class="form-group">
-            {{ form.city.label(class="form-label") }}
-            {{ form.city(class="form-control", placeholder="City") }}
-          </div>
-          <div class="form-group">
-            {{ form.country.label(class="form-label") }}
-            {{ form.country(class="form-control", placeholder="CH") }}
-          </div>
-        </div>
-      </div>
-
-      <div style="background:var(--surface);border:1px solid var(--border);padding:var(--space-xl);margin-bottom:var(--space-lg);">
-        <div style="font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:var(--space-lg);">Notes</div>
-        <div class="form-group">
-          {{ form.notes(class="form-control", rows=3, placeholder="Private notes about this contact") }}
-        </div>
-      </div>
-
-      <div style="display:flex;gap:var(--space-md);justify-content:flex-end;">
-        <a href="{{ url_for('contacts.index') }}" class="btn btn-secondary">Cancel</a>
-        <button type="submit" class="btn btn-primary">
-          {% if contact %}Save Changes{% else %}Add Contact{% endif %}
-        </button>
-      </div>
     </div>
   </form>
 </div>
-<script>
-const typeSelect = document.getElementById("contactType");
-const firstNameGroup = typeSelect.closest("form").querySelector("input[name=first_name]").closest(".form-group");
-const lastNameGroup = typeSelect.closest("form").querySelector("input[name=last_name]").closest(".form-group");
-const orgGroup = document.getElementById("orgField");
 
-function toggleFields() {
-  const isInstitution = typeSelect.value === "institution";
-  firstNameGroup.style.display = isInstitution ? "none" : "";
-  lastNameGroup.style.display = isInstitution ? "none" : "";
-  orgGroup.style.display = isInstitution ? "" : "none";
+<script>
+const contactType = document.getElementById('contactType');
+const isArtist = document.getElementById('isArtist');
+const artistFields = document.getElementById('artistFields');
+const individualFields = document.getElementById('individualFields');
+const institutionFields = document.getElementById('institutionFields');
+
+function toggleType() {
+  const isInstitution = contactType.value === 'institution';
+  individualFields.style.display = isInstitution ? 'none' : '';
+  institutionFields.style.display = isInstitution ? '' : 'none';
 }
 
-typeSelect.addEventListener("change", toggleFields);
-toggleFields();
+function toggleArtist() {
+  artistFields.style.display = isArtist.checked ? '' : 'none';
+}
+
+contactType.addEventListener('change', toggleType);
+isArtist.addEventListener('change', toggleArtist);
+toggleType();
+toggleArtist();
 </script>
 {% endblock %}
