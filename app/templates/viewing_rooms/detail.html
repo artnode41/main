@@ -94,5 +94,25 @@ vrSearch.addEventListener('input', () => {
     row.style.display = match ? '' : 'none';
   });
 });
+// Persist search across navigation
+const storageKey = 'vr_search_{}'.format(window.location.pathname);
+const saved = sessionStorage.getItem(storageKey);
+if (saved) {
+  const inp = document.getElementById('vrSearch');
+  if (inp) { inp.value = saved; inp.dispatchEvent(new Event('input')); }
+}
+document.getElementById('vrSearch')?.addEventListener('input', e => {
+  sessionStorage.setItem(storageKey, e.target.value);
+});
+
+// Persist search across navigation
+(function() {
+  const inp = document.getElementById('vrSearch');
+  if (!inp) return;
+  const key = 'search_viewing_rooms_detail.html';
+  const saved = sessionStorage.getItem(key);
+  if (saved) { inp.value = saved; inp.dispatchEvent(new Event('input')); }
+  inp.addEventListener('input', function() { sessionStorage.setItem(key, inp.value); });
+})();
 </script>
 {% endblock %}

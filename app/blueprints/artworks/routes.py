@@ -49,13 +49,11 @@ def _save_consignment(artwork, form):
 @bp.route("/artworks")
 @login_required
 def index():
-    artworks = (
-        Artwork.query
-        .filter_by(tenant_id=current_user.tenant_id, active=True)
-        .order_by(Artwork.id.desc())
-        .all()
-    )
-    return render_template("artworks/index.html", artworks=artworks)
+    from flask import request
+    q = request.args.get("q", "").strip().lower()
+    query = Artwork.query.filter_by(tenant_id=current_user.tenant_id, active=True)
+    artworks = query.order_by(Artwork.id.desc()).all()
+    return render_template("artworks/index.html", artworks=artworks, search_query=q)
 
 
 @bp.route("/artworks/<int:id>")

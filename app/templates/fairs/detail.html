@@ -95,5 +95,15 @@ input.addEventListener('input', () => {
     row.style.display = match ? '' : 'none';
   });
 });
+
+// Persist search across navigation
+(function() {
+  const inp = document.getElementById('searchInput');
+  if (!inp) return;
+  const key = 'search_fairs_detail.html';
+  const saved = sessionStorage.getItem(key);
+  if (saved) { inp.value = saved; inp.dispatchEvent(new Event('input')); }
+  inp.addEventListener('input', function() { sessionStorage.setItem(key, inp.value); });
+})();
 </script>
 {% endblock %}

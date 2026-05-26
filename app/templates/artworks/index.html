@@ -15,7 +15,7 @@
 
 <div class="page-body">
   <div class="toolbar">
-    <input type="text" class="search-input" placeholder="Search by title or artist..." id="searchInput">
+    <input type="text" class="search-input" placeholder="Search by title or artist..." id="searchInput" value="{{ search_query }}">
     <span class="toolbar-count" id="countLabel">{{ artworks|length }} artworks</span>
   </div>
 
@@ -49,6 +49,10 @@ const input = document.getElementById("searchInput");
 const cards = document.querySelectorAll(".artwork-card-wrapper");
 const label = document.getElementById("countLabel");
 input.addEventListener("input", () => {
+  const url = new URL(window.location);
+  if (input.value.trim()) { url.searchParams.set("q", input.value.trim()); }
+  else { url.searchParams.delete("q"); }
+  window.history.replaceState({}, "", url);
   const q = input.value.toLowerCase().trim();
   let visible = 0;
   cards.forEach(card => {

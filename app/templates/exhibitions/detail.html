@@ -88,12 +88,18 @@
 <script>
 const exSearch = document.getElementById('exSearch');
 const exRows = document.querySelectorAll('.ex-row');
-exSearch.addEventListener('input', () => {
+function filterEx() {
   const q = exSearch.value.toLowerCase().trim();
   exRows.forEach(row => {
     const match = !q || row.dataset.title.includes(q) || row.dataset.artist.includes(q);
     row.style.display = match ? '' : 'none';
   });
+}
+exSearch.addEventListener('input', () => {
+  filterEx();
+  sessionStorage.setItem('search_ex', exSearch.value);
 });
+const exSaved = sessionStorage.getItem('search_ex');
+if (exSaved) { exSearch.value = exSaved; filterEx(); }
 </script>
 {% endblock %}
