@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, abort, request, flash, redirect, url_for, current_app
-from ...models import Gallery, Artist, Artwork, ArtworkImage, Exhibition, ExhibitionArtwork, Contact
+from ...models import Gallery, Artwork, ArtworkImage, Exhibition, ExhibitionArtwork, Contact
 from ...extensions import db
 from datetime import datetime, timezone
 import re

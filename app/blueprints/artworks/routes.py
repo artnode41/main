@@ -1,7 +1,7 @@
 from flask import render_template, redirect, url_for, flash
 from flask_security import login_required, current_user
 from . import bp
-from ...models import Artwork, ArtworkImage, Artist, ArtworkProvenance, ArtworkConsignment, Contact
+from ...models import Artwork, ArtworkImage, ArtworkProvenance, ArtworkConsignment, Contact
 from ...extensions import db
 from .forms import ArtworkForm
 from .provenance_forms import ProvenanceForm

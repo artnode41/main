@@ -343,7 +343,7 @@
         <td>
           <div class="artwork-title">{{ line.artwork.title }}</div>
           <div class="artwork-details">
-            {% if line.artwork.artist %}
+            {% if line.artwork.contact_artist or line.artwork.artist %}
               {{ (line.artwork.contact_artist.first_name if line.artwork.contact_artist else (line.artwork.artist.first_name if line.artwork.artist else "")) }} {{ (line.artwork.contact_artist.last_name if line.artwork.contact_artist else (line.artwork.artist.last_name if line.artwork.artist else "")) }}<br>
             {% endif %}
             {% if line.artwork.year_from %}
@@ -424,7 +424,8 @@
   {% endif %}
 
   <!-- Droit de Suite -->
-  {% if line.artwork.artist and not line.artwork.artist.death_year %}
+  {% set inv_artist = line.artwork.contact_artist or line.artwork.artist %}
+  {% if inv_artist and not inv_artist.death_year %}
   <div class="droit-notice">
     * Folgerecht (Droit de Suite): Der Verkauf von Originalwerken lebender Künstler kann dem Folgerecht unterliegen.
   </div>

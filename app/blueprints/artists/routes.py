@@ -13,7 +13,7 @@ def index():
 @login_required
 def detail(id):
     # Find contact by legacy_artist_id
-    from ...models import Contact, Artist
+    from ...models import Contact
     from flask_security import current_user
     contact = Contact.query.filter_by(
         legacy_artist_id=id,

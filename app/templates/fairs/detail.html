@@ -35,7 +35,7 @@
           <div style="flex:1;min-width:0;">
             <div style="font-size:0.88rem;font-weight:400;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ line.artwork.title }}</div>
             <div style="font-size:0.78rem;color:var(--text-secondary);font-style:italic;font-family:var(--font-display);">
-              {% if line.artwork.artist %}{{ line.artwork.artist.last_name }}{% endif %}
+              {% if line.artwork.contact_artist %}{{ line.artwork.contact_artist.last_name }}{% elif line.artwork.artist %}{{ line.artwork.artist.last_name }}{% endif %}
             </div>
           </div>
           <div style="text-align:right;flex-shrink:0;">

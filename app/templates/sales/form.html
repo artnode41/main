@@ -30,7 +30,7 @@
             <div>
               <div style="font-size:1rem;font-weight:400;margin-bottom:4px;">{{ artwork.title }}</div>
               <div style="font-size:0.85rem;font-style:italic;color:var(--text-secondary);font-family:var(--font-display);">
-                {% if artwork.artist %}{{ artwork.artist.first_name }} {{ artwork.artist.last_name }}{% endif %}
+                {% if artwork.contact_artist %}{{ artwork.contact_artist.first_name }} {{ artwork.contact_artist.last_name }}{% elif artwork.artist %}{{ artwork.artist.first_name }} {{ artwork.artist.last_name }}{% endif %}
               </div>
               <div style="font-size:0.78rem;color:var(--text-muted);margin-top:4px;">
                 {{ artwork.year_from or '' }}
