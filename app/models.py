@@ -306,6 +306,7 @@ class Exhibition(db.Model):
     end_date     = Column(DateTime(timezone=True))
     venue        = Column(String(200))
     active       = Column(Boolean, default=True)
+    is_active_show = Column(Boolean, default=False)  # Show is currently running
     created_at   = Column(DateTime, default=now_utc)
     updated_at   = Column(DateTime, default=now_utc, onupdate=now_utc)
 

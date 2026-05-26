@@ -29,23 +29,39 @@ def home():
         Exhibition.end_date >= now,
     ).order_by(Exhibition.start_date.desc()).limit(5).all()
 
-    # Carousel: is_carousel=True first, fallback to recent available
-    carousel_artworks = Artwork.query.filter_by(
-        is_carousel=True, active=True
-    ).order_by(Artwork.id.desc()).all()
+    # Carousel: active show exhibitions first, then is_carousel, then recent
+    active_exhibitions = Exhibition.query.filter_by(
+        active=True, is_active_show=True
+    ).order_by(Exhibition.start_date.desc()).all()
+    carousel_artworks = []
+    if active_exhibitions:
+        for ex in active_exhibitions:
+            for ea in sorted(ex.artworks, key=lambda x: x.sort_order)[:4]:
+                if ea.artwork.active and ea.artwork not in carousel_artworks:
+                    carousel_artworks.append(ea.artwork)
+                if len(carousel_artworks) >= 8:
+                    break
+            if len(carousel_artworks) >= 8:
+                break
     if not carousel_artworks:
         carousel_artworks = Artwork.query.filter_by(
-            status="available", active=True
-        ).order_by(Artwork.id.desc()).limit(6).all()
-
-    # Featured: is_featured=True first, fallback to recent available
+            is_carousel=True, active=True
+        ).order_by(Artwork.id.desc()).all()
+        if not carousel_artworks:
+            carousel_artworks = Artwork.query.filter_by(
+                status="available", active=True
+            ).order_by(Artwork.id.desc()).limit(6).all()
+    # Featured: exclude exhibition artworks if active show
+    exhibition_artwork_ids = {ea.artwork_id for ex in active_exhibitions for ea in ex.artworks} if active_exhibitions else set()
     featured_artworks = Artwork.query.filter_by(
         is_featured=True, active=True
     ).order_by(Artwork.id.desc()).all()
     if not featured_artworks:
-        featured_artworks = Artwork.query.filter_by(
-            status="available", active=True
-        ).order_by(Artwork.id.desc()).limit(12).all()
+        from sqlalchemy import not_
+        query = Artwork.query.filter_by(status="available", active=True)
+        if exhibition_artwork_ids:
+            query = query.filter(~Artwork.id.in_(exhibition_artwork_ids))
+        featured_artworks = query.order_by(Artwork.id.desc()).limit(12).all()
 
     return render_template("public/home.html",
                            gallery=gallery,

@@ -70,6 +70,11 @@ def create_app():
     from flask_mail import Mail
     mail = Mail(app)
     app.extensions["mail"] = mail
+    from datetime import date
+    @app.context_processor
+    def inject_today():
+        return dict(today_date=date.today())
+
     from flask_wtf.csrf import generate_csrf
     @app.context_processor
     def inject_csrf():

@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block title %}Exhibitions — ArtNode{% endblock %}
+{% block content %}
+<div class="page-header">
+  <div>
+    <div class="page-title">Exhibitions</div>
+    <div class="page-subtitle">{{ exhibitions|length }} exhibitions</div>
+  </div>
+  <div class="page-actions">
+    <a href="{{ url_for('exhibitions.create') }}" class="btn btn-primary">+ New Exhibition</a>
+  </div>
+</div>
+<div class="page-body">
+  {% if exhibitions %}
+  <table style="width:100%;border-collapse:collapse;">
+    <thead>
+      <tr style="border-bottom:2px solid var(--border);">
+        <th style="text-align:left;padding:8px 12px;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);font-weight:400;">Title</th>
+        <th style="text-align:left;padding:8px 12px;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);font-weight:400;">Venue</th>
+        <th style="text-align:left;padding:8px 12px;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);font-weight:400;">Dates</th>
+        <th style="text-align:center;padding:8px 12px;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);font-weight:400;">Works</th>
+        <th style="text-align:left;padding:8px 12px;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);font-weight:400;">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for ex in exhibitions %}
+      <tr style="border-bottom:1px solid var(--border-light);cursor:pointer;"
+          onclick="window.location='{{ url_for('exhibitions.detail', id=ex.id) }}'">
+        <td style="padding:14px 12px;font-size:0.95rem;font-weight:400;">{{ ex.title }}</td>
+        <td style="padding:14px 12px;font-size:0.85rem;color:var(--text-secondary);">{{ ex.venue or "—" }}</td>
+        <td style="padding:14px 12px;font-size:0.85rem;color:var(--text-secondary);">
+          {% if ex.start_date %}{{ ex.start_date.strftime("%d %b %Y") }}{% endif %}
+          {% if ex.end_date %} – {{ ex.end_date.strftime("%d %b %Y") }}{% endif %}
+          {% if not ex.start_date and not ex.end_date %}—{% endif %}
+        </td>
+        <td style="padding:14px 12px;font-size:0.85rem;text-align:center;">{{ ex.artworks|length }}</td>
+        <td style="padding:14px 12px;">
+          {% if ex.start_date and ex.end_date %}
+            {% set today = today_date %}
+            {% if ex.start_date.date() <= today and ex.end_date.date() >= today %}
+              <span class="badge badge-available">Current</span>
+            {% elif ex.start_date.date() > today %}
+              <span class="badge badge-reserved">Forthcoming</span>
+            {% else %}
+              <span class="badge" style="background:#f0f0f0;color:#666;">Past</span>
+            {% endif %}
+          {% else %}
+            <span class="badge" style="background:#f0f0f0;color:#666;">—</span>
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <div style="text-align:center;padding:var(--space-3xl);color:var(--text-muted);">
+    <p style="font-family:var(--font-display);font-size:1.2rem;margin-bottom:8px;">No exhibitions yet</p>
+    <p style="font-size:0.85rem;">Create your first exhibition to get started.</p>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}
