@@ -11,9 +11,9 @@
         {{ contact.first_name }} {{ contact.last_name }}
       {% endif %}
     </div>
-    <div class="page-subtitle">
+    <div class="page-subtitle" style="margin-top:6px;">
       {% for role in (contact.roles or []) %}
-        <span class="badge badge-available" style="margin-right:4px;font-size:0.65rem;">{{ role }}</span>
+        <span style="font-size:0.7rem;letter-spacing:0.06em;text-transform:uppercase;padding:2px 8px;background:var(--border-light);color:var(--text-secondary);margin-right:4px;display:inline-block;">{{ role|replace("_", " ") }}</span>
       {% endfor %}
     </div>
   </div>

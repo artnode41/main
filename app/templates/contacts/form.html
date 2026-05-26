@@ -79,6 +79,22 @@
           </div>
         </div>
 
+
+        <div style="background:var(--surface);border:1px solid var(--border);padding:var(--space-xl);margin-bottom:var(--space-lg);">
+          <div style="font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:var(--space-lg);">Roles</div>
+          {% for category, roles in role_categories %}
+          <div style="margin-bottom:var(--space-md);">
+            <div style="font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px;">{{ category }}</div>
+            {% for role_key, role_label in roles %}
+            <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:0.85rem;margin-bottom:6px;">
+              <input type="checkbox" name="roles" value="{{ role_key }}" style="width:14px;height:14px;"
+                     {% if contact and role_key in (contact.roles or []) %}checked{% endif %}>
+              {{ role_label }}
+            </label>
+            {% endfor %}
+          </div>
+          {% endfor %}
+        </div>
         <div style="display:flex;gap:var(--space-md);justify-content:flex-end;">
           <a href="{{ url_for('contacts.index') }}" class="btn btn-secondary">Cancel</a>
           <button type="submit" class="btn btn-primary">{% if contact %}Save Changes{% else %}Add Contact{% endif %}</button>

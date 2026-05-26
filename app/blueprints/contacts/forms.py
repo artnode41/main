@@ -2,26 +2,40 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, TextAreaField, SelectField, BooleanField, IntegerField
 from wtforms.validators import DataRequired, Optional, Length, Email, NumberRange
 
-ROLE_CHOICES = [
-    ("collector", "Collector / Owner"),
-    ("consignor", "Consignor"),
-    ("consignee", "Consignee"),
-    ("donor", "Donor / Patron"),
-    ("seller", "Seller / Vendor"),
-    ("borrower", "Borrower"),
-    ("lender", "Lender"),
-    ("shipper", "Shipper / Fine Art Transport"),
-    ("warehouse", "Warehouse / Storage"),
-    ("conservator", "Conservator / Restorer"),
-    ("framer", "Framer"),
-    ("insurer", "Insurer / Broker"),
-    ("appraiser", "Appraiser"),
-    ("expert", "Expert / Scholar"),
-    ("legal", "Legal Counsel / Executor"),
-    ("curator", "Curator"),
-    ("vendor", "General Vendor / Service Provider"),
-    ("press", "Press / Media"),
+ROLE_CATEGORIES = [
+    ("Ownership & Acquisition", [
+        ("collector", "Collector / Owner"),
+        ("consignor", "Consignor"),
+        ("consignee", "Consignee"),
+        ("donor", "Donor / Patron"),
+        ("seller", "Seller / Vendor"),
+        ("source", "Source / Provenance Contact"),
+    ]),
+    ("Exhibition & Loans", [
+        ("borrower", "Borrower"),
+        ("lender", "Lender"),
+        ("curator", "Curator"),
+    ]),
+    ("Logistics, Care & Operations", [
+        ("shipper", "Shipper / Fine Art Transport"),
+        ("warehouse", "Warehouse / Storage Facility"),
+        ("conservator", "Conservator / Restorer"),
+        ("framer", "Framer"),
+        ("insurer", "Insurer / Broker"),
+        ("vendor", "General Vendor / Service Provider"),
+        ("venue", "Event Venue / Caterer"),
+    ]),
+    ("Valuation & Legal", [
+        ("appraiser", "Appraiser"),
+        ("expert", "Expert / Scholar"),
+        ("legal", "Legal Counsel / Executor"),
+    ]),
+    ("Media", [
+        ("press", "Press / Media"),
+    ]),
 ]
+
+ROLE_CHOICES = [(r, l) for _, roles in ROLE_CATEGORIES for r, l in roles]
 
 
 class ContactForm(FlaskForm):

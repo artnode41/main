@@ -3,10 +3,20 @@ from flask_security import login_required, current_user
 from . import bp
 from ...models import Contact, Artwork
 from ...extensions import db
-from .forms import ContactForm
+from .forms import ContactForm, ROLE_CATEGORIES
 
 
 def _save_contact_from_form(contact, form):
+    from flask import request
+    # Collect roles from checkboxes (not a WTForms field)
+    selected_roles = request.form.getlist("roles")
+    # Always handle artist role separately via is_artist checkbox
+    # but include other selected roles
+    existing_roles = list(contact.roles or [])
+    artist_in_roles = "artist" in existing_roles
+    # Rebuild roles: keep artist flag from is_artist checkbox, add others
+    new_roles = [r for r in selected_roles if r != "artist"]
+    contact.roles = new_roles
     contact.contact_type = form.contact_type.data
     contact.first_name = form.first_name.data or None
     contact.last_name = form.last_name.data or None
@@ -24,6 +34,10 @@ def _save_contact_from_form(contact, form):
     if form.is_artist.data:
         if 'artist' not in roles:
             roles.append('artist')
+        # Merge with non-artist roles already set
+        for r in (contact.roles or []):
+            if r != 'artist' and r not in roles:
+                roles.append(r)
         contact.biography = form.biography.data or None
         contact.birth_year = form.birth_year.data
         contact.death_year = form.death_year.data
@@ -67,7 +81,7 @@ def create():
         db.session.commit()
         flash("Contact added successfully.", "success")
         return redirect(url_for("contacts.detail", id=contact.id))
-    return render_template("contacts/form.html", form=form, contact=None)
+    return render_template("contacts/form.html", form=form, contact=None, role_categories=ROLE_CATEGORIES)
 
 
 @bp.route("/<int:id>")
@@ -101,7 +115,7 @@ def edit(id):
         db.session.commit()
         flash("Contact updated successfully.", "success")
         return redirect(url_for("contacts.detail", id=contact.id))
-    return render_template("contacts/form.html", form=form, contact=contact)
+    return render_template("contacts/form.html", form=form, contact=contact, role_categories=ROLE_CATEGORIES)
 
 
 @bp.route("/<int:id>/delete", methods=["POST"])
