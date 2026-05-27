@@ -238,6 +238,11 @@ class ArtworkProvenance(db.Model):
     source_name    = Column(String(200))
     source_country = Column(String(2))
     document_key   = Column(Text)
+    document_hash  = Column(String(64))   # SHA-256 of PDF
+    document_path  = Column(Text)         # MinIO path to PDF
+    ots_file_path  = Column(Text)         # MinIO path to .ots proof
+    gpg_sig_path   = Column(Text)         # MinIO path to .sig file
+    ots_status     = Column(String(20), default="pending")  # pending|submitted|confirmed
     recorded_by_id = Column(Integer, ForeignKey("user.id"))
     recorded_at    = Column(DateTime, default=now_utc, nullable=False)
 

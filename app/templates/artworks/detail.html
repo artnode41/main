@@ -77,6 +77,26 @@
             {% if entry.description %}
             <p style="font-size:0.85rem;color:var(--text-secondary);">{{ entry.description }}</p>
             {% endif %}
+            <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap;">
+              <a href="{{ url_for('artworks.download_provenance_pdf', artwork_id=artwork.id, prov_id=entry.id) }}"
+                 class="btn btn-secondary" style="font-size:0.7rem;padding:3px 8px;">⬇ PDF</a>
+              {% if not entry.document_hash %}
+              <form method="POST" action="{{ url_for('artworks.anchor_provenance', artwork_id=artwork.id, prov_id=entry.id) }}" style="margin:0;">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <button type="submit" class="btn btn-secondary" style="font-size:0.7rem;padding:3px 8px;"
+                        onclick="return confirm('Anchor this record to the Bitcoin blockchain via OpenTimestamps?')">
+                  ⚓ Anchor OTS
+                </button>
+              </form>
+              {% else %}
+              <span title="SHA-256: {{ entry.document_hash }}" style="font-size:0.7rem;padding:3px 8px;background:#e8f5e9;color:#2e7d32;">
+                ✓ {{ entry.ots_status or 'anchored' }}
+              </span>
+              {% if entry.document_hash %}
+              <span style="font-size:0.65rem;color:var(--text-muted);font-family:monospace;">{{ entry.document_hash[:16] }}…</span>
+              {% endif %}
+              {% endif %}
+            </div>
           </div>
           {% endfor %}
         {% else %}

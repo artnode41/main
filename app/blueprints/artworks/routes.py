@@ -1,7 +1,7 @@
 from flask import render_template, redirect, url_for, flash
 from flask_security import login_required, current_user
 from . import bp
-from ...models import Artwork, ArtworkImage, ArtworkProvenance, ArtworkConsignment, Contact
+from ...models import Artwork, ArtworkImage, ArtworkProvenance, ArtworkConsignment, Contact, Gallery
 from ...extensions import db
 from .forms import ArtworkForm
 from .provenance_forms import ProvenanceForm
@@ -209,3 +209,44 @@ def provenance_add(id):
         flash("Provenance record added.", "success")
         return redirect(url_for("artworks.detail", id=artwork.id))
     return render_template("artworks/provenance_form.html", form=form, artwork=artwork)
+
+
+@bp.route("/<int:artwork_id>/provenance/<int:prov_id>/anchor", methods=["POST"])
+@login_required
+def anchor_provenance(artwork_id, prov_id):
+    from flask import current_app
+    artwork = Artwork.query.filter_by(
+        id=artwork_id, tenant_id=current_user.tenant_id
+    ).first_or_404()
+    prov = ArtworkProvenance.query.filter_by(
+        id=prov_id, artwork_id=artwork_id
+    ).first_or_404()
+    gallery = Gallery.query.get(current_user.tenant_id)
+    from ...kgtg import anchor_provenance as do_anchor
+    gpg_key_id = current_app.config.get("GPG_KEY_ID")
+    result = do_anchor(prov, artwork, gallery, gpg_key_id=gpg_key_id)
+    if result["status"] == "ok":
+        flash(f"Provenance anchored. SHA-256: {result['hash'][:16]}… Steps: {', '.join(result['steps'])}", "success")
+    else:
+        flash(f"Anchoring failed: {result.get('error', 'unknown error')}", "error")
+    return redirect(url_for("artworks.detail", id=artwork_id))
+
+
+@bp.route("/<int:artwork_id>/provenance/<int:prov_id>/download-pdf")
+@login_required
+def download_provenance_pdf(artwork_id, prov_id):
+    from flask import Response
+    artwork = Artwork.query.filter_by(
+        id=artwork_id, tenant_id=current_user.tenant_id
+    ).first_or_404()
+    prov = ArtworkProvenance.query.filter_by(
+        id=prov_id, artwork_id=artwork_id
+    ).first_or_404()
+    gallery = Gallery.query.get(current_user.tenant_id)
+    from ...kgtg import generate_provenance_pdf
+    pdf_bytes = generate_provenance_pdf(prov, artwork, gallery)
+    return Response(
+        pdf_bytes,
+        mimetype="application/pdf",
+        headers={"Content-Disposition": f'attachment; filename="provenance_{prov_id}.pdf"'}
+    )
