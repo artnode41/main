@@ -12,7 +12,7 @@
 </div>
 
 <div class="page-body">
-  <form method="POST" action="">
+  <form method="POST" action="" enctype="multipart/form-data">
     {{ form.hidden_tag() }}
 
     <div style="max-width:680px;">
@@ -59,6 +59,11 @@
 
       <div style="display:flex;gap:var(--space-md);justify-content:flex-end;">
         <a href="{{ url_for('artworks.detail', id=artwork.id) }}" class="btn btn-secondary">Cancel</a>
+      <div class="form-group" style="margin-bottom:var(--space-lg);">
+        <label class="form-label">Attach Documents</label>
+        <input type="file" name="attached_files" multiple accept=".pdf,.jpg,.jpeg,.png,.xlsx" class="form-control">
+        <p style="font-size:0.75rem;color:var(--text-muted);margin-top:4px;">PDF, JPG, PNG, XLSX · Max 10MB per file · Multiple files allowed</p>
+      </div>
         <button type="submit" class="btn btn-primary">Add Record</button>
       </div>
     </div>

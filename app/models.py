@@ -243,6 +243,7 @@ class ArtworkProvenance(db.Model):
     ots_file_path  = Column(Text)         # MinIO path to .ots proof
     gpg_sig_path   = Column(Text)         # MinIO path to .sig file
     ots_status     = Column(String(20), default="pending")  # pending|submitted|confirmed
+    attached_files = Column(ARRAY(String), default=[])  # MinIO paths to attached documents
     recorded_by_id = Column(Integer, ForeignKey("user.id"))
     recorded_at    = Column(DateTime, default=now_utc, nullable=False)
 

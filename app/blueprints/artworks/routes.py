@@ -203,8 +203,51 @@ def provenance_add(id):
             source_country=form.source_country.data.upper() if form.source_country.data else None,
             description=form.description.data or None,
             recorded_by_id=current_user.id,
+            attached_files=[],
         )
         db.session.add(entry)
+        db.session.flush()  # get entry.id before commit
+
+        # Handle file uploads
+        from flask import request
+        import io, os
+        files = request.files.getlist("attached_files")
+        uploaded_paths = []
+        allowed_ext = {".pdf", ".jpg", ".jpeg", ".xlsx", ".png"}
+        for f in files:
+            if not f or not f.filename:
+                continue
+            ext = os.path.splitext(f.filename)[1].lower()
+            if ext not in allowed_ext:
+                continue
+            data = f.read()
+            if len(data) > 10 * 1024 * 1024:  # 10MB limit
+                flash(f"File {f.filename} too large (max 10MB), skipped.", "warning")
+                continue
+            try:
+                from minio import Minio
+                client = Minio(
+                    os.environ.get("MINIO_ENDPOINT", "minio:9000"),
+                    access_key=os.environ.get("MINIO_ROOT_USER", "minioadmin"),
+                    secret_key=os.environ.get("MINIO_ROOT_PASSWORD", ""),
+                    secure=False,
+                )
+                bucket = os.environ.get("MINIO_BUCKET", "artnode-media")
+                if not client.bucket_exists(bucket):
+                    client.make_bucket(bucket)
+                import uuid
+                safe_name = f"{uuid.uuid4().hex}{ext}"
+                object_name = f"provenance/{artwork.id}/{entry.id}/{safe_name}"
+                content_types = {".pdf": "application/pdf", ".jpg": "image/jpeg",
+                                  ".jpeg": "image/jpeg", ".xlsx": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                                  ".png": "image/png"}
+                client.put_object(bucket, object_name, io.BytesIO(data), len(data),
+                                  content_type=content_types.get(ext, "application/octet-stream"))
+                uploaded_paths.append(f"{object_name}|{f.filename}")
+            except Exception as e:
+                flash(f"Upload failed for {f.filename}: {e}", "error")
+
+        entry.attached_files = uploaded_paths
         db.session.commit()
         flash("Provenance record added.", "success")
         return redirect(url_for("artworks.detail", id=artwork.id))
@@ -250,3 +293,43 @@ def download_provenance_pdf(artwork_id, prov_id):
         mimetype="application/pdf",
         headers={"Content-Disposition": f'attachment; filename="provenance_{prov_id}.pdf"'}
     )
+
+
+@bp.route("/<int:artwork_id>/provenance/<int:prov_id>/file/<int:file_idx>")
+@login_required
+def download_provenance_file(artwork_id, prov_id, file_idx):
+    from flask import Response
+    import io, os
+    prov = ArtworkProvenance.query.filter_by(
+        id=prov_id, artwork_id=artwork_id
+    ).first_or_404()
+    files = prov.attached_files or []
+    if file_idx >= len(files):
+        abort(404)
+    entry = files[file_idx]
+    parts = entry.split("|", 1)
+    object_name = parts[0]
+    filename = parts[1] if len(parts) > 1 else object_name.split("/")[-1]
+    try:
+        from minio import Minio
+        client = Minio(
+            os.environ.get("MINIO_ENDPOINT", "minio:9000"),
+            access_key=os.environ.get("MINIO_ROOT_USER", "minioadmin"),
+            secret_key=os.environ.get("MINIO_ROOT_PASSWORD", ""),
+            secure=False,
+        )
+        bucket = os.environ.get("MINIO_BUCKET", "artnode-media")
+        response = client.get_object(bucket, object_name)
+        data = response.read()
+        ext = os.path.splitext(filename)[1].lower()
+        content_types = {".pdf": "application/pdf", ".jpg": "image/jpeg",
+                         ".jpeg": "image/jpeg", ".xlsx": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                         ".png": "image/png"}
+        ct = content_types.get(ext, "application/octet-stream")
+        return Response(data, mimetype=ct,
+                        headers={"Content-Disposition": f'attachment; filename="{filename}"'})
+    except Exception as e:
+        flash(f"Download failed: {e}", "error")
+        return redirect(url_for("artworks.detail", id=artwork_id))
+
+
