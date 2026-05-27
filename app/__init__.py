@@ -58,6 +58,8 @@ def create_app():
     from .blueprints.public_viewing import bp as public_viewing_bp
     app.register_blueprint(artworks_bp)
     app.register_blueprint(artists_bp)
+    from .blueprints.export import bp as export_bp
+    app.register_blueprint(export_bp)
     app.register_blueprint(contacts_bp)
     app.register_blueprint(exhibitions_bp)
     app.register_blueprint(sales_bp)
