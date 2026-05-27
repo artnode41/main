@@ -21,6 +21,7 @@ class GallerySettingsForm(FlaskForm):
     website = StringField("Website URL", validators=[Optional(), Length(max=255)])
     website_custom_domain = StringField("Custom Domain", validators=[Optional(), Length(max=255)])
     instagram_url = StringField("Instagram URL", validators=[Optional(), Length(max=255)])
+    logo_url = StringField("Logo URL (leave blank to use gallery name)", validators=[Optional(), Length(max=500)])
 
     # Financial
     currency = SelectField("Default Currency", choices=[

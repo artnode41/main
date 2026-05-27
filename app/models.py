@@ -80,6 +80,7 @@ class Gallery(db.Model):
     website               = Column(String(255))
     website_custom_domain = Column(String(255))           # e.g. gallery.ch
     instagram_url         = Column(String(255))
+    logo_url              = Column(Text)  # Public site logo (PNG, stored in MinIO)
     vat_number            = Column(String(30))
     iban                  = Column(String(34))
     vat_scheme_default    = Column(String(20), default="standard")
@@ -90,7 +91,6 @@ class Gallery(db.Model):
     updated_at            = Column(DateTime, default=now_utc, onupdate=now_utc)
 
     users                 = relationship("User", back_populates="gallery")
-    artists               = relationship("Artist", back_populates="gallery")
     artworks              = relationship("Artwork", back_populates="gallery")
     contacts              = relationship("Contact", back_populates="gallery")
     exhibitions           = relationship("Exhibition", back_populates="gallery")
@@ -102,29 +102,6 @@ class Gallery(db.Model):
 # ---------------------------------------------------------------------------
 # Artist
 # ---------------------------------------------------------------------------
-
-class Artist(db.Model):
-    __tablename__ = "artist"
-    id             = Column(Integer, primary_key=True)
-    tenant_id      = Column(Integer, ForeignKey("gallery.id"), nullable=False)
-    first_name              = Column(String(100))
-    last_name               = Column(String(100), nullable=False)
-    sort_name               = Column(String(200))  # e.g. "Giacometti, Alberto"
-    slug                    = Column(String(200), unique=False)  # URL-safe identifier
-    birth_year              = Column(Integer)
-    death_year              = Column(Integer)
-    nationality             = Column(String(100))
-    biography               = Column(Text)
-    cv_json                 = Column(JSON)  # structured CV data
-    website                 = Column(String(255))
-    is_active_representation = Column(Boolean, default=True)
-    active                  = Column(Boolean, default=True)
-    created_at     = Column(DateTime, default=now_utc)
-    updated_at     = Column(DateTime, default=now_utc, onupdate=now_utc)
-
-    gallery        = relationship("Gallery", back_populates="artists")
-    artworks       = relationship("Artwork", back_populates="artist")
-
 
 # ---------------------------------------------------------------------------
 # Contact (collectors, institutions)
@@ -173,7 +150,6 @@ class Artwork(db.Model):
 
     id               = Column(Integer, primary_key=True)
     tenant_id        = Column(Integer, ForeignKey("gallery.id"), nullable=False)
-    artist_id        = Column(Integer, ForeignKey("artist.id"), nullable=True)
 
     title            = Column(String(500), nullable=False)
     year_from        = Column(Integer)
@@ -218,7 +194,6 @@ class Artwork(db.Model):
     )
 
     gallery          = relationship("Gallery", back_populates="artworks")
-    artist           = relationship("Artist", back_populates="artworks")
     images           = relationship("ArtworkImage", back_populates="artwork",
                                     cascade="all, delete-orphan")
     provenance       = relationship("ArtworkProvenance", back_populates="artwork",

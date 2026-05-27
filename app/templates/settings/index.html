@@ -61,6 +61,76 @@
           </div>
         </div>
 
+
+        <div style="background:var(--surface);border:1px solid var(--border);padding:var(--space-xl);margin-bottom:var(--space-lg);">
+          <div style="font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:var(--space-lg);">Public Site Logo</div>
+
+          <!-- Preview area -->
+          <div id="logoPreviewArea" style="margin-bottom:var(--space-lg);">
+            <div id="logoCurrentWrap" style="display:{% if gallery.logo_url %}flex{% else %}none{% endif %};align-items:center;gap:var(--space-lg);padding:var(--space-md);background:var(--border-light);margin-bottom:var(--space-md);">
+              <img id="logoCurrentImg" src="{{ gallery.logo_url or '' }}" style="max-height:40px;max-width:200px;display:block;" alt="Current logo">
+              <form method="POST" action="{{ url_for('settings.delete_logo') }}" style="margin:0;">
+                {{ form.hidden_tag() }}
+                <button type="submit" class="btn btn-secondary" style="font-size:0.75rem;" onclick="return confirm('Remove logo?')">Remove</button>
+              </form>
+            </div>
+            <div id="logoNewWrap" style="display:none;align-items:center;gap:var(--space-lg);padding:var(--space-md);background:#f0f7f0;border:1px solid #c3e6c3;margin-bottom:var(--space-md);">
+              <img id="logoNewImg" src="" style="max-height:40px;max-width:200px;display:block;" alt="New logo preview">
+              <span style="font-size:0.8rem;color:#2d7a2d;">Ready to upload</span>
+            </div>
+          </div>
+
+          <!-- Upload form -->
+          <form method="POST" action="{{ url_for('settings.upload_logo') }}" enctype="multipart/form-data" id="logoForm">
+            {{ form.hidden_tag() }}
+            <div style="display:flex;align-items:center;gap:var(--space-md);flex-wrap:wrap;">
+              <label class="btn btn-secondary" style="cursor:pointer;margin:0;">
+                Choose PNG File
+                <input type="file" name="logo" accept=".png" id="logoFileInput" style="display:none;">
+              </label>
+              <button type="submit" id="logoUploadBtn" class="btn btn-primary" style="display:none;">Save Logo</button>
+              <button type="button" id="logoCancelBtn" class="btn btn-secondary" style="display:none;">Cancel</button>
+            </div>
+            <p style="font-size:0.75rem;color:var(--text-muted);margin-top:8px;">PNG only · Max 200KB · Displayed at max 200×40px · Transparent background recommended</p>
+          </form>
+
+          <script>
+          const fileInput = document.getElementById('logoFileInput');
+          const newWrap = document.getElementById('logoNewWrap');
+          const newImg = document.getElementById('logoNewImg');
+          const uploadBtn = document.getElementById('logoUploadBtn');
+          const cancelBtn = document.getElementById('logoCancelBtn');
+          const currentWrap = document.getElementById('logoCurrentWrap');
+
+          fileInput.addEventListener('change', function() {
+            const file = this.files[0];
+            if (!file) return;
+            if (file.size > 200 * 1024) {
+              alert('File too large. Maximum size is 200KB.');
+              this.value = '';
+              return;
+            }
+            const reader = new FileReader();
+            reader.onload = e => {
+              newImg.src = e.target.result;
+              newWrap.style.display = 'flex';
+              currentWrap.style.display = 'none';
+              uploadBtn.style.display = '';
+              cancelBtn.style.display = '';
+            };
+            reader.readAsDataURL(file);
+          });
+
+          cancelBtn.addEventListener('click', function() {
+            fileInput.value = '';
+            newWrap.style.display = 'none';
+            uploadBtn.style.display = 'none';
+            cancelBtn.style.display = 'none';
+            {% if gallery.logo_url %}currentWrap.style.display = 'flex';{% endif %}
+          });
+          </script>
+        </div>
+
         <div style="background:var(--surface);border:1px solid var(--border);padding:var(--space-xl);margin-bottom:var(--space-lg);">
           <div style="font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:var(--space-lg);">Public Website</div>
           <div class="form-group">

@@ -122,7 +122,11 @@
 <body>
   <nav id="mainNav">
     <a href="{{ url_for('public.home') }}" class="nav-logo">
-      {{ gallery.public_name or gallery.name }}
+      {% if gallery.logo_url %}
+        <img src="{{ gallery.logo_url }}" style="max-height:40px;max-width:200px;display:block;" alt="{{ gallery.public_name or gallery.name }}">
+      {% else %}
+        {{ gallery.public_name or gallery.name }}
+      {% endif %}
     </a>
     <ul class="nav-links">
       <li><a href="{{ url_for('public.artists') }}">Artists</a></li>
