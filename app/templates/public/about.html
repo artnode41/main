@@ -1,8 +1,17 @@
 {% extends "public/base.html" %}
 {% block title %}About — {{ gallery.public_name or gallery.name }}{% endblock %}
 
+{% block extra_css %}
+<style>
+  @media (max-width: 768px) {
+    .about-wrap { padding: 40px 20px !important; }
+    .about-info-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
+    .about-artists-cols { columns: 1 !important; }
+  }
+</style>
+{% endblock %}
 {% block content %}
-<div style="padding:80px 40px;max-width:900px;margin:0 auto;">
+<div class="about-wrap" style="padding:80px 40px;max-width:900px;margin:0 auto;">
   <div class="section-label">The Gallery</div>
   <div class="page-heading">{{ gallery.public_name or gallery.name }}</div>
   {% if gallery.tagline %}
@@ -15,7 +24,7 @@
   </div>
   {% endif %}
 
-  <div style="margin-top:64px;display:grid;grid-template-columns:1fr 1fr;gap:48px;max-width:640px;">
+  <div class="about-info-grid" style="margin-top:64px;display:grid;grid-template-columns:1fr 1fr;gap:48px;max-width:640px;">
     <div>
       <div class="section-label">Visit</div>
       {% if gallery.address %}<p style="font-size:0.9rem;line-height:1.8;margin-top:8px;">{{ gallery.address }}<br>{% if gallery.zip_code %}{{ gallery.zip_code }} {% endif %}{{ gallery.city or "" }}<br>{{ gallery.country or "" }}</p>{% endif %}
@@ -38,7 +47,7 @@
   {% if artists %}
   <div style="margin-top:80px;">
     <div class="section-label">Represented Artists</div>
-    <div style="margin-top:24px;columns:2;gap:32px;">
+    <div class="about-artists-cols" style="margin-top:24px;columns:2;gap:32px;">
       {% for a in artists %}
       <p style="margin-bottom:8px;">
         <a href="{{ url_for('public.artist_detail', id=a.id) }}" style="font-family:var(--font-serif);font-size:1rem;font-weight:300;color:var(--text);text-decoration:none;">

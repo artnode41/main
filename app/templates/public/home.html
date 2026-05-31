@@ -44,6 +44,15 @@
 
   .section { padding: 80px 40px; }
   .section-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 40px; }
+
+  @media (max-width: 768px) {
+    .hero { height: 70vh; }
+    .hero-text { bottom: 32px; left: 20px; right: 20px; max-width: 100%; }
+    .hero-title { font-size: 1.8rem; }
+    .hero-dots { bottom: 16px; right: 20px; }
+    .section { padding: 48px 20px; }
+    .section-header { flex-direction: column; gap: 16px; align-items: flex-start; }
+  }
 </style>
 {% endblock %}
 

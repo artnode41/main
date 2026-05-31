@@ -1,8 +1,16 @@
 {% extends "public/base.html" %}
 {% block title %}Contact — {{ gallery.public_name or gallery.name }}{% endblock %}
 
+{% block extra_css %}
+<style>
+  @media (max-width: 768px) {
+    .contact-wrap { padding: 40px 20px !important; grid-template-columns: 1fr !important; gap: 40px !important; }
+    .contact-name-grid { grid-template-columns: 1fr !important; }
+  }
+</style>
+{% endblock %}
 {% block content %}
-<div style="padding:80px 40px;display:grid;grid-template-columns:1fr 1fr;gap:80px;max-width:960px;">
+<div class="contact-wrap" style="padding:80px 40px;display:grid;grid-template-columns:1fr 1fr;gap:80px;max-width:960px;">
 
   <div>
     <div class="section-label">Get in Touch</div>
@@ -40,7 +48,7 @@
   <div>
     <div class="section-label" style="margin-bottom:24px;">Send a Message</div>
     <form method="POST" action="{{ url_for('public.enquire') }}">
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+      <div class="contact-name-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
         <div class="pub-form-group">
           <label class="pub-label">First Name</label>
           <input type="text" name="first_name" class="pub-input">
