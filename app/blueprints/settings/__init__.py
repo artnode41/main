@@ -86,3 +86,35 @@ def delete_logo():
     db.session.commit()
     flash("Logo removed.", "success")
     return redirect(url_for("settings.index"))
+
+
+@bp.route("/export")
+@login_required
+def export():
+    from flask import current_app, request
+    from ...models import User
+    user = User.query.filter_by(email=current_user.email).first()
+    token = user.get_auth_token() if user else None
+    base_url = request.host_url.rstrip("/")
+    return render_template("settings/export.html",
+                           token=token,
+                           base_url=base_url)
+
+
+@bp.route("/export/lido-download")
+@login_required
+def export_lido_download():
+    from flask import Response
+    from ...lido import build_lido_wrap, serialize
+    from ...models import Artwork, Gallery
+    artworks = Artwork.query.filter_by(
+        tenant_id=current_user.tenant_id, active=True
+    ).all()
+    gallery = Gallery.query.filter_by(id=current_user.tenant_id).first()
+    root = build_lido_wrap(artworks, gallery)
+    xml_out = serialize(root)
+    return Response(
+        xml_out,
+        mimetype="application/xml",
+        headers={"Content-Disposition": "attachment; filename=collection-lido.xml"}
+    )

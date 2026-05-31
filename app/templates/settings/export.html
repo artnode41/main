@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block title %}Export — ArtNode{% endblock %}
+{% block content %}
+<div class="page-header">
+  <div>
+    <div class="page-title">Export & API</div>
+    <div class="page-subtitle">Share your collection with museums, aggregators, and cultural heritage platforms.</div>
+  </div>
+</div>
+
+<div class="page-body" style="max-width:720px;">
+
+  <div style="background:var(--surface);border:1px solid var(--border);padding:var(--space-xl);margin-bottom:var(--space-lg);">
+    <div style="font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:var(--space-lg);">API Token</div>
+    <p style="font-size:0.85rem;color:var(--text-secondary);margin-bottom:var(--space-md);">
+      Share this token with anyone who needs programmatic access to your collection data.
+      They must include it as an <code>Authentication-Token</code> header in every request.
+    </p>
+    <div style="display:flex;align-items:center;gap:var(--space-md);background:var(--bg);border:1px solid var(--border);padding:12px 16px;">
+      <code id="apiToken" style="flex:1;font-size:0.8rem;word-break:break-all;color:var(--text-secondary);">{{ token }}</code>
+      <button onclick="copyText('apiToken', this)" class="btn btn-secondary" style="flex-shrink:0;font-size:0.75rem;">Copy</button>
+    </div>
+  </div>
+
+  <div style="background:var(--surface);border:1px solid var(--border);padding:var(--space-xl);margin-bottom:var(--space-lg);">
+    <div style="font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:var(--space-lg);">Download Collection</div>
+    <p style="font-size:0.85rem;color:var(--text-secondary);margin-bottom:var(--space-lg);">
+      Download your full collection as a LIDO 1.1 XML file — the standard format used by museums and cultural heritage institutions worldwide.
+    </p>
+    <a href="{{ url_for('settings.export_lido_download') }}" class="btn btn-primary">Download LIDO XML</a>
+  </div>
+
+  <div style="background:var(--surface);border:1px solid var(--border);padding:var(--space-xl);margin-bottom:var(--space-lg);">
+    <div style="font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:var(--space-lg);">API Endpoints</div>
+    <p style="font-size:0.85rem;color:var(--text-secondary);margin-bottom:var(--space-lg);">
+      All endpoints require the <code>Authentication-Token</code> header.
+    </p>
+    {% set endpoints = [
+      ("LIDO XML — single artwork", base_url ~ "/api/v1/artworks/1/lido"),
+      ("LIDO XML — bulk paginated", base_url ~ "/api/v1/lido?page=1&per_page=50"),
+      ("JSON-LD — single artwork",  base_url ~ "/api/v1/artworks/1"),
+      ("JSON-LD — full collection", base_url ~ "/api/v1/collection?page=1"),
+    ] %}
+    {% for label, url in endpoints %}
+    <div style="margin-bottom:var(--space-md);">
+      <div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:4px;">{{ label }}</div>
+      <div style="display:flex;align-items:center;gap:var(--space-md);background:var(--bg);border:1px solid var(--border);padding:10px 16px;">
+        <code id="ep{{ loop.index }}" style="flex:1;font-size:0.78rem;word-break:break-all;color:var(--text-secondary);">{{ url }}</code>
+        <button onclick="copyText('ep{{ loop.index }}', this)" class="btn btn-secondary" style="flex-shrink:0;font-size:0.72rem;padding:4px 10px;">Copy</button>
+      </div>
+    </div>
+    {% endfor %}
+    <div style="margin-top:var(--space-lg);padding:var(--space-md);background:#fdf8ec;border:1px solid #e8d5a3;font-size:0.8rem;color:#7a5c00;">
+      Replace <code>/1</code> with the actual artwork ID. Use <code>page</code> and <code>per_page</code> to paginate bulk exports.
+    </div>
+  </div>
+
+</div>
+
+<script>
+function copyText(id, btn) {
+  const text = document.getElementById(id).textContent.trim();
+  navigator.clipboard.writeText(text).then(() => {
+    const orig = btn.textContent;
+    btn.textContent = "Copied!";
+    setTimeout(() => btn.textContent = orig, 2000);
+  });
+}
+</script>
+{% endblock %}
