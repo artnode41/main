@@ -21,7 +21,11 @@
 
   <div class="artwork-grid" id="artworkGrid">
     {% for aw in artworks %}
-    <a href="{{ url_for('artworks.detail', id=aw.id) }}" style="text-decoration:none;color:inherit;" class="artwork-card-wrapper"><div class="artwork-card" data-title="{{ aw.title|lower }}" data-artist="{{ aw.artist.last_name|lower if aw.artist else "" }}">
+    <div style="position:relative;" class="artwork-card-wrapper-outer">
+      <input type="checkbox" class="artwork-select-cb" data-id="{{ aw.id }}"
+             onclick="event.stopPropagation();toggleSelection(this)"
+             style="position:absolute;top:10px;left:10px;z-index:10;width:16px;height:16px;cursor:pointer;accent-color:var(--text);">
+      <a href="{{ url_for('artworks.detail', id=aw.id) }}" style="text-decoration:none;color:inherit;" class="artwork-card-wrapper"><div class="artwork-card" data-title="{{ aw.title|lower }}" data-artist="{{ aw.artist.last_name|lower if aw.artist else "" }}">
       {% set img = aw.images[0] if aw.images else none %}
       {% if img and img.iiif_url %}
         <img class="artwork-card-img" src="{{ img.iiif_url }}" alt="{{ aw.title }}" loading="lazy">
@@ -40,7 +44,29 @@
         <span class="badge badge-{{ aw.status }}">{{ aw.status|replace("_", " ") }}</span>
       </div>
     </div></a>
+    </div>
     {% endfor %}
+  </div>
+</div>
+
+<!-- Share selection bar -->
+<form method="POST" action="/admin/viewing-rooms/quick-share" id="shareForm" style="display:none;">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+  <input type="hidden" name="artwork_ids" id="shareIds">
+</form>
+<div id="shareBar" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:200;
+     background:#181714;color:#ffffff;padding:16px 32px;
+     align-items:center;justify-content:space-between;">
+  <span id="shareCount" style="font-size:0.85rem;letter-spacing:0.04em;">0 artworks selected</span>
+  <div style="display:flex;gap:12px;align-items:center;">
+    <button type="button" onclick="clearSelection()" 
+            style="background:transparent;border:1px solid rgba(255,255,255,0.5);color:#ffffff;padding:7px 16px;font-size:0.75rem;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;">
+      Clear
+    </button>
+    <button type="button" onclick="submitShare()"
+            style="background:#ffffff;border:none;color:#181714;padding:8px 20px;font-size:0.75rem;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;font-weight:500;">
+      Create Shareable Link
+    </button>
   </div>
 </div>
 
@@ -63,5 +89,32 @@ input.addEventListener("input", () => {
   });
   label.textContent = visible + " artwork" + (visible !== 1 ? "s" : "");
 });
+
+// Share selection
+const selected = new Set();
+function toggleSelection(cb) {
+  const id = cb.dataset.id;
+  if (cb.checked) { selected.add(id); } else { selected.delete(id); }
+  updateShareBar();
+}
+function updateShareBar() {
+  const bar = document.getElementById("shareBar");
+  const count = document.getElementById("shareCount");
+  if (selected.size > 0) {
+    bar.style.display = "flex";
+    count.textContent = selected.size + " artwork" + (selected.size !== 1 ? "s" : "") + " selected";
+  } else {
+    bar.style.display = "none";
+  }
+}
+function clearSelection() {
+  selected.clear();
+  document.querySelectorAll(".artwork-select-cb").forEach(cb => cb.checked = false);
+  updateShareBar();
+}
+function submitShare() {
+  document.getElementById("shareIds").value = Array.from(selected).join(",");
+  document.getElementById("shareForm").submit();
+}
 </script>
 {% endblock %}

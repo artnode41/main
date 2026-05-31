@@ -25,7 +25,7 @@
         <div style="font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:var(--space-lg);">Access & Visibility</div>
         <div class="form-group">
           {{ form.access_code.label(class="form-label") }}
-          {{ form.access_code(class="form-control", placeholder="Leave blank for no password") }}
+          {{ form.access_code(class="form-control", placeholder="Leave blank for a public link (no password required)") }}
           {% if room and room.access_code_hash %}
           <p style="font-size:0.75rem;color:var(--text-muted);margin-top:4px;">A code is set. Enter a new one to change it, or leave blank to keep the existing code.</p>
           {% endif %}

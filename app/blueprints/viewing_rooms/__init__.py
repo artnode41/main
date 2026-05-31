@@ -129,3 +129,36 @@ def delete(id):
     db.session.commit()
     flash("Viewing room deleted.", "success")
     return redirect(url_for("viewing_rooms.index"))
+
+
+@bp.route("/quick-share", methods=["POST"])
+@login_required
+def quick_share():
+    ids_raw = request.form.get("artwork_ids", "")
+    artwork_ids = [int(x) for x in ids_raw.split(",") if x.strip().isdigit()]
+    if not artwork_ids:
+        flash("No artworks selected.", "error")
+        return redirect(url_for("artworks.index"))
+
+    from datetime import date
+    title = f"Shared Selection — {date.today().strftime('%d %b %Y')}"
+
+    room = ViewingRoom(
+        tenant_id=current_user.tenant_id,
+        title=title,
+        is_active=True,
+    )
+    db.session.add(room)
+    db.session.flush()
+
+    for i, aw_id in enumerate(artwork_ids):
+        vra = ViewingRoomArtwork(
+            viewing_room_id=room.id,
+            artwork_id=aw_id,
+            sort_order=i,
+        )
+        db.session.add(vra)
+
+    db.session.commit()
+    flash(f"Shareable link created for {len(artwork_ids)} artwork(s).", "success")
+    return redirect(url_for("viewing_rooms.detail", id=room.id))
