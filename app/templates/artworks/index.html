@@ -25,7 +25,7 @@
       <input type="checkbox" class="artwork-select-cb" data-id="{{ aw.id }}"
              onclick="event.stopPropagation();toggleSelection(this)"
              style="position:absolute;top:10px;left:10px;z-index:10;width:16px;height:16px;cursor:pointer;accent-color:var(--text);">
-      <a href="{{ url_for('artworks.detail', id=aw.id) }}" style="text-decoration:none;color:inherit;" class="artwork-card-wrapper"><div class="artwork-card" data-title="{{ aw.title|lower }}" data-artist="{{ aw.artist.last_name|lower if aw.artist else "" }}">
+      <a href="{{ url_for('artworks.detail', id=aw.id) }}" style="text-decoration:none;color:inherit;" class="artwork-card-wrapper"><div class="artwork-card" data-title="{{ aw.title|lower }}" data-artist="{{ aw.contact_artist.last_name|lower if aw.contact_artist else "" }}">
       {% set img = aw.images[0] if aw.images else none %}
       {% if img and img.iiif_url %}
         <img class="artwork-card-img" src="{{ img.iiif_url }}" alt="{{ aw.title }}" loading="lazy">
@@ -72,7 +72,7 @@
 
 <script>
 const input = document.getElementById("searchInput");
-const cards = document.querySelectorAll(".artwork-card-wrapper");
+const cards = document.querySelectorAll(".artwork-card-wrapper-outer");
 const label = document.getElementById("countLabel");
 input.addEventListener("input", () => {
   const url = new URL(window.location);
@@ -81,10 +81,10 @@ input.addEventListener("input", () => {
   window.history.replaceState({}, "", url);
   const q = input.value.toLowerCase().trim();
   let visible = 0;
-  cards.forEach(card => {
-    const inner = card.querySelector(".artwork-card");
+  cards.forEach(outer => {
+    const inner = outer.querySelector(".artwork-card");
     const match = !q || (inner && inner.dataset.title.includes(q)) || (inner && inner.dataset.artist.includes(q));
-    card.style.display = match ? "" : "none";
+    outer.style.display = match ? "" : "none";
     if (match) visible++;
   });
   label.textContent = visible + " artwork" + (visible !== 1 ? "s" : "");
