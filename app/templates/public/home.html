@@ -75,12 +75,47 @@
       <div class="hero-text">
         <div class="hero-label">Current Exhibition</div>
         <div class="hero-title">{{ ex.title }}</div>
+        {% if ex.start_date or ex.end_date %}
+        <div style="font-size:0.8rem;opacity:0.8;margin-bottom:16px;">
+          {% if ex.start_date %}{{ ex.start_date.strftime("%d %b") }}{% endif %}
+          {% if ex.start_date and ex.end_date %} – {% endif %}
+          {% if ex.end_date %}{{ ex.end_date.strftime("%d %b %Y") }}{% endif %}
+        </div>
+        {% endif %}
         <a href="{{ url_for('public.exhibition_detail', id=ex.id) }}" class="btn-pub btn-pub-outline" style="color:white;border-color:rgba(255,255,255,0.6);">View Exhibition</a>
       </div>
     </div>
     {% endif %}
     {% endfor %}
   {% endif %}
+  {% set forth_first = [true] %}
+  {% for ex in forthcoming_exhibitions %}
+    {% for ea in ex.artworks %}
+      {% set aw = ea.artwork %}
+      {% set img = aw.images[0] if aw and aw.images else none %}
+      {% if img and img.iiif_url %}
+      {% if forth_first[0] and not current_exhibitions %}
+        {% set _ = forth_first.pop() %}
+        {% set _ = forth_first.append(false) %}
+      <div class="hero-slide active">
+      {% else %}
+      <div class="hero-slide">
+      {% endif %}
+        <div class="hero-bg" style="background-image:url('{{ img.iiif_url }}')"></div>
+        <img src="{{ img.iiif_url }}" alt="{{ ex.title }}" class="hero-main-img">
+        <div class="hero-overlay"></div>
+        <div class="hero-text">
+          <div class="hero-label">Coming Soon</div>
+          <div class="hero-title">{{ ex.title }}</div>
+          {% if ex.start_date %}
+          <div style="font-size:0.8rem;opacity:0.8;margin-bottom:16px;">Opens {{ ex.start_date.strftime("%d %b %Y") }}</div>
+          {% endif %}
+          <a href="{{ url_for('public.exhibition_detail', id=ex.id) }}" class="btn-pub btn-pub-outline" style="color:white;border-color:rgba(255,255,255,0.6);">View Exhibition</a>
+        </div>
+      </div>
+      {% endif %}
+    {% endfor %}
+  {% endfor %}
   {% for aw in carousel_artworks %}
     {% set img = aw.images[0] if aw.images else none %}
     {% if img and img.iiif_url %}

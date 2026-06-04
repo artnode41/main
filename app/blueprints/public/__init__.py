@@ -28,6 +28,11 @@ def home():
         Exhibition.start_date <= now,
         Exhibition.end_date >= now,
     ).order_by(Exhibition.start_date.desc()).limit(5).all()
+    forthcoming_exhibitions = Exhibition.query.filter(
+        Exhibition.active == True,
+        Exhibition.is_active_show == True,
+        Exhibition.start_date > now,
+    ).order_by(Exhibition.start_date.asc()).limit(3).all()
 
     # Carousel: active show exhibitions first, then is_carousel, then recent
     active_exhibitions = Exhibition.query.filter_by(
@@ -43,14 +48,17 @@ def home():
                     break
             if len(carousel_artworks) >= 8:
                 break
-    if not carousel_artworks:
-        carousel_artworks = Artwork.query.filter_by(
-            is_carousel=True, active=True
-        ).order_by(Artwork.id.desc()).all()
+    if not forthcoming_exhibitions:
+        if not carousel_artworks:
+            carousel_artworks = Artwork.query.filter_by(
+                is_carousel=True, active=True
+            ).order_by(Artwork.id.desc()).all()
         if not carousel_artworks:
             carousel_artworks = Artwork.query.filter_by(
                 status="available", active=True
             ).order_by(Artwork.id.desc()).limit(6).all()
+    else:
+        carousel_artworks = []
     # Featured: exclude exhibition artworks if active show
     exhibition_artwork_ids = {ea.artwork_id for ex in active_exhibitions for ea in ex.artworks} if active_exhibitions else set()
     featured_artworks = Artwork.query.filter_by(
@@ -67,6 +75,7 @@ def home():
                            gallery=gallery,
                            current_exhibitions=current_exhibitions,
                            carousel_artworks=carousel_artworks,
+                           forthcoming_exhibitions=forthcoming_exhibitions,
                            featured_artworks=featured_artworks)
 
 
