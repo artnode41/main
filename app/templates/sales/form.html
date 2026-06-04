@@ -38,7 +38,7 @@
               </div>
               {% if artwork.price %}
               <div style="font-size:0.82rem;color:var(--text-secondary);margin-top:8px;">
-                Listed: {{ artwork.currency }} {{ "{:,.0f}".format(artwork.price) }}
+                Listed: {{ artwork.price|ch_currency(artwork.currency) }}
               </div>
               {% endif %}
               {% if artwork.is_consignment and artwork.consignment %}

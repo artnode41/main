@@ -7,7 +7,7 @@
     <div class="page-title" style="margin-top:4px;">{{ exhibition.title }}</div>
     <div class="page-subtitle">
       {% if exhibition.venue %}{{ exhibition.venue }}{% endif %}
-      {% if exhibition.start_date %} · {{ exhibition.start_date.strftime("%d %b %Y") }}{% if exhibition.end_date %} – {{ exhibition.end_date.strftime("%d %b %Y") }}{% endif %}{% endif %}
+      {% if exhibition.start_date %} · {{ exhibition.start_date|ch_date }}{% if exhibition.end_date %} – {{ exhibition.end_date|ch_date }}{% endif %}{% endif %}
     </div>
   </div>
   <div class="page-actions">

@@ -28,8 +28,8 @@
         <td style="padding:14px 12px;font-size:0.95rem;font-weight:400;">{{ fair.name }}</td>
         <td style="padding:14px 12px;font-size:0.85rem;color:var(--text-secondary);">{{ fair.location or "—" }}</td>
         <td style="padding:14px 12px;font-size:0.85rem;color:var(--text-secondary);">
-          {% if fair.start_date %}{{ fair.start_date.strftime("%d %b %Y") }}{% endif %}
-          {% if fair.end_date %} – {{ fair.end_date.strftime("%d %b %Y") }}{% endif %}
+          {% if fair.start_date %}{{ fair.start_date|ch_date }}{% endif %}
+          {% if fair.end_date %} – {{ fair.end_date|ch_date }}{% endif %}
         </td>
         <td style="padding:14px 12px;font-size:0.85rem;text-align:right;">
           {{ fair.sales|selectattr('status', 'ne', 'cancelled')|selectattr('status', 'ne', 'draft')|list|length }}

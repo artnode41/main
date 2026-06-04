@@ -31,7 +31,7 @@
           {% if aw.artist %}{{ aw.artist.first_name }} {{ aw.artist.last_name }}{% endif %}
         </div>
         {% if aw.price %}
-        <div style="font-size:1rem;font-weight:500;">{{ aw.currency }} {{ "{:,.0f}".format(aw.price) }}</div>
+        <div style="font-size:1rem;font-weight:500;">{{ aw.price|ch_currency(aw.currency) }}</div>
         {% else %}
         <div style="font-size:0.85rem;color:var(--text-muted);">Price on request</div>
         {% endif %}

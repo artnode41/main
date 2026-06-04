@@ -49,7 +49,7 @@
             <div class="exhibition-card-title">{{ ex.title }}</div>
             <div class="exhibition-card-meta">
               {% if ex.venue %}{{ ex.venue }} · {% endif %}
-              {% if ex.start_date %}{{ ex.start_date.strftime("%d %b") }}{% if ex.end_date %} – {{ ex.end_date.strftime("%d %b %Y") }}{% endif %}{% endif %}
+              {% if ex.start_date %}{{ ex.start_date|ch_date }}{% if ex.end_date %} – {{ ex.end_date|ch_date }}{% endif %}{% endif %}
             </div>
           </div>
         </div>
@@ -82,7 +82,7 @@
           <div class="exhibition-card-body">
             <div class="exhibition-card-title">{{ ex.title }}</div>
             <div class="exhibition-card-meta">
-              {% if ex.start_date %}Opens {{ ex.start_date.strftime("%d %b %Y") }}{% endif %}
+              {% if ex.start_date %}Opens {{ ex.start_date|ch_date }}{% endif %}
             </div>
           </div>
         </div>

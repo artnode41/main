@@ -311,12 +311,12 @@
   <div class="invoice-meta">
     <div class="meta-item">
       <div class="meta-label">Rechnungsdatum</div>
-      <div class="meta-value">{{ (sale.invoice_date or sale.created_at).strftime("%d. %B %Y") }}</div>
+      <div class="meta-value">{{ (sale.invoice_date or sale.created_at)|ch_date("long") }}</div>
     </div>
     {% if sale.delivery_date %}
     <div class="meta-item">
       <div class="meta-label">Lieferdatum</div>
-      <div class="meta-value">{{ sale.delivery_date.strftime("%d. %B %Y") }}</div>
+      <div class="meta-value">{{ sale.delivery_date|ch_date("long") }}</div>
     </div>
     {% endif %}
     <div class="meta-item">
@@ -355,7 +355,7 @@
           </div>
         </td>
         <td class="right">1</td>
-        <td class="right">{{ line.currency }} {{ "{:,.2f}".format(line.price) }}</td>
+        <td class="right">{{ line.price|ch_currency(line.currency) }}</td>
       </tr>
     </tbody>
   </table>
@@ -364,27 +364,27 @@
   <div class="totals">
     <div class="total-row">
       <span class="total-label">Zwischensumme</span>
-      <span class="total-amount">{{ line.currency }} {{ "{:,.2f}".format(line.price) }}</span>
+      <span class="total-amount">{{ line.price|ch_currency(line.currency) }}</span>
     </div>
 
     {% if sale.vat_scheme == "standard" and line.vat_rate %}
     <div class="total-row">
       <span class="total-label">MWST {{ line.vat_rate }}%</span>
-      <span class="total-amount">{{ line.currency }} {{ "{:,.2f}".format(line.vat_amount) }}</span>
+      <span class="total-amount">{{ line.vat_amount|ch_currency(line.currency) }}</span>
     </div>
     <div class="total-row grand">
       <span>Gesamtbetrag</span>
-      <span>{{ line.currency }} {{ "{:,.2f}".format(line.price + (line.vat_amount or 0)) }}</span>
+      <span>{{ (line.price + (line.vat_amount or 0))|ch_currency(line.currency) }}</span>
     </div>
     {% elif sale.vat_scheme == "margin" %}
     <div class="total-row grand">
       <span>Gesamtbetrag</span>
-      <span>{{ line.currency }} {{ "{:,.2f}".format(line.price) }}</span>
+      <span>{{ line.price|ch_currency(line.currency) }}</span>
     </div>
     {% else %}
     <div class="total-row grand">
       <span>Gesamtbetrag</span>
-      <span>{{ line.currency }} {{ "{:,.2f}".format(line.price) }}</span>
+      <span>{{ line.price|ch_currency(line.currency) }}</span>
     </div>
     {% endif %}
   </div>

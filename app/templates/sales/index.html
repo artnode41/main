@@ -15,15 +15,15 @@
   <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-lg);margin-bottom:var(--space-xl);">
     <div style="background:var(--surface);border:1px solid var(--border);padding:var(--space-lg);">
       <div style="font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px;">Total Revenue</div>
-      <div style="font-size:1.4rem;font-family:var(--font-display);font-weight:300;">CHF {{ "{:,.0f}".format(total_revenue) }}</div>
+      <div style="font-size:1.4rem;font-family:var(--font-display);font-weight:300;">{{ total_revenue|ch_currency }}</div>
     </div>
     <div style="background:var(--surface);border:1px solid var(--border);padding:var(--space-lg);">
       <div style="font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px;">Gallery Profit / Net</div>
-      <div style="font-size:1.4rem;font-family:var(--font-display);font-weight:300;color:var(--status-available-fg);">CHF {{ "{:,.0f}".format(total_profit) }}</div>
+      <div style="font-size:1.4rem;font-family:var(--font-display);font-weight:300;color:var(--status-available-fg);">{{ total_profit|ch_currency }}</div>
     </div>
     <div style="background:var(--surface);border:1px solid var(--border);padding:var(--space-lg);">
       <div style="font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px;">Consignor Payables</div>
-      <div style="font-size:1.4rem;font-family:var(--font-display);font-weight:300;color:var(--status-reserved-fg);">CHF {{ "{:,.0f}".format(total_consignor) }}</div>
+      <div style="font-size:1.4rem;font-family:var(--font-display);font-weight:300;color:var(--status-reserved-fg);">{{ total_consignor|ch_currency }}</div>
     </div>
   </div>
 
@@ -54,17 +54,17 @@
             {% else %}{{ line.buyer.organisation }}{% endif %}
           {% else %}—{% endif %}
         </td>
-        <td style="padding:14px 12px;font-size:0.85rem;color:var(--text-secondary);">{{ sale.created_at.strftime("%d %b %Y") }}</td>
+        <td style="padding:14px 12px;font-size:0.85rem;color:var(--text-secondary);">{{ sale.created_at|ch_date }}</td>
         <td style="padding:14px 12px;font-size:0.85rem;text-align:right;">
-          {% if line %}{{ line.currency }} {{ "{:,.0f}".format(line.price) }}{% endif %}
+          {% if line %}{{ line.price|ch_currency(line.currency) }}{% endif %}
         </td>
         <td style="padding:14px 12px;font-size:0.85rem;text-align:right;">
           {% if line and sale.status not in ('cancelled', 'draft') %}
             {% if line.artwork.ownership_type == 'consignment' or line.artwork.is_consignment %}
-              <span style="color:var(--status-available-fg);">{{ line.currency }} {{ "{:,.0f}".format(line.gallery_net or 0) }}</span>
+              <span style="color:var(--status-available-fg);">{{ line.gallery_net or 0|ch_currency(line.currency) }}</span>
             {% else %}
               {% set profit = line.price - (line.artwork.acquisition_cost or 0) %}
-              <span style="color:var(--status-available-fg);">{{ line.currency }} {{ "{:,.0f}".format(profit) }}</span>
+              <span style="color:var(--status-available-fg);">{{ profit|ch_currency(line.currency) }}</span>
             {% endif %}
           {% else %}—{% endif %}
         </td>

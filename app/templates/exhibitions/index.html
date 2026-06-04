@@ -29,8 +29,8 @@
         <td style="padding:14px 12px;font-size:0.95rem;font-weight:400;">{{ ex.title }}</td>
         <td style="padding:14px 12px;font-size:0.85rem;color:var(--text-secondary);">{{ ex.venue or "—" }}</td>
         <td style="padding:14px 12px;font-size:0.85rem;color:var(--text-secondary);">
-          {% if ex.start_date %}{{ ex.start_date.strftime("%d %b %Y") }}{% endif %}
-          {% if ex.end_date %} – {{ ex.end_date.strftime("%d %b %Y") }}{% endif %}
+          {% if ex.start_date %}{{ ex.start_date|ch_date }}{% endif %}
+          {% if ex.end_date %} – {{ ex.end_date|ch_date }}{% endif %}
           {% if not ex.start_date and not ex.end_date %}—{% endif %}
         </td>
         <td style="padding:14px 12px;font-size:0.85rem;text-align:center;">{{ ex.artworks|length }}</td>

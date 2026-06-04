@@ -19,7 +19,7 @@
   <div class="page-heading">{{ exhibition.title }}</div>
   <div style="font-size:0.85rem;color:var(--muted);margin-top:8px;">
     {% if exhibition.venue %}{{ exhibition.venue }}{% endif %}
-    {% if exhibition.start_date %} · {{ exhibition.start_date.strftime("%d %b") }}{% if exhibition.end_date %} – {{ exhibition.end_date.strftime("%d %b %Y") }}{% endif %}{% endif %}
+    {% if exhibition.start_date %} · {{ exhibition.start_date|ch_date }}{% if exhibition.end_date %} – {{ exhibition.end_date|ch_date }}{% endif %}{% endif %}
   </div>
   {% if exhibition.description %}
   <p style="max-width:640px;margin-top:24px;font-size:0.95rem;line-height:1.8;color:#333;">{{ exhibition.description }}</p>

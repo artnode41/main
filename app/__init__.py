@@ -32,6 +32,29 @@ def create_app():
     migrate.init_app(app, db)
     security.init_app(app, user_datastore)
 
+    # ── Swiss formatting filters ─────────────────────────────
+    def ch_date(value, fmt="short"):
+        if not value:
+            return ""
+        if fmt == "long":
+            return value.strftime("%d. %B %Y")
+        return value.strftime("%d.%m.%Y")
+
+    def ch_currency(value, currency="CHF"):
+        if value is None:
+            return ""
+        try:
+            v = float(value)
+        except (TypeError, ValueError):
+            return str(value)
+        # Format with apostrophe thousands separator
+        parts = f"{v:,.2f}".split(".")
+        integer = parts[0].replace(",", "'")
+        return f"{currency} {integer}.{parts[1]}"
+
+    app.jinja_env.filters["ch_date"] = ch_date
+    app.jinja_env.filters["ch_currency"] = ch_currency
+
     @app.route("/health")
     def health():
         return {"status": "ok", "service": "artnode"}

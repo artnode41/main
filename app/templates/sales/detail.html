@@ -80,17 +80,17 @@
           {% if line.buyer %}
             {{ row("Buyer", line.buyer.last_name ~ " " ~ (line.buyer.first_name or "") if line.buyer.contact_type == "individual" else line.buyer.organisation) }}
           {% endif %}
-          {{ row("Sale Price", line.currency ~ " " ~ "{:,.2f}".format(line.price)) }}
+          {{ row("Sale Price", line.price|ch_currency(line.currency)) }}
           {% if line.vat_rate %}
-            {{ row("VAT (" ~ line.vat_rate ~ "%)", line.currency ~ " " ~ "{:,.2f}".format(line.vat_amount)) }}
+            {{ row("VAT (" ~ line.vat_rate ~ "%)", line.vat_amount|ch_currency(line.currency)) }}
           {% endif %}
           {% if line.consignor_net %}
-            {{ row("Gallery Net", line.currency ~ " " ~ "{:,.2f}".format(line.gallery_net)) }}
-            {{ row("Consignor Net", line.currency ~ " " ~ "{:,.2f}".format(line.consignor_net)) }}
+            {{ row("Gallery Net", line.gallery_net|ch_currency(line.currency)) }}
+            {{ row("Consignor Net", line.consignor_net|ch_currency(line.currency)) }}
           {% endif %}
           <div style="display:flex;justify-content:space-between;padding:12px 0;">
             <span style="font-size:0.85rem;font-weight:500;">Total</span>
-            <span style="font-size:0.85rem;font-weight:500;">{{ line.currency }} {{ "{:,.2f}".format(line.price + (line.vat_amount or 0)) }}</span>
+            <span style="font-size:0.85rem;font-weight:500;">{{ (line.price + (line.vat_amount or 0))|ch_currency(line.currency) }}</span>
           </div>
         </div>
       </div>
@@ -109,7 +109,7 @@
       </div>
       <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border-light);">
         <span style="font-size:0.78rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;">Date</span>
-        <span style="font-size:0.85rem;">{{ sale.created_at.strftime("%d %b %Y") }}</span>
+        <span style="font-size:0.85rem;">{{ sale.created_at|ch_date }}</span>
       </div>
       {% if sale.payment_link_url %}
       <div style="padding:10px 0;border-bottom:1px solid var(--border-light);">

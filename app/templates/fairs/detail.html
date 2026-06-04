@@ -7,7 +7,7 @@
     <div class="page-title" style="margin-top:4px;">{{ fair.name }}</div>
     <div class="page-subtitle">
       {% if fair.location %}{{ fair.location }}{% endif %}
-      {% if fair.start_date %} · {{ fair.start_date.strftime("%d %b") }}{% if fair.end_date %} – {{ fair.end_date.strftime("%d %b %Y") }}{% endif %}{% endif %}
+      {% if fair.start_date %} · {{ fair.start_date|ch_date }}{% if fair.end_date %} – {{ fair.end_date|ch_date }}{% endif %}{% endif %}
     </div>
   </div>
   <div class="page-actions">
@@ -42,7 +42,7 @@
             <span class="badge badge-{{ line.artwork.status }}">{{ line.artwork.status }}</span>
             {% if line.artwork.price %}
             <div style="font-size:0.78rem;color:var(--text-muted);margin-top:4px;">
-              {{ line.artwork.currency }} {{ "{:,.0f}".format(line.artwork.price) }}
+              {{ line.artwork.price|ch_currency(line.artwork.currency) }}
             </div>
             {% endif %}
           </div>

@@ -27,8 +27,8 @@
           onclick="window.location='{{ url_for('viewing_rooms.detail', id=room.id) }}'">
         <td style="padding:14px 12px;font-size:0.95rem;font-weight:400;">{{ room.title }}</td>
         <td style="padding:14px 12px;font-size:0.85rem;color:var(--text-secondary);">
-          {% if room.opens_at %}{{ room.opens_at.strftime("%d %b %Y") }}{% endif %}
-          {% if room.closes_at %} – {{ room.closes_at.strftime("%d %b %Y") }}{% endif %}
+          {% if room.opens_at %}{{ room.opens_at|ch_date }}{% endif %}
+          {% if room.closes_at %} – {{ room.closes_at|ch_date }}{% endif %}
           {% if not room.opens_at and not room.closes_at %}—{% endif %}
         </td>
         <td style="padding:14px 12px;font-size:0.85rem;text-align:center;">{{ room.artworks|length }}</td>

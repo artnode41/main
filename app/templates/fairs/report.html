@@ -39,8 +39,8 @@
     </div>
     <div class="header-meta">
       {% if fair.location %}{{ fair.location }}<br>{% endif %}
-      {% if fair.start_date %}{{ fair.start_date.strftime("%d %b") }}{% if fair.end_date %} – {{ fair.end_date.strftime("%d %b %Y") }}{% endif %}<br>{% endif %}
-      Generated: {{ now.strftime("%d %b %Y") if now else "" }}
+      {% if fair.start_date %}{{ fair.start_date|ch_date }}{% if fair.end_date %} – {{ fair.end_date|ch_date }}{% endif %}<br>{% endif %}
+      Generated: {{ now|ch_date if now else "" }}
     </div>
   </div>
 
@@ -52,7 +52,7 @@
     </div>
     <div class="summary-box">
       <div class="summary-label">Total Revenue</div>
-      <div class="summary-value">CHF {{ "{:,.0f}".format(total_revenue) }}</div>
+      <div class="summary-value">{{ total_revenue|ch_currency }}</div>
     </div>
     <div class="summary-box">
       <div class="summary-label">Artworks Sold</div>
@@ -87,7 +87,7 @@
             {% if line.buyer.contact_type == "individual" %}{{ line.buyer.last_name }}{% else %}{{ line.buyer.organisation }}{% endif %}
           {% else %}—{% endif %}
         </td>
-        <td class="right">{{ line.currency }} {{ "{:,.0f}".format(line.price) }}</td>
+        <td class="right">{{ line.price|ch_currency(line.currency) }}</td>
         <td class="right"><span class="badge badge-{{ sale.status }}">{{ sale.status }}</span></td>
       </tr>
       {% endif %}
@@ -99,7 +99,7 @@
   <div style="width:200px;margin-left:auto;">
     <div class="total-row grand">
       <span>Total Revenue</span>
-      <span>CHF {{ "{:,.2f}".format(total_revenue) }}</span>
+      <span>{{ total_revenue|ch_currency }}</span>
     </div>
   </div>
 
