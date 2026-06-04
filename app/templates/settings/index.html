@@ -69,10 +69,8 @@
           <div id="logoPreviewArea" style="margin-bottom:var(--space-lg);">
             <div id="logoCurrentWrap" style="display:{% if gallery.logo_url %}flex{% else %}none{% endif %};align-items:center;gap:var(--space-lg);padding:var(--space-md);background:var(--border-light);margin-bottom:var(--space-md);">
               <img id="logoCurrentImg" src="{{ gallery.logo_url or '' }}" style="max-height:40px;max-width:200px;display:block;" alt="Current logo">
-              <form method="POST" action="{{ url_for('settings.delete_logo') }}" style="margin:0;">
-                {{ form.hidden_tag() }}
-                <button type="submit" class="btn btn-secondary" style="font-size:0.75rem;" onclick="return confirm('Remove logo?')">Remove</button>
-              </form>
+              <button type="button" class="btn btn-secondary" style="font-size:0.75rem;"
+                      onclick="if(confirm('Remove logo?')) document.getElementById('deleteLogoForm').submit()">Remove</button>
             </div>
             <div id="logoNewWrap" style="display:none;align-items:center;gap:var(--space-lg);padding:var(--space-md);background:#f0f7f0;border:1px solid #c3e6c3;margin-bottom:var(--space-md);">
               <img id="logoNewImg" src="" style="max-height:40px;max-width:200px;display:block;" alt="New logo preview">
@@ -81,18 +79,18 @@
           </div>
 
           <!-- Upload form -->
-          <form method="POST" action="{{ url_for('settings.upload_logo') }}" enctype="multipart/form-data" id="logoForm">
-            {{ form.hidden_tag() }}
+          <div id="logoFormInner">
             <div style="display:flex;align-items:center;gap:var(--space-md);flex-wrap:wrap;">
               <label class="btn btn-secondary" style="cursor:pointer;margin:0;">
                 Choose PNG File
                 <input type="file" name="logo" accept=".png" id="logoFileInput" style="display:none;">
               </label>
-              <button type="submit" id="logoUploadBtn" class="btn btn-primary" style="display:none;">Save Logo</button>
+              <button type="button" id="logoUploadBtn" class="btn btn-primary" style="display:none;"
+                      onclick="document.getElementById('logoUploadForm').submit()">Save Logo</button>
               <button type="button" id="logoCancelBtn" class="btn btn-secondary" style="display:none;">Cancel</button>
             </div>
             <p style="font-size:0.75rem;color:var(--text-muted);margin-top:8px;">PNG only · Max 200KB · Displayed at max 200×40px · Transparent background recommended</p>
-          </form>
+          </div>
 
           <script>
           const fileInput = document.getElementById('logoFileInput');
@@ -110,6 +108,11 @@
               this.value = '';
               return;
             }
+            // Transfer file to standalone upload form
+            const dt = new DataTransfer();
+            dt.items.add(file);
+            document.getElementById('logoFileHidden').files = dt.files;
+
             const reader = new FileReader();
             reader.onload = e => {
               newImg.src = e.target.result;
@@ -148,4 +151,11 @@
     </div>
   </form>
 </div>
+<form id="logoUploadForm" method="POST" action="{{ url_for('settings.upload_logo') }}" enctype="multipart/form-data" style="display:none;">
+  {{ form.hidden_tag() }}
+  <input type="file" name="logo" id="logoFileHidden">
+</form>
+<form id="deleteLogoForm" method="POST" action="{{ url_for('settings.delete_logo') }}" style="display:none;">
+  {{ form.hidden_tag() }}
+</form>
 {% endblock %}
