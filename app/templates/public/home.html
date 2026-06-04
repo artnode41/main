@@ -10,8 +10,10 @@
   .hero-slide {
     position: absolute; inset: 0;
     opacity: 0; transition: opacity 1.2s ease;
+  
+    pointer-events: none;
   }
-  .hero-slide.active { opacity: 1; }
+  .hero-slide.active { opacity: 1; pointer-events: auto; }
     .hero-bg {
     position: absolute; inset: -20px;
     background-size: cover; background-position: center;
