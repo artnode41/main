@@ -3,286 +3,319 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="ArtNode — Open-Source Cloud-Plattform für den Kunstmarkt der Schweiz.">
-    <meta name="keywords" content="ArtNode, Kunstmarkt, Open-Source, Cloud-Plattform, Schweiz, Kunstverwaltung, MIT-Lizenz, Galerie Software">
+    <meta name="description" content="ArtNode: kostenlose Open-Source-Software für Kunstgalerien. Kollektionen, Verkauf, CRM und Website — kein Abo, keine Limits. 100 % Schweizer Datenhaltung möglich.">
     <meta name="robots" content="index, follow">
     <link rel="icon" href="favicon.ico">
-    <title>ArtNode - Open-Source Galerie-Management</title>
+    <link rel="canonical" href="https://artnode.ch/">
+    <meta property="og:type"        content="website">
+    <meta property="og:url"         content="https://artnode.ch/">
+    <meta property="og:title"       content="ArtNode — Kostenlose Galerie-Software für Schweizer Galerien">
+    <meta property="og:description" content="ArtNode: kostenlose Open-Source-Software für Kunstgalerien. Kollektionen, Verkauf, CRM und Website — kein Abo, keine Limits. 100 % Schweizer Datenhaltung möglich.">
+    <meta property="og:image"       content="https://artnode.ch/logo_artnode.png">
+    <meta name="twitter:card"       content="summary">
+    <meta name="twitter:title"      content="ArtNode — Kostenlose Galerie-Software für Schweizer Galerien">
+    <meta name="twitter:description" content="ArtNode: kostenlose Open-Source-Software für Kunstgalerien. Kollektionen, Verkauf, CRM und Website — kein Abo, keine Limits.">
+    <title>ArtNode — Kostenlose Galerie-Software für Schweizer Galerien</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Base design system -->
     <link rel="stylesheet" href="analytics.css">
+    <!-- Landing page layout -->
+    <link rel="stylesheet" href="artnode.css">
+    <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-53ETQ1RTGR"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-53ETQ1RTGR');
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){ dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-53ETQ1RTGR');
     </script>
-    <style>
-        .sq-link { cursor: pointer; transition: filter 0.15s; }
-        .sq-link:hover { filter: brightness(0.93); }
-
-        .cta-arrow {
-            display: inline-block;
-            font-size: 0.75rem;
-            font-weight: 700;
-            color: var(--text-main);
-            text-decoration: none;
-            margin-top: 0.6rem;
-            letter-spacing: 0.03em;
-        }
-    </style>
 </head>
 <body>
 
-<nav class="nav-bar">
-    <div class="lang-switcher" style="margin-left: auto;">
+<!-- ═══════════════════════════════════════════════════════════
+     NAVIGATION
+════════════════════════════════════════════════════════════ -->
+<nav class="site-nav">
+    <a class="nav-logo" href="#">
+        <span class="nav-logo-mark" aria-hidden="true"></span>
+        ArtNode
+    </a>
+    <button class="nav-burger" id="navBurger" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+    </button>
+    <div class="nav-menu" id="navMenu">
+        <a href="#features"    data-t="nav_features"   onclick="closeMenu()">Funktionen</a>
+        <a href="#hosting"     data-t="nav_hosting"    onclick="closeMenu()">Hosting</a>
+        <a href="#open-source" data-t="nav_opensource" onclick="closeMenu()">Open Source</a>
+        <a href="#contact"     data-t="nav_contact"    onclick="closeMenu()">Kontakt</a>
+    </div>
+</nav>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     HERO
+════════════════════════════════════════════════════════════ -->
+<section class="hero fade-in">
+    <img src="logo_artnode.png" alt="ArtNode — Kostenlose Galerie-Software" style="height:48px;margin-bottom:1.5rem;">
+    <h1>
+        <span data-t="hero_h1_line1">Galerie-Management.</span><br>
+        <span data-t="hero_h1_line2">Kein Abo. Keine Limits.</span>
+    </h1>
+    <p class="hero-sub" data-t="hero_sub">ArtNode ist eine kostenlose Open-Source-Plattform für Galerien — Kollektionen, Verkauf, CRM und Website in einem Tool. Sie zahlen nur für das Hosting.</p>
+    <div class="hero-ctas">
+        <a href="https://admin.artnode.ch" target="_blank" rel="noopener"
+           class="btn btn-dark" data-t="hero_cta_admin">→ Galerie-Admin</a>
+        <a href="https://site.artnode.ch"  target="_blank" rel="noopener"
+           class="btn btn-green" data-t="hero_cta_site">→ Öffentliche Website</a>
+    </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     FEATURES
+════════════════════════════════════════════════════════════ -->
+<section class="section fade-in" id="features">
+    <p class="section-eyebrow" data-t="features_eyebrow">Im Lieferumfang</p>
+    <h2 class="section-title" data-t="features_title">Fünf Module — vollständig integriert</h2>
+
+    <div class="features-grid">
+
+        <div class="feat-card">
+            <p class="feat-num"  data-t="feat_01_num">01</p>
+            <p class="feat-title" data-t="feat_01_title">Kollektionen</p>
+            <p class="feat-desc"  data-t="feat_01_desc">Kunstwerke, Provenienzerfassung, KGTG-konforme Prüfprotokolle, Kommissionsteilungen.</p>
+        </div>
+
+        <div class="feat-card">
+            <p class="feat-num"  data-t="feat_02_num">02</p>
+            <p class="feat-title" data-t="feat_02_title">Verkauf</p>
+            <p class="feat-desc"  data-t="feat_02_desc">MWST-konforme PDF-Rechnungen, Payrexx-Zahlungslinks, Differenzbesteuerung. Tablet-Kassensystem für Messestände.</p>
+        </div>
+
+        <div class="feat-card">
+            <p class="feat-num"  data-t="feat_03_num">03</p>
+            <p class="feat-title" data-t="feat_03_title">Website</p>
+            <p class="feat-desc"  data-t="feat_03_desc">Moderne Galerieseite mit Künstlerprofilen, Ausstellungen und Kontaktformularen.</p>
+        </div>
+
+        <div class="feat-card">
+            <p class="feat-num"  data-t="feat_04_num">04</p>
+            <p class="feat-title" data-t="feat_04_title">CRM</p>
+            <p class="feat-desc"  data-t="feat_04_desc">Kontakte von Sammlern und Institutionen, Kaufhistorie, Einliefererbeziehungen.</p>
+        </div>
+
+        <div class="feat-card">
+            <p class="feat-num"  data-t="feat_05_num">05</p>
+            <p class="feat-title" data-t="feat_05_title">Teilen</p>
+            <p class="feat-desc"  data-t="feat_05_desc">Kunstwerke auswählen und mit einem Klick einen teilbaren Link erstellen. Kuratierte Auswahlen an Sammler senden — kein Login erforderlich.</p>
+        </div>
+
+        <div class="feat-card feat-card-muted">
+            <p class="feat-num"  data-t="feat_06_num">MIT</p>
+            <p class="feat-title" data-t="feat_06_title">Open Source</p>
+            <p class="feat-desc"  data-t="feat_06_desc">Für immer kostenlos. Keine Nutzergebühren, keine monatliche Lizenz, keine Export-Sperren. Ihre Daten bleiben auf Ihrem Server.</p>
+        </div>
+
+    </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     HOSTING
+════════════════════════════════════════════════════════════ -->
+<section class="section section-bg fade-in" id="hosting">
+    <div class="hosting-grid">
+
+        <div class="hosting-copy">
+            <p class="section-eyebrow" data-t="hosting_eyebrow">Kosten</p>
+            <h2>
+                <span data-t="hosting_h2_line1">Die Software ist kostenlos.</span><br>
+                <span data-t="hosting_h2_line2">Sie zahlen nur für das Hosting.</span>
+            </h2>
+            <p data-t="hosting_p1">ArtNode läuft auf jedem Standard-Webserver. Ein einfaches Shared-Hosting-Paket genügt für die meisten Galerien — in der Regel CHF 5–15 pro Monat.</p>
+            <p data-t="hosting_p2">Für 100 % Schweizer Datensouveränität empfehlen wir Infomaniak, ein Genfer Unternehmen, das auf erneuerbaren Energien betrieben wird und alle Daten in der Schweiz hält.</p>
+        </div>
+
+        <div class="hosting-card">
+            <p class="hosting-card-label" data-t="hosting_card_label">Empfohlener Hoster</p>
+            <h3 data-t="hosting_card_name">Infomaniak</h3>
+            <ul class="hosting-checklist">
+                <li data-t="hosting_check_1">Server in der Schweiz</li>
+                <li data-t="hosting_check_2">100 % erneuerbare Energie</li>
+                <li data-t="hosting_check_3">Schweizer Unternehmen, Schweizer Recht</li>
+                <li data-t="hosting_check_4">Keine Datenweitergabe an Dritte</li>
+            </ul>
+            <p class="hosting-card-desc" data-t="hosting_card_desc">ArtNode in unter 30 Minuten bei Infomaniak einrichten — mit unserer Schritt-für-Schritt-Anleitung.</p>
+            <a href="https://www.infomaniak.com" target="_blank" rel="noopener sponsored"
+               data-t="hosting_card_link">→ infomaniak.com</a>
+        </div>
+
+    </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     OPEN SOURCE
+════════════════════════════════════════════════════════════ -->
+<section class="section fade-in" id="open-source">
+    <p class="section-eyebrow" data-t="oss_eyebrow">Philosophie</p>
+    <h2 class="section-title" data-t="oss_title">Warum Open Source?</h2>
+    <div class="oss-body">
+        <p data-t="oss_p1">Kommerzielle Galerie-Software berechnet Gebühren pro Nutzer, pro Kunstwerk oder pro Transaktion — und speichert Ihre Daten auf eigenen Servern. ArtNode steht unter der MIT-Lizenz: kostenlos nutzbar, kostenlos anpassbar, für immer kostenlos.</p>
+        <p data-t="oss_p2">Ihre Daten bleiben auf Ihrem Server. Keine monatlichen Lizenzgebühren, kein Seat-Pricing, keine Export-Sperren. Einmal installieren, jahrelang betreiben.</p>
+    </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     STANDARDS STRIP
+════════════════════════════════════════════════════════════ -->
+<div class="standards-strip fade-in">
+    <span class="standards-label" data-t="standards_label">Standards & Integrationen</span>
+    <span class="badge">LIDO-XML</span>
+    <span class="badge">JSON-LD</span>
+    <span class="badge">Europeana</span>
+    <span class="badge">Swiss Open Cultural Data</span>
+    <span class="badge">Payrexx</span>
+    <span class="badge">CPTA / KGTG</span>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     DEMO STRIP
+════════════════════════════════════════════════════════════ -->
+<div class="demo-strip fade-in">
+
+    <div class="demo-cell demo-cell-green"
+         onclick="window.open('https://admin.artnode.ch','_blank')">
+        <p class="demo-eyebrow" data-t="demo_staff_eyebrow">Mitarbeiterzugang</p>
+        <h3 data-t="demo_staff_title">Galerie-Admin</h3>
+        <p  data-t="demo_staff_desc">Kunstwerke, Verkäufe, Kunden und Einstellungen verwalten.</p>
+        <a href="https://admin.artnode.ch" target="_blank" rel="noopener"
+           onclick="event.stopPropagation()" data-t="demo_staff_cta">→ Kostenlos testen</a>
+    </div>
+
+    <div class="demo-cell demo-cell-pink"
+         onclick="window.open('https://site.artnode.ch','_blank')">
+        <p class="demo-eyebrow" data-t="demo_public_eyebrow">Sammlerzugang</p>
+        <h3 data-t="demo_public_title">Öffentliche Website</h3>
+        <p  data-t="demo_public_desc">Werke, Künstlerinnen und Ausstellungen entdecken.</p>
+        <a href="https://site.artnode.ch" target="_blank" rel="noopener"
+           onclick="event.stopPropagation()" data-t="demo_public_cta">→ Website besuchen</a>
+    </div>
+
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     CONTACT
+════════════════════════════════════════════════════════════ -->
+<section class="section section-bg fade-in" id="contact">
+    <p class="section-eyebrow" data-t="contact_eyebrow">Installation</p>
+    <h2 class="section-title" data-t="contact_title">Brauchen Sie Hilfe beim Einstieg?</h2>
+    <div class="contact-body">
+        <p data-t="contact_desc">Hosting-Einrichtung, Installation oder Anpassungen — melden Sie sich, wir begleiten Sie durch den Prozess.</p>
+        <a href="https://jeunet.ch/about.html" target="_blank" rel="noopener"
+           class="btn btn-dark" data-t="contact_cta">→ Kontakt aufnehmen</a>
+    </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════════════════════════ -->
+<footer class="site-footer">
+    <p data-t="footer_copy">© 2025 ArtNode — MIT-Lizenz</p>
+    <div class="lang-switcher" role="navigation" aria-label="Language">
         <button class="lang-btn" data-lang="de" onclick="setLang('de')">DE</button>
         <button class="lang-btn" data-lang="fr" onclick="setLang('fr')">FR</button>
         <button class="lang-btn" data-lang="it" onclick="setLang('it')">IT</button>
         <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
     </div>
-</nav>
+</footer>
 
-<div class="grid" id="main-grid">
 
-    <!-- Logo | Intro -->
-    <div class="square" style="background-color: var(--color-green); justify-content: center; align-items: center;">
-        <img src="logo_artnode.png" alt="artnode.ch" style="width: 90%; height: auto; display: block;">
-    </div>
-    <div class="square" style="justify-content: center; align-items: center; text-align: center;">
-        <p style="font-size: 0.85rem; font-weight: 700; line-height: 1.55; margin: 0;" data-t="intro"></p>
-    </div>
-
-    <!-- 01 Kollektionen -->
-    <div class="square" style="justify-content: center; align-items: center; text-align: center;">
-        <p class="offer-num">01</p>
-        <p class="offer-label" data-t="label_01"></p>
-    </div>
-    <div class="square">
-        <p class="desc-desktop" style="font-size: 0.8rem; line-height: 1.6; margin: 0;" data-t="desc_01"></p>
-        <p class="desc-mobile" style="font-size: 0.8rem; line-height: 1.6; margin: 0;" data-t="desc_01s"></p>
-    </div>
-
-    <!-- 02 Verkauf + Messe -->
-    <div class="square" style="justify-content: center; align-items: center; text-align: center;">
-        <p class="offer-num">02</p>
-        <p class="offer-label" data-t="label_02"></p>
-    </div>
-    <div class="square">
-        <p class="desc-desktop" style="font-size: 0.8rem; line-height: 1.6; margin: 0;" data-t="desc_02"></p>
-        <p class="desc-mobile" style="font-size: 0.8rem; line-height: 1.6; margin: 0;" data-t="desc_02s"></p>
-    </div>
-
-    <!-- 03 Website -->
-    <div class="square" style="justify-content: center; align-items: center; text-align: center;">
-        <p class="offer-num">03</p>
-        <p class="offer-label" data-t="label_03"></p>
-    </div>
-    <div class="square">
-        <p class="desc-desktop" style="font-size: 0.8rem; line-height: 1.6; margin: 0;" data-t="desc_03"></p>
-        <p class="desc-mobile" style="font-size: 0.8rem; line-height: 1.6; margin: 0;" data-t="desc_03s"></p>
-    </div>
-
-    <!-- 04 CRM -->
-    <div class="square" style="justify-content: center; align-items: center; text-align: center;">
-        <p class="offer-num">04</p>
-        <p class="offer-label">CRM</p>
-    </div>
-    <div class="square">
-        <p class="desc-desktop" style="font-size: 0.8rem; line-height: 1.6; margin: 0;" data-t="desc_04"></p>
-        <p class="desc-mobile" style="font-size: 0.8rem; line-height: 1.6; margin: 0;" data-t="desc_04s"></p>
-    </div>
-
-    <!-- 05 Kulturerbe -->
-    <div class="square" style="justify-content: center; align-items: center; text-align: center;">
-        <p class="offer-num">05</p>
-        <p class="offer-label" data-t="label_05"></p>
-    </div>
-    <div class="square">
-        <p class="desc-desktop" style="font-size: 0.8rem; line-height: 1.6; margin: 0;" data-t="desc_05"></p>
-        <p class="desc-mobile" style="font-size: 0.8rem; line-height: 1.6; margin: 0;" data-t="desc_05s"></p>
-    </div>
-
-    <!-- CTA — Galerie-Admin -->
-    <div class="square sq-link" style="background-color: var(--color-green); justify-content: center; align-items: center; text-align: center;" onclick="window.open('https://admin.artnode.ch','_blank')">
-        <p class="offer-num" data-t="admin_eyebrow"></p>
-        <p class="offer-label" style="font-size: 0.8rem;">Galerie-Admin</p>
-        <p style="font-size: 0.72rem; line-height: 1.5; margin: 0.4rem 0 0 0; color: var(--text-main);" data-t="admin_desc"></p>
-        <span class="cta-arrow" data-t="admin_cta"></span>
-    </div>
-
-    <!-- CTA — Öffentliche Website -->
-    <div class="square sq-link" style="background-color: var(--color-pink); justify-content: center; align-items: center; text-align: center;" onclick="window.open('https://site.artnode.ch','_blank')">
-        <p class="offer-num" data-t="site_eyebrow"></p>
-        <p class="offer-label" style="font-size: 0.8rem;" data-t="site_label"></p>
-        <p style="font-size: 0.72rem; line-height: 1.5; margin: 0.4rem 0 0 0; color: var(--text-main);" data-t="site_desc"></p>
-        <span class="cta-arrow" data-t="site_cta"></span>
-    </div>
-
-    <!-- GitHub -->
-    <a href="https://github.com/artnode41/main" target="_blank" rel="noopener" class="square" style="justify-content: center; align-items: center; text-align: center; text-decoration: none;">
-        <p class="offer-label" style="font-size: 0.8rem;">GitHub</p>
-    </a>
-
-    <!-- Contact CTA -->
-    <div class="square" style="justify-content: center; align-items: center; text-align: center;">
-        <p class="offer-num" data-t="contact_eyebrow"></p>
-        <p style="font-size: 0.8rem; line-height: 1.5; margin: 0 0 0.5rem 0; font-weight: 600;" data-t="contact_desc"></p>
-        <a href="https://jeunet.ch/about.html" target="_blank" rel="noopener" style="font-size: 0.75rem; font-weight: 700; color: var(--text-main); text-decoration: none;" data-t="contact_cta"></a>
-    </div>
-
-</div><!-- /grid -->
-
+<!-- ═══════════════════════════════════════════════════════════
+     SCRIPTS
+════════════════════════════════════════════════════════════ -->
+<script src="i18n.js"></script>
 <script>
-const i18n = {
-    de: {
-        page_title:     "ArtNode — Open-Source Galerie-Management",
-        intro:          "Professionelle Galerie-Software, ohne Abo. Kostenlos, selbst gehostet, 100 % Schweizer Datenhaltung.",
-        label_01:       "Kollektionen",
-        desc_01:        "Kunstwerke, Provenienzerfassung, KGTG-konforme Prüfprotokolle, Kommissionsteilungen.",
-        desc_01s:       "Kunstwerke, Provenienz, Prüfprotokolle.",
-        label_02:       "Verkauf",
-        desc_02:        "MWST-konforme PDF-Rechnungen, Payrexx-Zahlungslinks, Differenzbesteuerung. Tablet-Kassensystem für Messestände mit Abschlussberichten.",
-        desc_02s:       "PDF-Rechnungen, Payrexx, Differenzbesteuerung, Messe-Kasse.",
-        label_03:       "Website",
-        desc_03:        "Moderne Galerieseite mit Künstlerprofilen, Ausstellungen und Kontaktformularen.",
-        desc_03s:       "Galerieseite, Künstlerprofile, Ausstellungen.",
-        desc_04:        "Kontakte von Sammlern und Institutionen, Kaufhistorie, Einliefererbeziehungen.",
-        desc_04s:       "Sammler, Kaufhistorie, Einlieferer.",
-        label_05:       "Kulturerbe",
-        desc_05:        "LIDO-XML- und JSON-LD-Export für Europeana und Swiss Open Cultural Data.",
-        desc_05s:       "LIDO-XML, JSON-LD, Europeana.",
-        admin_eyebrow:  "Mitarbeiterzugang",
-        admin_desc:     "Kunstwerke, Verkäufe und Einstellungen verwalten.",
-        admin_cta:      "→ Kostenlos testen",
-        site_eyebrow:   "Sammlerzugang",
-        site_label:     "Öff. Website",
-        site_desc:      "Werke, Künstlerinnen und Ausstellungen entdecken.",
-        site_cta:       "→ Website besuchen",
-        contact_eyebrow: "Installation",
-        contact_desc:   "Hilfe bei der Installation?",
-        contact_cta:    "→ Kontakt aufnehmen",
-    },
-    fr: {
-        page_title:     "ArtNode — Gestion de galerie open-source",
-        intro:          "Logiciel de galerie professionnel, sans abonnement. Gratuit, auto-hébergé, données 100 % en Suisse.",
-        label_01:       "Collections",
-        desc_01:        "Œuvres, provenance, protocoles LTBC, partages de commission.",
-        desc_01s:       "Œuvres, provenance, protocoles.",
-        label_02:       "Ventes",
-        desc_02:        "Factures PDF conformes TVA, liens de paiement Payrexx, taxation à la marge. Caisse tactile pour stands en foire avec rapports de clôture.",
-        desc_02s:       "Factures PDF, Payrexx, taxation à la marge, caisse foire.",
-        label_03:       "Site web",
-        desc_03:        "Site de galerie avec profils d'artistes, expositions et formulaires de contact.",
-        desc_03s:       "Site galerie, artistes, expositions.",
-        desc_04:        "Contacts de collectionneurs et institutions, historique d'achats, relations de consignateurs.",
-        desc_04s:       "Collectionneurs, historique, consignateurs.",
-        label_05:       "Patrimoine",
-        desc_05:        "Export LIDO-XML et JSON-LD pour Europeana et Swiss Open Cultural Data.",
-        desc_05s:       "LIDO-XML, JSON-LD, Europeana.",
-        admin_eyebrow:  "Accès équipe",
-        admin_desc:     "Gérer les œuvres, ventes et paramètres.",
-        admin_cta:      "→ Tester gratuitement",
-        site_eyebrow:   "Accès public",
-        site_label:     "Site public",
-        site_desc:      "Parcourir œuvres, artistes et expositions.",
-        site_cta:       "→ Visiter le site",
-        contact_eyebrow: "Installation",
-        contact_desc:   "Besoin d'aide pour l'installation ?",
-        contact_cta:    "→ Nous contacter",
-    },
-    it: {
-        page_title:     "ArtNode — Gestione galleria open-source",
-        intro:          "Software professionale per gallerie, senza abbonamento. Gratuito, self-hosted, dati 100 % svizzeri.",
-        label_01:       "Collezioni",
-        desc_01:        "Opere, provenienza, protocolli LTBC, suddivisioni di commissione.",
-        desc_01s:       "Opere, provenienza, protocolli.",
-        label_02:       "Vendite",
-        desc_02:        "Fatture PDF conformi IVA, link di pagamento Payrexx, tassazione differenziale. Cassa touch per stand fieristici con report di chiusura.",
-        desc_02s:       "Fatture PDF, Payrexx, tassazione diff., cassa fiera.",
-        label_03:       "Sito web",
-        desc_03:        "Sito galleria con profili artisti, mostre e moduli di contatto.",
-        desc_03s:       "Sito galleria, artisti, mostre.",
-        desc_04:        "Contatti di collezionisti e istituzioni, storico acquisti, relazioni consignatori.",
-        desc_04s:       "Collezionisti, storico, consignatori.",
-        label_05:       "Patrimonio",
-        desc_05:        "Export LIDO-XML e JSON-LD per Europeana e Swiss Open Cultural Data.",
-        desc_05s:       "LIDO-XML, JSON-LD, Europeana.",
-        admin_eyebrow:  "Accesso team",
-        admin_desc:     "Gestire opere, vendite e impostazioni.",
-        admin_cta:      "→ Prova gratuita",
-        site_eyebrow:   "Accesso pubblico",
-        site_label:     "Sito pubblico",
-        site_desc:      "Sfogliare opere, artisti e mostre.",
-        site_cta:       "→ Visita il sito",
-        contact_eyebrow: "Installazione",
-        contact_desc:   "Bisogno di aiuto per l'installazione?",
-        contact_cta:    "→ Contattaci",
-    },
-    en: {
-        page_title:     "ArtNode — Open-Source Gallery Management",
-        intro:          "Professional gallery software, no subscription. Free, self-hosted, 100 % Swiss data storage.",
-        label_01:       "Collections",
-        desc_01:        "Artworks, provenance records, CPTA-compliant audit logs, commission splits.",
-        desc_01s:       "Artworks, provenance, audit logs.",
-        label_02:       "Sales",
-        desc_02:        "VAT-compliant PDF invoices, Payrexx payment links, margin scheme taxation. Tablet POS for art fair booths with closing reports.",
-        desc_02s:       "PDF invoices, Payrexx, margin tax, fair POS.",
-        label_03:       "Website",
-        desc_03:        "Gallery website with artist profiles, exhibitions and contact forms.",
-        desc_03s:       "Gallery site, artist profiles, exhibitions.",
-        desc_04:        "Collector and institution contacts, purchase history, consignor relationships.",
-        desc_04s:       "Collectors, purchase history, consignors.",
-        label_05:       "Heritage",
-        desc_05:        "LIDO-XML and JSON-LD export for Europeana and Swiss Open Cultural Data.",
-        desc_05s:       "LIDO-XML, JSON-LD, Europeana.",
-        admin_eyebrow:  "Staff access",
-        admin_desc:     "Manage artworks, sales and settings.",
-        admin_cta:      "→ Try for free",
-        site_eyebrow:   "Public access",
-        site_label:     "Public site",
-        site_desc:      "Browse works, artists and exhibitions.",
-        site_cta:       "→ Visit the site",
-        contact_eyebrow: "Installation",
-        contact_desc:   "Need help installing it?",
-        contact_cta:    "→ Get in touch",
+    /* ── i18n ─────────────────────────────────────────────── */
+    const SUPPORTED = ['de', 'fr', 'it', 'en'];
+    const DEFAULT_LANG = 'de';
+
+    function applyLang(lang) {
+        const t = i18n[lang];
+        if (!t) return;
+
+        document.documentElement.lang = lang;
+        document.title = t.page_title;
+
+        const metaDesc = document.querySelector('meta[name="description"]');
+        if (metaDesc) metaDesc.setAttribute('content', t.meta_desc);
+
+        document.querySelectorAll('[data-t]').forEach(el => {
+            const key = el.dataset.t;
+            if (t[key] !== undefined) el.textContent = t[key];
+        });
+
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.lang === lang);
+        });
     }
-};
 
-function setLang(lang) {
-    document.documentElement.lang = lang;
-    localStorage.setItem('lang', lang);
-    const t = i18n[lang];
-    document.querySelectorAll('[data-t]').forEach(el => {
-        const v = t[el.dataset.t];
-        if (v !== undefined) el.textContent = v;
-    });
-    document.title = t.page_title;
-    const metaDesc = document.querySelector('meta[name="description"]');
-    if (metaDesc) metaDesc.setAttribute('content', t.intro);
-    document.querySelectorAll('.lang-btn').forEach(btn => {
-        btn.classList.toggle('active', btn.dataset.lang === lang);
-    });
-}
-
-function detectLang() {
-    const supported = ['en', 'de', 'fr', 'it'];
-    const stored = localStorage.getItem('lang');
-    if (stored && supported.includes(stored)) return stored;
-    const prefs = (navigator.languages && navigator.languages.length) ? navigator.languages : [navigator.language || ''];
-    for (const l of prefs) {
-        const code = l.split('-')[0].toLowerCase();
-        if (supported.includes(code)) return code;
+    function setLang(lang) {
+        if (!SUPPORTED.includes(lang)) return;
+        localStorage.setItem('artnode_lang', lang);
+        applyLang(lang);
     }
-    return 'de';
-}
 
-const squares = document.querySelectorAll('.square');
-squares.forEach((sq, i) => setTimeout(() => sq.classList.add('visible'), i * 40));
+    function detectLang() {
+        const stored = localStorage.getItem('artnode_lang');
+        if (stored && SUPPORTED.includes(stored)) return stored;
 
-setLang(detectLang());
+        const prefs = navigator.languages?.length
+            ? navigator.languages
+            : [navigator.language || ''];
+
+        for (const l of prefs) {
+            const code = l.split('-')[0].toLowerCase();
+            if (SUPPORTED.includes(code)) return code;
+        }
+        return DEFAULT_LANG;
+    }
+
+    /* ── Scroll-in animation ──────────────────────────────── */
+    function initFadeIns() {
+        const els = document.querySelectorAll('.fade-in');
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.classList.add('visible');
+                    observer.unobserve(e.target);
+                }
+            });
+        }, { threshold: 0.08 });
+        els.forEach(el => observer.observe(el));
+    }
+
+    /* ── Burger menu ──────────────────────────────────────── */
+    function closeMenu() {
+        document.getElementById('navMenu').classList.remove('open');
+        document.getElementById('navBurger').classList.remove('open');
+        document.getElementById('navBurger').setAttribute('aria-expanded', 'false');
+    }
+    document.getElementById('navBurger').addEventListener('click', function() {
+        const open = this.classList.toggle('open');
+        document.getElementById('navMenu').classList.toggle('open', open);
+        this.setAttribute('aria-expanded', open);
+    });
+
+    /* ── Init ─────────────────────────────────────────────── */
+    applyLang(detectLang());
+    initFadeIns();
 </script>
 
 </body>
