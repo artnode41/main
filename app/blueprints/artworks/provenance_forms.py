@@ -23,6 +23,6 @@ class ProvenanceForm(FlaskForm):
     event_date_end = DateField("End Date", validators=[Optional()])
     source_name = StringField("Source / Previous Owner",
                               validators=[Optional(), Length(max=200)])
-    source_country = StringField("Country (2-letter code)",
+    source_country = StringField("Country",
                                  validators=[Optional(), Length(max=2)])
     description = TextAreaField("Description", validators=[Optional()])

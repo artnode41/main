@@ -42,7 +42,7 @@
         <div style="background:var(--surface);border:1px solid var(--border);padding:var(--space-xl);margin-bottom:var(--space-lg);">
           <div style="font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:var(--space-lg);">Address</div>
           <div class="form-group">{{ form.address.label(class="form-label") }}{{ form.address(class="form-control", rows=2) }}</div>
-          <div style="display:grid;grid-template-columns:80px 1fr 60px;gap:var(--space-md);">
+          <div style="display:grid;grid-template-columns:80px 1fr 80px;gap:var(--space-md);">
             <div class="form-group" style="margin-bottom:0;">{{ form.zip_code.label(class="form-label") }}{{ form.zip_code(class="form-control", placeholder="5200") }}</div>
             <div class="form-group" style="margin-bottom:0;">{{ form.city.label(class="form-label") }}{{ form.city(class="form-control") }}</div>
             <div class="form-group" style="margin-bottom:0;">{{ form.country.label(class="form-label") }}{{ form.country(class="form-control", placeholder="CH") }}</div>

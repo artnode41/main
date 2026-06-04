@@ -51,7 +51,7 @@ class ContactForm(FlaskForm):
     address = TextAreaField("Address", validators=[Optional()])
     zip_code = StringField("ZIP Code", validators=[Optional(), Length(max=20)])
     city = StringField("City", validators=[Optional(), Length(max=100)])
-    country = StringField("Country (2-letter)", validators=[Optional(), Length(max=2)])
+    country = StringField("Country", validators=[Optional(), Length(max=2)])
     notes = TextAreaField("Notes", validators=[Optional()])
 
     # Artist role

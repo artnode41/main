@@ -14,14 +14,13 @@ class GallerySettingsForm(FlaskForm):
     address = TextAreaField("Address", validators=[Optional()])
     zip_code = StringField("ZIP Code", validators=[Optional(), Length(max=20)])
     city = StringField("City", validators=[Optional(), Length(max=100)])
-    country = StringField("Country (2-letter)", validators=[Optional(), Length(max=2)])
+    country = StringField("Country", validators=[Optional(), Length(max=2)])
     phone = StringField("Phone", validators=[Optional(), Length(max=50)])
     email = StringField("Admin Email", validators=[Optional(), Email(), Length(max=255)])
     contact_email = StringField("Public Contact Email", validators=[Optional(), Email(), Length(max=255)])
     website = StringField("Website URL", validators=[Optional(), Length(max=255)])
     website_custom_domain = StringField("Custom Domain", validators=[Optional(), Length(max=255)])
     instagram_url = StringField("Instagram URL", validators=[Optional(), Length(max=255)])
-    logo_url = StringField("Logo URL (leave blank to use gallery name)", validators=[Optional(), Length(max=500)])
 
     # Financial
     currency = SelectField("Default Currency", choices=[
