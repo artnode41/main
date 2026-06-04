@@ -253,7 +253,21 @@ def cancel(id):
 
 @bp.route("/webhook/payrexx", methods=["POST"])
 def webhook_payrexx():
-    data = request.form or request.json or {}
+    # Accept form, JSON, or raw body
+    data = {}
+    if request.content_type and "json" in request.content_type:
+        try:
+            data = request.get_json(force=True, silent=True) or {}
+        except Exception:
+            pass
+    if not data:
+        data = request.form.to_dict() if request.form else {}
+    if not data:
+        try:
+            import json
+            data = json.loads(request.data.decode("utf-8")) or {}
+        except Exception:
+            pass
     reference_id = (
         data.get("transaction[referenceId]") or
         data.get("referenceId") or
