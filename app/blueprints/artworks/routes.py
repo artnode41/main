@@ -123,6 +123,7 @@ def edit(id):
         form.is_public.data = artwork.is_public if artwork.is_public is not None else True
         form.is_carousel.data = artwork.is_carousel or False
         form.is_featured.data = artwork.is_featured or False
+        form.artist_id.data = artwork.contact_artist_id or 0
 
     # Pre-fill consignment fields from existing record
     if request_is_get() and artwork.consignment:
