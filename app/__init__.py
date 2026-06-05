@@ -18,6 +18,8 @@ def create_app():
     app.config["SECURITY_POST_LOGOUT_VIEW"] = "/login"
     app.config["SECURITY_SEND_REGISTER_EMAIL"] = False
     app.config["SECURITY_REGISTERABLE"] = False
+    app.config["SECURITY_RECOVERABLE"] = True
+    app.config["SECURITY_RESET_PASSWORD_WITHIN"] = "1 days"
     app.config["WTF_CSRF_SECRET_KEY"] = os.environ.get("SECRET_KEY", "csrf-secret")
     app.config["MAIL_SERVER"] = os.environ.get("MAIL_SERVER", "mail.infomaniak.com")
     app.config["MAIL_PORT"] = int(os.environ.get("MAIL_PORT", 587))

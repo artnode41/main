@@ -42,6 +42,9 @@
         Viewing Rooms
       </a>
       <div class="sidebar-section-label" style="margin-top:8px">System</div>
+      <a href="{{ url_for('settings.users') }}" class="sidebar-link {% if request.endpoint and request.endpoint.startswith('settings.') and 'user' in request.endpoint %}active{% endif %}">
+        <span class="sidebar-icon">⬡</span> Users
+      </a>
       <a href="{{ url_for('settings.export') }}" class="sidebar-link {% if request.endpoint == 'settings.export' or request.endpoint == 'settings.export_lido_download' %}active{% endif %}">
         <span class="sidebar-icon">⬡</span> Export & API
       </a>

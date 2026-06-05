@@ -29,7 +29,6 @@ def index():
         gallery.website = form.website.data or None
         gallery.website_custom_domain = form.website_custom_domain.data or None
         gallery.instagram_url = form.instagram_url.data or None
-        gallery.logo_url = form.logo_url.data or None
         gallery.currency = form.currency.data or "CHF"
         gallery.locale = form.locale.data or "de"
         gallery.vat_number = form.vat_number.data or None
@@ -118,3 +117,114 @@ def export_lido_download():
         mimetype="application/xml",
         headers={"Content-Disposition": "attachment; filename=collection-lido.xml"}
     )
+
+
+@bp.route("/users")
+@login_required
+def users():
+    from ...models import User, Role
+    users = User.query.filter_by(tenant_id=current_user.tenant_id).order_by(User.created_at).all()
+    roles = Role.query.all()
+    return render_template("settings/users.html", users=users, roles=roles)
+
+
+@bp.route("/users/invite", methods=["POST"])
+@login_required
+def invite_user():
+    from flask import request
+    from ...models import User, Role
+    from ...extensions import db
+    import uuid, secrets
+    from ...models import user_datastore
+
+    email = request.form.get("email", "").strip().lower()
+    first_name = request.form.get("first_name", "").strip()
+    last_name = request.form.get("last_name", "").strip()
+    role_name = request.form.get("role", "staff")
+
+    if not email:
+        flash("Email is required.", "error")
+        return redirect(url_for("settings.users"))
+
+    if User.query.filter_by(email=email).first():
+        flash("A user with this email already exists.", "error")
+        return redirect(url_for("settings.users"))
+
+    # Ensure role exists
+    role = Role.query.filter_by(name=role_name).first()
+    if not role:
+        role = Role(name=role_name, description=role_name.capitalize())
+        db.session.add(role)
+        db.session.commit()
+
+    # Create user with random password
+    from flask_security.utils import hash_password
+    user = user_datastore.create_user(
+        email=email,
+        password=hash_password(secrets.token_urlsafe(32)),
+        first_name=first_name,
+        last_name=last_name,
+        active=True,
+    )
+    user.tenant_id = current_user.tenant_id
+    user_datastore.add_role_to_user(user, role)
+    db.session.commit()
+
+    # Send invitation email with password reset link
+    try:
+        from flask_security.recoverable import generate_reset_password_token
+        from flask_mail import Message
+        from flask import current_app, url_for
+        token = generate_reset_password_token(user)
+        reset_url = url_for("security.reset_password", token=token, _external=True)
+        mail = current_app.extensions.get("mail")
+        if mail:
+            msg = Message(
+                subject="You have been invited to ArtNode",
+                recipients=[email],
+                body=f"You have been invited to ArtNode.\n\nClick the link below to set your password and access the gallery admin:\n\n{reset_url}\n\nThis link expires in 24 hours."
+            )
+            mail.send(msg)
+        flash(f"Invitation sent to {email}.", "success")
+    except Exception as e:
+        flash(f"User created but email failed: {str(e)}", "error")
+
+    return redirect(url_for("settings.users"))
+
+
+@bp.route("/users/<int:id>/delete", methods=["POST"])
+@login_required
+def delete_user(id):
+    from ...models import User
+    if id == current_user.id:
+        flash("You cannot delete your own account.", "error")
+        return redirect(url_for("settings.users"))
+    user = User.query.filter_by(id=id, tenant_id=current_user.tenant_id).first_or_404()
+    db.session.delete(user)
+    db.session.commit()
+    flash(f"{user.email} deleted.", "success")
+    return redirect(url_for("settings.users"))
+
+
+@bp.route("/users/<int:id>/role", methods=["POST"])
+@login_required
+def set_user_role(id):
+    from flask import request
+    from ...models import User, Role
+    from ...models import user_datastore
+    user = User.query.filter_by(id=id, tenant_id=current_user.tenant_id).first_or_404()
+    role_name = request.form.get("role", "staff")
+    # Remove existing admin/staff roles
+    for r in list(user.roles):
+        if r.name in ("admin", "staff"):
+            user_datastore.remove_role_from_user(user, r)
+    # Add new role
+    role = Role.query.filter_by(name=role_name).first()
+    if not role:
+        role = Role(name=role_name, description=role_name.capitalize())
+        db.session.add(role)
+        db.session.commit()
+    user_datastore.add_role_to_user(user, role)
+    db.session.commit()
+    flash(f"{user.email} role updated to {role_name}.", "success")
+    return redirect(url_for("settings.users"))
