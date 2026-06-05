@@ -419,6 +419,23 @@ class ViewingRoomArtwork(db.Model):
 
 
 # ---------------------------------------------------------------------------
+
+class BlogPost(db.Model):
+    __tablename__ = "blog_post"
+    id           = Column(Integer, primary_key=True)
+    tenant_id    = Column(Integer, ForeignKey("gallery.id"), nullable=False)
+    title        = Column(String(300), nullable=False)
+    slug         = Column(String(320), nullable=False)
+    body         = Column(Text, nullable=False)
+    is_published = Column(Boolean, default=False)
+    published_at = Column(DateTime(timezone=True))
+    created_at   = Column(DateTime, default=now_utc)
+    updated_at   = Column(DateTime, default=now_utc, onupdate=now_utc)
+    gallery      = relationship("Gallery", backref="blog_posts")
+    __table_args__ = (
+        UniqueConstraint("tenant_id", "slug", name="uq_blog_post_slug"),
+    )
+
 # Flask-Security user datastore
 # ---------------------------------------------------------------------------
 

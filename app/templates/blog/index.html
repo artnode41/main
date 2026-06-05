@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}Blog — ArtNode{% endblock %}
+{% block content %}
+<div class="page-header">
+  <div>
+    <div class="page-title">Blog</div>
+    <div class="page-subtitle">{{ posts|length }} post{{ 's' if posts|length != 1 }}</div>
+  </div>
+  <div class="page-actions">
+    <a href="{{ url_for('blog.create') }}" class="btn btn-primary">+ New Post</a>
+  </div>
+</div>
+<div class="page-body">
+  {% if posts %}
+  <table style="width:100%;border-collapse:collapse;">
+    <thead>
+      <tr>
+        <th style="text-align:left;font-size:0.7rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);padding:8px 12px;border-bottom:1px solid var(--border);">Title</th>
+        <th style="text-align:left;font-size:0.7rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);padding:8px 12px;border-bottom:1px solid var(--border);">Status</th>
+        <th style="text-align:left;font-size:0.7rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);padding:8px 12px;border-bottom:1px solid var(--border);">Date</th>
+        <th style="border-bottom:1px solid var(--border);"></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for post in posts %}
+      <tr style="border-bottom:1px solid var(--border-light);">
+        <td style="padding:12px;font-size:0.88rem;">{{ post.title }}</td>
+        <td style="padding:12px;">
+          {% if post.is_published %}
+          <span class="badge badge-available">Published</span>
+          {% else %}
+          <span class="badge">Draft</span>
+          {% endif %}
+        </td>
+        <td style="padding:12px;font-size:0.82rem;color:var(--text-secondary);">
+          {{ post.published_at|ch_date if post.published_at else post.created_at|ch_date }}
+        </td>
+        <td style="padding:12px;text-align:right;">
+          <a href="{{ url_for('blog.edit', id=post.id) }}" class="btn btn-secondary" style="font-size:0.75rem;padding:4px 12px;">Edit</a>
+          <form method="POST" action="{{ url_for('blog.delete', id=post.id) }}" style="display:inline;"
+                onsubmit="return confirm('Delete this post?')">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <button type="submit" class="btn btn-secondary" style="font-size:0.75rem;padding:4px 12px;">Delete</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p style="color:var(--text-muted);font-size:0.88rem;">No posts yet. Create your first post.</p>
+  {% endif %}
+</div>
+{% endblock %}

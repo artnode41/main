@@ -119,6 +119,72 @@ def artist_detail(id, slug=None):
                            tab=tab)
 
 
+
+@bp.route("/artworks")
+def artworks():
+    from ...models import Artwork, Contact
+    gallery = get_gallery()
+
+    # Get filter params
+    artist_id = request.args.get("artist", type=int)
+    medium = request.args.get("medium", "").strip()
+    price_min = request.args.get("price_min", type=float)
+    price_max = request.args.get("price_max", type=float)
+
+    q = Artwork.query.filter_by(tenant_id=gallery.id, is_public=True, active=True)
+
+    if artist_id:
+        q = q.filter_by(contact_artist_id=artist_id)
+    if medium:
+        q = q.filter(Artwork.medium.ilike(f"%{medium}%"))
+    if price_min is not None:
+        q = q.filter(Artwork.price >= price_min)
+    if price_max is not None:
+        q = q.filter(Artwork.price <= price_max)
+
+    artworks = q.order_by(Artwork.id.desc()).all()
+
+    # Get artists for filter dropdown
+    from sqlalchemy import distinct
+    artist_ids = [a[0] for a in Artwork.query.filter_by(
+        tenant_id=gallery.id, is_public=True, active=True
+    ).with_entities(distinct(Artwork.contact_artist_id)).all() if a[0]]
+    artists = Contact.query.filter(Contact.id.in_(artist_ids)).order_by(Contact.sort_name).all()
+
+    # Medium categories
+    MEDIUM_CATEGORIES = {
+        "Painting": ["acrylic", "oil", "gouache", "tempera", "encaustic", "fluorescent paint", "casein", "sumi ink"],
+        "Works on Paper": ["graphite", "charcoal", "crayon", "pencil", "ink", "watercolor", "pastel", "collage", "brush", "wash", "conté", "pochoir"],
+        "Print": ["etching", "lithograph", "screenprint", "engraving", "drypoint", "aquatint", "woodcut", "mezzotint"],
+        "Sculpture": ["bronze", "aluminum", "iron", "epoxy", "polyester", "polyurethane", "cast", "fiberglass", "wood", "ceramic"],
+        "Photography": ["photograph", "photo"],
+    }
+
+    def get_medium_category(medium):
+        if not medium:
+            return None
+        m = medium.lower()
+        for cat, keywords in MEDIUM_CATEGORIES.items():
+            if any(k in m for k in keywords):
+                return cat
+        return "Other"
+
+    # Filter by medium category
+    medium_category = request.args.get("medium_category", "").strip()
+    if medium_category:
+        all_artworks = artworks
+        artworks = [a for a in all_artworks if get_medium_category(a.medium) == medium_category]
+
+    return render_template("public/artworks.html",
+                           gallery=gallery,
+                           artworks=artworks,
+                           artists=artists,
+                           medium_categories=list(MEDIUM_CATEGORIES.keys()) + ["Other"],
+                           selected_artist=artist_id,
+                           selected_medium_category=medium_category,
+                           price_min=price_min,
+                           price_max=price_max)
+
 @bp.route("/artworks/<int:id>")
 def artwork_detail(id):
     gallery = get_gallery()
@@ -167,6 +233,26 @@ def exhibition_detail(id):
                            exhibition=exhibition,
                            artworks=artworks)
 
+
+
+@bp.route("/blog")
+def blog():
+    from ...models import BlogPost
+    gallery = get_gallery()
+    posts = BlogPost.query.filter_by(
+        tenant_id=gallery.id, is_published=True
+    ).order_by(BlogPost.published_at.desc()).limit(10).all()
+    return render_template("public/blog.html", gallery=gallery, posts=posts)
+
+
+@bp.route("/blog/<slug>")
+def blog_post(slug):
+    from ...models import BlogPost
+    gallery = get_gallery()
+    post = BlogPost.query.filter_by(
+        slug=slug, is_published=True
+    ).first_or_404()
+    return render_template("public/blog_post.html", gallery=gallery, post=post)
 
 @bp.route("/about")
 def about():

@@ -1,0 +1,28 @@
+{% extends "public/base.html" %}
+{% block title %}Blog — {{ gallery.public_name or gallery.name }}{% endblock %}
+{% block content %}
+<div class="pub-container" style="max-width:720px;margin:0 auto;padding:60px 24px;">
+  <h1 style="font-family:var(--font-serif);font-size:2rem;font-weight:300;margin-bottom:8px;">Blog</h1>
+  <div style="width:40px;height:1px;background:var(--border);margin-bottom:48px;"></div>
+  {% if posts %}
+    {% for post in posts %}
+    <div style="margin-bottom:48px;padding-bottom:48px;border-bottom:1px solid var(--border-light);">
+      <div style="font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;">
+        {{ post.published_at|ch_date if post.published_at else "" }}
+      </div>
+      <h2 style="font-family:var(--font-serif);font-size:1.4rem;font-weight:300;margin:0 0 16px;">
+        <a href="{{ url_for('public.blog_post', slug=post.slug) }}" style="text-decoration:none;color:var(--text);">
+          {{ post.title }}
+        </a>
+      </h2>
+      <a href="{{ url_for('public.blog_post', slug=post.slug) }}"
+         style="font-size:0.78rem;letter-spacing:0.06em;text-transform:uppercase;color:var(--text);text-decoration:none;border-bottom:1px solid var(--text);padding-bottom:2px;">
+        Read more
+      </a>
+    </div>
+    {% endfor %}
+  {% else %}
+  <p style="color:var(--muted);font-size:0.9rem;">No posts published yet.</p>
+  {% endif %}
+</div>
+{% endblock %}
