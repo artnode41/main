@@ -82,15 +82,25 @@ def home():
 @bp.route("/artists")
 def artists():
     gallery = get_gallery()
-    from ...models import Contact
+    from ...models import Contact, Artwork
     artists = Contact.query.filter(
         Contact.active == True,
         Contact.is_active_representation == True,
         Contact.roles.contains(["artist"])
     ).order_by(Contact.sort_name, Contact.last_name).all()
+    # Attach thumbnail: photo_url first, then most recent public artwork image
     for a in artists:
         if not a.sort_name:
             a.sort_name = f"{a.last_name}, {a.first_name or ''}".strip(", ")
+        a._thumbnail = None
+        if a.photo_url:
+            a._thumbnail = a.photo_url
+        else:
+            aw = Artwork.query.filter_by(
+                contact_artist_id=a.id, is_public=True, active=True
+            ).order_by(Artwork.id.desc()).first()
+            if aw and aw.images:
+                a._thumbnail = aw.images[0].iiif_url
     return render_template("public/artists.html", gallery=gallery, artists=artists)
 
 

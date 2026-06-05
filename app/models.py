@@ -131,6 +131,7 @@ class Contact(db.Model):
     cv_json                  = Column(JSON)
     artist_website           = Column(String(255))
     is_active_representation = Column(Boolean, default=False)
+    photo_url        = Column(Text)  # base64 data URL, square JPG/PNG
     legacy_artist_id         = Column(Integer)
     notes          = Column(Text)
     active         = Column(Boolean, default=True)

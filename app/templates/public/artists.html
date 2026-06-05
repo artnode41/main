@@ -1,45 +1,41 @@
 {% extends "public/base.html" %}
 {% block title %}Artists — {{ gallery.public_name or gallery.name }}{% endblock %}
 
-{% block extra_css %}
-<style>
-  .artists-list { padding: 60px 40px; }
-  .artist-name-row {
-    display: flex; align-items: baseline; justify-content: space-between;
-    padding: 20px 0; border-bottom: 1px solid var(--border);
-  }
-  .artist-name-row:hover .artist-name { color: var(--muted); }
-  .artist-name {
-    font-family: var(--font-serif); font-size: 1.8rem; font-weight: 300;
-    letter-spacing: 0.02em; transition: color 0.2s;
-  }
-  .artist-meta { font-size: 0.75rem; color: var(--muted); letter-spacing: 0.06em; }
-
-  @media (max-width: 768px) {
-    .artists-list { padding: 32px 20px; }
-    .artist-name { font-size: 1.3rem; }
-  }
-</style>
-{% endblock %}
-
 {% block content %}
-<div class="artists-list">
-  <div class="section-label">Represented Artists</div>
-  <div class="page-heading">Artists</div>
-  <div class="page-subheading">{{ artists|length }} artists</div>
+<div style="padding:48px 24px;max-width:1200px;margin:0 auto;">
+  <h1 style="font-family:var(--font-serif);font-size:2rem;font-weight:300;margin-bottom:8px;">Artists</h1>
+  <div style="width:40px;height:1px;background:var(--border);margin-bottom:48px;"></div>
 
-  {% for artist in artists %}
-  <a href="{{ url_for('public.artist_detail', id=artist.id) }}" style="text-decoration:none;color:inherit;">
-    <div class="artist-name-row">
-      <span class="artist-name">{{ artist.first_name }} {{ artist.last_name }}</span>
-      <span class="artist-meta">
-        {% if artist.nationality %}{{ artist.nationality }}{% endif %}
-        {% if artist.birth_year %} · b. {{ artist.birth_year }}{% endif %}
-      </span>
-    </div>
-  </a>
+  {% if artists %}
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:32px;">
+    {% for artist in artists %}
+    <a href="{{ url_for('public.artist_detail', id=artist.id) }}" style="text-decoration:none;color:inherit;">
+      <div>
+        {% if artist._thumbnail %}
+        <img src="{{ artist._thumbnail }}" alt="{{ artist.first_name }} {{ artist.last_name }}"
+             style="width:100%;aspect-ratio:1;object-fit:cover;display:block;background:var(--border-light);">
+        {% else %}
+        <div style="width:100%;aspect-ratio:1;background:var(--border-light);display:flex;align-items:center;justify-content:center;">
+          <span style="font-family:var(--font-serif);font-size:2rem;font-weight:300;color:var(--muted);">
+            {{ artist.first_name[0] if artist.first_name else "" }}{{ artist.last_name[0] if artist.last_name else "" }}
+          </span>
+        </div>
+        {% endif %}
+        <div style="padding:12px 0 0;">
+          <div style="font-family:var(--font-serif);font-size:1rem;margin-bottom:2px;">
+            {{ artist.first_name }} {{ artist.last_name }}
+          </div>
+          <div style="font-size:0.75rem;color:var(--muted);">
+            {% if artist.nationality %}{{ artist.nationality }}{% endif %}
+            {% if artist.birth_year %} · b. {{ artist.birth_year }}{% endif %}
+          </div>
+        </div>
+      </div>
+    </a>
+    {% endfor %}
+  </div>
   {% else %}
-  <p style="color:var(--muted);padding:40px 0;">No artists currently represented.</p>
-  {% endfor %}
+  <p style="color:var(--muted);">No artists currently represented.</p>
+  {% endif %}
 </div>
 {% endblock %}

@@ -75,6 +75,34 @@
               <div class="form-group">{{ form.nationality.label(class="form-label") }}{{ form.nationality(class="form-control") }}</div>
               <div class="form-group">{{ form.artist_website.label(class="form-label") }}{{ form.artist_website(class="form-control", placeholder="https://...") }}</div>
               <div class="form-group">{{ form.biography.label(class="form-label") }}{{ form.biography(class="form-control", rows=6) }}</div>
+
+              <!-- Artist photo -->
+              <div class="form-group">
+                <label class="form-label">Artist Photo</label>
+                {% if contact and contact.photo_url %}
+                <div style="display:flex;align-items:center;gap:var(--space-lg);margin-bottom:var(--space-md);">
+                  <img src="{{ contact.photo_url }}" style="width:80px;height:80px;object-fit:cover;border-radius:2px;">
+                  <form method="POST" action="{{ url_for('contacts.delete_photo', id=contact.id) }}"
+                        onsubmit="return confirm('Remove photo?')" style="display:inline;">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <button type="submit" class="btn btn-secondary" style="font-size:0.75rem;">Remove</button>
+                  </form>
+                </div>
+                {% endif %}
+                {% if contact %}
+                <form method="POST" action="{{ url_for('contacts.upload_photo', id=contact.id) }}"
+                      enctype="multipart/form-data">
+                  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                  <div style="display:flex;align-items:center;gap:var(--space-md);">
+                    <input type="file" name="photo" accept=".jpg,.jpeg,.png" class="form-control" style="max-width:300px;">
+                    <button type="submit" class="btn btn-secondary" style="font-size:0.75rem;">Upload</button>
+                  </div>
+                  <p style="font-size:0.72rem;color:var(--text-muted);margin-top:4px;">Square JPG or PNG only · Max 500KB</p>
+                </form>
+                {% else %}
+                <p style="font-size:0.75rem;color:var(--text-muted);">Save the contact first, then upload a photo.</p>
+                {% endif %}
+              </div>
             </div>
           </div>
         </div>

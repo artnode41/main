@@ -128,3 +128,59 @@ def delete(id):
     db.session.commit()
     flash("Contact removed.", "success")
     return redirect(url_for("contacts.index"))
+
+
+@bp.route("/<int:id>/photo", methods=["POST"])
+@login_required
+def upload_photo(id):
+    from flask import request, current_app
+    from PIL import Image
+    import io, base64
+
+    contact = Contact.query.filter_by(
+        id=id, tenant_id=current_user.tenant_id
+    ).first_or_404()
+
+    if "photo" not in request.files:
+        flash("No file selected.", "error")
+        return redirect(url_for("contacts.edit", id=id))
+
+    file = request.files["photo"]
+    if not file.filename.lower().endswith((".jpg", ".jpeg", ".png")):
+        flash("Only JPG and PNG files are accepted.", "error")
+        return redirect(url_for("contacts.edit", id=id))
+
+    data = file.read()
+    if len(data) > 500 * 1024:
+        flash("File too large. Maximum size is 500KB.", "error")
+        return redirect(url_for("contacts.edit", id=id))
+
+    # Check square dimensions
+    try:
+        img = Image.open(io.BytesIO(data))
+        w, h = img.size
+        if w != h:
+            flash(f"Image must be square. Yours is {w}×{h}px.", "error")
+            return redirect(url_for("contacts.edit", id=id))
+    except Exception:
+        flash("Could not read image file.", "error")
+        return redirect(url_for("contacts.edit", id=id))
+
+    ext = "jpeg" if file.filename.lower().endswith((".jpg", ".jpeg")) else "png"
+    b64 = base64.b64encode(data).decode("utf-8")
+    contact.photo_url = f"data:image/{ext};base64,{b64}"
+    db.session.commit()
+    flash("Photo uploaded.", "success")
+    return redirect(url_for("contacts.edit", id=id))
+
+
+@bp.route("/<int:id>/photo/delete", methods=["POST"])
+@login_required
+def delete_photo(id):
+    contact = Contact.query.filter_by(
+        id=id, tenant_id=current_user.tenant_id
+    ).first_or_404()
+    contact.photo_url = None
+    db.session.commit()
+    flash("Photo removed.", "success")
+    return redirect(url_for("contacts.edit", id=id))
