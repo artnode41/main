@@ -6,6 +6,7 @@
   <title>{% block title %}ArtNode{% endblock %}</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/artnode.css') + '?v=2' }}">
   {% block head %}{% endblock %}
+{% block extra_head %}{% endblock %}
 </head>
 <body>
 <div class="layout">
@@ -41,6 +42,9 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="1"/><path d="M8 21h8M12 17v4"/></svg>
         Viewing Rooms
       </a>
+      <a href="{{ url_for('blog.index') }}" class="sidebar-link {% if request.endpoint and request.endpoint.startswith('blog') %}active{% endif %}">
+        <span class="sidebar-icon">⬡</span> Blog
+      </a>
       <div class="sidebar-section-label" style="margin-top:8px">System</div>
       <a href="{{ url_for('settings.users') }}" class="sidebar-link {% if request.endpoint and request.endpoint.startswith('settings.') and 'user' in request.endpoint %}active{% endif %}">
         <span class="sidebar-icon">⬡</span> Users
@@ -69,5 +73,6 @@
     {% block content %}{% endblock %}
   </main>
 </div>
+{% block extra_js %}{% endblock %}
 </body>
 </html>
