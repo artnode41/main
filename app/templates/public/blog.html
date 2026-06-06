@@ -17,7 +17,7 @@
       </h2>
       <a href="{{ url_for('public.blog_post', slug=post.slug) }}"
          style="font-size:0.78rem;letter-spacing:0.06em;text-transform:uppercase;color:var(--text);text-decoration:none;border-bottom:1px solid var(--text);padding-bottom:2px;">
-        Read more
+        {{ _("Read more") }}
       </a>
     </div>
     {% endfor %}

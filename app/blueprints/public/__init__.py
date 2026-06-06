@@ -21,10 +21,24 @@ def slugify(text):
 
 @bp.route("/lang/<lang>")
 def set_lang(lang):
+    from ...models import BlogPost
     supported = ["de", "fr", "it", "en"]
     if lang in supported:
         session["lang"] = lang
-    return redirect(request.referrer or url_for("public.home"))
+    # If coming from a blog post, redirect to same post in new language
+    referrer = request.referrer or ""
+    if "/blog/" in referrer:
+        slug = referrer.rstrip("/").split("/blog/")[-1]
+        post = BlogPost.query.filter_by(slug=slug, is_published=True).first()
+        if post and post.translation_group_id:
+            translation = BlogPost.query.filter_by(
+                translation_group_id=post.translation_group_id,
+                language=lang,
+                is_published=True
+            ).first()
+            if translation:
+                return redirect(url_for("public.blog_post", slug=translation.slug))
+    return redirect(referrer or url_for("public.home"))
 
 
 @bp.route("/")
@@ -259,10 +273,16 @@ def exhibition_detail(id):
 def blog():
     from ...models import BlogPost
     gallery = get_gallery()
+    lang = session.get("lang", "de")
     posts = BlogPost.query.filter_by(
-        tenant_id=gallery.id, is_published=True
+        tenant_id=gallery.id, is_published=True, language=lang
     ).order_by(BlogPost.published_at.desc()).limit(10).all()
-    return render_template("public/blog.html", gallery=gallery, posts=posts)
+    # Fallback: if no posts in current language, show default language
+    if not posts:
+        posts = BlogPost.query.filter_by(
+            tenant_id=gallery.id, is_published=True
+        ).order_by(BlogPost.published_at.desc()).limit(10).all()
+    return render_template("public/blog.html", gallery=gallery, posts=posts, lang=lang)
 
 
 @bp.route("/blog/<slug>")
@@ -272,7 +292,15 @@ def blog_post(slug):
     post = BlogPost.query.filter_by(
         slug=slug, is_published=True
     ).first_or_404()
-    return render_template("public/blog_post.html", gallery=gallery, post=post)
+    # Get other language versions of this post
+    translations = []
+    if post.translation_group_id:
+        translations = BlogPost.query.filter(
+            BlogPost.translation_group_id == post.translation_group_id,
+            BlogPost.id != post.id,
+            BlogPost.is_published == True
+        ).all()
+    return render_template("public/blog_post.html", gallery=gallery, post=post, translations=translations)
 
 @bp.route("/about")
 def about():
