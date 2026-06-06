@@ -18,9 +18,11 @@
   <div class="page-subheading" style="font-family:var(--font-serif);font-size:1.1rem;font-style:italic;">{{ gallery.tagline }}</div>
   {% endif %}
 
-  {% if gallery.about_text %}
-  <div style="max-width:640px;margin-top:40px;font-size:0.95rem;line-height:1.9;color:#333;">
-    {{ gallery.about_text|nl2br }}
+  {% set about, ab_lang = get_trans(gallery, "about_text") %}
+  {% if about %}
+  {% if ab_lang %}<span style="font-size:0.65rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin-top:24px;display:block;">{{ ab_lang|upper }}</span>{% endif %}
+  <div style="max-width:640px;margin-top:8px;font-size:0.95rem;line-height:1.9;color:#333;">
+    {{ about|nl2br }}
   </div>
   {% endif %}
 

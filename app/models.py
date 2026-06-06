@@ -70,6 +70,7 @@ class Gallery(db.Model):
     slug                  = Column(String(100), unique=True, nullable=False)
     tagline               = Column(String(300))           # Short line under logo
     about_text            = Column(Text)                  # About page body
+    translations          = Column(JSON, default=dict)  # {"de": {"tagline": "...", "about_text": "..."}, "fr": {...}}
     address               = Column(Text)
     zip_code              = Column(String(20))
     city                  = Column(String(100))

@@ -34,6 +34,15 @@ def index():
         gallery.vat_number = form.vat_number.data or None
         gallery.iban = form.iban.data or None
         gallery.vat_scheme_default = form.vat_scheme_default.data or "standard"
+        # Save gallery translations
+        from flask import request as _req
+        trans = gallery.translations or {}
+        for lang in ["de", "fr", "it", "en"]:
+            if lang not in trans:
+                trans[lang] = {}
+            trans[lang]["tagline"] = _req.form.get(f"trans_tagline_{lang}", "").strip()
+            trans[lang]["about_text"] = _req.form.get(f"trans_about_{lang}", "").strip()
+        gallery.translations = trans
         db.session.commit()
         flash("Settings saved successfully.", "success")
         return redirect(url_for("settings.index"))

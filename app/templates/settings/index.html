@@ -19,8 +19,41 @@
           <div style="font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:var(--space-lg);">Identity</div>
           <div class="form-group">{{ form.name.label(class="form-label") }}{{ form.name(class="form-control") }}</div>
           <div class="form-group">{{ form.public_name.label(class="form-label") }}{{ form.public_name(class="form-control", placeholder="e.g. Galerie Beispiel") }}</div>
-          <div class="form-group">{{ form.tagline.label(class="form-label") }}{{ form.tagline(class="form-control", placeholder="e.g. Contemporary Art Since 1985") }}</div>
-          <div class="form-group">{{ form.about_text.label(class="form-label") }}{{ form.about_text(class="form-control", rows=5, placeholder="About the gallery...") }}</div>
+          <div class="form-group">
+            <label class="form-label">Tagline</label>
+            <div style="display:flex;gap:4px;margin-bottom:8px;">
+              {% for lang in ["de","fr","it","en"] %}
+              <button type="button" class="trans-tab btn btn-secondary"
+                      data-lang="{{ lang }}" data-field="tagline"
+                      style="font-size:0.72rem;padding:3px 10px;{% if loop.first %}font-weight:700;border-color:var(--text);{% endif %}"
+                      onclick="switchTransTab(this,'tagline')">{{ lang|upper }}</button>
+              {% endfor %}
+            </div>
+            {% for lang in ["de","fr","it","en"] %}
+            <input type="text" name="trans_tagline_{{ lang }}"
+                   class="form-control trans-field" data-lang="{{ lang }}" data-field="tagline"
+                   style="{% if not loop.first %}display:none;{% endif %}"
+                   placeholder="e.g. Contemporary Art Since 1985"
+                   value="{{ (gallery.translations or {}).get(lang, {}).get('tagline', '') }}">
+            {% endfor %}
+          </div>
+          <div class="form-group">
+            <label class="form-label">About Text</label>
+            <div style="display:flex;gap:4px;margin-bottom:8px;">
+              {% for lang in ["de","fr","it","en"] %}
+              <button type="button" class="trans-tab btn btn-secondary"
+                      data-lang="{{ lang }}" data-field="about_text"
+                      style="font-size:0.72rem;padding:3px 10px;{% if loop.first %}font-weight:700;border-color:var(--text);{% endif %}"
+                      onclick="switchTransTab(this,'about_text')">{{ lang|upper }}</button>
+              {% endfor %}
+            </div>
+            {% for lang in ["de","fr","it","en"] %}
+            <textarea name="trans_about_{{ lang }}"
+                      class="form-control trans-field" data-lang="{{ lang }}" data-field="about_text"
+                      rows="5" style="{% if not loop.first %}display:none;{% endif %}"
+                      placeholder="About the gallery...">{{ (gallery.translations or {}).get(lang, {}).get('about_text', '') }}</textarea>
+            {% endfor %}
+          </div>
         </div>
 
         <div style="background:var(--surface);border:1px solid var(--border);padding:var(--space-xl);margin-bottom:var(--space-lg);">
@@ -93,6 +126,16 @@
           </div>
 
           <script>
+function switchTransTab(btn, field) {
+  document.querySelectorAll(`.trans-tab[data-field="${field}"]`).forEach(b => {
+    b.style.fontWeight = ""; b.style.borderColor = "";
+  });
+  btn.style.fontWeight = "700"; btn.style.borderColor = "var(--text)";
+  const lang = btn.dataset.lang;
+  document.querySelectorAll(`.trans-field[data-field="${field}"]`).forEach(el => {
+    el.style.display = el.dataset.lang === lang ? "" : "none";
+  });
+}
           const fileInput = document.getElementById('logoFileInput');
           const newWrap = document.getElementById('logoNewWrap');
           const newImg = document.getElementById('logoNewImg');
