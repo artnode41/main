@@ -27,6 +27,8 @@ def create():
             tenant_id=current_user.tenant_id,
             title=form.title.data,
             description=form.description.data or None,
+            translations={lang: {"description": request.form.get(f"trans_description_{lang}", "").strip()}
+                         for lang in ["de", "fr", "it", "en"]},
             venue=form.venue.data or None,
             start_date=datetime.combine(form.start_date.data, datetime.min.time()).replace(tzinfo=timezone.utc) if form.start_date.data else None,
             end_date=datetime.combine(form.end_date.data, datetime.min.time()).replace(tzinfo=timezone.utc) if form.end_date.data else None,
@@ -70,6 +72,13 @@ def edit(id):
     if form.validate_on_submit():
         exhibition.title = form.title.data
         exhibition.description = form.description.data or None
+        trans = exhibition.translations or {}
+        for lang in ["de", "fr", "it", "en"]:
+            val = request.form.get(f"trans_description_{lang}", "").strip()
+            if lang not in trans:
+                trans[lang] = {}
+            trans[lang]["description"] = val
+        exhibition.translations = trans
         exhibition.venue = form.venue.data or None
         exhibition.start_date = datetime.combine(form.start_date.data, datetime.min.time()).replace(tzinfo=timezone.utc) if form.start_date.data else None
         exhibition.end_date = datetime.combine(form.end_date.data, datetime.min.time()).replace(tzinfo=timezone.utc) if form.end_date.data else None

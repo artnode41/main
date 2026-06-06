@@ -129,6 +129,7 @@ class Contact(db.Model):
     sort_name                = Column(String(200))
     slug                     = Column(String(200))
     cv_json                  = Column(JSON)
+    translations         = Column(JSON, default=dict)  # {"de": {"biography": "..."}, "fr": {...}}
     artist_website           = Column(String(255))
     is_active_representation = Column(Boolean, default=False)
     photo_url        = Column(Text)  # base64 data URL, square JPG/PNG
@@ -158,6 +159,7 @@ class Artwork(db.Model):
     medium           = Column(Text)
     dimensions       = Column(Text)
     description      = Column(Text)
+    translations     = Column(JSON, default=dict)  # {"de": {"description": "..."}, "fr": {...}}
 
     external_id      = Column(String(100))
     source_url       = Column(Text)
@@ -285,6 +287,7 @@ class Exhibition(db.Model):
     tenant_id    = Column(Integer, ForeignKey("gallery.id"), nullable=False)
     title        = Column(String(300), nullable=False)
     description  = Column(Text)
+    translations  = Column(JSON, default=dict)  # {"de": {"description": "..."}, "fr": {...}}
     start_date   = Column(DateTime(timezone=True))
     end_date     = Column(DateTime(timezone=True))
     venue        = Column(String(200))

@@ -122,14 +122,15 @@ def artist_detail(id, slug=None):
     artworks = Artwork.query.filter_by(
         contact_artist_id=artist.id, active=True, is_public=True
     ).order_by(Artwork.id.desc()).all()
-    exhibitions = db.session.query(Exhibition).join(
-        ExhibitionArtwork, ExhibitionArtwork.exhibition_id == Exhibition.id
-    ).join(
+    exhibition_ids = db.session.query(ExhibitionArtwork.exhibition_id).join(
         Artwork, ExhibitionArtwork.artwork_id == Artwork.id
     ).filter(
-        Artwork.contact_artist_id == artist.id,
+        Artwork.contact_artist_id == artist.id
+    ).subquery()
+    exhibitions = Exhibition.query.filter(
+        Exhibition.id.in_(exhibition_ids),
         Exhibition.active == True
-    ).order_by(Exhibition.start_date.desc()).distinct().all()
+    ).order_by(Exhibition.start_date.desc()).all()
 
     tab = request.args.get("tab", "artworks")
     return render_template("public/artist_detail.html",

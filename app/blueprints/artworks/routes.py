@@ -82,6 +82,8 @@ def create():
             medium=form.medium.data,
             dimensions=form.dimensions.data,
             description=form.description.data,
+            translations={lang: {"description": request.form.get(f"trans_description_{lang}", "").strip()}
+                         for lang in ["de", "fr", "it", "en"]},
             object_type=form.object_type.data or None,
             status=form.status.data,
             price=form.price.data,
@@ -142,6 +144,13 @@ def edit(id):
         artwork.medium = form.medium.data
         artwork.dimensions = form.dimensions.data
         artwork.description = form.description.data
+        trans = artwork.translations or {}
+        for lang in ["de", "fr", "it", "en"]:
+            val = request.form.get(f"trans_description_{lang}", "").strip()
+            if lang not in trans:
+                trans[lang] = {}
+            trans[lang]["description"] = val
+        artwork.translations = trans
         artwork.object_type = form.object_type.data or None
         artwork.status = form.status.data
         artwork.price = form.price.data

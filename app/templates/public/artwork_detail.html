@@ -69,6 +69,13 @@
 
   <!-- Metadata column -->
   <div class="artwork-meta-col">
+    {% set desc, desc_lang = get_trans(artwork, "description") %}
+    {% if desc %}
+    <div style="margin-bottom:28px;">
+      {% if desc_lang %}<span style="font-size:0.65rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;display:block;">{{ desc_lang|upper }}</span>{% endif %}
+      <p style="font-size:0.9rem;line-height:1.8;color:var(--text);margin:0;">{{ desc }}</p>
+    </div>
+    {% endif %}
     {% if artwork.contact_artist %}
     <div class="artwork-artist">
       <a href="{{ url_for('public.artist_detail', id=artwork.contact_artist.id) }}" style="color:var(--muted);text-decoration:none;">

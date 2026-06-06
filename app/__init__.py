@@ -74,6 +74,32 @@ def create_app():
         return f"{currency} {integer}.{parts[1]}"
 
     app.jinja_env.filters["ch_date"] = ch_date
+
+    # ── Translation helper ───────────────────────────────────
+    def get_trans(obj, field, lang=None, fallback=None):
+        """Get translated field value with fallback."""
+        from flask import session
+        if lang is None:
+            lang = session.get("lang", "de")
+        trans = getattr(obj, "translations", None) or {}
+        # Try requested language
+        val = trans.get(lang, {}).get(field)
+        if val:
+            return val, None
+        # Try fallback language
+        if fallback and fallback != lang:
+            val = trans.get(fallback, {}).get(field)
+            if val:
+                return val, fallback
+        # Try any available language
+        for l, t in trans.items():
+            if t.get(field):
+                return t[field], l
+        # Fall back to original field
+        orig = getattr(obj, field, None)
+        return orig, None
+
+    app.jinja_env.globals["get_trans"] = get_trans
     app.jinja_env.filters["ch_currency"] = ch_currency
 
     @app.route("/health")

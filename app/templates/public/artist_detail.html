@@ -93,8 +93,10 @@
 <!-- Biography tab -->
 <div class="tab-content {% if tab == 'biography' %}active{% endif %}">
   <div class="bio-text">
-    {% if artist.biography %}
-      {{ artist.biography|nl2br }}
+    {% set bio, bio_lang = get_trans(artist, "biography") %}
+    {% if bio %}
+      {% if bio_lang %}<span style="font-size:0.65rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;display:block;">{{ bio_lang|upper }}</span>{% endif %}
+      {{ bio|nl2br }}
     {% else %}
       <p style="color:var(--muted);">Biography not available.</p>
     {% endif %}

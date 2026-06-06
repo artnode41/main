@@ -39,6 +39,15 @@ def _save_contact_from_form(contact, form):
             if r != 'artist' and r not in roles:
                 roles.append(r)
         contact.biography = form.biography.data or None
+        # Save biography translations
+        from flask import request as _req
+        trans = contact.translations or {}
+        for lang in ["de", "fr", "it", "en"]:
+            val = _req.form.get(f"trans_biography_{lang}", "").strip()
+            if lang not in trans:
+                trans[lang] = {}
+            trans[lang]["biography"] = val
+        contact.translations = trans
         contact.birth_year = form.birth_year.data
         contact.death_year = form.death_year.data
         contact.nationality = form.nationality.data or None
