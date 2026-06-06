@@ -31,7 +31,24 @@
             <div class="form-group">{{ form.year_from.label(class="form-label") }}{{ form.year_from(class="form-control", placeholder="e.g. 1953") }}</div>
             <div class="form-group">{{ form.year_to.label(class="form-label") }}{{ form.year_to(class="form-control", placeholder="if range") }}</div>
           </div>
-          <div class="form-group">{{ form.medium.label(class="form-label") }}{{ form.medium(class="form-control", rows=2, placeholder="e.g. Oil on canvas") }}</div>
+          <div class="form-group">
+            <label class="form-label">Medium</label>
+            <div style="display:flex;gap:4px;margin-bottom:8px;">
+              {% for lang in ["de","fr","it","en"] %}
+              <button type="button" class="trans-tab btn btn-secondary"
+                      data-lang="{{ lang }}" data-field="aw_medium"
+                      style="font-size:0.72rem;padding:3px 10px;{% if loop.first %}font-weight:700;border-color:var(--text);{% endif %}"
+                      onclick="switchTransTab(this,'aw_medium')">{{ lang|upper }}</button>
+              {% endfor %}
+            </div>
+            {% for lang in ["de","fr","it","en"] %}
+            <input type="text" name="trans_medium_{{ lang }}"
+                   class="form-control trans-field" data-lang="{{ lang }}" data-field="aw_medium"
+                   style="{% if not loop.first %}display:none;{% endif %}"
+                   placeholder="e.g. Oil on canvas"
+                   value="{{ (artwork.translations or {}).get(lang, {}).get('medium', '') if artwork else '' }}">
+            {% endfor %}
+          </div>
           <div class="form-group">{{ form.dimensions.label(class="form-label") }}{{ form.dimensions(class="form-control", rows=2, placeholder="e.g. 100 x 80 cm") }}</div>
           <div class="form-group">
             <label class="form-label">Description</label>

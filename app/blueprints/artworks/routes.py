@@ -1,4 +1,4 @@
-from flask import render_template, redirect, url_for, flash
+from flask import render_template, redirect, url_for, flash, request
 from flask_security import login_required, current_user
 from . import bp
 from ...models import Artwork, ArtworkImage, ArtworkProvenance, ArtworkConsignment, Contact, Gallery
@@ -82,8 +82,10 @@ def create():
             medium=form.medium.data,
             dimensions=form.dimensions.data,
             description=form.description.data,
-            translations={lang: {"description": request.form.get(f"trans_description_{lang}", "").strip()}
-                         for lang in ["de", "fr", "it", "en"]},
+            translations={lang: {
+                "description": request.form.get(f"trans_description_{lang}", "").strip(),
+                "medium": request.form.get(f"trans_medium_{lang}", "").strip(),
+            } for lang in ["de", "fr", "it", "en"]},
             object_type=form.object_type.data or None,
             status=form.status.data,
             price=form.price.data,
@@ -146,10 +148,10 @@ def edit(id):
         artwork.description = form.description.data
         trans = artwork.translations or {}
         for lang in ["de", "fr", "it", "en"]:
-            val = request.form.get(f"trans_description_{lang}", "").strip()
             if lang not in trans:
                 trans[lang] = {}
-            trans[lang]["description"] = val
+            trans[lang]["description"] = request.form.get(f"trans_description_{lang}", "").strip()
+            trans[lang]["medium"] = request.form.get(f"trans_medium_{lang}", "").strip()
         artwork.translations = trans
         artwork.object_type = form.object_type.data or None
         artwork.status = form.status.data

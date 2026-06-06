@@ -89,8 +89,9 @@
     </div>
 
     <div style="margin-bottom:32px;">
-      {% if artwork.medium %}
-      <div class="meta-row"><span class="meta-label">{{ _("Medium") }}</span><span class="meta-value">{{ artwork.medium }}</span></div>
+      {% set med, med_lang = get_trans(artwork, "medium") %}
+      {% if med or artwork.medium %}
+      <div class="meta-row"><span class="meta-label">{{ _("Medium") }}</span><span class="meta-value">{{ med or artwork.medium }}{% if med_lang %} <span style="font-size:0.6rem;color:var(--muted);">{{ med_lang|upper }}</span>{% endif %}</span></div>
       {% endif %}
       {% if artwork.dimensions %}
       <div class="meta-row"><span class="meta-label">{{ _("Dimensions") }}</span><span class="meta-value">{{ artwork.dimensions }}</span></div>
