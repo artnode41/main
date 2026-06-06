@@ -1,0 +1,190 @@
+# ArtNode translations
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2026-06-06 09:03+0000\n"
+"PO-Revision-Date: 2026-06-06 09:03+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: de\n"
+"Language-Team: de <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+msgid "Artists"
+msgstr "Künstler"
+
+msgid "Artworks"
+msgstr "Werke"
+
+msgid "Exhibitions"
+msgstr "Ausstellungen"
+
+msgid "Blog"
+msgstr "Blog"
+
+msgid "About"
+msgstr "Über uns"
+
+msgid "Contact"
+msgstr "Kontakt"
+
+msgid "Current Exhibition"
+msgstr "Aktuelle Ausstellung"
+
+msgid "Coming Soon"
+msgstr "Demnächst"
+
+msgid "View Exhibition"
+msgstr "Zur Ausstellung"
+
+msgid "View Work"
+msgstr "Zum Werk"
+
+msgid "Available Works"
+msgstr "Verfügbare Werke"
+
+msgid "Selected Works"
+msgstr "Ausgewählte Werke"
+
+msgid "View All Artists"
+msgstr "Alle Künstler"
+
+msgid "No artists currently represented."
+msgstr "Keine Künstler vertreten."
+
+msgid "Artist"
+msgstr "Künstler"
+
+msgid "Works"
+msgstr "Werke"
+
+msgid "Biography"
+msgstr "Biografie"
+
+msgid "No works currently available."
+msgstr "Keine Werke verfügbar."
+
+msgid "No exhibition history."
+msgstr "Keine Ausstellungshistorie."
+
+msgid "Biography not available."
+msgstr "Biografie nicht verfügbar."
+
+msgid "Artist Website"
+msgstr "Website des Künstlers"
+
+msgid "Collection"
+msgstr "Kollektion"
+
+msgid "All Artists"
+msgstr "Alle Künstler"
+
+msgid "All Mediums"
+msgstr "Alle Techniken"
+
+msgid "Min CHF"
+msgstr "Min CHF"
+
+msgid "Max CHF"
+msgstr "Max CHF"
+
+msgid "Filter"
+msgstr "Filtern"
+
+msgid "Clear"
+msgstr "Zurücksetzen"
+
+msgid "No image available"
+msgstr "Kein Bild verfügbar"
+
+msgid "Medium"
+msgstr "Technik"
+
+msgid "Dimensions"
+msgstr "Masse"
+
+msgid "Reference"
+msgstr "Referenz"
+
+msgid "Availability"
+msgstr "Verfügbarkeit"
+
+msgid "Available"
+msgstr "Verfügbar"
+
+msgid "Sold"
+msgstr "Verkauft"
+
+msgid "Enquire about this work"
+msgstr "Anfrage zu diesem Werk"
+
+msgid "First Name"
+msgstr "Vorname"
+
+msgid "Last Name *"
+msgstr "Nachname *"
+
+msgid "Email *"
+msgstr "E-Mail *"
+
+msgid "Message"
+msgstr "Nachricht"
+
+msgid "Send Enquiry"
+msgstr "Anfrage senden"
+
+msgid "Programme"
+msgstr "Programm"
+
+msgid "Current"
+msgstr "Aktuell"
+
+msgid "Forthcoming"
+msgstr "Demnächst"
+
+msgid "Past Exhibitions"
+msgstr "Vergangene Ausstellungen"
+
+msgid "No exhibitions scheduled."
+msgstr "Keine Ausstellungen geplant."
+
+msgid "Works in Exhibition"
+msgstr "Werke der Ausstellung"
+
+msgid "No works listed for this exhibition."
+msgstr "Keine Werke aufgeführt."
+
+msgid "No posts published yet."
+msgstr "Noch keine Beiträge."
+
+msgid "Read more"
+msgstr "Weiterlesen"
+
+msgid "Get in Touch"
+msgstr "Kontakt aufnehmen"
+
+msgid "Address"
+msgstr "Adresse"
+
+msgid "Phone"
+msgstr "Telefon"
+
+msgid "Send a Message"
+msgstr "Nachricht senden"
+
+msgid "Send Message"
+msgstr "Senden"
+
+msgid "The Gallery"
+msgstr "Die Galerie"
+
+msgid "Visit"
+msgstr "Besuchen"
+
+msgid "Represented Artists"
+msgstr "Vertretene Künstler"
+

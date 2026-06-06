@@ -1,4 +1,5 @@
-from flask import Blueprint, render_template, abort, request, flash, redirect, url_for, current_app
+from flask import Blueprint, render_template, abort, request, flash, redirect, url_for, current_app, session
+from flask_babel import _
 from ...models import Gallery, Artwork, ArtworkImage, Exhibition, ExhibitionArtwork, Contact
 from ...extensions import db
 from datetime import datetime, timezone
@@ -16,6 +17,14 @@ def slugify(text):
     text = re.sub(r'[^\w\s-]', '', text)
     text = re.sub(r'[\s_-]+', '-', text)
     return text
+
+
+@bp.route("/lang/<lang>")
+def set_lang(lang):
+    supported = ["de", "fr", "it", "en"]
+    if lang in supported:
+        session["lang"] = lang
+    return redirect(request.referrer or url_for("public.home"))
 
 
 @bp.route("/")

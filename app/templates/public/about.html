@@ -26,12 +26,12 @@
 
   <div class="about-info-grid" style="margin-top:64px;display:grid;grid-template-columns:1fr 1fr;gap:48px;max-width:640px;">
     <div>
-      <div class="section-label">Visit</div>
+      <div class="section-label">{{ _("Visit") }}</div>
       {% if gallery.address %}<p style="font-size:0.9rem;line-height:1.8;margin-top:8px;">{{ gallery.address }}<br>{% if gallery.zip_code %}{{ gallery.zip_code }} {% endif %}{{ gallery.city or "" }}<br>{{ gallery.country or "" }}</p>{% endif %}
       {% if gallery.phone %}<p style="font-size:0.85rem;color:var(--muted);margin-top:8px;">{{ gallery.phone }}</p>{% endif %}
     </div>
     <div>
-      <div class="section-label">Contact</div>
+      <div class="section-label">{{ _("Contact") }}</div>
       {% if gallery.contact_email %}
       <p style="margin-top:8px;"><a href="mailto:{{ gallery.contact_email }}" style="font-size:0.9rem;color:var(--text);">{{ gallery.contact_email }}</a></p>
       {% endif %}

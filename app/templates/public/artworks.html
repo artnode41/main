@@ -3,13 +3,13 @@
 {% block content %}
 <div class="pub-container" style="padding:48px 24px;max-width:1200px;margin:0 auto;">
 
-  <h1 style="font-family:var(--font-serif);font-size:2rem;font-weight:300;margin-bottom:8px;">Collection</h1>
+  <h1 style="font-family:var(--font-serif);font-size:2rem;font-weight:300;margin-bottom:8px;">{{ _("Collection") }}</h1>
   <div style="width:40px;height:1px;background:var(--border);margin-bottom:40px;"></div>
 
   <!-- Filters -->
   <form method="GET" action="" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin-bottom:40px;align-items:flex-end;">
     <div>
-      <label style="font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:4px;">Artist</label>
+      <label style="font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:4px;">{{ _("Artist") }}</label>
       <select name="artist" class="pub-input" style="min-width:160px;" onchange="this.form.submit()">
         <option value="">All Artists</option>
         {% for artist in artists %}
@@ -20,7 +20,7 @@
       </select>
     </div>
     <div>
-      <label style="font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:4px;">Medium</label>
+      <label style="font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:4px;">{{ _("Medium") }}</label>
       <select name="medium_category" class="pub-input" style="min-width:160px;" onchange="this.form.submit()">
         <option value="">All Mediums</option>
         {% for cat in medium_categories %}
@@ -40,9 +40,9 @@
                value="{{ price_max|int if price_max else '' }}" placeholder="Any">
       </div>
     </div>
-    <button type="submit" class="btn-pub btn-pub-dark" style="padding:8px 20px;font-size:0.75rem;">Filter</button>
+    <button type="submit" class="btn-pub btn-pub-dark" style="padding:8px 20px;font-size:0.75rem;">{{ _("Filter") }}</button>
     {% if selected_artist or selected_medium or price_min or price_max %}
-    <a href="{{ url_for('public.artworks') }}" class="btn-pub btn-pub-outline" style="padding:8px 20px;font-size:0.75rem;">Clear</a>
+    <a href="{{ url_for('public.artworks') }}" class="btn-pub btn-pub-outline" style="padding:8px 20px;font-size:0.75rem;">{{ _("Clear") }}</a>
     {% endif %}
   </form>
 

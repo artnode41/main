@@ -83,19 +83,19 @@
 
     <div style="margin-bottom:32px;">
       {% if artwork.medium %}
-      <div class="meta-row"><span class="meta-label">Medium</span><span class="meta-value">{{ artwork.medium }}</span></div>
+      <div class="meta-row"><span class="meta-label">{{ _("Medium") }}</span><span class="meta-value">{{ artwork.medium }}</span></div>
       {% endif %}
       {% if artwork.dimensions %}
-      <div class="meta-row"><span class="meta-label">Dimensions</span><span class="meta-value">{{ artwork.dimensions }}</span></div>
+      <div class="meta-row"><span class="meta-label">{{ _("Dimensions") }}</span><span class="meta-value">{{ artwork.dimensions }}</span></div>
       {% endif %}
       {% if artwork.inventory_number %}
-      <div class="meta-row"><span class="meta-label">Reference</span><span class="meta-value">{{ artwork.inventory_number }}</span></div>
+      <div class="meta-row"><span class="meta-label">{{ _("Reference") }}</span><span class="meta-value">{{ artwork.inventory_number }}</span></div>
       {% endif %}
       <div class="meta-row">
-        <span class="meta-label">Availability</span>
+        <span class="meta-label">{{ _("Availability") }}</span>
         <span class="meta-value">
-          {% if artwork.status == "available" %}<span class="status-available">Available</span>
-          {% elif artwork.status == "sold" %}<span class="status-sold">Sold</span>
+          {% if artwork.status == "available" %}<span class="status-available">{{ _("Available") }}</span>
+          {% elif artwork.status == "sold" %}<span class="status-sold">{{ _("Sold") }}</span>
           {% else %}<span class="status-sold">{{ artwork.status|replace("_", " ")|title }}</span>{% endif %}
         </span>
       </div>
@@ -121,7 +121,7 @@
           <input type="email" name="email" class="pub-input" required>
         </div>
         <div class="pub-form-group">
-          <label class="pub-label">Message</label>
+          <label class="pub-label">{{ _("Message") }}</label>
           <textarea name="message" class="pub-input" rows="3" placeholder="I am interested in this work..."></textarea>
         </div>
         <button type="submit" class="btn-pub btn-pub-dark">Send Enquiry</button>

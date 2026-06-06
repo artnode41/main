@@ -2,7 +2,7 @@
 {% block title %}Blog — {{ gallery.public_name or gallery.name }}{% endblock %}
 {% block content %}
 <div class="pub-container" style="max-width:720px;margin:0 auto;padding:60px 24px;">
-  <h1 style="font-family:var(--font-serif);font-size:2rem;font-weight:300;margin-bottom:8px;">Blog</h1>
+  <h1 style="font-family:var(--font-serif);font-size:2rem;font-weight:300;margin-bottom:8px;">{{ _("Blog") }}</h1>
   <div style="width:40px;height:1px;background:var(--border);margin-bottom:48px;"></div>
   {% if posts %}
     {% for post in posts %}

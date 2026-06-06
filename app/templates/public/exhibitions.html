@@ -27,12 +27,12 @@
 
 {% block content %}
 <div class="exhibitions-page">
-  <div class="section-label">Programme</div>
-  <div class="page-heading">Exhibitions</div>
+  <div class="section-label">{{ _("Programme") }}</div>
+  <div class="page-heading">{{ _("Exhibitions") }}</div>
 
   {% if current %}
   <div class="exhibition-section">
-    <div class="section-label" style="margin-top:40px;">Current</div>
+    <div class="section-label" style="margin-top:40px;">{{ _("Current") }}</div>
     <div class="exhibition-grid">
       {% for ex in current %}
       {% set ea = ex.artworks[0] if ex.artworks else none %}
@@ -61,7 +61,7 @@
 
   {% if forthcoming %}
   <div class="exhibition-section">
-    <div class="section-label">Forthcoming</div>
+    <div class="section-label">{{ _("Forthcoming") }}</div>
     <div class="exhibition-grid">
       {% for ex in forthcoming %}
       {% set ea = ex.artworks[0] if ex.artworks else none %}
@@ -76,7 +76,7 @@
             <div class="exhibition-card-img" style="background:#f5f5f5;"></div>
             {% endif %}
             <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.45);">
-              <span style="font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text);">Forthcoming</span>
+              <span style="font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text);">{{ _("Forthcoming") }}</span>
             </div>
           </div>
           <div class="exhibition-card-body">

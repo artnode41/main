@@ -1,5 +1,6 @@
 import os
-from flask import Flask, redirect, url_for
+from flask import Flask
+from flask_babel import Babel
 from .extensions import db, migrate, security
 from .models import user_datastore
 
@@ -33,6 +34,24 @@ def create_app():
     db.init_app(app)
     migrate.init_app(app, db)
     security.init_app(app, user_datastore)
+
+    # ── Flask-Babel ──────────────────────────────────────────
+    app.config["BABEL_DEFAULT_LOCALE"] = "de"
+    app.config["BABEL_SUPPORTED_LOCALES"] = ["de", "fr", "it", "en"]
+    app.config["BABEL_TRANSLATION_DIRECTORIES"] = "translations"
+
+    babel = Babel()
+
+    def get_locale():
+        from flask import session, request
+        lang = session.get("lang")
+        if lang and lang in app.config["BABEL_SUPPORTED_LOCALES"]:
+            return lang
+        return request.accept_languages.best_match(
+            app.config["BABEL_SUPPORTED_LOCALES"], default="de"
+        )
+
+    babel.init_app(app, locale_selector=get_locale)
 
     # ── Swiss formatting filters ─────────────────────────────
     def ch_date(value, fmt="short"):

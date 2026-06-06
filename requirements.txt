@@ -19,3 +19,4 @@ gunicorn==21.2.0
 lxml==5.3.0
 opentimestamps-client==0.7.1
 python-gnupg==0.5.3
+Flask-Babel==4.0.0

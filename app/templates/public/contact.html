@@ -14,7 +14,7 @@
 
   <div>
     <div class="section-label">Get in Touch</div>
-    <div class="page-heading">Contact</div>
+    <div class="page-heading">{{ _("Contact") }}</div>
     {% if gallery.tagline %}
     <p style="font-size:0.9rem;color:var(--muted);margin-bottom:40px;">{{ gallery.tagline }}</p>
     {% endif %}
@@ -22,7 +22,7 @@
     <div style="margin-bottom:32px;">
       {% if gallery.address %}
       <div style="margin-bottom:20px;">
-        <div class="section-label">Address</div>
+        <div class="section-label">{{ _("Address") }}</div>
         <p style="font-size:0.9rem;line-height:1.8;margin-top:8px;">
           {{ gallery.address }}<br>
           {% if gallery.zip_code %}{{ gallery.zip_code }} {% endif %}{{ gallery.city or "" }}<br>
@@ -38,7 +38,7 @@
       {% endif %}
       {% if gallery.phone %}
       <div style="margin-bottom:20px;">
-        <div class="section-label">Phone</div>
+        <div class="section-label">{{ _("Phone") }}</div>
         <p style="font-size:0.9rem;margin-top:8px;">{{ gallery.phone }}</p>
       </div>
       {% endif %}
@@ -63,7 +63,7 @@
         <input type="email" name="email" class="pub-input" required>
       </div>
       <div class="pub-form-group">
-        <label class="pub-label">Message</label>
+        <label class="pub-label">{{ _("Message") }}</label>
         <textarea name="message" class="pub-input" rows="5"></textarea>
       </div>
       <button type="submit" class="btn-pub btn-pub-dark">Send Message</button>

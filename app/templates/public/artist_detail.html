@@ -31,7 +31,7 @@
 
 {% block content %}
 <div class="artist-header">
-  <div class="section-label">Artist</div>
+  <div class="section-label">{{ _("Artist") }}</div>
   <div class="page-heading">{{ artist.first_name }} {{ artist.last_name }}</div>
   <div style="font-size:0.85rem;color:var(--muted);">
     {% if artist.nationality %}{{ artist.nationality }}{% endif %}
@@ -40,9 +40,9 @@
 </div>
 
 <div class="artist-tabs">
-  <a href="?tab=artworks" class="artist-tab {% if tab == 'artworks' %}active{% endif %}">Works</a>
-  <a href="?tab=exhibitions" class="artist-tab {% if tab == 'exhibitions' %}active{% endif %}">Exhibitions</a>
-  <a href="?tab=biography" class="artist-tab {% if tab == 'biography' %}active{% endif %}">Biography</a>
+  <a href="?tab=artworks" class="artist-tab {% if tab == 'artworks' %}active{% endif %}">{{ _("Works") }}</a>
+  <a href="?tab=exhibitions" class="artist-tab {% if tab == 'exhibitions' %}active{% endif %}">{{ _("Exhibitions") }}</a>
+  <a href="?tab=biography" class="artist-tab {% if tab == 'biography' %}active{% endif %}">{{ _("Biography") }}</a>
 </div>
 
 <!-- Artworks tab -->

@@ -1,0 +1,180 @@
+# ArtNode translations
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Artists"
+msgstr ""
+
+msgid "Artworks"
+msgstr ""
+
+msgid "Exhibitions"
+msgstr ""
+
+msgid "Blog"
+msgstr ""
+
+msgid "About"
+msgstr ""
+
+msgid "Contact"
+msgstr ""
+
+msgid "Current Exhibition"
+msgstr ""
+
+msgid "Coming Soon"
+msgstr ""
+
+msgid "View Exhibition"
+msgstr ""
+
+msgid "View Work"
+msgstr ""
+
+msgid "Available Works"
+msgstr ""
+
+msgid "Selected Works"
+msgstr ""
+
+msgid "View All Artists"
+msgstr ""
+
+msgid "No artists currently represented."
+msgstr ""
+
+msgid "Artist"
+msgstr ""
+
+msgid "Works"
+msgstr ""
+
+msgid "Biography"
+msgstr ""
+
+msgid "No works currently available."
+msgstr ""
+
+msgid "No exhibition history."
+msgstr ""
+
+msgid "Biography not available."
+msgstr ""
+
+msgid "Artist Website"
+msgstr ""
+
+msgid "Collection"
+msgstr ""
+
+msgid "All Artists"
+msgstr ""
+
+msgid "All Mediums"
+msgstr ""
+
+msgid "Min CHF"
+msgstr ""
+
+msgid "Max CHF"
+msgstr ""
+
+msgid "Filter"
+msgstr ""
+
+msgid "Clear"
+msgstr ""
+
+msgid "No image available"
+msgstr ""
+
+msgid "Medium"
+msgstr ""
+
+msgid "Dimensions"
+msgstr ""
+
+msgid "Reference"
+msgstr ""
+
+msgid "Availability"
+msgstr ""
+
+msgid "Available"
+msgstr ""
+
+msgid "Sold"
+msgstr ""
+
+msgid "Enquire about this work"
+msgstr ""
+
+msgid "First Name"
+msgstr ""
+
+msgid "Last Name *"
+msgstr ""
+
+msgid "Email *"
+msgstr ""
+
+msgid "Message"
+msgstr ""
+
+msgid "Send Enquiry"
+msgstr ""
+
+msgid "Programme"
+msgstr ""
+
+msgid "Current"
+msgstr ""
+
+msgid "Forthcoming"
+msgstr ""
+
+msgid "Past Exhibitions"
+msgstr ""
+
+msgid "No exhibitions scheduled."
+msgstr ""
+
+msgid "Works in Exhibition"
+msgstr ""
+
+msgid "No works listed for this exhibition."
+msgstr ""
+
+msgid "No posts published yet."
+msgstr ""
+
+msgid "Read more"
+msgstr ""
+
+msgid "Get in Touch"
+msgstr ""
+
+msgid "Address"
+msgstr ""
+
+msgid "Phone"
+msgstr ""
+
+msgid "Send a Message"
+msgstr ""
+
+msgid "Send Message"
+msgstr ""
+
+msgid "The Gallery"
+msgstr ""
+
+msgid "Visit"
+msgstr ""
+
+msgid "Represented Artists"
+msgstr ""
+

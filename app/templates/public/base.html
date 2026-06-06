@@ -164,12 +164,19 @@
       <span></span><span></span><span></span>
     </button>
     <ul class="nav-links" id="navLinks">
-      <li><a href="{{ url_for('public.artists') }}">Artists</a></li>
-      <li><a href="{{ url_for('public.artworks') }}">Artworks</a></li>
-      <li><a href="{{ url_for('public.exhibitions') }}">Exhibitions</a></li>
-      <li><a href="{{ url_for('public.blog') }}">Blog</a></li>
-      <li><a href="{{ url_for('public.about') }}">About</a></li>
-      <li><a href="{{ url_for('public.contact') }}">Contact</a></li>
+      <li><a href="{{ url_for('public.artists') }}">{{ _("Artists") }}</a></li>
+      <li><a href="{{ url_for('public.artworks') }}">{{ _("Artworks") }}</a></li>
+      <li><a href="{{ url_for('public.exhibitions') }}">{{ _("Exhibitions") }}</a></li>
+      <li><a href="{{ url_for('public.blog') }}">{{ _("Blog") }}</a></li>
+      <li><a href="{{ url_for('public.about') }}">{{ _("About") }}</a></li>
+      <li><a href="{{ url_for('public.contact') }}">{{ _("Contact") }}</a></li>
+      <li class="nav-lang-switcher">
+        {% set current_lang = session.get("lang", "de") %}
+        {% for lang in ["de", "fr", "it", "en"] %}
+        <a href="{{ url_for('public.set_lang', lang=lang) }}"
+           style="font-size:0.72rem;letter-spacing:0.06em;{% if lang == current_lang %}font-weight:700;{% endif %}">{{ lang|upper }}</a>
+        {% endfor %}
+      </li>
     </ul>
   </nav>
 
