@@ -85,6 +85,26 @@ def parse_artist_name(raw: str) -> dict:
 
 def wipe(session):
     print("Wiping data...")
+    # Purge MinIO images
+    try:
+        import os
+        from minio import Minio
+        from minio.deleteobjects import DeleteObject
+        client = Minio(
+            os.environ.get("MINIO_ENDPOINT", "minio:9000"),
+            access_key=os.environ.get("MINIO_ROOT_USER", "minioadmin"),
+            secret_key=os.environ.get("MINIO_ROOT_PASSWORD", ""),
+            secure=False
+        )
+        bucket = os.environ.get("MINIO_BUCKET", "artnode-media")
+        objects = list(client.list_objects(bucket, prefix="images/", recursive=True))
+        if objects:
+            errors = list(client.remove_objects(bucket, [DeleteObject(o.object_name) for o in objects]))
+            print(f"  MinIO: purged {len(objects)} image(s)")
+        else:
+            print("  MinIO: no images to purge")
+    except Exception as e:
+        print(f"  MinIO purge skipped: {e}")
 
     tables = [
         "viewing_room_artwork",

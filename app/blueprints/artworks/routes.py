@@ -188,9 +188,26 @@ def request_is_get():
 @bp.route("/artworks/<int:id>/delete", methods=["POST"])
 @login_required
 def delete(id):
+    import os
+    from minio import Minio
     artwork = Artwork.query.filter_by(
         id=id, tenant_id=current_user.tenant_id
     ).first_or_404()
+    # Delete images from MinIO
+    minio_keys = [img.minio_key for img in artwork.images if img.minio_key]
+    if minio_keys:
+        try:
+            client = Minio(
+                os.environ.get("MINIO_ENDPOINT", "minio:9000"),
+                access_key=os.environ.get("MINIO_ROOT_USER", "minioadmin"),
+                secret_key=os.environ.get("MINIO_ROOT_PASSWORD"),
+                secure=False
+            )
+            bucket = os.environ.get("MINIO_BUCKET", "artnode-media")
+            for key in minio_keys:
+                client.remove_object(bucket, key)
+        except Exception:
+            pass
     artwork.active = False
     db.session.commit()
     flash("Artwork removed from collection.", "success")
