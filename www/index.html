@@ -42,9 +42,17 @@
         <span class="nav-logo-mark" aria-hidden="true"></span>
         ArtNode
     </a>
-    <button class="nav-burger" id="navBurger" aria-label="Menu" aria-expanded="false">
+    <div style="display:flex;align-items:center;gap:16px;">
+      <div class="lang-switcher" role="navigation" aria-label="Language" style="display:flex;gap:6px;">
+        <button class="lang-btn" data-lang="de" onclick="setLang('de')">DE</button>
+        <button class="lang-btn" data-lang="fr" onclick="setLang('fr')">FR</button>
+        <button class="lang-btn" data-lang="it" onclick="setLang('it')">IT</button>
+        <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
+      </div>
+      <button class="nav-burger" id="navBurger" aria-label="Menu" aria-expanded="false">
         <span></span><span></span><span></span>
-    </button>
+      </button>
+    </div>
     <div class="nav-menu" id="navMenu">
         <a href="#features"    data-t="nav_features"   onclick="closeMenu()">Funktionen</a>
         <a href="#hosting"     data-t="nav_hosting"    onclick="closeMenu()">Hosting</a>
@@ -229,12 +237,7 @@
 ════════════════════════════════════════════════════════════ -->
 <footer class="site-footer">
     <p data-t="footer_copy">© 2025 ArtNode — MIT-Lizenz</p>
-    <div class="lang-switcher" role="navigation" aria-label="Language">
-        <button class="lang-btn" data-lang="de" onclick="setLang('de')">DE</button>
-        <button class="lang-btn" data-lang="fr" onclick="setLang('fr')">FR</button>
-        <button class="lang-btn" data-lang="it" onclick="setLang('it')">IT</button>
-        <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
-    </div>
+
 </footer>
 
 
