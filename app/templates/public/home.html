@@ -73,7 +73,7 @@
       <img src="{{ img.iiif_url }}" alt="{{ ex.title }}" class="hero-main-img">
       <div class="hero-overlay"></div>
       <div class="hero-text">
-        <div class="hero-label">Current Exhibition</div>
+        <div class="hero-label">{{ _("Current Exhibition") }}</div>
         <div class="hero-title">{{ ex.title }}</div>
         {% if ex.start_date or ex.end_date %}
         <div style="font-size:0.8rem;opacity:0.8;margin-bottom:16px;">
@@ -82,7 +82,7 @@
           {% if ex.end_date %}{{ ex.end_date|ch_date }}{% endif %}
         </div>
         {% endif %}
-        <a href="{{ url_for('public.exhibition_detail', id=ex.id) }}" class="btn-pub btn-pub-outline" style="color:white;border-color:rgba(255,255,255,0.6);">View Exhibition</a>
+        <a href="{{ url_for('public.exhibition_detail', id=ex.id) }}" class="btn-pub btn-pub-outline" style="color:white;border-color:rgba(255,255,255,0.6);">{{ _("View Exhibition") }}</a>
       </div>
     </div>
     {% endif %}
@@ -95,8 +95,8 @@
       {% set img = aw.images[0] if aw and aw.images else none %}
       {% if img and img.iiif_url %}
       {% if forth_first[0] and not current_exhibitions %}
-        {% set _ = forth_first.pop() %}
-        {% set _ = forth_first.append(false) %}
+        {% set _x = forth_first.pop() %}
+        {% set _x = forth_first.append(false) %}
       <div class="hero-slide active">
       {% else %}
       <div class="hero-slide">
@@ -105,12 +105,12 @@
         <img src="{{ img.iiif_url }}" alt="{{ ex.title }}" class="hero-main-img">
         <div class="hero-overlay"></div>
         <div class="hero-text">
-          <div class="hero-label">Coming Soon</div>
+          <div class="hero-label">{{ _("Coming Soon") }}</div>
           <div class="hero-title">{{ ex.title }}</div>
           {% if ex.start_date %}
-          <div style="font-size:0.8rem;opacity:0.8;margin-bottom:16px;">Opens {{ ex.start_date|ch_date }}</div>
+          <div style="font-size:0.8rem;opacity:0.8;margin-bottom:16px;">{{ _("Opens") }} {{ ex.start_date|ch_date }}</div>
           {% endif %}
-          <a href="{{ url_for('public.exhibition_detail', id=ex.id) }}" class="btn-pub btn-pub-outline" style="color:white;border-color:rgba(255,255,255,0.6);">View Exhibition</a>
+          <a href="{{ url_for('public.exhibition_detail', id=ex.id) }}" class="btn-pub btn-pub-outline" style="color:white;border-color:rgba(255,255,255,0.6);">{{ _("View Exhibition") }}</a>
         </div>
       </div>
       {% endif %}
@@ -126,7 +126,7 @@
       <div class="hero-text">
         <div class="hero-label">{% if aw.artist %}{{ aw.contact_artist.first_name if aw.contact_artist else (aw.artist.first_name if aw.artist else "") }} {{ aw.contact_artist.last_name if aw.contact_artist else (aw.artist.last_name if aw.artist else "") }}{% endif %}</div>
         <div class="hero-title">{{ aw.title }}</div>
-        <a href="{{ url_for('public.artwork_detail', id=aw.id) }}" class="btn-pub btn-pub-outline" style="color:white;border-color:rgba(255,255,255,0.6);">View Work</a>
+        <a href="{{ url_for('public.artwork_detail', id=aw.id) }}" class="btn-pub btn-pub-outline" style="color:white;border-color:rgba(255,255,255,0.6);">{{ _("View Work") }}</a>
       </div>
     </div>
     {% endif %}
@@ -138,10 +138,10 @@
 <div class="section">
   <div class="section-header">
     <div>
-      <div class="section-label">Available Works</div>
-      <div class="page-heading" style="font-size:1.6rem;">Selected Works</div>
+      <div class="section-label">{{ _("Available Works") }}</div>
+      <div class="page-heading" style="font-size:1.6rem;">{{ _("Selected Works") }}</div>
     </div>
-    <a href="{{ url_for('public.artists') }}" class="btn-pub btn-pub-outline" style="font-size:0.68rem;">View All Artists</a>
+    <a href="{{ url_for('public.artists') }}" class="btn-pub btn-pub-outline" style="font-size:0.68rem;">{{ _("View All Artists") }}</a>
   </div>
   <div class="artwork-grid">
     {% for aw in featured_artworks[:12] %}

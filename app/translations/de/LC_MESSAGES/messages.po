@@ -188,3 +188,7 @@ msgstr "Besuchen"
 msgid "Represented Artists"
 msgstr "Vertretene Künstler"
 
+
+msgid "Opens"
+msgstr "Ab"
+
