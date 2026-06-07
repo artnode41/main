@@ -80,7 +80,7 @@ const i18n = {
         contact_title:      "Brauchen Sie Hilfe beim Einstieg?",
         contact_desc:       "Hosting-Einrichtung, Installation oder Anpassungen — melden Sie sich, wir begleiten Sie durch den Prozess.",
         contact_cta:        "→ Kontakt aufnehmen",
-        download_zip:       "→ v1.0.0 herunterladen",
+        download_zip:       "→ v1.0.1 herunterladen",
         download_github:    "→ Quellcode auf GitHub",
 
         /* Footer */
@@ -159,7 +159,7 @@ const i18n = {
         contact_title:      "Besoin d'aide pour démarrer ?",
         contact_desc:       "Configuration de l'hébergement, installation ou personnalisation — contactez-nous et nous vous accompagnons.",
         contact_cta:        "→ Nous contacter",
-        download_zip:       "→ Télécharger v1.0.0",
+        download_zip:       "→ Télécharger v1.0.1",
         download_github:    "→ Code source sur GitHub",
 
         footer_copy:        "© 2025 ArtNode — Licence MIT",
@@ -237,7 +237,7 @@ const i18n = {
         contact_title:      "Hai bisogno di aiuto per iniziare?",
         contact_desc:       "Configurazione dell'hosting, installazione o personalizzazione — contattaci e ti accompagniamo passo dopo passo.",
         contact_cta:        "→ Contattaci",
-        download_zip:       "→ Scarica v1.0.0",
+        download_zip:       "→ Scarica v1.0.1",
         download_github:    "→ Codice sorgente su GitHub",
 
         footer_copy:        "© 2025 ArtNode — Licenza MIT",
@@ -315,7 +315,7 @@ const i18n = {
         contact_title:      "Need help getting started?",
         contact_desc:       "Hosting setup, installation, or customisation — get in touch and we'll walk you through it.",
         contact_cta:        "→ Get in touch",
-        download_zip:       "→ Download v1.0.0",
+        download_zip:       "→ Download v1.0.1",
         download_github:    "→ View source on GitHub",
 
         footer_copy:        "© 2025 ArtNode — MIT Licence",
