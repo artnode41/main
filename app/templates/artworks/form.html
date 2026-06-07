@@ -33,37 +33,23 @@
           </div>
           <div class="form-group">
             <label class="form-label">Medium</label>
-            <div style="display:flex;gap:4px;margin-bottom:8px;">
-              {% for lang in ["de","fr","it","en"] %}
-              <button type="button" class="trans-tab btn btn-secondary"
-                      data-lang="{{ lang }}" data-field="aw_medium"
-                      style="font-size:0.72rem;padding:3px 10px;{% if loop.first %}font-weight:700;border-color:var(--text);{% endif %}"
-                      onclick="switchTransTab(this,'aw_medium')">{{ lang|upper }}</button>
-              {% endfor %}
-            </div>
             {% for lang in ["de","fr","it","en"] %}
-            <input type="text" name="trans_medium_{{ lang }}"
-                   class="form-control trans-field" data-lang="{{ lang }}" data-field="aw_medium"
-                   style="{% if not loop.first %}display:none;{% endif %}"
-                   placeholder="e.g. Oil on canvas"
-                   value="{{ (artwork.translations or {}).get(lang, {}).get('medium', '') if artwork else '' }}">
+            <div style="margin-bottom:4px;display:flex;align-items:center;gap:8px;">
+              <span style="font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);width:24px;flex-shrink:0;">{{ lang|upper }}</span>
+              <input type="text" name="trans_medium_{{ lang }}" class="form-control"
+                     placeholder="e.g. Oil on canvas"
+                     value="{{ (artwork.translations or {}).get(lang, {}).get('medium', '') if artwork else '' }}">
+            </div>
             {% endfor %}
           </div>
           <div class="form-group">{{ form.dimensions.label(class="form-label") }}{{ form.dimensions(class="form-control", rows=2, placeholder="e.g. 100 x 80 cm") }}</div>
           <div class="form-group">
             <label class="form-label">Description</label>
-            <div style="display:flex;gap:4px;margin-bottom:8px;">
-              {% for lang in ["de","fr","it","en"] %}
-              <button type="button" class="trans-tab btn btn-secondary"
-                      data-lang="{{ lang }}" data-field="aw_description"
-                      style="font-size:0.72rem;padding:3px 10px;{% if loop.first %}font-weight:700;border-color:var(--text);{% endif %}"
-                      onclick="switchTransTab(this,'aw_description')">{{ lang|upper }}</button>
-              {% endfor %}
-            </div>
             {% for lang in ["de","fr","it","en"] %}
-            <textarea name="trans_description_{{ lang }}"
-                      class="form-control trans-field" data-lang="{{ lang }}" data-field="aw_description"
-                      rows="3" style="{% if not loop.first %}display:none;{% endif %}">{{ (artwork.translations or {}).get(lang, {}).get('description', '') if artwork else '' }}</textarea>
+            <div style="margin-bottom:var(--space-sm);">
+              <div style="font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:4px;">{{ lang|upper }}</div>
+              <textarea name="trans_description_{{ lang }}" class="form-control" rows="2">{{ (artwork.translations or {}).get(lang, {}).get('description', '') if artwork else '' }}</textarea>
+            </div>
             {% endfor %}
           </div>
         </div>
@@ -180,7 +166,7 @@ function switchTransTab(btn, field) {
   btn.style.fontWeight = "700"; btn.style.borderColor = "var(--text)";
   const lang = btn.dataset.lang;
   document.querySelectorAll(`.trans-field[data-field="${field}"]`).forEach(ta => {
-    ta.style.display = ta.dataset.lang === lang ? "" : "none";
+    const active = this.dataset ? false : false; // placeholder
   });
 }
 </script>

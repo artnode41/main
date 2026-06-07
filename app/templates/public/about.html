@@ -12,10 +12,10 @@
 {% endblock %}
 {% block content %}
 <div class="about-wrap" style="padding:80px 40px;max-width:900px;margin:0 auto;">
-  <div class="section-label">The Gallery</div>
   <div class="page-heading">{{ gallery.public_name or gallery.name }}</div>
-  {% if gallery.tagline %}
-  <div class="page-subheading" style="font-family:var(--font-serif);font-size:1.1rem;font-style:italic;">{{ gallery.tagline }}</div>
+  {% set tagline, _tl = get_trans(gallery, "tagline") %}
+  {% if tagline %}
+  <div class="page-subheading" style="font-family:var(--font-serif);font-size:1.1rem;font-style:italic;">{{ tagline }}</div>
   {% endif %}
 
   {% set about, ab_lang = get_trans(gallery, "about_text") %}
