@@ -75,6 +75,22 @@ def create_app():
 
     app.jinja_env.filters["ch_date"] = ch_date
 
+    # ── MinIO helper ─────────────────────────────────────────
+    def upload_to_minio(data, object_name, content_type="image/jpeg"):
+        import os, io
+        from minio import Minio
+        client = Minio(
+            os.environ.get("MINIO_ENDPOINT", "minio:9000"),
+            access_key=os.environ.get("MINIO_ROOT_USER", "minioadmin"),
+            secret_key=os.environ.get("MINIO_ROOT_PASSWORD"),
+            secure=False
+        )
+        bucket = os.environ.get("MINIO_BUCKET", "artnode-media")
+        client.put_object(bucket, object_name, io.BytesIO(data), len(data), content_type=content_type)
+        return f"/media/{bucket}/{object_name}"
+
+    app.upload_to_minio = upload_to_minio
+
     # ── Translation helper ───────────────────────────────────
     def get_trans(obj, field, lang=None, fallback=None):
         """Get translated field value with fallback."""

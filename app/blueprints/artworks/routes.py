@@ -345,3 +345,85 @@ def download_provenance_file(artwork_id, prov_id, file_idx):
         return redirect(url_for("artworks.detail", id=artwork_id))
 
 
+
+
+@bp.route("/<int:id>/images/upload", methods=["POST"])
+@login_required
+def upload_image(id):
+    from flask import current_app
+    from ...models import ArtworkImage
+    from ...extensions import db
+    import uuid
+
+    artwork = Artwork.query.filter_by(
+        id=id, tenant_id=current_user.tenant_id
+    ).first_or_404()
+
+    if "image" not in request.files:
+        flash("No file selected.", "error")
+        return redirect(url_for("artworks.detail", id=id))
+
+    file = request.files["image"]
+    if not file.filename.lower().endswith((".jpg", ".jpeg", ".png")):
+        flash("Only JPG and PNG files are accepted.", "error")
+        return redirect(url_for("artworks.detail", id=id))
+
+    data = file.read()
+    if len(data) > 10 * 1024 * 1024:
+        flash("File too large. Maximum size is 10MB.", "error")
+        return redirect(url_for("artworks.detail", id=id))
+
+    ext = "jpg" if file.filename.lower().endswith((".jpg", ".jpeg")) else "png"
+    content_type = "image/jpeg" if ext == "jpg" else "image/png"
+    object_name = f"images/{current_user.tenant_id}/{id}/{uuid.uuid4().hex}.{ext}"
+
+    try:
+        url = current_app.upload_to_minio(data, object_name, content_type)
+        sort_order = len(artwork.images)
+        img = ArtworkImage(
+            artwork_id=id,
+            minio_key=object_name,
+            iiif_url=url,
+            sort_order=sort_order,
+        )
+        db.session.add(img)
+        db.session.commit()
+        flash("Image uploaded.", "success")
+    except Exception as e:
+        flash(f"Upload failed: {str(e)}", "error")
+
+    return redirect(url_for("artworks.detail", id=id))
+
+
+@bp.route("/<int:id>/images/<int:image_id>/delete", methods=["POST"])
+@login_required
+def delete_image(id, image_id):
+    from flask import current_app
+    from ...models import ArtworkImage
+    from ...extensions import db
+    import os
+    from minio import Minio
+
+    artwork = Artwork.query.filter_by(
+        id=id, tenant_id=current_user.tenant_id
+    ).first_or_404()
+    img = ArtworkImage.query.filter_by(id=image_id, artwork_id=id).first_or_404()
+
+    # Delete from MinIO if it has a minio_key
+    if img.minio_key:
+        try:
+            client = Minio(
+                os.environ.get("MINIO_ENDPOINT", "minio:9000"),
+                access_key=os.environ.get("MINIO_ROOT_USER", "minioadmin"),
+                secret_key=os.environ.get("MINIO_ROOT_PASSWORD"),
+                secure=False
+            )
+            bucket = os.environ.get("MINIO_BUCKET", "artnode-media")
+            client.remove_object(bucket, img.minio_key)
+        except Exception:
+            pass
+
+    db.session.delete(img)
+    db.session.commit()
+    flash("Image deleted.", "success")
+    return redirect(url_for("artworks.detail", id=id))
