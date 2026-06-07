@@ -153,6 +153,8 @@ def edit(id):
             trans[lang]["description"] = request.form.get(f"trans_description_{lang}", "").strip()
             trans[lang]["medium"] = request.form.get(f"trans_medium_{lang}", "").strip()
         artwork.translations = trans
+        from sqlalchemy.orm.attributes import flag_modified
+        flag_modified(artwork, 'translations')
         artwork.object_type = form.object_type.data or None
         artwork.status = form.status.data
         artwork.price = form.price.data

@@ -20,7 +20,6 @@
 
   {% set about, ab_lang = get_trans(gallery, "about_text") %}
   {% if about %}
-  {% if ab_lang %}<span style="font-size:0.65rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin-top:24px;display:block;">{{ ab_lang|upper }}</span>{% endif %}
   <div style="max-width:640px;margin-top:8px;font-size:0.95rem;line-height:1.9;color:#333;">
     {{ about|nl2br }}
   </div>

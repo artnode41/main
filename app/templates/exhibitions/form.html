@@ -21,42 +21,21 @@
         </div>
         <div class="form-group">
           <label class="form-label">Description</label>
-          <div style="display:flex;gap:4px;margin-bottom:8px;">
-            {% for lang in ["de","fr","it","en"] %}
-            <button type="button" class="trans-tab btn btn-secondary"
-                    data-lang="{{ lang }}" data-field="ex_description"
-                    style="font-size:0.72rem;padding:3px 10px;{% if loop.first %}font-weight:700;border-color:var(--text);{% endif %}"
-                    onclick="switchTransTab(this,'ex_description')">{{ lang|upper }}</button>
-            {% endfor %}
-          </div>
           {% for lang in ["de","fr","it","en"] %}
-          <textarea name="trans_description_{{ lang }}"
-                    class="form-control trans-field" data-lang="{{ lang }}" data-field="ex_description"
-                    rows="5" style="{% if not loop.first %}display:none;{% endif %}"
-                    placeholder="Exhibition description or press text...">{{ (exhibition.translations or {}).get(lang, {}).get('description', '') if exhibition else '' }}</textarea>
+          <div style="margin-bottom:var(--space-md);">
+            <div style="font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:4px;">{{ lang|upper }}</div>
+            <textarea name="trans_description_{{ lang }}" class="form-control" rows="3"
+                      placeholder="Description in {{ lang|upper }}...">{{ (exhibition.translations or {}).get(lang, {}).get("description", "") if exhibition else "" }}</textarea>
+          </div>
           {% endfor %}
         </div>
         <label style="display:flex;align-items:center;gap:10px;cursor:pointer;font-size:0.88rem;margin-top:var(--space-md);">{{ form.is_active_show(style="width:16px;height:16px;") }} {{ form.is_active_show.label.text }}</label>
       </div>
       <div style="display:flex;gap:var(--space-md);justify-content:flex-end;">
-        <a href="{{ url_for('exhibitions.index') }}" class="btn btn-secondary">Cancel</a>
+        <a href="{{ url_for("exhibitions.index") }}" class="btn btn-secondary">Cancel</a>
         <button type="submit" class="btn btn-primary">{% if exhibition %}Save Changes{% else %}Create Exhibition{% endif %}</button>
       </div>
     </div>
   </form>
 </div>
-{% block extra_js %}
-<script>
-function switchTransTab(btn, field) {
-  document.querySelectorAll(`.trans-tab[data-field="${field}"]`).forEach(b => {
-    b.style.fontWeight = ""; b.style.borderColor = "";
-  });
-  btn.style.fontWeight = "700"; btn.style.borderColor = "var(--text)";
-  const lang = btn.dataset.lang;
-  document.querySelectorAll(`.trans-field[data-field="${field}"]`).forEach(ta => {
-    ta.style.display = ta.dataset.lang === lang ? "" : "none";
-  });
-}
-</script>
-{% endblock %}
 {% endblock %}

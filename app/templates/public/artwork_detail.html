@@ -72,7 +72,6 @@
     {% set desc, desc_lang = get_trans(artwork, "description") %}
     {% if desc %}
     <div style="margin-bottom:28px;">
-      {% if desc_lang %}<span style="font-size:0.65rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;display:block;">{{ desc_lang|upper }}</span>{% endif %}
       <p style="font-size:0.9rem;line-height:1.8;color:var(--text);margin:0;">{{ desc }}</p>
     </div>
     {% endif %}
@@ -91,7 +90,7 @@
     <div style="margin-bottom:32px;">
       {% set med, med_lang = get_trans(artwork, "medium") %}
       {% if med or artwork.medium %}
-      <div class="meta-row"><span class="meta-label">{{ _("Medium") }}</span><span class="meta-value">{{ med or artwork.medium }}{% if med_lang %} <span style="font-size:0.6rem;color:var(--muted);">{{ med_lang|upper }}</span>{% endif %}</span></div>
+      <div class="meta-row"><span class="meta-label">{{ _("Medium") }}</span><span class="meta-value">{{ med or artwork.medium }}</span></div>
       {% endif %}
       {% if artwork.dimensions %}
       <div class="meta-row"><span class="meta-label">{{ _("Dimensions") }}</span><span class="meta-value">{{ artwork.dimensions }}</span></div>

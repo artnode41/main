@@ -69,6 +69,11 @@ def edit(id):
         form.end_date.data = exhibition.end_date.date() if exhibition.end_date else None
         form.is_active_show.data = exhibition.is_active_show or False
         form.is_active_show.data = exhibition.is_active_show or False
+    if request.method == "POST":
+        from flask import current_app
+        current_app.logger.warning(f"POST data keys: {list(request.form.keys())}")
+        current_app.logger.warning(f"trans_de: {request.form.get('trans_description_de', 'NOT FOUND')[:50]}")
+        current_app.logger.warning(f"form valid: {form.validate()}, errors: {form.errors}")
     if form.validate_on_submit():
         exhibition.title = form.title.data
         exhibition.description = form.description.data or None
@@ -78,7 +83,9 @@ def edit(id):
             if lang not in trans:
                 trans[lang] = {}
             trans[lang]["description"] = val
+        from sqlalchemy.orm.attributes import flag_modified
         exhibition.translations = trans
+        flag_modified(exhibition, "translations")
         exhibition.venue = form.venue.data or None
         exhibition.start_date = datetime.combine(form.start_date.data, datetime.min.time()).replace(tzinfo=timezone.utc) if form.start_date.data else None
         exhibition.end_date = datetime.combine(form.end_date.data, datetime.min.time()).replace(tzinfo=timezone.utc) if form.end_date.data else None

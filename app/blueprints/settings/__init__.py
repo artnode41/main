@@ -43,6 +43,8 @@ def index():
             trans[lang]["tagline"] = _req.form.get(f"trans_tagline_{lang}", "").strip()
             trans[lang]["about_text"] = _req.form.get(f"trans_about_{lang}", "").strip()
         gallery.translations = trans
+        from sqlalchemy.orm.attributes import flag_modified
+        flag_modified(gallery, 'translations')
         db.session.commit()
         flash("Settings saved successfully.", "success")
         return redirect(url_for("settings.index"))

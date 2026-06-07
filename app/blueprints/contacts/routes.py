@@ -48,6 +48,8 @@ def _save_contact_from_form(contact, form):
                 trans[lang] = {}
             trans[lang]["biography"] = val
         contact.translations = trans
+        from sqlalchemy.orm.attributes import flag_modified
+        flag_modified(contact, 'translations')
         contact.birth_year = form.birth_year.data
         contact.death_year = form.death_year.data
         contact.nationality = form.nationality.data or None

@@ -23,7 +23,6 @@
   </div>
   {% set desc, desc_lang = get_trans(exhibition, "description") %}
   {% if desc %}
-  {% if desc_lang %}<span style="font-size:0.65rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin-top:24px;display:block;">{{ desc_lang|upper }}</span>{% endif %}
   <p style="max-width:640px;margin-top:8px;font-size:0.95rem;line-height:1.8;color:#333;">{{ desc }}</p>
   {% endif %}
 </div>
