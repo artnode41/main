@@ -43,6 +43,7 @@ The demo resets periodically to a clean state (181 artworks, 23 artists). Feel f
 **Viewing Rooms**
 - Password-protected, date-gated online viewing
 - Shareable link, no login required for visitors
+- Quick-share: select artworks from the inventory list and generate a public link in one click
 
 **Provenance (KGTG)**
 - Per-event PDF certificate → SHA-256 hash → Bitcoin timestamping via OpenTimestamps → optional GPG signature
@@ -53,6 +54,7 @@ The demo resets periodically to a clean state (181 artworks, 23 artists). Feel f
 - LIDO 1.1 XML per artwork and bulk paginated
 - JSON-LD with schema.org + CIDOC-CRM vocabularies
 - Token-authenticated REST API
+- Export & API page in admin (`/admin/settings/export`) — token display, endpoint reference, one-click LIDO XML download
 
 ---
 
@@ -73,6 +75,31 @@ The demo resets periodically to a clean state (181 artworks, 23 artists). Feel f
 > **Note:** WeasyPrint is pinned at 60.2 / pydyf 0.10.0. Version 62.x has a known PDF transform bug — do not upgrade.
 
 ---
+
+## Public Site
+
+The public gallery website (`site.artnode.ch`) is fully mobile-responsive. All 9 public templates include `@media (max-width: 768px)` breakpoints — hamburger nav, stacked layouts, adjusted padding.
+
+**Public pages:**
+- `/artists` — image grid with artist thumbnails, artist photo upload in admin
+- `/artworks` — filterable collection (artist, medium category, price range)
+- `/exhibitions` — current, forthcoming, past
+- `/blog` — posts per language, smart language switching
+- `/about`, `/contact` — gallery info and contact form
+
+**Multilingual (DE/FR/IT/EN):**
+- UI strings via Flask-Babel
+- Artist biography, artwork description/medium, exhibition description — JSONB translation tabs in admin
+- Gallery tagline and about text — translation tabs in settings
+- Blog posts — separate records per language linked by translation group
+- Language switcher in nav, session-based, browser language detection on first visit
+
+## User Management
+
+Multiple gallery staff can be invited via `/admin/settings/users`:
+- Invite by email (sends password reset link)
+- Assign role: Admin or Staff
+- Delete users
 
 ## Self-Hosting
 

@@ -16,3 +16,5 @@ venv/
 
 # WeasyPrint output
 *.pdf
+app/static/img/logo_artnode.svg
+www/logo_artnode.svg
