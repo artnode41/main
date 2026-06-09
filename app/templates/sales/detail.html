@@ -17,6 +17,11 @@
     <a href="{{ url_for('sales.invoice', id=sale.id) }}" class="btn btn-secondary" style="margin-left:8px;">
       Download Invoice
     </a>
+    {% if sale.vat_scheme == "margin" %}
+    <a href="{{ url_for('sales.margin_report', id=sale.id) }}" class="btn btn-secondary" style="margin-left:8px;">
+      Margin Report (ESTV)
+    </a>
+    {% endif %}
     {% endif %}
 
     {% if sale.status == "confirmed" %}

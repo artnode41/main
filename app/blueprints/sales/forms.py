@@ -11,6 +11,11 @@ PAYMENT_METHOD_CHOICES = [
     ("other", "Other"),
 ]
 
+TAX_METHOD_CHOICES = [
+    ("standard", "Standard VAT 8.1% (Primärmarkt)"),
+    ("margin",   "Margenbesteuerung Art. 24a MWSTG (Sekundärmarkt)"),
+]
+
 
 class SaleForm(FlaskForm):
     buyer_id = SelectField("Buyer", coerce=int, validators=[Optional()])
@@ -18,6 +23,7 @@ class SaleForm(FlaskForm):
     currency = SelectField("Currency", choices=[
         ("CHF", "CHF"), ("EUR", "EUR"), ("USD", "USD"), ("GBP", "GBP")
     ])
+    tax_method = SelectField("Tax Method", choices=TAX_METHOD_CHOICES, default="standard")
     vat_rate = DecimalField("VAT Rate (%)", validators=[Optional()],
                              places=2, default=0)
     payment_method = SelectField("Payment Method",

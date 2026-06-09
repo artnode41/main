@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}Margenbesteuerung — {{ sale.invoice_number }}{% endblock %}
+{% block content %}
+<div class="page-header">
+  <div>
+    <a href="{{ url_for('sales.detail', id=sale.id) }}" style="font-size:0.75rem;color:var(--text-muted);letter-spacing:0.06em;text-transform:uppercase;">&larr; Sale</a>
+    <div class="page-title" style="margin-top:4px;">Internal Tax Record · Art. 24a MWSTG</div>
+    <div class="page-subtitle">{{ sale.invoice_number }}</div>
+  </div>
+  <div class="page-actions">
+    <a href="{{ url_for('sales.detail', id=sale.id) }}" class="btn btn-secondary">← Zurück</a>
+  </div>
+</div>
+<div class="page-body" style="max-width:640px;">
+  <div style="background:#fff3cd;border:1px solid #ffc107;padding:var(--space-md);margin-bottom:var(--space-lg);font-size:0.8rem;">
+    ⚠ Internal document — not for the buyer
+  </div>
+  <div style="background:var(--surface);border:1px solid var(--border);padding:var(--space-xl);margin-bottom:var(--space-lg);">
+    {% macro row(label, value) %}
+    <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border-light);">
+      <span style="font-size:0.75rem;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-muted);">{{ label }}</span>
+      <span style="font-size:0.85rem;color:var(--text-primary);">{{ value }}</span>
+    </div>
+    {% endmacro %}
+    {{ row("Invoice No.", sale.invoice_number) }}
+    {{ row("Invoice Date", (sale.invoice_date or sale.created_at)|ch_date("long")) }}
+    {{ row("Artwork", line.artwork.title) }}
+    {% if line.artwork.inventory_number %}{{ row("Inventory No.", line.artwork.inventory_number) }}{% endif %}
+    {{ row("Purchase Price", line.purchase_price_at_sale|ch_currency(line.currency)) }}
+    {{ row("Sale Price (Gross)", line.price|ch_currency(line.currency)) }}
+    <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border-light);">
+      <span style="font-size:0.75rem;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-muted);">Gross Margin</span>
+      <span style="font-size:0.85rem;font-weight:500;">{{ margin|ch_currency(line.currency) }}</span>
+    </div>
+    <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border-light);">
+      <span style="font-size:0.75rem;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-muted);">Internal VAT (8.1% on margin)</span>
+      <span style="font-size:0.85rem;font-weight:500;color:#c0392b;">{{ internal_vat|ch_currency(line.currency) }}</span>
+    </div>
+    <div style="display:flex;justify-content:space-between;padding:10px 0;">
+      <span style="font-size:0.75rem;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-muted);">Net Margin (after VAT)</span>
+      <span style="font-size:0.9rem;font-weight:500;">{{ (margin - internal_vat)|ch_currency(line.currency) }}</span>
+    </div>
+  </div>
+  <div style="background:#fffbe6;border:1px solid #f0d060;padding:var(--space-lg);font-size:0.8rem;line-height:1.6;color:#555;">
+    <strong>Rechtsgrundlage:</strong> Margenbesteuerung gemäss Art. 24a MWSTG.<br>
+    Die MWST von {{ internal_vat|ch_currency(line.currency) }} ist in der Gross Margin enthalten und an die ESTV abzuführen.<br>
+    Auf der Kundenrechnung ({{ sale.invoice_number }}) wird kein MWST-Betrag ausgewiesen.
+  </div>
+</div>
+{% endblock %}

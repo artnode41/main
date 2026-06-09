@@ -73,6 +73,11 @@
           </div>
 
           <div class="form-group">
+            {{ form.tax_method.label(class="form-label") }}
+            {{ form.tax_method(class="form-control", id="taxMethod") }}
+          </div>
+
+          <div class="form-group" id="vatRateGroup">
             {{ form.vat_rate.label(class="form-label") }}
             {{ form.vat_rate(class="form-control", id="vatRate", placeholder="0.00") }}
           </div>
@@ -132,6 +137,8 @@
 <script>
 const priceInput = document.getElementById('priceInput');
 const vatInput = document.getElementById('vatRate');
+const taxMethodSelect = document.getElementById('taxMethod');
+const purchasePriceInput = null;
 {% if artwork.is_consignment and artwork.consignment %}
 const galleryPct = {{ artwork.consignment.gallery_split_pct }} / 100;
 {% endif %}
@@ -140,15 +147,32 @@ function fmt(n) {
   return n.toLocaleString('de-CH', {minimumFractionDigits: 2, maximumFractionDigits: 2});
 }
 
+function isMargin() {
+  return taxMethodSelect.value === 'margin';
+}
+
+function toggleMarginFields() {
+  document.getElementById('purchasePriceGroup').style.display = isMargin() ? '' : 'none';
+  document.getElementById('vatRateGroup').style.display = isMargin() ? 'none' : '';
+}
+
 function update() {
   const price = parseFloat(priceInput.value) || 0;
-  const vatRate = parseFloat(vatInput.value) || 0;
-  const vat = price * vatRate / 100;
-  const total = price + vat;
-
   document.getElementById('displayPrice').textContent = fmt(price);
-  document.getElementById('displayVat').textContent = fmt(vat);
-  document.getElementById('displayTotal').textContent = fmt(total);
+
+  if (isMargin()) {
+    const purchase = parseFloat(purchasePriceInput ? purchasePriceInput.value : 0) || 0;
+    const margin = price - purchase;
+    const internalVat = margin > 0 ? margin - margin / 1.081 : 0;
+    document.getElementById('displayVat').textContent = 'inkl. Marge (Art. 24a)';
+    document.getElementById('displayTotal').textContent = fmt(price);
+  } else {
+    const vatRate = parseFloat(vatInput.value) || 0;
+    const vat = price * vatRate / 100;
+    const total = price + vat;
+    document.getElementById('displayVat').textContent = fmt(vat);
+    document.getElementById('displayTotal').textContent = fmt(total);
+  }
 
   {% if artwork.is_consignment and artwork.consignment %}
   const galleryNet = price * galleryPct;
@@ -160,6 +184,9 @@ function update() {
 
 priceInput.addEventListener('input', update);
 vatInput.addEventListener('input', update);
+taxMethodSelect.addEventListener('change', function() { toggleMarginFields(); update(); });
+if (purchasePriceInput) purchasePriceInput.addEventListener('input', update);
+toggleMarginFields();
 update();
 </script>
 {% endblock %}

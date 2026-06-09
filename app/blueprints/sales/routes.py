@@ -16,16 +16,32 @@ def calc_profit(line):
     """
     Calculate gallery profit for a sale line item.
     - Consignment: gallery_net already calculated from split
+    - Margin: profit = margin - internal VAT owed
     - Owned: profit = sale price - acquisition cost
     Returns (gallery_profit, consignor_due, profit_label)
     """
     artwork = line.artwork
     if artwork.ownership_type == "consignment" or artwork.is_consignment:
         return line.gallery_net, line.consignor_net, "Gallery Commission"
+    if line.tax_method == "margin":
+        purchase = line.purchase_price_at_sale or Decimal("0")
+        margin = line.price - purchase
+        internal_vat = (margin - margin / Decimal("1.081")).quantize(Decimal("0.01")) if margin > 0 else Decimal("0")
+        return margin - internal_vat, Decimal("0"), "Gallery Profit (nach interner MWST Marge)"
     else:
         acq = artwork.acquisition_cost or Decimal("0")
         profit = line.price - acq
         return profit, Decimal("0"), "Gallery Profit (after acquisition cost)"
+
+
+def calc_margin_vat(line):
+    """Internal VAT owed to ESTV for a margin-taxed line. Never shown on invoice."""
+    if line.tax_method != "margin" or not line.purchase_price_at_sale:
+        return Decimal("0")
+    margin = line.price - line.purchase_price_at_sale
+    if margin <= 0:
+        return Decimal("0")
+    return (margin - margin / Decimal("1.081")).quantize(Decimal("0.01"))
 
 
 @bp.route("/")
@@ -79,8 +95,16 @@ def create(artwork_id):
 
     if form.validate_on_submit():
         price = Decimal(str(form.price.data))
-        vat_rate = Decimal(str(form.vat_rate.data or 0))
-        vat_amount = (price * vat_rate / 100).quantize(Decimal("0.01"))
+        tax_method = form.tax_method.data or "standard"
+
+        if tax_method == "margin":
+            vat_rate = Decimal("0")
+            vat_amount = Decimal("0")
+            purchase_price_at_sale = artwork.acquisition_cost or Decimal("0")
+        else:
+            vat_rate = Decimal(str(form.vat_rate.data or 0))
+            vat_amount = (price * vat_rate / 100).quantize(Decimal("0.01"))
+            purchase_price_at_sale = None
 
         # Profit calculation depends on ownership type
         if artwork.ownership_type == "consignment" or artwork.is_consignment:
@@ -121,7 +145,7 @@ def create(artwork_id):
             status="confirmed",
             invoice_number=invoice_number,
             invoice_date=datetime.now(timezone.utc),
-            vat_scheme=vat_scheme,
+            vat_scheme=tax_method,
             notes=form.notes.data or None,
             created_by_id=current_user.id,
         )
@@ -138,6 +162,8 @@ def create(artwork_id):
             consignor_net=consignor_net,
             vat_rate=vat_rate,
             vat_amount=vat_amount,
+            tax_method=tax_method,
+            purchase_price_at_sale=purchase_price_at_sale,
         )
         db.session.add(line_item)
         artwork.status = "sold"
@@ -196,7 +222,7 @@ def payment_link(id):
         flash("Payment provider not configured.", "error")
         return redirect(url_for("sales.detail", id=sale.id))
     try:
-        total = line.price + (line.vat_amount or 0)
+        total = line.price if line.tax_method == "margin" else line.price + (line.vat_amount or 0)
         buyer_email = line.buyer.email if line.buyer else None
         buyer_name = None
         if line.buyer:
@@ -292,3 +318,28 @@ def webhook_payrexx():
         sale.status = "cancelled"
         db.session.commit()
     return {"status": "ok"}, 200
+
+
+@bp.route("/<int:id>/margin-report")
+@login_required
+def margin_report(id):
+    """Internal ESTV accounting view — never shown to buyer."""
+    from ...models import Gallery
+    sale = Sale.query.filter_by(
+        id=id, tenant_id=current_user.tenant_id
+    ).first_or_404()
+    if not sale.line_items:
+        flash("No line items.", "error")
+        return redirect(url_for("sales.detail", id=sale.id))
+    line = sale.line_items[0]
+    if line.tax_method != "margin":
+        flash("This sale uses standard VAT — no margin report applicable.", "info")
+        return redirect(url_for("sales.detail", id=sale.id))
+    margin = line.price - (line.purchase_price_at_sale or Decimal("0"))
+    internal_vat = calc_margin_vat(line)
+    gallery = Gallery.query.filter_by(id=current_user.tenant_id).first()
+    return render_template(
+        "sales/margin_report.html",
+        sale=sale, line=line, gallery=gallery,
+        margin=margin, internal_vat=internal_vat,
+    )

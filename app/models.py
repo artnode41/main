@@ -267,6 +267,8 @@ class ArtworkConsignment(db.Model):
     tenant_id          = Column(Integer, ForeignKey("gallery.id"), nullable=False)
     consignor_id       = Column(Integer, ForeignKey("contact.id"), nullable=True)
     gallery_split_pct  = Column(Numeric(5, 2), nullable=False)
+    purchase_price     = Column(Numeric(12, 2), nullable=True)
+    is_secondary_market = Column(Boolean, default=False)
     start_date         = Column(DateTime(timezone=True))
     end_date           = Column(DateTime(timezone=True))
     terms              = Column(Text)
@@ -359,6 +361,8 @@ class SaleLineItem(db.Model):
     consignor_net       = Column(Numeric(12, 2))
     vat_rate            = Column(Numeric(5, 2), default=0)
     vat_amount          = Column(Numeric(12, 2), default=0)
+    tax_method          = Column(String(10), default="standard", nullable=False)
+    purchase_price_at_sale = Column(Numeric(12, 2), nullable=True)
 
     sale                = relationship("Sale", back_populates="line_items")
     artwork             = relationship("Artwork", back_populates="sale_lines")
