@@ -56,6 +56,10 @@
         <div id="acquisitionFields" style="display:none;border-top:1px solid var(--border);margin-top:var(--space-lg);padding-top:var(--space-lg);">
           <div style="font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:var(--space-lg);">Art. 24a MWSTG — Acquisition Details</div>
           <div class="form-group">
+            {{ form.purchase_invoice_number.label(class="form-label") }}
+            {{ form.purchase_invoice_number(class="form-control", placeholder="e.g. RE-2026-001") }}
+          </div>
+          <div class="form-group">
             {{ form.supplier_address.label(class="form-label") }}
             {{ form.supplier_address(class="form-control", rows=3, placeholder="Full name and postal address of seller") }}
           </div>

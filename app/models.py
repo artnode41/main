@@ -249,6 +249,7 @@ class ArtworkProvenance(db.Model):
     ots_status     = Column(String(20), default="pending")  # pending|submitted|confirmed
     attached_files = Column(ARRAY(String), default=[])  # MinIO paths to attached documents
     # Art. 24a MWSTG acquisition fields
+    purchase_invoice_number = Column(String(100))
     supplier_address    = Column(Text)
     supplier_vat_status = Column(String(20))  # private|non_vat|vat_registered
     purchase_price      = Column(Numeric(12, 2))

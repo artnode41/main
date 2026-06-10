@@ -27,6 +27,7 @@ class ProvenanceForm(FlaskForm):
                                  validators=[Optional(), Length(max=2)])
     description = TextAreaField("Description", validators=[Optional()])
     # Art. 24a MWSTG — Acquisition fields (shown when event_type = acquisition)
+    purchase_invoice_number = StringField("Purchase Invoice Number", validators=[Optional(), Length(max=100)])
     supplier_address  = TextAreaField("Supplier Address", validators=[Optional()],
                                       description="Full postal address of seller")
     supplier_vat_status = SelectField("Supplier VAT Status", validators=[Optional()],

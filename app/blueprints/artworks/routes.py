@@ -233,6 +233,7 @@ def provenance_add(id):
             source_name=form.source_name.data or None,
             source_country=form.source_country.data.upper() if form.source_country.data else None,
             description=form.description.data or None,
+            purchase_invoice_number=form.purchase_invoice_number.data or None,
             supplier_address=form.supplier_address.data or None,
             supplier_vat_status=form.supplier_vat_status.data or None,
             purchase_price=form.purchase_price.data or None,

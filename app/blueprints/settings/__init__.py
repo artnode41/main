@@ -266,7 +266,8 @@ def export_estv_csv():
     writer = csv.writer(output, delimiter=";")
     writer.writerow([
         "Stock ID", "Artwork", "Artist",
-        "Purchase Date", "Purchase Price (CHF)",
+        "Purchase Date", "Purchase Invoice No.",
+        "Purchase Price (CHF)",
         "Invoice No.", "Invoice Date", "Sale Price (CHF)",
         "Margin (CHF)", "VAT Owed (CHF)"
     ])
@@ -282,11 +283,21 @@ def export_estv_csv():
         vat = (margin - margin / Decimal("1.081")).quantize(Decimal("0.01")) if margin > 0 else Decimal("0")
         total_margin += margin
         total_vat += vat
+        # Get purchase details from acquisition provenance event
+        from ...models import ArtworkProvenance
+        acq_prov = ArtworkProvenance.query.filter_by(
+            artwork_id=artwork.id, event_type="acquisition"
+        ).order_by(ArtworkProvenance.recorded_at.desc()).first()
+        purchase_invoice_no = acq_prov.purchase_invoice_number if acq_prov else ""
+        purchase_date = acq_prov.event_date.strftime("%d.%m.%Y") if acq_prov and acq_prov.event_date else (
+            artwork.acquisition_date.strftime("%d.%m.%Y") if artwork.acquisition_date else ""
+        )
         writer.writerow([
             artwork.inventory_number or f"ART-{artwork.id}",
             artwork.title,
             f"{artwork.contact_artist.last_name} {artwork.contact_artist.first_name}" if artwork.contact_artist else "",
-            artwork.acquisition_date.strftime("%d.%m.%Y") if artwork.acquisition_date else "",
+            purchase_date,
+            purchase_invoice_no,
             str(purchase_price),
             sale.invoice_number,
             sale.invoice_date.strftime("%d.%m.%Y") if sale.invoice_date else "",
