@@ -233,6 +233,11 @@ def provenance_add(id):
             source_name=form.source_name.data or None,
             source_country=form.source_country.data.upper() if form.source_country.data else None,
             description=form.description.data or None,
+            supplier_address=form.supplier_address.data or None,
+            supplier_vat_status=form.supplier_vat_status.data or None,
+            purchase_price=form.purchase_price.data or None,
+            right_of_disposal=form.right_of_disposal.data,
+            retention_30yr=form.retention_30yr.data,
             recorded_by_id=current_user.id,
             attached_files=[],
         )

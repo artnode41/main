@@ -42,9 +42,9 @@
     </div>
   </div>
   <div style="background:#fffbe6;border:1px solid #f0d060;padding:var(--space-lg);font-size:0.8rem;line-height:1.6;color:#555;">
-    <strong>Rechtsgrundlage:</strong> Margenbesteuerung gemäss Art. 24a MWSTG.<br>
-    Die MWST von {{ internal_vat|ch_currency(line.currency) }} ist in der Gross Margin enthalten und an die ESTV abzuführen.<br>
-    Auf der Kundenrechnung ({{ sale.invoice_number }}) wird kein MWST-Betrag ausgewiesen.
+    <strong>Legal basis:</strong> Margin taxation under Art. 24a MWSTG (Swiss VAT Act).<br>
+    The VAT of {{ internal_vat|ch_currency(line.currency) }} is included in the gross margin and must be remitted to the ESTV.<br>
+    The customer invoice ({{ sale.invoice_number }}) shows no VAT amount.
   </div>
 </div>
 {% endblock %}

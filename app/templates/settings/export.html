@@ -55,6 +55,26 @@
     </div>
   </div>
 
+  <div style="background:var(--surface);border:1px solid var(--border);padding:var(--space-xl);margin-bottom:var(--space-lg);">
+    <div style="font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:var(--space-lg);">ESTV Margin Tax Export (Art. 24a MWSTG)</div>
+    <p style="font-size:0.85rem;color:var(--text-secondary);margin-bottom:var(--space-lg);">
+      Export all margin-taxed sales for your accountant or tax submission. Filtered by invoice date range.
+      Includes: Stock ID, purchase date, purchase price, invoice number, sale price, margin, VAT owed per item.
+    </p>
+    <form method="GET" action="{{ url_for('settings.export_estv_csv') }}" style="display:flex;gap:var(--space-md);align-items:flex-end;flex-wrap:wrap;">
+      <div>
+        <label class="form-label" style="display:block;margin-bottom:4px;">From</label>
+        <input type="date" name="date_from" class="form-control" style="width:160px;">
+      </div>
+      <div>
+        <label class="form-label" style="display:block;margin-bottom:4px;">To</label>
+        <input type="date" name="date_to" class="form-control" style="width:160px;">
+      </div>
+      <button type="submit" class="btn btn-primary">Download CSV</button>
+    </form>
+    <p style="font-size:0.72rem;color:var(--text-muted);margin-top:var(--space-md);">Leave dates blank to export all margin-taxed sales. Anti-netting applied per item (losses → CHF 0.00 VAT).</p>
+  </div>
+
 </div>
 
 <script>

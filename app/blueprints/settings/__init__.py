@@ -1,4 +1,4 @@
-from flask import render_template, redirect, url_for, flash
+from flask import render_template, redirect, url_for, flash, request, Response
 from flask_security import login_required, current_user
 from flask import Blueprint
 from ...models import Gallery
@@ -239,3 +239,70 @@ def set_user_role(id):
     db.session.commit()
     flash(f"{user.email} role updated to {role_name}.", "success")
     return redirect(url_for("settings.users"))
+
+
+@bp.route("/export/estv-csv")
+@login_required
+def export_estv_csv():
+    import csv, io
+    from flask import Response
+    from ...models import Sale, SaleLineItem
+    from decimal import Decimal
+
+    date_from = request.args.get("date_from")
+    date_to = request.args.get("date_to")
+
+    query = SaleLineItem.query.join(Sale).filter(
+        Sale.tenant_id == current_user.tenant_id,
+        SaleLineItem.tax_method == "margin"
+    )
+    if date_from:
+        query = query.filter(Sale.invoice_date >= date_from)
+    if date_to:
+        query = query.filter(Sale.invoice_date <= date_to)
+    lines = query.order_by(Sale.invoice_date).all()
+
+    output = io.StringIO()
+    writer = csv.writer(output, delimiter=";")
+    writer.writerow([
+        "Stock ID", "Artwork", "Artist",
+        "Purchase Date", "Purchase Price (CHF)",
+        "Invoice No.", "Invoice Date", "Sale Price (CHF)",
+        "Margin (CHF)", "VAT Owed (CHF)"
+    ])
+
+    total_margin = Decimal("0")
+    total_vat = Decimal("0")
+
+    for line in lines:
+        artwork = line.artwork
+        sale = line.sale
+        purchase_price = line.purchase_price_at_sale or Decimal("0")
+        margin = max(Decimal("0"), line.price - purchase_price)
+        vat = (margin - margin / Decimal("1.081")).quantize(Decimal("0.01")) if margin > 0 else Decimal("0")
+        total_margin += margin
+        total_vat += vat
+        writer.writerow([
+            artwork.inventory_number or f"ART-{artwork.id}",
+            artwork.title,
+            f"{artwork.contact_artist.last_name} {artwork.contact_artist.first_name}" if artwork.contact_artist else "",
+            artwork.acquisition_date.strftime("%d.%m.%Y") if artwork.acquisition_date else "",
+            str(purchase_price),
+            sale.invoice_number,
+            sale.invoice_date.strftime("%d.%m.%Y") if sale.invoice_date else "",
+            str(line.price),
+            str(margin),
+            str(vat),
+        ])
+
+    # Totals row
+    writer.writerow([])
+    writer.writerow(["", "", "", "", "", "", "TOTAL", "", str(total_margin), str(total_vat)])
+
+    output.seek(0)
+    filename = f"ESTV_Margensteuer_{date_from or 'all'}_{date_to or 'all'}.csv"
+    return Response(
+        output.getvalue(),
+        mimetype="text/csv",
+        headers={"Content-Disposition": f"attachment; filename={filename}"}
+    )

@@ -52,6 +52,33 @@
              placeholder="Describe the provenance event in detail. This record is permanent and cannot be edited.") }}
         </div>
 
+        <!-- Art. 24a MWSTG acquisition fields -->
+        <div id="acquisitionFields" style="display:none;border-top:1px solid var(--border);margin-top:var(--space-lg);padding-top:var(--space-lg);">
+          <div style="font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:var(--space-lg);">Art. 24a MWSTG — Acquisition Details</div>
+          <div class="form-group">
+            {{ form.supplier_address.label(class="form-label") }}
+            {{ form.supplier_address(class="form-control", rows=3, placeholder="Full name and postal address of seller") }}
+          </div>
+          <div class="form-group">
+            {{ form.supplier_vat_status.label(class="form-label") }}
+            {{ form.supplier_vat_status(class="form-control") }}
+            <p style="font-size:0.72rem;color:var(--text-muted);margin-top:4px;">Margin tax only applies when seller is a private individual or non-VAT registered entity.</p>
+          </div>
+          <div class="form-group">
+            {{ form.purchase_price.label(class="form-label") }}
+            {{ form.purchase_price(class="form-control", placeholder="0.00") }}
+            <p style="font-size:0.72rem;color:var(--text-muted);margin-top:4px;">Gross = Net (no input VAT deductible). Stored internally, never shown on customer invoices.</p>
+          </div>
+          <label style="display:flex;align-items:center;gap:10px;cursor:pointer;font-size:0.85rem;margin-bottom:var(--space-md);">
+            {{ form.right_of_disposal(style="width:16px;height:16px;") }}
+            {{ form.right_of_disposal.label.text }}
+          </label>
+          <label style="display:flex;align-items:center;gap:10px;cursor:pointer;font-size:0.85rem;">
+            {{ form.retention_30yr(style="width:16px;height:16px;") }}
+            {{ form.retention_30yr.label.text }}
+          </label>
+        </div>
+
         <div style="background:var(--status-reserved-bg);border-left:3px solid var(--status-reserved-fg);padding:12px 16px;font-size:0.82rem;color:var(--status-reserved-fg);margin-top:var(--space-md);">
           This record will be permanently appended to the provenance log. It cannot be edited or deleted after saving (KGTG compliance).
         </div>
@@ -69,4 +96,14 @@
     </div>
   </form>
 </div>
+{% block extra_js %}
+<script>
+function toggleAcquisitionFields() {
+  const val = document.querySelector('[name=event_type]').value;
+  document.getElementById('acquisitionFields').style.display = val === 'acquisition' ? '' : 'none';
+}
+document.querySelector('[name=event_type]').addEventListener('change', toggleAcquisitionFields);
+toggleAcquisitionFields();
+</script>
+{% endblock %}
 {% endblock %}

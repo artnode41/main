@@ -248,6 +248,12 @@ class ArtworkProvenance(db.Model):
     gpg_sig_path   = Column(Text)         # MinIO path to .sig file
     ots_status     = Column(String(20), default="pending")  # pending|submitted|confirmed
     attached_files = Column(ARRAY(String), default=[])  # MinIO paths to attached documents
+    # Art. 24a MWSTG acquisition fields
+    supplier_address    = Column(Text)
+    supplier_vat_status = Column(String(20))  # private|non_vat|vat_registered
+    purchase_price      = Column(Numeric(12, 2))
+    right_of_disposal   = Column(Boolean, default=False)
+    retention_30yr      = Column(Boolean, default=False)
     recorded_by_id = Column(Integer, ForeignKey("user.id"))
     recorded_at    = Column(DateTime, default=now_utc, nullable=False)
 
