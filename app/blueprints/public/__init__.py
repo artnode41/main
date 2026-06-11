@@ -7,6 +7,16 @@ import re
 
 bp = Blueprint("public", __name__, url_prefix="")
 
+@bp.before_request
+def check_maintenance():
+    from flask import request as _req
+    if _req.endpoint == "public.set_lang":
+        return None
+    gallery = get_gallery()
+    if gallery and gallery.maintenance_mode:
+        from flask import render_template
+        return render_template("public/maintenance.html", gallery=gallery), 503
+
 
 def get_gallery():
     return Gallery.query.first()

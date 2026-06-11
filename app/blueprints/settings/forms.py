@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, TextAreaField, SelectField
+from wtforms import StringField, TextAreaField, SelectField, BooleanField
 from wtforms.validators import Optional, Length, Email
 
 
@@ -19,7 +19,7 @@ class GallerySettingsForm(FlaskForm):
     email = StringField("Admin Email", validators=[Optional(), Email(), Length(max=255)])
     contact_email = StringField("Public Contact Email", validators=[Optional(), Email(), Length(max=255)])
     website = StringField("Website URL", validators=[Optional(), Length(max=255)])
-    website_custom_domain = StringField("Custom Domain", validators=[Optional(), Length(max=255)])
+    maintenance_mode = BooleanField("Maintenance Mode")
     instagram_url = StringField("Instagram URL", validators=[Optional(), Length(max=255)])
 
     # Financial

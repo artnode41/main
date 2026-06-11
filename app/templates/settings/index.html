@@ -166,9 +166,13 @@ function switchTransTab(btn, field) {
         <div style="background:var(--surface);border:1px solid var(--border);padding:var(--space-xl);margin-bottom:var(--space-lg);">
           <div style="font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:var(--space-lg);">Public Website</div>
           <div class="form-group">
-            {{ form.website_custom_domain.label(class="form-label") }}
-            {{ form.website_custom_domain(class="form-control", placeholder="gallery.ch") }}
-            <p style="font-size:0.75rem;color:var(--text-muted);margin-top:4px;">Your custom domain for the public site.</p>
+            <label style="display:flex;align-items:center;gap:12px;cursor:pointer;">
+              {{ form.maintenance_mode(style="width:16px;height:16px;", id="maintenanceToggle") }}
+              <span>
+                <strong style="font-size:0.85rem;">Maintenance Mode</strong>
+                <span style="display:block;font-size:0.75rem;color:var(--text-muted);margin-top:2px;">When enabled, all public pages show a maintenance notice. The admin remains accessible.</span>
+              </span>
+            </label>
           </div>
         </div>
 

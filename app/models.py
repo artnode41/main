@@ -80,6 +80,7 @@ class Gallery(db.Model):
     contact_email         = Column(String(255))           # Public contact email
     website               = Column(String(255))
     website_custom_domain = Column(String(255))           # e.g. gallery.ch
+    maintenance_mode      = Column(Boolean, default=False)
     instagram_url         = Column(String(255))
     logo_url              = Column(Text)  # Public site logo (PNG, stored in MinIO)
     vat_number            = Column(String(30))

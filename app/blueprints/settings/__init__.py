@@ -13,6 +13,7 @@ bp = Blueprint("settings", __name__, url_prefix="/admin/settings")
 def index():
     gallery = Gallery.query.filter_by(id=current_user.tenant_id).first_or_404()
     form = GallerySettingsForm(obj=gallery)
+    form.maintenance_mode.data = gallery.maintenance_mode or False
 
     if form.validate_on_submit():
         gallery.name = form.name.data
@@ -27,7 +28,7 @@ def index():
         gallery.email = form.email.data or None
         gallery.contact_email = form.contact_email.data or None
         gallery.website = form.website.data or None
-        gallery.website_custom_domain = form.website_custom_domain.data or None
+        gallery.maintenance_mode = form.maintenance_mode.data
         gallery.instagram_url = form.instagram_url.data or None
         gallery.currency = form.currency.data or "CHF"
         gallery.locale = form.locale.data or "de"
