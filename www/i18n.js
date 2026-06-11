@@ -15,7 +15,7 @@ const i18n = {
         /* Hero */
         hero_h1_line1:      "Galerie-Management.",
         hero_h1_line2:      "Kein Abo. Keine Limits.",
-        hero_sub:           "ArtNode ist eine kostenlose Open-Source-Plattform für Galerien — Kollektionen, Verkauf, CRM und Website in einem Tool. Sie zahlen nur für das Hosting.",
+        hero_sub:           "ArtNode ist die unabhängige All-in-One-Software für Schweizer Galerien. Reduzieren Sie Ihre Fixkosten: Verwalten Sie Kollektionen, Verkauf, CRM und Ihre Website komplett autonom — ohne monatliche Lizenzgebühren.",
         hero_cta_admin:     "→ Galerie-Admin",
         hero_cta_site:      "→ Öffentliche Website",
 
@@ -27,7 +27,7 @@ const i18n = {
         feat_01_desc:       "Kunstwerke, Provenienzerfassung, KGTG-konforme Prüfprotokolle, Kommissionsteilungen.",
         feat_02_num:        "02",
         feat_02_title:      "Verkauf",
-        feat_02_desc:       "MWST-konforme PDF-Rechnungen, Payrexx-Zahlungslinks, Differenzbesteuerung. Tablet-Kassensystem für Messestände.",
+        feat_02_desc:       "Schweizer Rechnungslegung inklusive automatisierter Differenzbesteuerung nach Art. 24a MWSTG und Payrexx-Integration. Mobiles Kassensystem für den schnellen Verkauf vor Ort.",
         feat_03_num:        "03",
         feat_03_title:      "Website",
         feat_03_desc:       "Moderne Galerieseite mit Künstlerprofilen, Ausstellungen, Blog und Kontaktformularen. Vollständig mehrsprachig: DE, FR, IT, EN.",
@@ -100,7 +100,7 @@ const i18n = {
 
         hero_h1_line1:      "Gestion de galerie.",
         hero_h1_line2:      "Sans abonnement. Sans limites.",
-        hero_sub:           "ArtNode est une plateforme open-source gratuite pour les galeries — collections, ventes, CRM et site web dans un seul outil. Vous ne payez que l'hébergement.",
+        hero_sub:           "ArtNode est le logiciel tout-en-un indépendant pour les galeries suisses. Réduisez vos coûts fixes : gérez collections, ventes, CRM et site web en toute autonomie — sans abonnement mensuel.",
         hero_cta_admin:     "→ Admin galerie",
         hero_cta_site:      "→ Site public",
 
@@ -111,7 +111,7 @@ const i18n = {
         feat_01_desc:       "Œuvres, provenance, protocoles LTBC, partages de commission.",
         feat_02_num:        "02",
         feat_02_title:      "Ventes",
-        feat_02_desc:       "Factures PDF conformes TVA, liens Payrexx, taxation à la marge. Caisse tactile pour stands en foire.",
+        feat_02_desc:       "Facturation suisse avec régime de la marge automatisé (Art. 24a LTVA) et intégration Payrexx. Caisse mobile pour les ventes sur place.",
         feat_03_num:        "03",
         feat_03_title:      "Site web",
         feat_03_desc:       "Site galerie avec profils d'artistes, expositions, blog et formulaires de contact. Entièrement multilingue : DE, FR, IT, EN.",
@@ -178,7 +178,7 @@ const i18n = {
 
         hero_h1_line1:      "Gestione galleria.",
         hero_h1_line2:      "Nessun abbonamento. Nessun limite.",
-        hero_sub:           "ArtNode è una piattaforma open-source gratuita per gallerie — collezioni, vendite, CRM e sito web in un unico strumento. Paghi solo l'hosting.",
+        hero_sub:           "ArtNode è il software all-in-one indipendente per le gallerie svizzere. Riducete i vostri costi fissi: gestite collezioni, vendite, CRM e sito web in piena autonomia — senza abbonamenti mensili.",
         hero_cta_admin:     "→ Admin galleria",
         hero_cta_site:      "→ Sito pubblico",
 
@@ -189,7 +189,7 @@ const i18n = {
         feat_01_desc:       "Opere, provenienza, protocolli LTBC, suddivisioni di commissione.",
         feat_02_num:        "02",
         feat_02_title:      "Vendite",
-        feat_02_desc:       "Fatture PDF conformi IVA, link Payrexx, tassazione differenziale. Cassa touch per stand fieristici.",
+        feat_02_desc:       "Fatturazione svizzera con tassazione differenziale automatizzata (Art. 24a LIVA) e integrazione Payrexx. Cassa mobile per le vendite sul posto.",
         feat_03_num:        "03",
         feat_03_title:      "Sito web",
         feat_03_desc:       "Sito galleria con profili artisti, mostre, blog e moduli di contatto. Completamente multilingue: DE, FR, IT, EN.",
@@ -256,7 +256,7 @@ const i18n = {
 
         hero_h1_line1:      "Gallery management.",
         hero_h1_line2:      "No subscription. No limits.",
-        hero_sub:           "ArtNode is a free, open-source platform for galleries — collections, sales, CRM, and a public website in one tool. You only pay for hosting.",
+        hero_sub:           "ArtNode is the independent all-in-one software for Swiss galleries. Cut your fixed costs: manage collections, sales, CRM, and your website in full autonomy — no monthly licence fees.",
         hero_cta_admin:     "→ Gallery admin",
         hero_cta_site:      "→ Public site demo",
 
@@ -267,7 +267,7 @@ const i18n = {
         feat_01_desc:       "Artworks, provenance records, CPTA-compliant audit logs, commission splits.",
         feat_02_num:        "02",
         feat_02_title:      "Sales",
-        feat_02_desc:       "VAT-compliant PDF invoices, Payrexx payment links, margin scheme. Tablet POS for art fair booths.",
+        feat_02_desc:       "Swiss invoicing with automated margin taxation (Art. 24a MWSTG) and Payrexx integration. Mobile POS for on-site sales.",
         feat_03_num:        "03",
         feat_03_title:      "Website",
         feat_03_desc:       "Gallery website with artist profiles, exhibitions, blog, and contact forms. Fully multilingual: DE, FR, IT, EN.",
