@@ -192,3 +192,6 @@ msgstr "Artisti rappresentati"
 msgid "Opens"
 msgstr "Dal"
 
+
+msgid "Last Name"
+msgstr "Cognome"

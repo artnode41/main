@@ -110,16 +110,16 @@
 
     {% if artwork.status == "available" %}
     <div class="enquiry-section">
-      <div class="enquiry-title">Enquire about this work</div>
+      <div class="enquiry-title">{{ _("Enquire about this work") }}</div>
       <form method="POST" action="{{ url_for('public.enquire') }}">
         <input type="hidden" name="artwork_id" value="{{ artwork.id }}">
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
           <div class="pub-form-group">
-            <label class="pub-label">First Name</label>
+            <label class="pub-label">{{ _("First Name") }}</label>
             <input type="text" name="first_name" class="pub-input" required>
           </div>
           <div class="pub-form-group">
-            <label class="pub-label">Last Name *</label>
+            <label class="pub-label">{{ _("Last Name") }} *</label>
             <input type="text" name="last_name" class="pub-input" required>
           </div>
         </div>
@@ -131,7 +131,7 @@
           <label class="pub-label">{{ _("Message") }}</label>
           <textarea name="message" class="pub-input" rows="3" placeholder="I am interested in this work..."></textarea>
         </div>
-        <button type="submit" class="btn-pub btn-pub-dark">Send Enquiry</button>
+        <button type="submit" class="btn-pub btn-pub-dark">{{ _("Send Enquiry") }}</button>
       </form>
     </div>
     {% endif %}
