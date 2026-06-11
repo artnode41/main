@@ -24,8 +24,8 @@ logger = logging.getLogger(__name__)
 def _minio_client():
     from minio import Minio
     return Minio(
-        os.environ.get("MINIO_ENDPOINT", "minio:9000"),
-        access_key=os.environ.get("MINIO_ROOT_USER", "minioadmin"),
+        os.environ.get("MINIO_ENDPOINT", "garage:3900"),
+        access_key=os.environ.get("MINIO_ROOT_USER", os.environ.get("MINIO_ROOT_USER")),
         secret_key=os.environ.get("MINIO_ROOT_PASSWORD", ""),
         secure=False,
     )

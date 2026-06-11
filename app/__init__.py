@@ -80,10 +80,11 @@ def create_app():
         import os, io
         from minio import Minio
         client = Minio(
-            os.environ.get("MINIO_ENDPOINT", "minio:9000"),
-            access_key=os.environ.get("MINIO_ROOT_USER", "minioadmin"),
+            os.environ.get("MINIO_ENDPOINT", "garage:3900"),
+            access_key=os.environ.get("MINIO_ROOT_USER"),
             secret_key=os.environ.get("MINIO_ROOT_PASSWORD"),
-            secure=False
+            secure=False,
+            region="garage"
         )
         bucket = os.environ.get("MINIO_BUCKET", "artnode-media")
         client.put_object(bucket, object_name, io.BytesIO(data), len(data), content_type=content_type)

@@ -91,10 +91,11 @@ def wipe(session):
         from minio import Minio
         from minio.deleteobjects import DeleteObject
         client = Minio(
-            os.environ.get("MINIO_ENDPOINT", "minio:9000"),
-            access_key=os.environ.get("MINIO_ROOT_USER", "minioadmin"),
+            os.environ.get("MINIO_ENDPOINT", "garage:3900"),
+            access_key=os.environ.get("MINIO_ROOT_USER"),
             secret_key=os.environ.get("MINIO_ROOT_PASSWORD", ""),
-            secure=False
+            secure=False,
+            region="garage"
         )
         bucket = os.environ.get("MINIO_BUCKET", "artnode-media")
         objects = list(client.list_objects(bucket, prefix="images/", recursive=True))

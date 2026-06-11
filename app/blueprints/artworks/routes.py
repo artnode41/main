@@ -200,10 +200,11 @@ def delete(id):
     if minio_keys:
         try:
             client = Minio(
-                os.environ.get("MINIO_ENDPOINT", "minio:9000"),
-                access_key=os.environ.get("MINIO_ROOT_USER", "minioadmin"),
+                os.environ.get("MINIO_ENDPOINT", "garage:3900"),
+                access_key=os.environ.get("MINIO_ROOT_USER"),
                 secret_key=os.environ.get("MINIO_ROOT_PASSWORD"),
-                secure=False
+                secure=False,
+                region="garage"
             )
             bucket = os.environ.get("MINIO_BUCKET", "artnode-media")
             for key in minio_keys:
@@ -264,8 +265,8 @@ def provenance_add(id):
             try:
                 from minio import Minio
                 client = Minio(
-                    os.environ.get("MINIO_ENDPOINT", "minio:9000"),
-                    access_key=os.environ.get("MINIO_ROOT_USER", "minioadmin"),
+                    os.environ.get("MINIO_ENDPOINT", "garage:3900"),
+                    access_key=os.environ.get("MINIO_ROOT_USER", os.environ.get("MINIO_ROOT_USER")),
                     secret_key=os.environ.get("MINIO_ROOT_PASSWORD", ""),
                     secure=False,
                 )
@@ -350,8 +351,8 @@ def download_provenance_file(artwork_id, prov_id, file_idx):
     try:
         from minio import Minio
         client = Minio(
-            os.environ.get("MINIO_ENDPOINT", "minio:9000"),
-            access_key=os.environ.get("MINIO_ROOT_USER", "minioadmin"),
+            os.environ.get("MINIO_ENDPOINT", "garage:3900"),
+            access_key=os.environ.get("MINIO_ROOT_USER", os.environ.get("MINIO_ROOT_USER")),
             secret_key=os.environ.get("MINIO_ROOT_PASSWORD", ""),
             secure=False,
         )
@@ -438,10 +439,11 @@ def delete_image(id, image_id):
     if img.minio_key:
         try:
             client = Minio(
-                os.environ.get("MINIO_ENDPOINT", "minio:9000"),
-                access_key=os.environ.get("MINIO_ROOT_USER", "minioadmin"),
+                os.environ.get("MINIO_ENDPOINT", "garage:3900"),
+                access_key=os.environ.get("MINIO_ROOT_USER"),
                 secret_key=os.environ.get("MINIO_ROOT_PASSWORD"),
-                secure=False
+                secure=False,
+                region="garage"
             )
             bucket = os.environ.get("MINIO_BUCKET", "artnode-media")
             client.remove_object(bucket, img.minio_key)
