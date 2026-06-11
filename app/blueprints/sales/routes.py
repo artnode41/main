@@ -192,6 +192,7 @@ def detail(id):
 @login_required
 def invoice(id):
     from weasyprint import HTML
+    from flask import current_app
     sale = Sale.query.filter_by(
         id=id, tenant_id=current_user.tenant_id
     ).first_or_404()
@@ -203,6 +204,17 @@ def invoice(id):
     html_content = render_template("sales/invoice.html", sale=sale, line=line, gallery=gallery)
     pdf_bytes = HTML(string=html_content).write_pdf()
     filename = f"invoice_{sale.invoice_number or sale.id}.pdf"
+
+    # Archive to Garage on first generation for margin-taxed sales (Art. 24a / 30-year retention)
+    if line.tax_method == "margin" and not sale.invoice_pdf_path:
+        try:
+            object_name = f"invoices/{current_user.tenant_id}/{sale.id}/{filename}"
+            current_app.upload_to_minio(pdf_bytes, object_name, "application/pdf")
+            sale.invoice_pdf_path = object_name
+            db.session.commit()
+        except Exception as e:
+            current_app.logger.warning(f"Invoice archiving failed for sale {sale.id}: {e}")
+
     return Response(pdf_bytes, mimetype="application/pdf",
                     headers={"Content-Disposition": f"attachment; filename={filename}"})
 

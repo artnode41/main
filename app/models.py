@@ -340,6 +340,7 @@ class Sale(db.Model):
     invoice_date   = Column(DateTime(timezone=True))
     delivery_date  = Column(DateTime(timezone=True))
     vat_scheme     = Column(String(20), default="standard")
+    invoice_pdf_path = Column(Text)  # Garage path for archived invoice PDF (margin sales)
     payment_link_url = Column(Text)
     payment_provider_id = Column(String(100))
     sale_date      = Column(DateTime(timezone=True), default=now_utc)
