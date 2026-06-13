@@ -166,6 +166,15 @@ def create_app():
     def inject_today():
         return dict(today_date=date.today())
 
+    @app.context_processor
+    def inject_gallery_settings():
+        from flask_login import current_user
+        from .models import Gallery
+        if current_user.is_authenticated:
+            g = Gallery.query.get(current_user.tenant_id)
+            return dict(current_gallery=g)
+        return dict(current_gallery=None)
+
     from flask_wtf.csrf import generate_csrf
     @app.context_processor
     def inject_csrf():

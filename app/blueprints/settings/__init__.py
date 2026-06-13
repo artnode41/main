@@ -15,6 +15,7 @@ def index():
     form = GallerySettingsForm(obj=gallery)
     if request.method == "GET":
         form.maintenance_mode.data = gallery.maintenance_mode or False
+        form.font_pairing.data = gallery.font_pairing or "classic"
 
     if form.validate_on_submit():
         gallery.name = form.name.data
@@ -30,6 +31,7 @@ def index():
         gallery.contact_email = form.contact_email.data or None
         gallery.website = form.website.data or None
         gallery.maintenance_mode = request.form.get("maintenance_mode") == "y"
+        gallery.font_pairing = form.font_pairing.data
         gallery.instagram_url = form.instagram_url.data or None
         gallery.currency = form.currency.data or "CHF"
         gallery.locale = form.locale.data or "de"

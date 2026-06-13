@@ -5,13 +5,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{% block title %}{{ gallery.public_name or gallery.name }}{% endblock %}</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  {% set fp = gallery.font_pairing or "classic" %}
+  {% if fp == "architectural" %}
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Archivo:wght@300;400;500&display=swap" rel="stylesheet">
+  {% elif fp == "humanist" %}
+  <link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Karla:wght@300;400;500&display=swap" rel="stylesheet">
+  {% else %}
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Instrument+Sans:wght@400;500&display=swap" rel="stylesheet">
+  {% endif %}
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --font-serif: 'Cormorant Garamond', Georgia, serif;
-      --font-sans: 'DM Sans', Helvetica Neue, Arial, sans-serif;
+      {% if fp == "architectural" %}
+      --font-serif: 'Newsreader', Georgia, serif;
+      --font-sans: 'Archivo', Helvetica Neue, Arial, sans-serif;
+      {% elif fp == "humanist" %}
+      --font-serif: 'Spectral', Georgia, serif;
+      --font-sans: 'Karla', Helvetica Neue, Arial, sans-serif;
+      {% else %}
+      --font-serif: 'Fraunces', Georgia, serif;
+      --font-sans: 'Instrument Sans', Helvetica Neue, Arial, sans-serif;
+      {% endif %}
       --bg: #ffffff;
       --text: #111111;
       --muted: #666666;

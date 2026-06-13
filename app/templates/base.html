@@ -5,6 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{% block title %}ArtNode{% endblock %}</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/artnode.css') + '?v=2' }}">
+  {% set fp = (current_gallery.font_pairing if current_gallery else "classic") or "classic" %}
+  {% if fp == "architectural" %}
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Archivo:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>:root { --font-display: 'Newsreader', Georgia, serif; --font-ui: 'Archivo', system-ui, sans-serif; }</style>
+  {% elif fp == "humanist" %}
+  <link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Karla:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>:root { --font-display: 'Spectral', Georgia, serif; --font-ui: 'Karla', system-ui, sans-serif; }</style>
+  {% else %}
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Instrument+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <style>:root { --font-display: 'Fraunces', Georgia, serif; --font-ui: 'Instrument Sans', system-ui, sans-serif; }</style>
+  {% endif %}
   {% block head %}{% endblock %}
 {% block extra_head %}{% endblock %}
 </head>

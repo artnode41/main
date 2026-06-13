@@ -174,6 +174,11 @@ function switchTransTab(btn, field) {
               </span>
             </label>
           </div>
+          <div class="form-group" style="margin-top:var(--space-lg);">
+            {{ form.font_pairing.label(class="form-label") }}
+            {{ form.font_pairing(class="form-control") }}
+            <p style="font-size:0.75rem;color:var(--text-muted);margin-top:4px;">Typography used across the public website and admin panel.</p>
+          </div>
         </div>
 
         <div style="display:flex;justify-content:flex-end;">

@@ -20,6 +20,11 @@ class GallerySettingsForm(FlaskForm):
     contact_email = StringField("Public Contact Email", validators=[Optional(), Email(), Length(max=255)])
     website = StringField("Website URL", validators=[Optional(), Length(max=255)])
     maintenance_mode = BooleanField("Maintenance Mode")
+    font_pairing = SelectField("Typography", choices=[
+        ("classic", "Classic Editorial — Fraunces + Instrument Sans"),
+        ("architectural", "Architectural — Newsreader + Archivo"),
+        ("humanist", "Warm Humanist — Spectral + Karla"),
+    ], default="classic")
     instagram_url = StringField("Instagram URL", validators=[Optional(), Length(max=255)])
 
     # Financial

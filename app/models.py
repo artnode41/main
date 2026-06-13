@@ -81,6 +81,7 @@ class Gallery(db.Model):
     website               = Column(String(255))
     website_custom_domain = Column(String(255))           # e.g. gallery.ch
     maintenance_mode      = Column(Boolean, default=False)
+    font_pairing          = Column(String(20), default="classic")  # classic | architectural | humanist
     instagram_url         = Column(String(255))
     logo_url              = Column(Text)  # Public site logo (PNG, stored in MinIO)
     vat_number            = Column(String(30))
