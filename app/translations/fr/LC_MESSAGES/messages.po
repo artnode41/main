@@ -195,3 +195,9 @@ msgstr "Dès le"
 
 msgid "Last Name"
 msgstr "Nom"
+
+msgid "Price"
+msgstr "Prix"
+
+msgid "Price on request"
+msgstr "Prix sur demande"

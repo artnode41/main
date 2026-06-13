@@ -176,6 +176,7 @@ class Artwork(db.Model):
     status           = Column(String(30), default="available", nullable=False)
     price            = Column(Numeric(12, 2))
     currency         = Column(String(3), default="CHF")
+    show_price       = Column(Boolean, default=False)
     contact_artist_id = Column(Integer, ForeignKey("contact.id"), nullable=True)
     contact_artist    = relationship("Contact", foreign_keys=[contact_artist_id], backref="artworks_as_artist")
     is_public         = Column(Boolean, default=True)   # Show on public website

@@ -195,3 +195,9 @@ msgstr "Dal"
 
 msgid "Last Name"
 msgstr "Cognome"
+
+msgid "Price"
+msgstr "Prezzo"
+
+msgid "Price on request"
+msgstr "Prezzo su richiesta"

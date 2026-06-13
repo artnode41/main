@@ -90,6 +90,7 @@ def create():
             status=form.status.data,
             price=form.price.data,
             currency=form.currency.data,
+            show_price=form.show_price.data,
             ownership_type=form.ownership_type.data,
             is_consignment=(form.ownership_type.data == "consignment"),
             acquisition_cost=form.acquisition_cost.data if form.ownership_type.data == "owned" else None,
@@ -159,6 +160,7 @@ def edit(id):
         artwork.status = form.status.data
         artwork.price = form.price.data
         artwork.currency = form.currency.data
+        artwork.show_price = form.show_price.data
         artwork.ownership_type = form.ownership_type.data
         artwork.is_consignment = (form.ownership_type.data == "consignment")
         artwork.acquisition_cost = form.acquisition_cost.data if form.ownership_type.data == "owned" else None

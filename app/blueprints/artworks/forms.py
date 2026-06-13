@@ -39,6 +39,7 @@ class ArtworkForm(FlaskForm):
     object_type = SelectField("Object Type", choices=OBJECT_TYPE_CHOICES, validators=[Optional()])
     status = SelectField("Status", choices=STATUS_CHOICES, validators=[DataRequired()])
     price = DecimalField("Asking Price", validators=[Optional()], places=2)
+    show_price = BooleanField("Display price on website")
     currency = SelectField("Currency", choices=[
         ("CHF", "CHF"), ("EUR", "EUR"), ("USD", "USD"), ("GBP", "GBP")
     ])

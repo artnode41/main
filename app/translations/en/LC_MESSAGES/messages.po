@@ -195,3 +195,9 @@ msgstr "Opens"
 
 msgid "Last Name"
 msgstr "Last Name"
+
+msgid "Price"
+msgstr "Price"
+
+msgid "Price on request"
+msgstr "Price on request"

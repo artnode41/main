@@ -106,6 +106,13 @@
           {% else %}<span class="status-sold">{{ artwork.status|replace("_", " ")|title }}</span>{% endif %}
         </span>
       </div>
+      <div class="meta-row">
+        <span class="meta-label">{{ _("Price") }}</span>
+        <span class="meta-value">
+          {% if artwork.show_price and artwork.price %}{{ "{:,.0f}".format(artwork.price)|replace(",", "'") }} {{ artwork.currency }}
+          {% else %}{{ _("Price on request") }}{% endif %}
+        </span>
+      </div>
     </div>
 
     {% if artwork.status == "available" %}
