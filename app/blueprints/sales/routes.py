@@ -205,8 +205,8 @@ def invoice(id):
     pdf_bytes = HTML(string=html_content).write_pdf()
     filename = f"invoice_{sale.invoice_number or sale.id}.pdf"
 
-    # Archive to Garage on first generation for margin-taxed sales (Art. 24a / 30-year retention)
-    if line.tax_method == "margin" and not sale.invoice_pdf_path:
+    # Archive to Garage on first generation (Art. 958f OR: 10yr standard, Art. 24a/revCPTO: 30yr margin)
+    if not sale.invoice_pdf_path:
         try:
             object_name = f"invoices/{current_user.tenant_id}/{sale.id}/{filename}"
             current_app.upload_to_minio(pdf_bytes, object_name, "application/pdf")

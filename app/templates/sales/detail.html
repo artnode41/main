@@ -21,9 +21,9 @@
     <a href="{{ url_for('sales.margin_report', id=sale.id) }}" class="btn btn-secondary" style="margin-left:8px;">
       Margin Report (ESTV)
     </a>
-    {% if sale.invoice_pdf_path %}
-    <span class="badge badge-available" style="margin-left:8px;font-size:0.65rem;" title="Invoice archived to Garage for 30-year retention">PDF Archived ✓</span>
     {% endif %}
+    {% if sale.invoice_pdf_path %}
+    <span class="badge badge-available" style="margin-left:8px;font-size:0.65rem;" title="Invoice archived to Garage ({{ '30-year' if sale.vat_scheme == 'margin' else '10-year' }} retention)">PDF Archived ✓</span>
     {% endif %}
     {% endif %}
 
