@@ -7,6 +7,8 @@
     <meta name="robots" content="index, follow">
     <link rel="icon" href="favicon.ico">
     <link rel="canonical" href="https://artnode.ch/">
+    <link rel="alternate" hreflang="de" href="https://artnode.ch/" />
+    <link rel="alternate" hreflang="x-default" href="https://artnode.ch/" />
     <meta property="og:type"        content="website">
     <meta property="og:url"         content="https://artnode.ch/">
     <meta property="og:title"       content="artnode — Kostenlose Galerie-Software für Schweizer Galerien">
@@ -319,7 +321,8 @@
     });
 
     /* ── Init ─────────────────────────────────────────────── */
-    applyLang(detectLang());
+    const isBot = /bot|googlebot|crawler|spider|robot|crawling/i.test(navigator.userAgent);
+    applyLang(isBot ? DEFAULT_LANG : detectLang());
     initFadeIns();
 </script>
 
